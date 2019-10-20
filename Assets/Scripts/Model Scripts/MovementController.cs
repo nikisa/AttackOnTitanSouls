@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngineInternal.Input;
+using DG.Tweening;
+
 
 public class MovementController : Controller
 {
@@ -9,6 +11,15 @@ public class MovementController : Controller
     public float maxSpeed;
     public float framesZeroToMax;
     public float framesMaxToZero;
+
+    public float DashDistance;
+    public float DashTimeFrames;
+    public Ease DashEase;
+    public float ResumeControl;
+    public float DashTimeFreeze;
+
+    // Protected
+    protected bool isMoving;
 
 
     // Private
@@ -58,6 +69,12 @@ public class MovementController : Controller
             movementVelocity += Vector3.right * data.Horizontral * forwardVelocity;
         }
 
+
+        // Set Dash Action
+        if (data.buttons[0]) {
+            Dash(DashTimeFrames, ResumeControl, DashTimeFreeze, data);
+        }
+
         newInput = true;
 
     }
@@ -97,6 +114,18 @@ public class MovementController : Controller
             
         }
         
+        newInput = false;
+    }
+
+    public void Dash(float _DashTimeFrames, float _ResumeControl, float _DashTimeFreeze, InputData _data) {
+        _DashTimeFrames = ResumeControl / 60;
+        _ResumeControl = ResumeControl / 60;
+        _DashTimeFrames = DashTimeFreeze / 60;
+
+        if (isMoving) {
+            transform.DOMove(new Vector3(transform.position.x * _data.axes[1] * DashDistance, transform.position.y, transform.position.z * _data.axes[0] * DashDistance), DashTimeFrames).SetEase(DashEase);
+        }
+        isMoving = false;
         newInput = false;
     }
 }
