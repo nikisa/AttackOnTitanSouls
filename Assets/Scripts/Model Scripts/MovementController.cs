@@ -21,7 +21,6 @@ public class MovementController : Controller
     // Protected
     protected bool isMoving;
 
-
     // Private
     float accelRatePerSec;
     float decelRatePerSec;
@@ -45,6 +44,7 @@ public class MovementController : Controller
             forwardVelocity += accelRatePerSec * Time.deltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, maxSpeed);
             movementVelocity += Vector3.forward * data.axes[0] * forwardVelocity;
+            isMoving = true;
         }
 
 
@@ -53,6 +53,7 @@ public class MovementController : Controller
             forwardVelocity += accelRatePerSec * Time.deltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0 , maxSpeed);
             movementVelocity += Vector3.right * data.axes[1]  * forwardVelocity;
+            isMoving = true;
         }
 
         // Set vertical movement gamepad
@@ -60,6 +61,7 @@ public class MovementController : Controller
             forwardVelocity += accelRatePerSec * Time.deltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, maxSpeed);
             movementVelocity += Vector3.forward * data.Vertical * forwardVelocity;
+            isMoving = true;
         }
 
         // Set horizontal movement gamepad
@@ -67,12 +69,14 @@ public class MovementController : Controller
             forwardVelocity += accelRatePerSec * Time.deltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, maxSpeed);
             movementVelocity += Vector3.right * data.Horizontral * forwardVelocity;
+            isMoving = true;
         }
 
 
         // Set Dash Action
-        if (data.buttons[0]) {
+        if (data.buttons[0] && isMoving) {
             Dash(DashTimeFrames, ResumeControl, DashTimeFreeze, data);
+            isMoving = true;
         }
 
         newInput = true;
@@ -82,26 +86,29 @@ public class MovementController : Controller
     private void LateUpdate() {
         if (newInput) {
             rb.velocity = new Vector3(movementVelocity.x, rb.velocity.y, movementVelocity.z);
-            
         }
         else {
             forwardVelocity = 0;
-
-            //decelRatePerSec * Time.deltaTime instead of 0?
 
             if (movementVelocity.x < decelRatePerSec * Time.deltaTime)
                 movementVelocity.x = movementVelocity.x - decelRatePerSec * Time.deltaTime;
             else if (movementVelocity.x > -decelRatePerSec * Time.deltaTime)
                 movementVelocity.x = movementVelocity.x + decelRatePerSec * Time.deltaTime;
-            else
+            else {
                 movementVelocity.x = 0;
+                //isMoving = false;
+            }
+                
 
             if (movementVelocity.z < decelRatePerSec * Time.deltaTime)
                 movementVelocity.z = movementVelocity.z - decelRatePerSec * Time.deltaTime;
             else if (movementVelocity.z > -decelRatePerSec * Time.deltaTime)
                 movementVelocity.z = movementVelocity.z + decelRatePerSec * Time.deltaTime;
-            else
+            else {
                 movementVelocity.z = 0;
+                //isMoving = false;
+            }
+                
 
             //movementVelocity.x = movementVelocity.x < decelRatePerSec * Time.deltaTime ? movementVelocity.x -= (decelRatePerSec * Time.deltaTime) 
             //                                                                           : movementVelocity.x += (decelRatePerSec * Time.deltaTime);
@@ -118,14 +125,13 @@ public class MovementController : Controller
     }
 
     public void Dash(float _DashTimeFrames, float _ResumeControl, float _DashTimeFreeze, InputData _data) {
-        _DashTimeFrames = ResumeControl / 60;
+        _DashTimeFrames = _DashTimeFrames / 60;
         _ResumeControl = ResumeControl / 60;
-        _DashTimeFrames = DashTimeFreeze / 60;
+        _DashTimeFreeze = DashTimeFreeze / 60;
 
-        if (isMoving) {
-            transform.DOMove(new Vector3(transform.position.x * _data.axes[1] * DashDistance, transform.position.y, transform.position.z * _data.axes[0] * DashDistance), DashTimeFrames).SetEase(DashEase);
-        }
+        transform.DOMove(new Vector3((DashDistance * _data.axes[1]) + transform.position.x , transform.position.y, (DashDistance * _data.axes[0]) + transform.position.z), _DashTimeFrames).SetEase(DashEase);
+        
         isMoving = false;
-        newInput = false;
+        
     }
 }
