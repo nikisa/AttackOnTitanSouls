@@ -11,9 +11,14 @@ public class InputManager : MonoBehaviour
 
     public Controller controller;
 
-    public void PassInput(InputData data) {
+    public InputData data;
+
+    public void PassInput(InputData _data) {
+        data = _data;
         Debug.LogFormat("Movement: {0} , {1}", data.axes[0], data.axes[1]);
-        controller.ReadInput(data);
+        Debug.LogFormat("Movement: {0} , {1}", data.Vertical, data.Horizontal);
+
+        //controller.ReadInput(data);
 
     }
 
@@ -27,13 +32,13 @@ public class InputManager : MonoBehaviour
 }
 
 public struct InputData {
-    public float Horizontral;
+    public float Horizontal;
     public float Vertical;
     public float[] axes;
     public bool[] buttons;
 
     public InputData(int axisCount, int buttonCount) {
-        Horizontral = 0;
+        Horizontal = 0;
         Vertical = 0;
         axes = new float[axisCount];
         buttons = new bool[buttonCount];

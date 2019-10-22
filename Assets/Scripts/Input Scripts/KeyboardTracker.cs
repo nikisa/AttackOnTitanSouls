@@ -70,7 +70,7 @@ public class KeyboardTracker : DeviceTracker
         // compila InputData da passare all'InputManager
 
         if (newData || Horizontal != 0 || Vertical != 0) {
-            data.Horizontral = Horizontal;
+            data.Horizontal = Horizontal;
             data.Vertical = Vertical;
             im.PassInput(data);
             newData = false;
