@@ -54,7 +54,9 @@ public class PlayerController : Controller
     public void CheckInput() {
         dataInput.Horizontal = Input.GetAxis("Horizontal");
         dataInput.Vertical = Input.GetAxis("Vertical");
-        dataInput.Dash = Input.GetButton("Dash");
+        //dataInput.Dash = Input.GetButton("Dash");
+        dataInput.DashDown = Input.GetButtonDown("Dash");
+        dataInput.DashUp = Input.GetButtonUp("Dash");
     }
 
 }
@@ -63,12 +65,16 @@ public class PlayerController : Controller
         public float Horizontal;
         public float Vertical;
         public bool Dash;
+        public bool DashDown;
+        public bool DashUp;
 
 
-    public DataInput(float _horizontal, float _vertical , bool _dash) {
+    public DataInput(float _horizontal, float _vertical , bool _dash , bool _dashDown , bool _dashUp) {
         Horizontal = _horizontal;
         Vertical = _vertical;
         Dash = _dash;
+        DashDown = _dashDown;
+        DashUp = _dashUp;
     }
 
 

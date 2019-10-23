@@ -4,17 +4,38 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState {
 
+    //ButtonDown:
+    //startTime = Time.time
+
+    //ButtonUp:
+    //Time.Time - startTime = Tempo Boost
+    //if(tempoBoost > x)
+    //	ChangeState(BoostState)
+    //else
+    //	ChangeState(DashState)
+    //startTime = 0
+
+    //Tick() :
+    //if(Time.Time - startTime > x)
+    //	Animation del Boost(caricamento barra)
+
     //Inspector
     public float maxSpeed;
     public float framesZeroToMax;
     public float framesMaxToZero;
     public PlayerBaseState DashState;
+    public PlayerBaseState BoostState;
+    public float resumeControl;
 
     // Private
     bool newInput;
+    bool canDash = true;    
     float accelRatePerSec;
     float decelRatePerSec;
     float forwardVelocity;
+    float startDash;
+    float startTime;
+    float boostTime;
     Vector3 movementVelocity = Vector3.zero;
     Rigidbody rb;
     //InputData inputData;
@@ -74,10 +95,51 @@ public class PlayerIdleState : PlayerBaseState {
 
     public override void Tick() {
 
+        //ButtonDown:
+        //startTime = Time.time
+
+        //ButtonUp:
+        //Time.Time - startTime = Tempo Boost
+        //if(tempoBoost > x)
+        //	ChangeState(BoostState)
+        //else
+        //	ChangeState(DashState)
+        //startTime = 0
+
+        //Tick() :
+        //if(Time.Time - startTime > x)
+        //	Animation del Boost(caricamento barra)
+
         dataInput = playerController.dataInput;
 
-        if (dataInput.Dash) {
-            playerController.ChangeState(DashState);
+        if (dataInput.DashDown) {
+            startTime = Time.time;
+        }
+        else if (dataInput.DashUp) {
+            boostTime = Time.time - startTime;
+            if (boostTime > 0.5f) {
+                playerController.ChangeState(BoostState);
+            }
+            else if(boostTime <= 0.5f && canDash) {
+                startDash = Time.time;
+                canDash = false;
+                playerController.ChangeState(DashState);
+            }
+        }
+
+        if (Time.time - startTime > 0.5f) {
+            //playAnimation
+        }
+
+
+        //if (dataInput.Dash && canDash) {
+        //    startDash = Time.time;
+        //    canDash = false;
+        //    playerController.ChangeState(DashState);
+        //}
+
+        if ((Time.time - startDash) > resumeControl) {
+            canDash = true;
         }
 
         if (dataInput.Vertical != 0 || dataInput.Horizontal != 0) {
@@ -88,31 +150,10 @@ public class PlayerIdleState : PlayerBaseState {
         
 
         if (newInput) {
-            rb.velocity = new Vector3(movementVelocity.x, rb.velocity.y, movementVelocity.z);
+            Movement();
         }
         else {
-            forwardVelocity = 0;
-
-            if (movementVelocity.x < decelRatePerSec * Time.deltaTime)
-                movementVelocity.x = movementVelocity.x - decelRatePerSec * Time.deltaTime;
-            else if (movementVelocity.x > -decelRatePerSec * Time.deltaTime)
-                movementVelocity.x = movementVelocity.x + decelRatePerSec * Time.deltaTime;
-            else {
-                movementVelocity.x = 0;
-            }
-
-
-            if (movementVelocity.z < decelRatePerSec * Time.deltaTime)
-                movementVelocity.z = movementVelocity.z - decelRatePerSec * Time.deltaTime;
-            else if (movementVelocity.z > -decelRatePerSec * Time.deltaTime)
-                movementVelocity.z = movementVelocity.z + decelRatePerSec * Time.deltaTime;
-            else {
-                movementVelocity.z = 0;
-            }
-
-            rb.velocity = new Vector3(movementVelocity.x, rb.velocity.y, movementVelocity.z);
-            Debug.Log(rb.velocity);
-
+            Deceleration();
         }
 
         newInput = false;
@@ -120,6 +161,35 @@ public class PlayerIdleState : PlayerBaseState {
 
     public override void Exit() {
         
+    }
+
+    public void Deceleration() {
+        forwardVelocity = 0;
+
+        if (movementVelocity.x < decelRatePerSec * Time.deltaTime)
+            movementVelocity.x = movementVelocity.x - decelRatePerSec * Time.deltaTime;
+        else if (movementVelocity.x > -decelRatePerSec * Time.deltaTime)
+            movementVelocity.x = movementVelocity.x + decelRatePerSec * Time.deltaTime;
+        else {
+            movementVelocity.x = 0;
+        }
+
+
+        if (movementVelocity.z < decelRatePerSec * Time.deltaTime)
+            movementVelocity.z = movementVelocity.z - decelRatePerSec * Time.deltaTime;
+        else if (movementVelocity.z > -decelRatePerSec * Time.deltaTime)
+            movementVelocity.z = movementVelocity.z + decelRatePerSec * Time.deltaTime;
+        else {
+            movementVelocity.z = 0;
+        }
+
+        rb.velocity = new Vector3(movementVelocity.x, rb.velocity.y, movementVelocity.z);
+        Debug.Log(rb.velocity);
+
+    }
+
+    public void Movement() {
+        rb.velocity = new Vector3(movementVelocity.x, rb.velocity.y, movementVelocity.z);
     }
 
 }
