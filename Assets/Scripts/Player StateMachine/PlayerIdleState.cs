@@ -112,31 +112,32 @@ public class PlayerIdleState : PlayerBaseState {
 
         dataInput = playerController.dataInput;
 
-        if (dataInput.DashDown) {
-            startTime = Time.time;
-        }
-        else if (dataInput.DashUp) {
-            boostTime = Time.time - startTime;
-            if (boostTime > 0.5f) {
-                playerController.ChangeState(BoostState);
-            }
-            else if(boostTime <= 0.5f && canDash) {
-                startDash = Time.time;
-                canDash = false;
-                playerController.ChangeState(DashState);
-            }
-        }
-
-        if (Time.time - startTime > 0.5f) {
-            //playAnimation
-        }
-
-
-        //if (dataInput.Dash && canDash) {
-        //    startDash = Time.time;
-        //    canDash = false;
-        //    playerController.ChangeState(DashState);
+        //if (dataInput.DashDown) {
+        //    startTime = Time.time;
         //}
+        //else if (dataInput.DashUp) {
+        //    boostTime = Time.time - startTime;
+        //    if (boostTime > 0.5f) {
+        //        playerController.ChangeState(BoostState);
+        //    }
+        //    else if(boostTime <= 0.5f && canDash) {
+        //        startDash = Time.time;
+        //        canDash = false;
+        //        playerController.ChangeState(DashState);
+        //    }
+        //}
+
+        //if (Time.time - startTime > 0.5f) {
+        //    //playAnimation
+        //}
+
+
+        if (dataInput.Dash && canDash)
+        {
+            startDash = Time.time;
+            canDash = false;
+            playerController.ChangeState(DashState);
+        }
 
         if ((Time.time - startDash) > resumeControl) {
             canDash = true;
