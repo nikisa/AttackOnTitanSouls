@@ -54,7 +54,7 @@ public class PlayerController : Controller
     public void CheckInput() {
         dataInput.Horizontal = Input.GetAxis("Horizontal");
         dataInput.Vertical = Input.GetAxis("Vertical");
-        //dataInput.Dash = Input.GetButton("Dash");
+        dataInput.Dash = Input.GetButton("Dash");
         dataInput.DashDown = Input.GetButtonDown("Dash");
         dataInput.DashUp = Input.GetButtonUp("Dash");
     }
