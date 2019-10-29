@@ -53,12 +53,12 @@ public class BossIdleState : BossBaseState
         bossRotation = Quaternion.LookRotation(-direction);
         boss.transform.rotation = bossRotation;
     }
-    public void Movement()
+    public void Movement() 
     {
         //boss.transform.position.Set(boss.transform.position.x, startingY,boss.transform.position.z);
         boss.MoveSpeed += accelRatePerSec * Time.deltaTime;
         boss.MoveSpeed = Mathf.Clamp(boss.MoveSpeed, 0, MaxSpeed);
-       boss.transform.position= Vector3.MoveTowards(boss.transform.position, player.transform.position, boss.MoveSpeed * Time.deltaTime);
+       boss.transform.position= Vector3.MoveTowards(boss.transform.position, new Vector3( player.transform.position.x,startingY,player.transform.position.z), boss.MoveSpeed * Time.deltaTime);
        //rb.MovePosition( new Vector3(boss.transform.position.x, boss.transform.position.y, boss.transform.position.z) + (boss.direction* boss.MoveSpeed * Time.deltaTime));
     }
     public override void Exit()

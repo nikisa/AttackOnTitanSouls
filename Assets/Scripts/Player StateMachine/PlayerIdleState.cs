@@ -85,7 +85,7 @@ public class PlayerIdleState : PlayerBaseState {
     }
 
     public override void Enter(PlayerController _playerController, Rigidbody _rb) {
-        Debug.Log("Enter");
+
         accelRatePerSec = maxSpeed / (framesZeroToMax / 60);
         decelRatePerSec = -maxSpeed / (framesMaxToZero / 60);
         forwardVelocity = 0f;
@@ -185,7 +185,7 @@ public class PlayerIdleState : PlayerBaseState {
         }
 
         rb.velocity = new Vector3(movementVelocity.x, rb.velocity.y, movementVelocity.z);
-        Debug.Log(rb.velocity);
+
 
     }
 

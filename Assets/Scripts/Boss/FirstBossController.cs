@@ -7,7 +7,7 @@ public class FirstBossController : BossControllerBase
     //public 
     public PlayerController Player;
     public float MoveSpeed;
-    public bool Collision;
+    
     //public BossBaseState idleState;
     // Start is called before the first frame update
     void Start()
@@ -29,20 +29,5 @@ public class FirstBossController : BossControllerBase
             currentState.Enter(Rb, this,Player);
         }
     }
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.tag == "Walls")
-        {
-            Collision = true;
-        }
-       
-    }
-    void OnCollisionExit(Collision collision)
-    {
-        if (collision.collider.tag == "Walls")
-        {
-            Collision = falses;
-        }
 
-    }
 }

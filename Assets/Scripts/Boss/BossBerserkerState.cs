@@ -12,12 +12,18 @@ public class BossBerserkerState : BossBaseState
     Vector3 PlayerDirection;
     RaycastHit hit;
     float startingY;
+    float distance;
     //temporary
     float speedTemp;
     Quaternion bossRotation;
+    int charges;
+
     //public
     public int Charges;
     public float ChargeSpeed;
+    public BossBaseState Idle;
+    [Tooltip (" distance between boss and wall to get collision")]
+    public float WallCollisionDistance;
    
     // Start is called before the first frame update
     void Start()
@@ -33,18 +39,34 @@ public class BossBerserkerState : BossBaseState
         startingY = boss.transform.position.y;
         speedTemp = ChargeSpeed;
         ChargeSpeed = 0;
+        charges = Charges;
+        charges--;
         ChargeAttack();
        
         
     }
     public override void Tick()
     {
-        if (boss.Collision == true)
+        if (hit.point != null)
         {
+            // wallcollisiondistance da calcolare da codire ?
+            distance= Vector3.Distance(boss.transform.position, hit.point);
+            Debug.Log(distance);
+            if(distance < WallCollisionDistance)
+            {
+                ChargeAttack();
+                charges--;
 
-            ChargeAttack();
+            }
+            if(charges <= 0)
+            {
+                boss.ChangeState(Idle);
+            }
+            Move();
         }
-        Move();
+      
+    
+        
     }
     public override void Exit()
     {
@@ -61,7 +83,7 @@ public class BossBerserkerState : BossBaseState
         {
             Debug.DrawRay(boss.transform.position, PlayerDirection, Color.blue, 90);
             //hit.point;
-            Debug.Log(hit.collider.name);
+            
             ChargeSpeed = speedTemp;
             // move in hit point at charge speed
             
