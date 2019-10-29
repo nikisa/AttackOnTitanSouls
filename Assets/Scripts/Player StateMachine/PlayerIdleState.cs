@@ -127,13 +127,12 @@ public class PlayerIdleState : PlayerBaseState {
         //    }
         //}
 
-        //if (Time.time - startTime > 0.5f) {
-        //    //playAnimation
-        //}
+        if (Time.time - startTime > 0.5f) {
+            //plaAnimation
+        }
 
 
-        if (dataInput.Dash && canDash)
-        {
+        if (dataInput.Dash && canDash) {
             startDash = Time.time;
             canDash = false;
             playerController.ChangeState(DashState);
