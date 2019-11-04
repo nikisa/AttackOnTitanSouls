@@ -21,30 +21,31 @@ public class BossIdleState : BossBaseState
     public float TimeChase;
     public BossStopState StopState;
     public BossBerserkerState Berserker;
+    public BossChargeState Charge;
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    public override void Enter(Rigidbody _rb,FirstBossController _boss,PlayerController _player)
+    public override void Enter(FirstBossController _boss,PlayerController _player)
     {
         boss = _boss;
-        rb = _rb;
         player = _player;
         TimeStart = Time.time;
         startingY = boss.transform.position.y;
         boss.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
+        Debug.Log("idle");
 
     }
     public override void Tick()
     {
         if ((Time.time - TimeStart) > TimeChase)
         {
-            boss.ChangeState(Berserker);
+            boss.ChangeState(Charge);
         }
-        Rotation();
-        Movement();
+        //Rotation();
+        //Movement();
 
     }
     public void Rotation()

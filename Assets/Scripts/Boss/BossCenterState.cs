@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossCenterState : BossBaseState
 {
-    Rigidbody rb;
+    
     FirstBossController boss;
     PlayerController player;
     public GameObject Center;
@@ -16,11 +16,11 @@ public class BossCenterState : BossBaseState
         
     }
 
-    public override void Enter(Rigidbody _rb, FirstBossController _boss, PlayerController _player)
+    public override void Enter( FirstBossController _boss, PlayerController _player)
     {
 
         boss = _boss;
-        rb = _rb;
+     
         player = _player;
         Move();
     }

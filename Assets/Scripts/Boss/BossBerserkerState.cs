@@ -31,10 +31,9 @@ public class BossBerserkerState : BossBaseState
         layerMask = LayerMask.GetMask("Walls");
 
     }
-    public override void Enter(Rigidbody _rb, FirstBossController _boss, PlayerController _player)
+    public override void Enter(FirstBossController _boss, PlayerController _player)
     {
         boss = _boss;
-        rb = _rb;
         player = _player;
         startingY = boss.transform.position.y;
         speedTemp = ChargeSpeed;

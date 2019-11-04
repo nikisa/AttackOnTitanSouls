@@ -33,7 +33,7 @@ public class PlayerDashState : PlayerBaseState {
         _DashTimeFreeze = DashTimeFreeze / 60;
 
         transform.DOMove(new Vector3((DashDistance * Horizontal) + position.x, position.y, (DashDistance * Vertical) + position.z), _DashTimeFrames).SetEase(DashEase); //.OnComplete( () => { _playerController.ChangeState(IdleState); });
-        Debug.Log("DASH");
+
 
         _playerController.ChangeState(IdleState);
 

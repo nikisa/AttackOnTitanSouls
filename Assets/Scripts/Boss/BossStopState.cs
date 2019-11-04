@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class BossStopState : BossBaseState
 {
-    Rigidbody rb;
+  
     FirstBossController boss;
     PlayerController player;
     float TimeStart;
+    bool stop;
     //
     public float decelRatePerSec;
     public float TimeStop;
-    public BossBaseState Idle;
+    public BossChargeState Charge;
+   
 
 
     // Start is called before the first frame update
@@ -20,27 +22,44 @@ public class BossStopState : BossBaseState
         
     }
 
-    public override void Enter(Rigidbody _rb, FirstBossController _boss, PlayerController _player)
+    public override void Enter( FirstBossController _boss, PlayerController _player)
     {
         boss = _boss;
-        rb = _rb;
+        stop = false;
         player = _player;
-        TimeStart = Time.time;
+        TimeStart = 99999;
         Debug.Log("stop");
-        boss.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
+  
     }
     public override void Tick()
     {
-        if ((Time.time - TimeStart) > TimeStop)
+
+        Deceleration();
+        Move();
+        if (boss.MoveSpeed <= 0 && !stop )
         {
-            boss.ChangeState(Idle);
+            stop = true;
+            TimeStart = Time.time;
+            Debug.Log(TimeStart);
         }
-        boss.MoveSpeed -= decelRatePerSec * Time.deltaTime;
-        boss.MoveSpeed = Mathf.Clamp(boss.MoveSpeed, 0, 100);
-        rb.velocity= -boss.transform.forward * boss.MoveSpeed;
+        if((Time.time-TimeStart) > TimeStop)
+        {
+           
+            boss.ChangeState(Charge);
+        }
+       
     }
     public override void Exit()
     {
         
+    }
+    public void Deceleration()
+    {
+        boss.MoveSpeed -= decelRatePerSec * Time.deltaTime;
+        boss.MoveSpeed = Mathf.Clamp(boss.MoveSpeed, 0, 100);
+    }
+    public void Move()
+    {
+        boss.transform.Translate(Vector3.back * boss.MoveSpeed * Time.deltaTime);
     }
 }

@@ -7,7 +7,7 @@ public class FirstBossController : BossControllerBase
     //public 
     public PlayerController Player;
     public float MoveSpeed;
-    
+         
     //public BossBaseState idleState;
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,7 @@ public class FirstBossController : BossControllerBase
         {
             currentState.Exit();
             currentState = _state;
-            currentState.Enter(Rb, this,Player);
+            currentState.Enter(this,Player);
         }
     }
 
