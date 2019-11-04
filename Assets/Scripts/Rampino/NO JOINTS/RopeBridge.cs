@@ -41,7 +41,7 @@ public class RopeBridge : MonoBehaviour {
 
     private void Simulate() {
         // SIMULATION
-        Vector3 forceGravity = new Vector3(0f, -9.81f , 0f);
+        Vector3 forceGravity = new Vector3(0f, -9.81f, 0f);
 
         for (int i = 1; i < this.segmentLength; i++) {
             RopeSegment firstSegment = this.ropeSegments[i];
@@ -126,3 +126,6 @@ public class RopeBridge : MonoBehaviour {
         }
     }
 }
+
+
+
