@@ -20,8 +20,8 @@ public class RopeCollision : MonoBehaviour {
 
     int LayerMask = 1;
     ContactFilter2D ContactFilter;
-    RaycastHit2D[] RaycastHitBuffer = new RaycastHit2D[10];
-    Collider2D[] ColliderHitBuffer = new Collider2D[10];
+    RaycastHit2D[] RaycastHitBuffer = new RaycastHit2D[5];
+    Collider2D[] ColliderHitBuffer = new Collider2D[5];
 
     Vector3 Gravity = new Vector3(0f, 0f);
     Vector3 Node1Lock;
