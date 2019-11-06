@@ -18,10 +18,11 @@ public class BossIdleState : BossBaseState
     public float accelRatePerSec;
     public float TimeRotation;
     public float MaxSpeed;
-    public float TimeChase;
-    public BossStopState StopState;
+    public float TimeIdle;
+    public BossBaseState StopState;
     public BossBerserkerState Berserker;
-    public BossChargeState Charge;
+    public BossMoveToState MoveTo;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -40,9 +41,9 @@ public class BossIdleState : BossBaseState
     }
     public override void Tick()
     {
-        if ((Time.time - TimeStart) > TimeChase)
+        if ((Time.time - TimeStart) > TimeIdle)
         {
-            boss.ChangeState(Charge);
+            boss.ChangeState(StopState);
         }
         //Rotation();
         //Movement();
