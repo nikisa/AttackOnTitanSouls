@@ -20,6 +20,7 @@ public class PlayerIdleState : PlayerBaseState {
     //	Animation del Boost(caricamento barra)
 
     //Inspector
+    public bool isHookTest;
     public float maxSpeed;
     public float framesZeroToMax;
     public float framesMaxToZero;
@@ -42,23 +43,42 @@ public class PlayerIdleState : PlayerBaseState {
     PlayerController playerController;
     DataInput dataInput;
 
+    
     public void ReadInputKeyboard(DataInput dataInput) {
 
         movementVelocity = Vector3.zero;
 
-        // Set vertical movement
-        if (dataInput.Vertical != 0f) {
-            forwardVelocity += accelRatePerSec * Time.deltaTime;
-            forwardVelocity = Mathf.Clamp(forwardVelocity, 0, maxSpeed);
-            movementVelocity += Vector3.forward * dataInput.Vertical * forwardVelocity;
-        }
+        if (!isHookTest) {
+            // Set vertical movement
+            if (dataInput.Vertical != 0f) {
+                forwardVelocity += accelRatePerSec * Time.deltaTime;
+                forwardVelocity = Mathf.Clamp(forwardVelocity, 0, maxSpeed);
+                movementVelocity += Vector3.forward * dataInput.Vertical * forwardVelocity;
+            }
 
-        // Set horizontal movement
-        if (dataInput.Horizontal != 0f) {
-            forwardVelocity += accelRatePerSec * Time.deltaTime;
-            forwardVelocity = Mathf.Clamp(forwardVelocity, 0, maxSpeed);
-            movementVelocity += Vector3.right * dataInput.Horizontal * forwardVelocity;
+            // Set horizontal movement
+            if (dataInput.Horizontal != 0f) {
+                forwardVelocity += accelRatePerSec * Time.deltaTime;
+                forwardVelocity = Mathf.Clamp(forwardVelocity, 0, maxSpeed);
+                movementVelocity += Vector3.right * dataInput.Horizontal * forwardVelocity;
+            }
         }
+        else {
+            // Set vertical movement
+            if (dataInput.Vertical != 0f) {
+                forwardVelocity += accelRatePerSec * Time.deltaTime;
+                forwardVelocity = Mathf.Clamp(forwardVelocity, 0, maxSpeed);
+                movementVelocity += Vector3.up * dataInput.Vertical * forwardVelocity;
+            }
+
+            // Set horizontal movement
+            if (dataInput.Horizontal != 0f) {
+                forwardVelocity += accelRatePerSec * Time.deltaTime;
+                forwardVelocity = Mathf.Clamp(forwardVelocity, 0, maxSpeed);
+                movementVelocity += Vector3.right * dataInput.Horizontal * forwardVelocity;
+            }
+        }
+        
 
         newInput = true;
     }
@@ -175,23 +195,40 @@ public class PlayerIdleState : PlayerBaseState {
             movementVelocity.x = 0;
         }
 
+        if (!isHookTest) {
+            if (movementVelocity.z < decelRatePerSec * Time.deltaTime)
+                movementVelocity.z = movementVelocity.z - decelRatePerSec * Time.deltaTime;
+            else if (movementVelocity.z > -decelRatePerSec * Time.deltaTime)
+                movementVelocity.z = movementVelocity.z + decelRatePerSec * Time.deltaTime;
+            else {
+                movementVelocity.z = 0;
+            }
 
-        if (movementVelocity.z < decelRatePerSec * Time.deltaTime)
-            movementVelocity.z = movementVelocity.z - decelRatePerSec * Time.deltaTime;
-        else if (movementVelocity.z > -decelRatePerSec * Time.deltaTime)
-            movementVelocity.z = movementVelocity.z + decelRatePerSec * Time.deltaTime;
-        else {
-            movementVelocity.z = 0;
+            rb.velocity = new Vector3(movementVelocity.x, rb.velocity.y, movementVelocity.z);
+
         }
+        else {
+            if (movementVelocity.y < decelRatePerSec * Time.deltaTime)
+                movementVelocity.y = movementVelocity.z - decelRatePerSec * Time.deltaTime;
+            else if (movementVelocity.y > -decelRatePerSec * Time.deltaTime)
+                movementVelocity.y = movementVelocity.z + decelRatePerSec * Time.deltaTime;
+            else {
+                movementVelocity.y = 0;
+            }
 
-        rb.velocity = new Vector3(movementVelocity.x, rb.velocity.y, movementVelocity.z);
+            rb.velocity = new Vector3(movementVelocity.x, movementVelocity.y ,rb.velocity.z);
 
+        }
 
     }
 
     public void Movement() {
-        rb.velocity = new Vector3(movementVelocity.x, rb.velocity.y, movementVelocity.z);
+        if (!isHookTest) {
+            rb.velocity = new Vector3(movementVelocity.x, rb.velocity.y, movementVelocity.z);
+        }
+        else {
+            rb.velocity = new Vector3(movementVelocity.x, -movementVelocity.y , rb.velocity.z);
+        }
     }
-
 }
 
