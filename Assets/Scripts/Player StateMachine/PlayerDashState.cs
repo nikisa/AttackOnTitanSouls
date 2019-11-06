@@ -6,6 +6,7 @@ using DG.Tweening;
 public class PlayerDashState : PlayerBaseState {
 
     // Public
+    public bool isHookTest;
     public float DashDistance;
     public float DashTimeFrames;
     public Ease DashEase;
@@ -32,13 +33,15 @@ public class PlayerDashState : PlayerBaseState {
         _ResumeControl = ResumeControl / 60;
         _DashTimeFreeze = DashTimeFreeze / 60;
 
-        transform.DOMove(new Vector3((DashDistance * Horizontal) + position.x, position.y, (DashDistance * Vertical) + position.z), _DashTimeFrames).SetEase(DashEase); //.OnComplete( () => { _playerController.ChangeState(IdleState); });
-
-
+        if (!isHookTest) {
+            transform.DOMove(new Vector3((DashDistance * Horizontal) + position.x, position.y, (DashDistance * Vertical) + position.z), _DashTimeFrames).SetEase(DashEase);//.OnComplete( () => { _playerController.ChangeState(IdleState); });
+        }
+        else {
+            transform.DOMove(new Vector3((DashDistance * Horizontal) + position.x, -(DashDistance * Vertical) + position.y ,position.z), _DashTimeFrames).SetEase(DashEase);
+        }
+        
         _playerController.ChangeState(IdleState);
-
-
-
+        
     }
     public override void Enter(PlayerController playerController, Rigidbody _rb) {
         _playerController = playerController;
