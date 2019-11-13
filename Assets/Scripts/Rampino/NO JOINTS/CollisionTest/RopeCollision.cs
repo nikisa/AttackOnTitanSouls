@@ -6,6 +6,7 @@ public class RopeCollision : MonoBehaviour {
     //Inspector
     public Transform Player;
     public Transform Hook;
+    public Transform midPointRope;
     public float NodeDistance = .1f;
     public float MaxNodeDistance;
     public int TotalNodes = 100;
@@ -13,13 +14,15 @@ public class RopeCollision : MonoBehaviour {
     public int Iterations = 50;
     public float currentDistance;
 
+    public int offset;
 
     //Private 
+    
+
     LineRenderer LineRenderer;
     Vector3[] LinePositions;
     
     private List<RopeNode> RopeNodes = new List<RopeNode>();
-    private PlayerIdleState PlayerState;
     
     Camera Camera;
     
@@ -33,8 +36,8 @@ public class RopeCollision : MonoBehaviour {
     Vector3 LastNodeLock;
 
     void Awake() {
+
         Camera = Camera.main;
-        PlayerState = Player.GetComponent<PlayerIdleState>();
         ContactFilter = new ContactFilter2D {
         layerMask = LayerMask,
         useTriggers = false,
@@ -49,8 +52,7 @@ public class RopeCollision : MonoBehaviour {
             node.transform.position = startPosition;
             node.PreviousPosition = startPosition;
             RopeNodes.Add(node);
-
-            startPosition.y -= NodeDistance;
+            node.transform.parent = this.transform;
         }
 
         // for line renderer data
@@ -79,7 +81,14 @@ public class RopeCollision : MonoBehaviour {
             if (i % 2 == 1)
                 AdjustCollisions();
         }
-        
+
+        // apply correction
+        if (currentDistance >= MaxNodeDistance) {//TEST
+            Debug.Log("currentDistance >= MaxNodeDistance");
+            Hook.position = Vector3.MoveTowards(Hook.position, RopeNodes[TotalNodes - 2].transform.position, 25f * Time.deltaTime);
+        }
+
+
     }
 
     private void Simulate() {
@@ -171,9 +180,6 @@ public class RopeCollision : MonoBehaviour {
                 direction = (node2.transform.position - node1.transform.position).normalized;
             }
 
-            //TESTING
-            
-            //TESTING
 
             // calculate the movement vector
             Vector3 movement = direction * difference;
@@ -182,19 +188,11 @@ public class RopeCollision : MonoBehaviour {
             node1.transform.position -= (movement * 0.5f);
             node2.transform.position += (movement * 0.5f);
 
-            // apply correction
-
-            //if (currentDistance <= MaxNodeDistance) {//TEST
-            //    node1.transform.position -= (movement * 0.5f);
-            //    node2.transform.position += (movement * 0.5f);
-            //}
-            //else {//TEST
-            //    Player.position += node2.transform.position;
-            //}
-
-
-
         }
+    }
+
+    private void DistanceConstraint() {
+
     }
 
     private void DrawRope() {
