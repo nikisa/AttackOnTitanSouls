@@ -178,18 +178,22 @@ public class RopeCollision : MonoBehaviour {
             // calculate the movement vector
             Vector3 movement = direction * difference;
 
+
+            node1.transform.position -= (movement * 0.5f);
+            node2.transform.position += (movement * 0.5f);
+
             // apply correction
 
-            if (currentDistance <= MaxNodeDistance) {//TEST
-                node1.transform.position -= (movement * 0.5f);
-                node2.transform.position += (movement * 0.5f);
-            }
-            else {//TEST
-                Player.position += node2.transform.position;
-            }
+            //if (currentDistance <= MaxNodeDistance) {//TEST
+            //    node1.transform.position -= (movement * 0.5f);
+            //    node2.transform.position += (movement * 0.5f);
+            //}
+            //else {//TEST
+            //    Player.position += node2.transform.position;
+            //}
 
 
-            
+
         }
     }
 
