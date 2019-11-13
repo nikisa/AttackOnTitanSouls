@@ -230,5 +230,11 @@ public class PlayerIdleState : PlayerBaseState {
             rb.velocity = new Vector3(movementVelocity.x, -movementVelocity.y , rb.velocity.z);
         }
     }
+
+
+    //?Test player rope length constraint?
+    public void RopeLengthConstraint(Vector3 nodePosition) {
+        rb.velocity = new Vector3(nodePosition.x ,nodePosition.y, rb.velocity.z);
+    }
 }
 

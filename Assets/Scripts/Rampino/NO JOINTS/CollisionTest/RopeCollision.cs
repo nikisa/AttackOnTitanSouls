@@ -6,33 +6,38 @@ public class RopeCollision : MonoBehaviour {
     //Inspector
     public Transform Player;
     public Transform Hook;
-    public float NodeDistance = .2f;
+    public float NodeDistance = .1f;
+    public float MaxNodeDistance;
     public int TotalNodes = 100;
     public float RopeWidth = 0.1f;
+    public int Iterations = 50;
+    public float currentDistance;
 
+
+    //Private 
     LineRenderer LineRenderer;
     Vector3[] LinePositions;
     
     private List<RopeNode> RopeNodes = new List<RopeNode>();
+    private PlayerIdleState PlayerState;
     
-
     Camera Camera;
-
+    
     int LayerMask = 1;
     ContactFilter2D ContactFilter;
-    RaycastHit2D[] RaycastHitBuffer = new RaycastHit2D[5];
-    Collider2D[] ColliderHitBuffer = new Collider2D[5];
+    RaycastHit2D[] RaycastHitBuffer = new RaycastHit2D[10];
+    Collider2D[] ColliderHitBuffer = new Collider2D[10];
 
-    Vector3 Gravity = new Vector3(0f, 0f);
+    Vector3 Gravity = new Vector3(-0.01f, 0f);
     Vector3 Node1Lock;
     Vector3 LastNodeLock;
 
     void Awake() {
         Camera = Camera.main;
-
+        PlayerState = Player.GetComponent<PlayerIdleState>();
         ContactFilter = new ContactFilter2D {
-            layerMask = LayerMask,
-            useTriggers = false,
+        layerMask = LayerMask,
+        useTriggers = false,
         };
 
         LineRenderer = this.GetComponent<LineRenderer>();
@@ -59,19 +64,22 @@ public class RopeCollision : MonoBehaviour {
         Node1Lock = Player.position;
         //LastNodeLock = Hook.position;
         DrawRope();
+
+        
     }
 
     private void FixedUpdate() {
         Simulate();
 
         // Higher iteration results in stiffer ropes and stable simulation
-        for (int i = 0; i < 80; i++) {
+        for (int i = 0; i < Iterations; i++) {
             ApplyConstraint();
 
             // Playing around with adjusting collisions at intervals - still stable when iterations are skipped
             if (i % 2 == 1)
                 AdjustCollisions();
         }
+        
     }
 
     private void Simulate() {
@@ -98,7 +106,7 @@ public class RopeCollision : MonoBehaviour {
                         // adjusts the position based on a circle collider
                         Vector2 hitPos = collidercenter + collisionDirection.normalized * (RaycastHitBuffer[n].collider.transform.localScale.x / 2f + RopeNodes[i].transform.localScale.x / 2f);
                         newPos = hitPos;
-                        break;              //Just assuming a single collision to simplify the model
+                        break; //Just assuming a single collision to simplify the model
                     }
                 }
             }
@@ -113,7 +121,7 @@ public class RopeCollision : MonoBehaviour {
             RopeNode node = this.RopeNodes[i];
 
             int result = -1;
-            result = Physics2D.OverlapCircleNonAlloc(node.transform.position, node.transform.localScale.x / 4f, ColliderHitBuffer);
+            result = Physics2D.OverlapCircleNonAlloc(node.transform.position, node.transform.localScale.x / 64f, ColliderHitBuffer);
 
             if (result > 0) {
                 for (int n = 0; n < result; n++) {
@@ -132,7 +140,6 @@ public class RopeCollision : MonoBehaviour {
     }
 
     private void ApplyConstraint() {
-        // Check if the first node is clamped to the scene or is follwing the mouse
         if (Node1Lock != Vector3.zero) {
             RopeNodes[0].transform.position = Node1Lock;
         }
@@ -151,8 +158,8 @@ public class RopeCollision : MonoBehaviour {
             RopeNode node1 = this.RopeNodes[i];
             RopeNode node2 = this.RopeNodes[i + 1];
 
-            // Get the current distance between rope nodes
-            float currentDistance = (node1.transform.position - node2.transform.position).magnitude;
+            // Get the current distance between rope nodes            
+            currentDistance = (node1.transform.position - node2.transform.position).magnitude;
             float difference = Mathf.Abs(currentDistance - NodeDistance);
             Vector2 direction = Vector2.zero;
 
@@ -164,12 +171,25 @@ public class RopeCollision : MonoBehaviour {
                 direction = (node2.transform.position - node1.transform.position).normalized;
             }
 
+            //TESTING
+            
+            //TESTING
+
             // calculate the movement vector
             Vector3 movement = direction * difference;
 
             // apply correction
-            node1.transform.position -= (movement * 0.5f);
-            node2.transform.position += (movement * 0.5f);
+
+            if (currentDistance <= MaxNodeDistance) {//TEST
+                node1.transform.position -= (movement * 0.5f);
+                node2.transform.position += (movement * 0.5f);
+            }
+            else {//TEST
+                Player.position += node2.transform.position;
+            }
+
+
+            
         }
     }
 
