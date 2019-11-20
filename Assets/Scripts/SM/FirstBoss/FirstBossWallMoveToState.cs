@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FirstBossMoveToState : FirstBossState
+public class FirstBossWallMoveToState : FirstBossState
 {
     //private 
     Vector3 targetPosition;
@@ -31,7 +31,7 @@ public class FirstBossMoveToState : FirstBossState
     public void ChargeAttack()
     { 
 
-        targetPosition = new Vector3(boss.Data.moveToInfo.Target.transform.position.x, startY, boss.Data.moveToInfo.Target.transform.position.z);
+        targetPosition = new Vector3(boss.Data.wallMoveToInfo.Target.transform.position.x, startY, boss.Data.wallMoveToInfo.Target.transform.position.z);
         boss.RotateTarget(targetPosition);
 
     }
@@ -50,13 +50,13 @@ public class FirstBossMoveToState : FirstBossState
         distance = Vector3.Distance(boss.transform.position, targetPosition);
         //newDistance = Vector3.Distance(boss.transform.position, Target.transform.position);
         if (boss.Data.moveToInfo.StopsAtTargetOvertaking) {
-            if (boss.transform.position.x >= boss.Data.moveToInfo.Target.transform.position.x - range && boss.transform.position.x <= boss.Data.moveToInfo.Target.transform.position.x + range
-                || boss.transform.position.z >= boss.Data.moveToInfo.Target.transform.position.z - range && boss.transform.position.z <= boss.Data.moveToInfo.Target.transform.position.z + range) {
+            if (boss.transform.position.x >= boss.Data.wallMoveToInfo.Target.transform.position.x - range && boss.transform.position.x <= boss.Data.wallMoveToInfo.Target.transform.position.x + range
+                || boss.transform.position.z >= boss.Data.wallMoveToInfo.Target.transform.position.z - range && boss.transform.position.z <= boss.Data.wallMoveToInfo.Target.transform.position.z + range) {
                 animator.SetTrigger(RECOVERY);
             }
 
         }
-        if (distance <= 1 && !boss.Data.moveToInfo.StopsAtTargetOvertaking) {
+        if (distance <= 1 && !boss.Data.wallMoveToInfo.StopsAtTargetOvertaking) {
             animator.SetTrigger(RECOVERY);
         }
 
@@ -68,8 +68,8 @@ public class FirstBossMoveToState : FirstBossState
     }
 
     public void AccelerationTick() {
-        if (Time.time - timeStartAcceleration > boss.Data.accelerationInfo.WaitOnStart) {
-            boss.Acceleration(boss.Data.accelerationInfo.TimeAcceleration, boss.Data.accelerationInfo.MaxSpeed);
+        if (Time.time - timeStartAcceleration > boss.Data.wallAccelerationInfo.WaitOnStart) {
+            boss.Acceleration(boss.Data.wallAccelerationInfo.TimeAcceleration, boss.Data.wallAccelerationInfo.MaxSpeed);
         }
     }
 

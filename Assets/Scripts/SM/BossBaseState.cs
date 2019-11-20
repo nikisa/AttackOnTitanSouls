@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BossBaseState : BaseState
 {
-    protected PlayerController player;
     protected BossController boss;
     protected FirstBossData data;
 
@@ -20,7 +19,7 @@ public class BossBaseState : BaseState
     {
         base.SetContext(context, animator);
         boss = context as BossController;
-        player = boss.Data.bossInfo.Player;
+        
         //data = boss.
 
     }

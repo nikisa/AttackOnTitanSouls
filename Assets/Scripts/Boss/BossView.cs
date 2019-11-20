@@ -41,7 +41,7 @@ public class BossView : MonoBehaviour
         var direzione = Data.bossInfo.Player.transform.position - transform.position;
         //float angle = Vector3.SignedAngle(transform.forward, direzione, Vector3.up);
         if (Data.rotationAccelerationInfo.MaxSpeed > 0) {
-            transform.Rotate(Vector3.up * Time.deltaTime * Data.bossInfo.RotationSpeed);
+            Data.bossInfo.Graphics.transform.Rotate(Vector3.up * Time.deltaTime * Data.bossInfo.RotationSpeed);
         }
         //else {
         //    Data.negativeRotationSpeed = Data.RotationSpeed;

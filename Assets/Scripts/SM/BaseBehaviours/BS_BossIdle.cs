@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BS_BossIdle : BS_TimeBaseState
 {
+
+    
+
     public override void Enter()
     {
         base.Enter();

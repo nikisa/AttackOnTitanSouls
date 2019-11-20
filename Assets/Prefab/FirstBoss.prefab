@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8319031690567516170}
   - component: {fileID: 5257090764918558597}
   - component: {fileID: 5257090764918558598}
+  - component: {fileID: 1195018097}
   m_Layer: 0
   m_Name: FirstBossController
   m_TagString: Untagged
@@ -64,15 +65,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 5257090764918558597}
-  player: {fileID: 0}
-  debug: {fileID: 0}
-  MoveSpeed: 0
-  MaxSpeed: 0
-  RotationSpeed: 0
-  Graphics: {fileID: 5257090766047344784}
-  normalMaterial: {fileID: 0}
-  AngryMaterial: {fileID: 0}
-  data: {fileID: 0}
+  View: {fileID: 1195018097}
+  Data: {fileID: 0}
+--- !u!114 &1195018097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178498049372308678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967ea07e8b387494c9aebe084398b3d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 94019ec8b395438459e3d7d0da9e0647, type: 2}
 --- !u!1 &2817090957454111729
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,7 +103,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2817090957454111729}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 17.4, y: -9.2, z: 5.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -121,6 +128,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1818360608 &721879002
+PositionConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5257090766047344784}
+  m_Enabled: 1
+  m_Weight: 1
+  m_TranslationAtRest: {x: 0, y: 0, z: 0}
+  m_TranslationOffset: {x: 0.0000019073486, y: 0, z: 0}
+  m_AffectTranslationX: 1
+  m_AffectTranslationY: 1
+  m_AffectTranslationZ: 1
+  m_IsContraintActive: 1
+  m_IsLocked: 1
+  m_Sources:
+  - sourceTransform: {fileID: 8319031690567516170}
+    weight: 1
 --- !u!1001 &6561258453437218895
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -133,10 +159,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirstBossGraphics
       objectReference: {fileID: 0}
+    - target: {fileID: 1439663134139447519, guid: 20becccbc1f579542bb8b44f3faa67f0,
+        type: 3}
+      propertyPath: m_TagString
+      value: BossGraphics
+      objectReference: {fileID: 0}
     - target: {fileID: 1439663134139447513, guid: 20becccbc1f579542bb8b44f3faa67f0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.0000019073486
       objectReference: {fileID: 0}
     - target: {fileID: 1439663134139447513, guid: 20becccbc1f579542bb8b44f3faa67f0,
         type: 3}
@@ -198,20 +229,7 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6c5c3e7f6657bca4cac7d63a3a011140, type: 2}
-    - target: {fileID: 1439663134139447518, guid: 20becccbc1f579542bb8b44f3faa67f0,
-        type: 3}
-      propertyPath: currentState
-      value: 
-      objectReference: {fileID: 2970353014815089857, guid: e6a9a33540858194c85afb3285946a58,
-        type: 3}
-    - target: {fileID: 1439663134139447518, guid: 20becccbc1f579542bb8b44f3faa67f0,
-        type: 3}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 2970353014611224706, guid: e6a9a33540858194c85afb3285946a58,
-        type: 3}
     m_RemovedComponents:
-    - {fileID: 1439663134139447517, guid: 20becccbc1f579542bb8b44f3faa67f0, type: 3}
     - {fileID: 1439663134139447518, guid: 20becccbc1f579542bb8b44f3faa67f0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 20becccbc1f579542bb8b44f3faa67f0, type: 3}
 --- !u!1 &5257090766047344784 stripped

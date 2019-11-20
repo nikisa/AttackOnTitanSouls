@@ -20,21 +20,13 @@ public class BossController : MonoBehaviour
     float distance;
     // Start is called before the first frame update
 
-    void Awake() {
-
-        Data.bossInfo.Player = FindObjectOfType<PlayerController>();
-        Data.bossInfo.Graphics = GameObject.FindGameObjectWithTag("Graphics");
-
-        Data = View.GetBossData();  
-    }
 
     protected virtual void Start()
     {
-
-        foreach (var item in animator.GetBehaviours<BaseState>())
-        {
+        foreach (var item in animator.GetBehaviours<BaseState>()) {
             item.SetContext(this, animator);
         }
+
     }
 
     public void Move()
@@ -71,8 +63,6 @@ public class BossController : MonoBehaviour
     }
     public float CollisionDistance()
     {
-     
-
         Physics.Raycast(transform.position, transform.forward, out hitWalls, 900);
     
         Debug.DrawRay(transform.position, transform.forward, Color.blue, 7); 

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Walls
   - BossGraphics
+  - CenterPoint
+  - Tentacle
   layers:
   - Default
   - TransparentFX

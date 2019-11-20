@@ -8,6 +8,10 @@ public class BaseState : StateMachineBehaviour
     protected object context;
     protected Animator animator;
 
+    private void Awake() {
+        
+    }
+
     public virtual void SetContext(object context, Animator animator)
     {
         this.context = context;

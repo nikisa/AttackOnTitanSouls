@@ -20,6 +20,7 @@ public class BossData : ScriptableObject
     public RotationDecelerationInfo rotationDecelerationInfo;
     public MoveToInfo moveToInfo;
     public OrbitInfo orbitInfo;
+    public Orbit orbit;
     #endregion
 
     #region WallHitInfo
@@ -34,7 +35,6 @@ public class BossData : ScriptableObject
     public MoveToInfo wallMoveToInfo;
     #endregion
 
-    [System.Serializable]
     public struct BossInfo
     {
         
@@ -114,16 +114,21 @@ public class BossData : ScriptableObject
     [System.Serializable]
     public struct MoveToInfo
     {
+        [HideInInspector]
+        public PlayerController Target;
         [Tooltip("Exits the state when it passes over the coordinates of the target")]
         public bool StopsAtTargetOvertaking; // per testing 
     }
 
+    public struct Orbit {
+        public GameObject CenterPoint;
+        public BossController Center;
+        public GameObject Tentacle;
+    }
+    
     [System.Serializable]
     public struct OrbitInfo
     {
-        public GameObject CenterPoint;
-        public GameObject Center;
-        public GameObject Tentacle;
         public float InitialRadius;
         public bool HasDeltaRadius;
         public float FinalRadius;
