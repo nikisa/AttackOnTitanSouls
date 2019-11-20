@@ -31,7 +31,7 @@ public class RopeCollision : MonoBehaviour {
     RaycastHit2D[] RaycastHitBuffer = new RaycastHit2D[10];
     Collider2D[] ColliderHitBuffer = new Collider2D[10];
 
-    Vector3 Gravity = new Vector3(-0.01f, 0f);
+    Vector3 Gravity = new Vector3(0f, 0f , 0f);
     Vector3 Node1Lock;
     Vector3 LastNodeLock;
 
@@ -130,7 +130,7 @@ public class RopeCollision : MonoBehaviour {
             RopeNode node = this.RopeNodes[i];
 
             int result = -1;
-            result = Physics2D.OverlapCircleNonAlloc(node.transform.position, node.transform.localScale.x / 64f, ColliderHitBuffer);
+            result = Physics2D.OverlapCircleNonAlloc(node.transform.position, node.transform.localScale.x / 2f, ColliderHitBuffer);
 
             if (result > 0) {
                 for (int n = 0; n < result; n++) {
@@ -139,7 +139,7 @@ public class RopeCollision : MonoBehaviour {
                         Vector3 collidercenter = ColliderHitBuffer[n].transform.position;
                         Vector3 collisionDirection = node.transform.position - collidercenter;
 
-                        Vector3 hitPos = collidercenter + collisionDirection.normalized * ((ColliderHitBuffer[n].transform.localScale.x / 2f) + (node.transform.localScale.x / 2f));
+                        Vector3 hitPos = collidercenter + collisionDirection.normalized * ((ColliderHitBuffer[n].transform.localScale.x/1.6f  ) + (node.transform.localScale.x /1.6f));
                         node.transform.position = hitPos;
                         break;
                     }
@@ -170,7 +170,7 @@ public class RopeCollision : MonoBehaviour {
             // Get the current distance between rope nodes            
             currentDistance = (node1.transform.position - node2.transform.position).magnitude;
             float difference = Mathf.Abs(currentDistance - NodeDistance);
-            Vector2 direction = Vector2.zero;
+            Vector3 direction = Vector3.zero;
 
             // determine what direction we need to adjust our nodes
             if (currentDistance > NodeDistance) {

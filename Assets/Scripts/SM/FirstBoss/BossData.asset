@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b2ef1497baf52b478ac7a001bf14b67, type: 3}
+  m_Name: BossData
+  m_EditorClassIdentifier: 
+  bossInfo:
+    Player: {fileID: 0}
+    Graphics: {fileID: 0}
+    MoveSpeed: 0
+    RotationSpeed: 0
+  idleInfo:
+    stateDuration: 0
+  anticipationInfo:
+    AnticipationTime: 2
+    Loops: 3
+    InfinteLoops: 1
+  accelerationInfo:
+    MaxSpeed: 300
+    TimeAcceleration: 2
+    WaitOnStart: 0
+  graphicsAnticipationInfo:
+    AnticipationMat: {fileID: 2100000, guid: e9267dea08a8ac84c93674195bcdb5be, type: 2}
+    NormalMat: {fileID: 2100000, guid: 6c5c3e7f6657bca4cac7d63a3a011140, type: 2}
+  rotationAccelerationInfo:
+    MaxSpeed: 300
+    AccelerationTime: 2
+    WaitOnStart: 0
+  recoveryInfo:
+    RecoveryTime: 1
+  decelerationInfo:
+    TimeDeceleration: 2
+    WaitOnStart: 0
+    LowSpeed: 0
+  rotationDecelerationInfo:
+    LowSpeed: 0
+    DecelerationTime: 2
+    WaitOnStart: 0
+  moveToInfo:
+    StopsAtTargetOvertaking: 0
+  orbitInfo:
+    CenterPoint: {fileID: 0}
+    Center: {fileID: 0}
+    Tentacle: {fileID: 0}
+    InitialRadius: 0
+    HasDeltaRadius: 0
+    FinalRadius: 0
+    Angle: 0
+    OrbitSpeed: 0
+  wallBossInfo:
+    Player: {fileID: 0}
+    Graphics: {fileID: 0}
+    MoveSpeed: 0
+    RotationSpeed: 0
+  wallAnticipationInfo:
+    AnticipationTime: 0
+    Loops: 0
+    InfinteLoops: 0
+  wallAccelerationInfo:
+    MaxSpeed: 0
+    TimeAcceleration: 0
+    WaitOnStart: 0
+  wallGraphicsAnticipationInfo:
+    AnticipationMat: {fileID: 0}
+    NormalMat: {fileID: 0}
+  wallRotationAccelerationInfo:
+    MaxSpeed: 0
+    AccelerationTime: 0
+    WaitOnStart: 0
+  wallRecoveryInfo:
+    RecoveryTime: 0
+  wallDecelerationInfo:
+    TimeDeceleration: 0
+    WaitOnStart: 0
+    LowSpeed: 0
+  wallRotationDecelerationInfo:
+    LowSpeed: 0
+    DecelerationTime: 0
+    WaitOnStart: 0
+  wallMoveToInfo:
+    StopsAtTargetOvertaking: 0
