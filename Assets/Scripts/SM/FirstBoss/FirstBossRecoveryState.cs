@@ -12,6 +12,7 @@ public class FirstBossRecoveryState : FirstBossState
     float timeStartDeceleration;
     float timeStartRotationDeceleration;
     float distance;
+    RaycastHit hit;
 
     public override void Enter()
     {
@@ -32,12 +33,13 @@ public class FirstBossRecoveryState : FirstBossState
     }
 
     public void RecoveryInfoEnter() {
+        hit = boss.RaycastCollision();
         timeStartRecovery = 9999;
         stop = false;
     }
    
     public void RecoveryInfoTick() {
-        distance = boss.CollisionDistance();
+        distance = boss.CollisionDistance(hit.point);
         Debug.Log(distance);
         if (distance <= 2) {
             Debug.Log("collisione");
@@ -50,7 +52,6 @@ public class FirstBossRecoveryState : FirstBossState
 
         }
         if ((Time.time - timeStartRecovery) > boss.Data.recoveryInfo.RecoveryTime) {
-
             animator.SetTrigger("Anticipation");
         }
     }

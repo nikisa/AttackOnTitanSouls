@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossController : MonoBehaviour
 {
     public Animator animator;
-    //public GameObject debug;
+    public GameObject debug;
     public BossView View;
     [HideInInspector]
     public BossData Data;
@@ -61,13 +61,18 @@ public class BossController : MonoBehaviour
        
         
     }
-    public float CollisionDistance()
-    {
-        Physics.Raycast(transform.position, transform.forward, out hitWalls, 900);
-    
-        Debug.DrawRay(transform.position, transform.forward, Color.blue, 7); 
-        distance = Vector3.Distance(hitWalls.point, transform.position);
 
+    public RaycastHit RaycastCollision() {
+        Physics.Raycast(transform.position, transform.forward, out hitWalls, Mathf.Infinity);
+        Debug.DrawRay(transform.position, transform.forward, Color.blue);
+        Instantiate(debug, hitWalls.point, Quaternion.identity);
+
+        return hitWalls;
+    }  
+
+    public float CollisionDistance(Vector3 _hitWalls)
+    {
+        distance = Vector3.Distance(_hitWalls, transform.position);
         return distance;
     }
 }

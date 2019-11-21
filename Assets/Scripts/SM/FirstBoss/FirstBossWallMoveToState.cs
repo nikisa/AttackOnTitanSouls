@@ -11,7 +11,7 @@ public class FirstBossWallMoveToState : FirstBossState
     float distance;
     float WallDistance;
     float timeStartAcceleration;
-
+    RaycastHit hit;
 
     public override void Enter()
     {
@@ -37,12 +37,14 @@ public class FirstBossWallMoveToState : FirstBossState
     }
 
     public void MoveToEnter() {
+        
         startY = boss.transform.position.y;
         ChargeAttack();
+        hit = boss.RaycastCollision();
     }
 
     public void MoveToTick() {
-        WallDistance = boss.CollisionDistance();
+        WallDistance = boss.CollisionDistance(hit.point);
         if (WallDistance <= 1) {
 
             animator.SetTrigger("Collision");
