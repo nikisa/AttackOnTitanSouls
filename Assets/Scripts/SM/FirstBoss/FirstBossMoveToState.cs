@@ -45,8 +45,9 @@ public class FirstBossMoveToState : FirstBossState
 
     public void MoveToTick() {
         WallDistance = boss.CollisionDistance(hit.point);
+        Debug.Log(WallDistance);
         if (WallDistance <= 2) {
-            Debug.Log("ROSSO");
+            Debug.Log(WallDistance + "OK__________" );
             animator.SetTrigger("Collision");
         }
         distance = Vector3.Distance(boss.transform.position, targetPosition);

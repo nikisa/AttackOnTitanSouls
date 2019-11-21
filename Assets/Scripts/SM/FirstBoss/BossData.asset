@@ -30,7 +30,7 @@ MonoBehaviour:
     AccelerationTime: 2
     WaitOnStart: 0
   recoveryInfo:
-    RecoveryTime: 1
+    RecoveryTime: 3
   decelerationInfo:
     TimeDeceleration: 2
     WaitOnStart: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
     AccelerationTime: 1
     WaitOnStart: 0
   wallRecoveryInfo:
-    RecoveryTime: 1
+    RecoveryTime: 3
   wallDecelerationInfo:
     TimeDeceleration: 1
     WaitOnStart: 0

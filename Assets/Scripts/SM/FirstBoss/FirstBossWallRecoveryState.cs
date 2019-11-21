@@ -40,8 +40,7 @@ public class FirstBossWallRecoveryState : FirstBossState
    
     public void RecoveryInfoTick() {
         distance = boss.CollisionDistance(hit.point);
-        Debug.Log(distance);
-        if (distance <= 2) {
+        if (distance <= 5) {
             Debug.Log("collisione");
             animator.SetTrigger("Collision");
         }

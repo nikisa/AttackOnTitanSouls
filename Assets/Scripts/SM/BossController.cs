@@ -65,8 +65,6 @@ public class BossController : MonoBehaviour
     public RaycastHit RaycastCollision() {
         Physics.Raycast(transform.position, transform.forward, out hitWalls, Mathf.Infinity);
         Debug.DrawRay(transform.position, transform.forward, Color.blue);
-        Instantiate(debug, hitWalls.point, Quaternion.identity);
-
         return hitWalls;
     }  
 
