@@ -16,8 +16,8 @@ MonoBehaviour:
     stateDuration: 0
   anticipationInfo:
     AnticipationTime: 2
-    Loops: 3
-    InfinteLoops: 0
+    Loops: 1
+    InfinteLoops: 1
   accelerationInfo:
     MaxSpeed: 300
     TimeAcceleration: 4
@@ -27,14 +27,10 @@ MonoBehaviour:
     NormalMat: {fileID: 2100000, guid: 6c5c3e7f6657bca4cac7d63a3a011140, type: 2}
   rotationAccelerationInfo:
     MaxSpeed: 300
-    AccelerationTime: 2
+    AccelerationTime: 4
     WaitOnStart: 0
   recoveryInfo:
-<<<<<<< HEAD
-    RecoveryTime: 2
-=======
-    RecoveryTime: 3
->>>>>>> 2c74e38b58270d25b1ac8072e86271849498c9ae
+    RecoveryTime: 1
   decelerationInfo:
     TimeDeceleration: 2
     WaitOnStart: 0
@@ -51,7 +47,7 @@ MonoBehaviour:
     InitialRadius: 4
     HasDeltaRadius: 0
     FinalRadius: 10
-    Angle: 180
+    Angle: 90
     OrbitSpeed: 30
   orbit:
     centerPoint: 1
@@ -61,7 +57,7 @@ MonoBehaviour:
     tentacle: 2
     Tentacle: {fileID: 0}
   wallAnticipationInfo:
-    AnticipationTime: 1
+    AnticipationTime: 2
     Loops: 1
     InfinteLoops: 1
   wallAccelerationInfo:
@@ -73,21 +69,17 @@ MonoBehaviour:
     NormalMat: {fileID: 2100000, guid: 6c5c3e7f6657bca4cac7d63a3a011140, type: 2}
   wallRotationAccelerationInfo:
     MaxSpeed: 300
-    AccelerationTime: 1
+    AccelerationTime: 4
     WaitOnStart: 0
   wallRecoveryInfo:
-<<<<<<< HEAD
     RecoveryTime: 2
-=======
-    RecoveryTime: 3
->>>>>>> 2c74e38b58270d25b1ac8072e86271849498c9ae
   wallDecelerationInfo:
-    TimeDeceleration: 1
+    TimeDeceleration: 2
     WaitOnStart: 0
     LowSpeed: 0
   wallRotationDecelerationInfo:
     LowSpeed: 0
-    DecelerationTime: 1
+    DecelerationTime: 2
     WaitOnStart: 0
   wallMoveToInfo:
     targets: 0

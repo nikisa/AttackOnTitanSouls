@@ -46,12 +46,8 @@ public class FirstBossWallMoveToState : FirstBossState
 
     public void MoveToTick() {
         WallDistance = boss.CollisionDistance(hit.point);
-<<<<<<< HEAD
-        if (WallDistance <= boss.transform.localScale.x/2) {
-=======
->>>>>>> 2c74e38b58270d25b1ac8072e86271849498c9ae
 
-        if (WallDistance <= boss.transform.localScale.x/2) {
+        if (WallDistance <= boss.transform.localScale.x / 2) {
             Debug.Log(WallDistance);
             animator.SetTrigger("Collision");
         }
@@ -73,7 +69,7 @@ public class FirstBossWallMoveToState : FirstBossState
             boss.Move();
         }
 
-        
+
     }
 
     public void AccelerationEnter() {
