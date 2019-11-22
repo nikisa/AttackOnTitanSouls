@@ -44,7 +44,15 @@ public class FirstBossWallRecoveryState : FirstBossState
             Debug.Log("collisione");
             animator.SetTrigger("Collision");
         }
-        boss.Move();
+
+        if (boss.Data.wallDecelerationInfo.LowSpeed >= 0) {
+            boss.Move();
+        }
+        else{
+            boss.NegativeMove();
+        }
+        
+
         if (boss.Data.bossInfo.MoveSpeed <= boss.Data.wallDecelerationInfo.LowSpeed && !stop) {
             stop = true;
             timeStartRecovery = Time.time;

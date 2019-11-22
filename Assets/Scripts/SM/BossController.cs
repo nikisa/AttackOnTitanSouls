@@ -34,11 +34,22 @@ public class BossController : MonoBehaviour
         transform.Translate( Vector3.forward * Data.bossInfo.MoveSpeed * Time.deltaTime);
         //Graphics.transform.Translate(transform.forward * MoveSpeed * Time.deltaTime);
     }
+
+    public void NegativeMove() {
+        transform.Translate(Vector3.back * Data.bossInfo.MoveSpeed * Time.deltaTime);
+        //Graphics.transform.Translate(transform.forward * MoveSpeed * Time.deltaTime);
+    }
     public void Deceleration(float _timeDeceleration ,float _lowSpeed)
     {
         _timeDeceleration = Data.accelerationInfo.MaxSpeed / _timeDeceleration;
         Data.bossInfo.MoveSpeed -= _timeDeceleration * Time.deltaTime;
-        Data.bossInfo.MoveSpeed = Mathf.Clamp(Data.bossInfo.MoveSpeed, _lowSpeed, 100);
+        if (_lowSpeed>=0) {
+            Data.bossInfo.MoveSpeed = Mathf.Clamp(Data.bossInfo.MoveSpeed, _lowSpeed, 100);
+        }
+        else {
+            Data.bossInfo.MoveSpeed = Mathf.Clamp(Data.bossInfo.MoveSpeed, Mathf.Abs(_lowSpeed), 100); //Se vogliono che rimanga fermo --> 0 anziche Mathf.Abs(_lowSpeed)
+        }
+        
     }
     public void RotateTarget(Vector3 _target)
     {

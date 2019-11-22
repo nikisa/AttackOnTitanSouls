@@ -37,7 +37,7 @@ MonoBehaviour:
     LowSpeed: 0
   rotationDecelerationInfo:
     LowSpeed: 0
-    DecelerationTime: 2
+    DecelerationTime: -2
     WaitOnStart: 0
   moveToInfo:
     targets: 0
