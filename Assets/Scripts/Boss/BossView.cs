@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class BossView : MonoBehaviour
 {
+    //Inspector
     public BossData Data;
-    
-    //void Init(BossData _bossData) {
-    //    if (Data != null) {
-    //        Data = _bossData;
-    //    }
-    //    else {
-    //        Data = new BossData();
-    //    }
-    //}
+
+    //Private
+    float negativeRotationSpeed;
 
     public BossData GetBossData() {
         if (Data != null) {
@@ -43,11 +38,11 @@ public class BossView : MonoBehaviour
         if (Data.rotationAccelerationInfo.MaxSpeed > 0) {
             Data.bossInfo.Graphics.transform.Rotate(Vector3.up * Time.deltaTime * Data.bossInfo.RotationSpeed);
         }
-        //else {
-        //    Data.negativeRotationSpeed = Data.RotationSpeed;
-        //    Mathf.Abs(Data.negativeRotationSpeed);
-        //    Graphics.transform.Rotate(Vector3.down * Time.deltaTime * Data.negativeRotationSpeed);
-        //}
+        else {
+            negativeRotationSpeed = Data.bossInfo.RotationSpeed;
+            Mathf.Abs(negativeRotationSpeed);
+            Data.bossInfo.Graphics.transform.Rotate(Vector3.down * Time.deltaTime * negativeRotationSpeed);
+        }
 
         //return angle;
     }
