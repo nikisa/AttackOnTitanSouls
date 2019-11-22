@@ -35,7 +35,7 @@ public class FirstBossWallAnticipationState : FirstBossState
     }
 
     public void EnterAnticipation() {
-
+        boss.Data.bossInfo.MoveSpeed = 0;
         //boss.MoveSpeed = 0; è da fare? 
         loops--; // 
         timeStartAnticipation = Time.time;

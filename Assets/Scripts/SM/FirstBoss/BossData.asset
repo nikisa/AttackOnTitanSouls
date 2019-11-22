@@ -30,7 +30,11 @@ MonoBehaviour:
     AccelerationTime: 2
     WaitOnStart: 0
   recoveryInfo:
+<<<<<<< HEAD
     RecoveryTime: 2
+=======
+    RecoveryTime: 3
+>>>>>>> 2c74e38b58270d25b1ac8072e86271849498c9ae
   decelerationInfo:
     TimeDeceleration: 2
     WaitOnStart: 0
@@ -72,7 +76,11 @@ MonoBehaviour:
     AccelerationTime: 1
     WaitOnStart: 0
   wallRecoveryInfo:
+<<<<<<< HEAD
     RecoveryTime: 2
+=======
+    RecoveryTime: 3
+>>>>>>> 2c74e38b58270d25b1ac8072e86271849498c9ae
   wallDecelerationInfo:
     TimeDeceleration: 1
     WaitOnStart: 0

@@ -46,9 +46,17 @@ public class FirstBossWallMoveToState : FirstBossState
 
     public void MoveToTick() {
         WallDistance = boss.CollisionDistance(hit.point);
+<<<<<<< HEAD
         if (WallDistance <= boss.transform.localScale.x/2) {
+=======
+>>>>>>> 2c74e38b58270d25b1ac8072e86271849498c9ae
 
+        if (WallDistance <= boss.transform.localScale.x/2) {
+            Debug.Log(WallDistance);
             animator.SetTrigger("Collision");
+        }
+        else {
+            boss.Move();
         }
         distance = Vector3.Distance(boss.transform.position, targetPosition);
         if (boss.Data.moveToInfo.StopsAtTargetOvertaking) {
@@ -61,8 +69,11 @@ public class FirstBossWallMoveToState : FirstBossState
         if (distance <= 1 && !boss.Data.wallMoveToInfo.StopsAtTargetOvertaking) {
             animator.SetTrigger(RECOVERY);
         }
+        else {
+            boss.Move();
+        }
 
-        boss.Move();
+        
     }
 
     public void AccelerationEnter() {
