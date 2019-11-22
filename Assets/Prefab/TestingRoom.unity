@@ -210,6 +210,41 @@ PrefabInstance:
       propertyPath: maxSpeed
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 82094137989507876, guid: 72864e1ac25e07947927a45e70ed8f1d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82094137989507876, guid: 72864e1ac25e07947927a45e70ed8f1d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82094137989507876, guid: 72864e1ac25e07947927a45e70ed8f1d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82094137989507876, guid: 72864e1ac25e07947927a45e70ed8f1d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82094137989507876, guid: 72864e1ac25e07947927a45e70ed8f1d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -9.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 82094137989507876, guid: 72864e1ac25e07947927a45e70ed8f1d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 24.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 82094137989507877, guid: 72864e1ac25e07947927a45e70ed8f1d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Center
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 82094135967207790, guid: 72864e1ac25e07947927a45e70ed8f1d, type: 3}
     - {fileID: 82094137376059843, guid: 72864e1ac25e07947927a45e70ed8f1d, type: 3}

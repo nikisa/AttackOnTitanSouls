@@ -30,7 +30,7 @@ MonoBehaviour:
     AccelerationTime: 2
     WaitOnStart: 0
   recoveryInfo:
-    RecoveryTime: 1
+    RecoveryTime: 2
   decelerationInfo:
     TimeDeceleration: 2
     WaitOnStart: 0
@@ -40,6 +40,7 @@ MonoBehaviour:
     DecelerationTime: 2
     WaitOnStart: 0
   moveToInfo:
+    targets: 0
     Target: {fileID: 0}
     StopsAtTargetOvertaking: 0
   orbitInfo:
@@ -48,6 +49,13 @@ MonoBehaviour:
     FinalRadius: 10
     Angle: 180
     OrbitSpeed: 30
+  orbit:
+    centerPoint: 1
+    CenterPoint: {fileID: 0}
+    center: 0
+    Center: {fileID: 0}
+    tentacle: 2
+    Tentacle: {fileID: 0}
   wallAnticipationInfo:
     AnticipationTime: 1
     Loops: 1
@@ -64,7 +72,7 @@ MonoBehaviour:
     AccelerationTime: 1
     WaitOnStart: 0
   wallRecoveryInfo:
-    RecoveryTime: 1
+    RecoveryTime: 2
   wallDecelerationInfo:
     TimeDeceleration: 1
     WaitOnStart: 0
@@ -74,5 +82,6 @@ MonoBehaviour:
     DecelerationTime: 1
     WaitOnStart: 0
   wallMoveToInfo:
+    targets: 0
     Target: {fileID: 0}
     StopsAtTargetOvertaking: 0

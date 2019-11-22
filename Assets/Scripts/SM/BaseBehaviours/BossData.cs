@@ -7,6 +7,7 @@ using UnityEditor;
 public class BossData : ScriptableObject
 {
 
+
     #region BaseInfo
     
     public BossInfo bossInfo;
@@ -114,15 +115,22 @@ public class BossData : ScriptableObject
     [System.Serializable]
     public struct MoveToInfo
     {
+        public Targets targets;
         [HideInInspector]
-        public PlayerController Target;
+        public GameObject Target;
         [Tooltip("Exits the state when it passes over the coordinates of the target")]
         public bool StopsAtTargetOvertaking; // per testing 
     }
-
+    [System.Serializable]
     public struct Orbit {
+        public TargetsOrbit centerPoint;
+        [HideInInspector]
         public GameObject CenterPoint;
-        public BossController Center;
+        public TargetsOrbit center;
+        [HideInInspector]
+        public GameObject Center;      
+        public TargetsOrbit tentacle;
+        [HideInInspector]
         public GameObject Tentacle;
     }
     
@@ -141,6 +149,17 @@ public class BossData : ScriptableObject
     {
         public Material AnticipationMat;
         public Material NormalMat;
+    }
+    public enum Targets 
+    {
+        Player,
+        
+    };
+    public enum TargetsOrbit
+    {
+        Boss,
+        CenterPoint,
+        Tentacle,
     }
 
 }

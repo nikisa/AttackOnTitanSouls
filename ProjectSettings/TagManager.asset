@@ -8,6 +8,7 @@ TagManager:
   - BossGraphics
   - CenterPoint
   - Tentacle
+  - Center
   layers:
   - Default
   - TransparentFX

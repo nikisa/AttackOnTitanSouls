@@ -23,6 +23,7 @@ public class FirstBossWallMoveToState : FirstBossState
         MoveToTick();
         AccelerationTick();
         RotationMoveTick();
+        SetToCenter();
     }
     public override void Exit()
     {
@@ -45,12 +46,11 @@ public class FirstBossWallMoveToState : FirstBossState
 
     public void MoveToTick() {
         WallDistance = boss.CollisionDistance(hit.point);
-        if (WallDistance <= 1) {
+        if (WallDistance <= boss.transform.localScale.x/2) {
 
             animator.SetTrigger("Collision");
         }
         distance = Vector3.Distance(boss.transform.position, targetPosition);
-        //newDistance = Vector3.Distance(boss.transform.position, Target.transform.position);
         if (boss.Data.moveToInfo.StopsAtTargetOvertaking) {
             if (boss.transform.position.x >= boss.Data.wallMoveToInfo.Target.transform.position.x - range && boss.transform.position.x <= boss.Data.wallMoveToInfo.Target.transform.position.x + range
                 || boss.transform.position.z >= boss.Data.wallMoveToInfo.Target.transform.position.z - range && boss.transform.position.z <= boss.Data.wallMoveToInfo.Target.transform.position.z + range) {
@@ -77,5 +77,16 @@ public class FirstBossWallMoveToState : FirstBossState
 
     public void RotationMoveTick() {
         boss.View.MoveRotation();
+    }
+    public void SetToCenter()
+    {
+        if (boss.transform.position.x < -70 ||
+            boss.transform.position.x > 70  ||
+            boss.transform.position.z < -100 ||
+            boss.transform.position.z > 120 )
+        {
+            boss.transform.position = GameObject.FindGameObjectWithTag("Center").transform.position;
+            animator.SetTrigger("Collision");
+        }
     }
 }
