@@ -45,7 +45,7 @@ MonoBehaviour:
     StopsAtTargetOvertaking: 0
   orbitInfo:
     InitialRadius: 4
-    HasDeltaRadius: 0
+    HasDeltaRadius: 1
     FinalRadius: 10
     Angle: 90
     OrbitSpeed: 30
