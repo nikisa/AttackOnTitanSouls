@@ -13,31 +13,31 @@ MonoBehaviour:
   m_Name: BossData
   m_EditorClassIdentifier: 
   idleInfo:
-    stateDuration: 0
+    stateDuration: 0.2
   anticipationInfo:
-    AnticipationTime: 2
+    AnticipationTime: 0.5
     Loops: 1
     InfinteLoops: 1
   accelerationInfo:
     MaxSpeed: 300
-    TimeAcceleration: 4
-    WaitOnStart: 0
+    TimeAcceleration: 1
+    WaitOnStart: 0.1
   graphicsAnticipationInfo:
     AnticipationMat: {fileID: 2100000, guid: e9267dea08a8ac84c93674195bcdb5be, type: 2}
     NormalMat: {fileID: 2100000, guid: 6c5c3e7f6657bca4cac7d63a3a011140, type: 2}
   rotationAccelerationInfo:
     MaxSpeed: 300
-    AccelerationTime: 4
+    AccelerationTime: 1
     WaitOnStart: 0
   recoveryInfo:
-    RecoveryTime: 1
+    RecoveryTime: 0.7
   decelerationInfo:
-    TimeDeceleration: 2
+    TimeDeceleration: 0.2
     WaitOnStart: 0
     LowSpeed: 0
   rotationDecelerationInfo:
     LowSpeed: 0
-    DecelerationTime: -2
+    DecelerationTime: 0.7
     WaitOnStart: 0
   moveToInfo:
     targets: 0
@@ -57,31 +57,31 @@ MonoBehaviour:
     tentacle: 2
     Tentacle: {fileID: 0}
   wallAnticipationInfo:
-    AnticipationTime: 2
+    AnticipationTime: 0.3
     Loops: 1
     InfinteLoops: 1
   wallAccelerationInfo:
     MaxSpeed: 300
-    TimeAcceleration: 4
+    TimeAcceleration: 1
     WaitOnStart: 0
   wallGraphicsAnticipationInfo:
     AnticipationMat: {fileID: 2100000, guid: e1e5b254d1b12834d92ab224fc101557, type: 2}
     NormalMat: {fileID: 2100000, guid: 6c5c3e7f6657bca4cac7d63a3a011140, type: 2}
   wallRotationAccelerationInfo:
     MaxSpeed: 300
-    AccelerationTime: 4
+    AccelerationTime: 1
     WaitOnStart: 0
   wallRecoveryInfo:
-    RecoveryTime: 2
+    RecoveryTime: 0.5
   wallDecelerationInfo:
-    TimeDeceleration: 2
+    TimeDeceleration: 0.5
     WaitOnStart: 0
     LowSpeed: 0
   wallRotationDecelerationInfo:
     LowSpeed: 0
-    DecelerationTime: 2
+    DecelerationTime: 0.5
     WaitOnStart: 0
   wallMoveToInfo:
     targets: 0
     Target: {fileID: 0}
-    StopsAtTargetOvertaking: 0
+    StopsAtTargetOvertaking: 1

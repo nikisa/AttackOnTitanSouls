@@ -24,6 +24,7 @@ public class FirstBossMoveToState : FirstBossState
         MoveToTick();
         AccelerationTick();
         RotationMoveTick();
+        SetToCenter();
     }
     public override void Exit()
     {
@@ -78,5 +79,15 @@ public class FirstBossMoveToState : FirstBossState
 
     public void RotationMoveTick() {
         boss.View.MoveRotation();
+    }
+
+    public void SetToCenter() {
+        if (boss.transform.position.x < -70 ||
+            boss.transform.position.x > 70 ||
+            boss.transform.position.z < -100 ||
+            boss.transform.position.z > 120) {
+            boss.transform.position = GameObject.FindGameObjectWithTag("Center").transform.position;
+            animator.SetTrigger(IDLE);
+        }
     }
 }

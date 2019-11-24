@@ -93,7 +93,7 @@ public class FirstBossWallMoveToState : FirstBossState
             boss.transform.position.z > 120 )
         {
             boss.transform.position = GameObject.FindGameObjectWithTag("Center").transform.position;
-            animator.SetTrigger("Collision");
+            animator.SetTrigger(IDLE);
         }
     }
 }

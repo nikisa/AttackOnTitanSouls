@@ -31,7 +31,7 @@ public class RopeCollision : MonoBehaviour {
     RaycastHit2D[] RaycastHitBuffer = new RaycastHit2D[10];
     Collider2D[] ColliderHitBuffer = new Collider2D[10];
 
-    Vector3 Gravity = new Vector3(0f, 0f , 0f);
+    Vector3 Gravity = new Vector3(0f, 0f , -1f);
     Vector3 Node1Lock;
     Vector3 LastNodeLock;
 

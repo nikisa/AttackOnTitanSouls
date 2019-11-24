@@ -10,6 +10,7 @@ public class BS_BossIdle : BS_TimeBaseState
     public override void Enter()
     {
         base.Enter();
+        boss.Data.bossInfo.MoveSpeed = 0;
     }
     public override void Tick()
     {
