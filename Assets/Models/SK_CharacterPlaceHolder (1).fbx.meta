@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 487c6059ff0654744b3bcd78bfbd03a6
+guid: 5d9fc8674c94af54b8aba57fbce90e08
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: lambert1
+    2100000: lambert2
     2300000: //RootNode
     3300000: //RootNode
     4300000: SK_CharacterPH
