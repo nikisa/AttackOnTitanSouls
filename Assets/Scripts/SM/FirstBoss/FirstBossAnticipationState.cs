@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class FirstBossAnticipationState : FirstBossState
 {
+    public AnticipationData anticipationData;
+    public RotationAccelerationData rotationAccelerationData;
+    public GraphicsAnticipationData graphicsAnticipationData;
+    public RotationMoveData rotationMoveData;
     //private
     float timeStartAnticipation;
     float timeStartRotation;
@@ -14,7 +18,7 @@ public class FirstBossAnticipationState : FirstBossState
     {
         loopsInit();
         EnterAnticipation();
-        boss.View.ChangeMaterial(boss.Data.graphicsAnticipationInfo.AnticipationMat);
+        boss.View.ChangeMaterial(graphicsAnticipationData.AnticipationMat);
         EnterRotationAcceleration();
     }
 
@@ -27,11 +31,11 @@ public class FirstBossAnticipationState : FirstBossState
     }
     public override void Exit()
     {
-       boss.View.ChangeMaterial(boss.Data.graphicsAnticipationInfo.NormalMat);
+       boss.View.ChangeMaterial(graphicsAnticipationData.NormalMat);
     }
 
     public void loopsInit() {
-        loops = boss.Data.anticipationInfo.Loops;
+        loops = anticipationData.Loops;
     }
 
     public void EnterAnticipation() {
@@ -39,7 +43,7 @@ public class FirstBossAnticipationState : FirstBossState
         //boss.MoveSpeed = 0; è da fare? 
         loops--; // 
         timeStartAnticipation = Time.time;
-        if (boss.Data.anticipationInfo.InfinteLoops && loops <= 0) {
+        if (anticipationData.InfinteLoops && loops <= 0) {
             loops = 999999;
             //animator.SetTrigger(IDLE);
         }
@@ -54,19 +58,19 @@ public class FirstBossAnticipationState : FirstBossState
     }
 
     public void RotationAccelerationTick() {
-        if (Time.time - timeStartRotation > boss.Data.rotationAccelerationInfo.WaitOnStart) {
-            boss.View.AccelerationRotation(boss.Data.rotationAccelerationInfo.AccelerationTime, boss.Data.rotationAccelerationInfo.MaxSpeed);
+        if (Time.time - timeStartRotation > rotationAccelerationData.WaitOnStart) {
+            boss.View.AccelerationRotation(rotationAccelerationData.AccelerationTime, rotationMoveData.MaxSpeed);
         }
     }
 
     public void AnticipationTick() {
-        if ((Time.time - timeStartAnticipation) > boss.Data.anticipationInfo.AnticipationTime) {
+        if ((Time.time - timeStartAnticipation) > anticipationData.AnticipationTime) {
             animator.SetTrigger(MOVETO);
         }
     }
 
     public void RotationMoveTick() {
-        boss.View.MoveRotation();
+        boss.View.MoveRotation(rotationMoveData.MaxSpeed);
     }
 
 }

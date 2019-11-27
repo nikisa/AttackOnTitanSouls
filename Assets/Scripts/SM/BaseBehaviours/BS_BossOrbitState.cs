@@ -4,19 +4,31 @@ using UnityEngine;
 
 public class BS_BossOrbitState : BossBaseState
 {
+    public OrbitData orbitData;
+    public BossController.TargetsOrbit centerPoint;
+    [HideInInspector]
+    public GameObject CenterPoint;
+    public BossController.TargetsOrbit center;
+    [HideInInspector]
+    public GameObject Center;
+    public BossController.TargetsOrbit tentacle;
+    [HideInInspector]
+    public GameObject Tentacle;
     //private
     float angleRotation;
     float currentRadius;
     float initialPosition;
 
+
     public override void Enter()
     {
+        SetTargets();
         OrbitEnter();   
     }
     public override void Tick()
     {
         OrbitTick();
-        Debug.Log(boss.Data.orbit.CenterPoint.transform.localEulerAngles.y);
+        Debug.Log(CenterPoint.transform.localEulerAngles.y);
     }
     public override void Exit()
     {
@@ -24,24 +36,24 @@ public class BS_BossOrbitState : BossBaseState
     }
 
     public void OrbitEnter() {
-        boss.Data.orbit.CenterPoint.transform.SetParent(boss.Data.orbit.Center.transform);
+        CenterPoint.transform.SetParent(Center.transform);
         //Tentacle.transform.localScale = new Vector3(Tentacle.transform.localScale.x, InitialRadius, Tentacle.transform.localScale.z); viaggione onirico sul tentacolo
-        boss.Data.orbit.Tentacle.transform.SetParent(boss.Data.orbit.CenterPoint.transform);
-        boss.Data.orbit.Tentacle.transform.position = new Vector3(boss.Data.orbit.Tentacle.transform.position.x + boss.Data.orbitInfo.InitialRadius, boss.Data.orbit.Tentacle.transform.position.y, boss.Data.orbit.Tentacle.transform.position.z);
-        initialPosition = boss.Data.orbitInfo.InitialRadius;
+        Tentacle.transform.SetParent(CenterPoint.transform);
+        Tentacle.transform.position = new Vector3(Tentacle.transform.position.x + orbitData.InitialRadius, Tentacle.transform.position.y, Tentacle.transform.position.z);
+        initialPosition = orbitData.InitialRadius;
     }
 
     public void OrbitTick() {
-        angleRotation = Time.deltaTime * boss.Data.orbitInfo.OrbitSpeed;
-        if (boss.Data.orbit.CenterPoint.transform.localEulerAngles.y <= boss.Data.orbitInfo.Angle) {
+        angleRotation = Time.deltaTime * orbitData.OrbitSpeed;
+        if (CenterPoint.transform.localEulerAngles.y <= orbitData.Angle) {
             
-            if (boss.Data.orbitInfo.HasDeltaRadius) {
-                Debug.LogFormat("currentRotation{0},finalPossition{1},FInalAngle{2}", boss.Data.orbit.CenterPoint.transform.localEulerAngles.y, boss.Data.orbitInfo.FinalRadius, boss.Data.orbitInfo.Angle);
-                boss.Data.orbit.Tentacle.transform.localPosition = new Vector3(toFinalRadious(boss.Data.orbit.CenterPoint.transform.localEulerAngles.y, boss.Data.orbitInfo.FinalRadius, boss.Data.orbitInfo.Angle), boss.Data.orbit.Tentacle.transform.localPosition.y, boss.Data.orbit.Tentacle.transform.localPosition.z);
+            if (orbitData.HasDeltaRadius) {
+                Debug.LogFormat("currentRotation{0},finalPossition{1},FInalAngle{2}", CenterPoint.transform.localEulerAngles.y, orbitData.FinalRadius, orbitData.Angle);
+                Tentacle.transform.localPosition = new Vector3(toFinalRadious(CenterPoint.transform.localEulerAngles.y, orbitData.FinalRadius, orbitData.Angle), Tentacle.transform.localPosition.y, Tentacle.transform.localPosition.z);
 
-                Mathf.Clamp(boss.Data.orbit.Tentacle.transform.localPosition.x, initialPosition, boss.Data.orbitInfo.FinalRadius);
+                Mathf.Clamp(Tentacle.transform.localPosition.x, initialPosition, orbitData.FinalRadius);
             }
-            boss.Data.orbit.CenterPoint.transform.Rotate(Vector3.up * angleRotation);
+           CenterPoint.transform.Rotate(Vector3.up * angleRotation);
 
         }
         else {
@@ -54,14 +66,20 @@ public class BS_BossOrbitState : BossBaseState
     }
 
     float toFinalRadious(float _curreRadious , float _finalPosition , float _angleRotation) {
-        _finalPosition = boss.Data.orbitInfo.FinalRadius - boss.Data.orbitInfo.InitialRadius;
+        _finalPosition = orbitData.FinalRadius - orbitData.InitialRadius;
         float currentPosition = (_curreRadious * _finalPosition) / _angleRotation;
 
-        if (currentRadius < boss.Data.orbitInfo.InitialRadius) {
-            return currentPosition + boss.Data.orbitInfo.InitialRadius;
+        if (currentRadius < orbitData.InitialRadius) {
+            return currentPosition + orbitData.InitialRadius;
         }
         else {
             return currentPosition;
         }
+    }
+    public void SetTargets()
+    {
+       CenterPoint=boss.SetTargetOrbit(centerPoint);
+       Center = boss.SetTargetOrbit(center);
+       Tentacle = boss.SetTargetOrbit(tentacle);
     }
 }

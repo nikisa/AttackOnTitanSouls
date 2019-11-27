@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class FirstBossMoveToState : FirstBossState
 {
+    public AccelerationData accelerationData;
+    public MoveToData moveToData;
+    public RotationMoveData rotationMoveData;
+    public BossController.Targets targets;
+    [HideInInspector]
+    public GameObject Target;
     //private 
     Vector3 targetPosition;
     float startY;
@@ -16,6 +22,7 @@ public class FirstBossMoveToState : FirstBossState
 
     public override void Enter()
     {
+        SetTarget();
         MoveToEnter();
         AccelerationEnter();
     }
@@ -33,7 +40,7 @@ public class FirstBossMoveToState : FirstBossState
     public void ChargeAttack()
     { 
 
-        targetPosition = new Vector3(boss.Data.moveToInfo.Target.transform.position.x, startY, boss.Data.moveToInfo.Target.transform.position.z);
+        targetPosition = new Vector3(Target.transform.position.x, startY, Target.transform.position.z);
         boss.RotateTarget(targetPosition);
 
     }
@@ -53,14 +60,14 @@ public class FirstBossMoveToState : FirstBossState
         }
         distance = Vector3.Distance(boss.transform.position, targetPosition);
         //newDistance = Vector3.Distance(boss.transform.position, Target.transform.position);
-        if (boss.Data.moveToInfo.StopsAtTargetOvertaking) {
-            if (boss.transform.position.x >= boss.Data.moveToInfo.Target.transform.position.x - range && boss.transform.position.x <= boss.Data.moveToInfo.Target.transform.position.x + range
-                || boss.transform.position.z >= boss.Data.moveToInfo.Target.transform.position.z - range && boss.transform.position.z <= boss.Data.moveToInfo.Target.transform.position.z + range) {
+        if (moveToData.StopsAtTargetOvertaking) {
+            if (boss.transform.position.x >= Target.transform.position.x - range && boss.transform.position.x <= Target.transform.position.x + range
+                || boss.transform.position.z >= Target.transform.position.z - range && boss.transform.position.z <= Target.transform.position.z + range) {
                 animator.SetTrigger(RECOVERY);
             }
 
         }
-        if (distance <= 1 && !boss.Data.moveToInfo.StopsAtTargetOvertaking) {
+        if (distance <= 1 && !moveToData.StopsAtTargetOvertaking) {
             animator.SetTrigger(RECOVERY);
         }
 
@@ -72,13 +79,13 @@ public class FirstBossMoveToState : FirstBossState
     }
 
     public void AccelerationTick() {
-        if (Time.time - timeStartAcceleration > boss.Data.accelerationInfo.WaitOnStart) {
-            boss.Acceleration(boss.Data.accelerationInfo.TimeAcceleration, boss.Data.accelerationInfo.MaxSpeed);
+        if (Time.time - timeStartAcceleration > accelerationData.WaitOnStart) {
+            boss.Acceleration(accelerationData.TimeAcceleration, moveToData.MaxSpeed);
         }
     }
 
     public void RotationMoveTick() {
-        boss.View.MoveRotation();
+        boss.View.MoveRotation(rotationMoveData.MaxSpeed);
     }
 
     public void SetToCenter() {
@@ -89,5 +96,9 @@ public class FirstBossMoveToState : FirstBossState
             boss.transform.position = GameObject.FindGameObjectWithTag("Center").transform.position;
             animator.SetTrigger(IDLE);
         }
+    }
+    public void SetTarget()
+    {
+        Target=boss.SetTarget(targets);
     }
 }

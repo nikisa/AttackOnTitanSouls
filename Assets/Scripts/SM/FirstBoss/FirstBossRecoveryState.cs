@@ -5,7 +5,12 @@ using UnityEngine.Animations;
 
 public class FirstBossRecoveryState : FirstBossState
 {
- 
+
+    public RecoveryData recoveryData;
+    public  RotationDecelerationData rotationDecelerationData;
+    public DecelerationData decelerationData;
+    public RotationMoveData rotationMoveData;
+
     //private
     bool stop;
     float timeStartRecovery;
@@ -45,7 +50,7 @@ public class FirstBossRecoveryState : FirstBossState
             animator.SetTrigger("Collision");
         }
 
-        if (boss.Data.decelerationInfo.LowSpeed >= 0) {
+        if (decelerationData.LowSpeed >= 0) {
             boss.Move();
         }
         else {
@@ -53,12 +58,12 @@ public class FirstBossRecoveryState : FirstBossState
         }
         
 
-        if (boss.Data.bossInfo.MoveSpeed <= boss.Data.decelerationInfo.LowSpeed && !stop) {
+        if (boss.MoveSpeed <= decelerationData.LowSpeed && !stop) {
             stop = true;
             timeStartRecovery = Time.time;
 
         }
-        if ((Time.time - timeStartRecovery) > boss.Data.recoveryInfo.RecoveryTime) {
+        if ((Time.time - timeStartRecovery) > recoveryData.RecoveryTime) {
             animator.SetTrigger("Anticipation");
         }
     }
@@ -69,13 +74,13 @@ public class FirstBossRecoveryState : FirstBossState
 
     public void DecelerationTick() {
 
-        if (Time.time - timeStartDeceleration > boss.Data.decelerationInfo.WaitOnStart) {
-            boss.Deceleration(boss.Data.decelerationInfo.TimeDeceleration, boss.Data.decelerationInfo.LowSpeed);
+        if (Time.time - timeStartDeceleration > decelerationData.WaitOnStart) {
+            boss.Deceleration(decelerationData.TimeDeceleration, decelerationData.LowSpeed);
         }
     }
 
     public void RotationMoveTick() {
-        boss.View.MoveRotation();
+        boss.View.MoveRotation(rotationMoveData.MaxSpeed);
     }
 
     public void DecelerationRotationEnter() {
@@ -84,8 +89,8 @@ public class FirstBossRecoveryState : FirstBossState
     }
 
     public void DecelerationRotationTick() {
-        if (Time.time - timeStartRotationDeceleration > boss.Data.rotationDecelerationInfo.WaitOnStart) {
-            boss.View.DecelerationRotation(boss.Data.rotationDecelerationInfo.DecelerationTime);
+        if (Time.time - timeStartRotationDeceleration > rotationDecelerationData.WaitOnStart) {
+            boss.View.DecelerationRotation(rotationDecelerationData.DecelerationTime , rotationDecelerationData.LowSpeed);
         }
     }
 }

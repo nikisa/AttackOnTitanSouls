@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossBaseState : BaseState
 {
     protected BossController boss;
-    protected FirstBossData data;
+    //  protected FirstBossData data;
 
     protected const string END_STATE_TRIGGER = "EndState";
 

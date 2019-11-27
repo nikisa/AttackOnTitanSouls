@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class BS_TimeBaseState : BossBaseState
 {
-    
+    public IdleData idleData; // da sistemare in time data
     float endTime;
 
     public override void Enter()
     {
-        endTime = Time.time + boss.Data.idleInfo.stateDuration;
+        endTime = Time.time + idleData.stateDuration;
     }
 
     public override void Tick()
