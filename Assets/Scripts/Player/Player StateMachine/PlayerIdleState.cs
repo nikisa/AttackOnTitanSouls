@@ -7,7 +7,7 @@ public class PlayerIdleState : PlayerBaseState {
 
     //Inspector
     public PlayerIdleData playerIdleData;
-    //public PlayerDashState playerDashData;
+
 
     // Private
     bool newInput;
@@ -18,6 +18,7 @@ public class PlayerIdleState : PlayerBaseState {
     float startDash;
     float startTime;
     float boostTime;
+    float timer;
     Vector3 movementVelocity = Vector3.zero;
     //InputData inputData;
     DataInput dataInput;
@@ -82,7 +83,10 @@ public class PlayerIdleState : PlayerBaseState {
         newInput = true;
     }
 
+
     public override void Enter() {
+
+        timer = Time.time;
 
         accelRatePerSec = playerIdleData.maxSpeed / (playerIdleData.framesZeroToMax / 60);
         decelRatePerSec = -playerIdleData.maxSpeed / (playerIdleData.framesMaxToZero / 60);
@@ -90,6 +94,13 @@ public class PlayerIdleState : PlayerBaseState {
     }
 
     public override void Tick() {
+
+        if (Time.time < timer + playerIdleData.resumeControl) {
+            canDash = false;
+        }
+        else {
+            canDash = true;
+        }
 
         dataInput = player.dataInput;
 

@@ -12,6 +12,8 @@ public class PlayerBaseState : BaseState {
 
     protected const string IDLE = "Idle";
     protected const string DASH = "Dash";
+
+
     //protected const string ANTICIPATION = "Anticipation";
     //protected const string MOVETO = "MoveTo";
     //protected const string RECOVERY = "Recovery";

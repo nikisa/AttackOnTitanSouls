@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBoostState : PlayerIdleState
+public class PlayerBoostState : PlayerBaseState
 {
     
     public override void Enter() {

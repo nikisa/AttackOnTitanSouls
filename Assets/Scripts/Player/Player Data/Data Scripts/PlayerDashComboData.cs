@@ -5,6 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerData", menuName = "PlayerData/Dash Combo Data")]
 public class PlayerDashComboData : ScriptableObject
 {
-    public float 
-
+    public float DashComboTime;
 }

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: PlayerDashData
   m_EditorClassIdentifier: 
   isHookTest: 0
-  DashDistance: 35
+  DashDistance: 10
   DashTimeFrames: 4
   DashEase: 1
   ResumeControl: 1
   DashTimeFreeze: 0
+  frameCombo: 1
