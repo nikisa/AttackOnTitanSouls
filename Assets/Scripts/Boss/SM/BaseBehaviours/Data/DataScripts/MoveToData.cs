@@ -9,4 +9,8 @@ public class MoveToData : ScriptableObject
     public float MaxSpeed;
     [Tooltip("Exits the state when it passes over the coordinates of the target")]
     public bool StopsAtTargetOvertaking; // per testing 
+
+    // scia
+    public GameObject TrailOb;
+    public float TrailDelay;
 }

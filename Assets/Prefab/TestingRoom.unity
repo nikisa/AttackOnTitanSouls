@@ -3338,6 +3338,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scene
       objectReference: {fileID: 0}
+    - target: {fileID: 3623586589825629493, guid: 030473f00ebc52d4a88b141d27ac83c5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1060819317393852858, guid: 030473f00ebc52d4a88b141d27ac83c5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3401,7 +3406,7 @@ PrefabInstance:
     - target: {fileID: 1473356216212266771, guid: 030473f00ebc52d4a88b141d27ac83c5,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 030473f00ebc52d4a88b141d27ac83c5, type: 3}

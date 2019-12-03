@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxSpeed: 300
   StopsAtTargetOvertaking: 0
+  TrailOb: {fileID: 1581561734376683112, guid: ea6312ed7295df1408345b4d11282216, type: 3}
+  TrailDelay: 0

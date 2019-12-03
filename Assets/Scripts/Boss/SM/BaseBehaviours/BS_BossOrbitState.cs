@@ -28,7 +28,7 @@ public class BS_BossOrbitState : BossBaseState
     public override void Tick()
     {
         OrbitTick();
-        Debug.Log(CenterPoint.transform.localEulerAngles.y);
+
     }
     public override void Exit()
     {
@@ -48,7 +48,7 @@ public class BS_BossOrbitState : BossBaseState
         if (CenterPoint.transform.localEulerAngles.y <= orbitData.Angle) {
             
             if (orbitData.HasDeltaRadius) {
-                Debug.LogFormat("currentRotation{0},finalPossition{1},FInalAngle{2}", CenterPoint.transform.localEulerAngles.y, orbitData.FinalRadius, orbitData.Angle);
+
                 Tentacle.transform.localPosition = new Vector3(toFinalRadious(CenterPoint.transform.localEulerAngles.y, orbitData.FinalRadius, orbitData.Angle), Tentacle.transform.localPosition.y, Tentacle.transform.localPosition.z);
 
                 Mathf.Clamp(Tentacle.transform.localPosition.x, initialPosition, orbitData.FinalRadius);

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: WallAnticipationData
   m_EditorClassIdentifier: 
   AnticipationTime: 1
-  Loops: 1
-  InfinteLoops: 1
+  Loops: 3
+  InfinteLoops: 0

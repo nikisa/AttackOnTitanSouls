@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossSetup : BossBaseState
+public class BossSetup : FirstBossState
 {
+    public AnticipationData anticipationData;
 
     void Setup() {
         
@@ -13,8 +14,10 @@ public class BossSetup : BossBaseState
         //boss.Data.orbit.CenterPoint = SetTargetOrbit(BossData.TargetsOrbit.CenterPoint);
         //boss.Data.orbit.Tentacle = SetTargetOrbit(BossData.TargetsOrbit.Tentacle);
         //boss.Data.orbit.Center = SetTargetOrbit(BossData.TargetsOrbit.Boss);
+        
         boss.Player = FindObjectOfType<PlayerController>();
         boss.Graphics = GameObject.FindGameObjectWithTag("BossGraphics");
+        boss.loops = anticipationData.Loops;
 
     }
 

@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class FirstBossController : BossController
 {
-
+    //[HideInInspector]
+    public int loops; // c'è un probema non so dove metterlo
 }

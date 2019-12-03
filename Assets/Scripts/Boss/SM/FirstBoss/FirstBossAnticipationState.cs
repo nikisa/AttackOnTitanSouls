@@ -13,10 +13,15 @@ public class FirstBossAnticipationState : FirstBossState
     float timeStartRotation;
     float loops;
 
-    
+     public void Awake()   /// dove metterla?
+     {
+       
+        loops = anticipationData.Loops;
+        Debug.Log("awake");
+     }
     public override void Enter()
     {
-        loopsInit();
+        //loopsInit();
         EnterAnticipation();
         boss.View.ChangeMaterial(graphicsAnticipationData.AnticipationMat);
         EnterRotationAcceleration();
@@ -48,7 +53,8 @@ public class FirstBossAnticipationState : FirstBossState
             //animator.SetTrigger(IDLE);
         }
         if (loops <= 0) {
-            Debug.Log("hhh");
+            Debug.Log("fine ciclo");
+            loops = anticipationData.Loops;
             animator.SetTrigger(IDLE);
         }
     }

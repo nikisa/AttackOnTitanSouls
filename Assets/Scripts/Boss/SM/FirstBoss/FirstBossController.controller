@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d55174405e3d064783fd2979cb29dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anticipationData: {fileID: 11400000, guid: 432ea751de702564b96cd5ac895e23b0, type: 2}
 --- !u!114 &114273573101622128
 MonoBehaviour:
   m_ObjectHideFlags: 1

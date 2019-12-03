@@ -17,6 +17,7 @@ public class FirstBossMoveToState : FirstBossState
     float distance;
     float WallDistance;
     float timeStartAcceleration;
+    float timeStartTrail;
     RaycastHit hit;
 
 
@@ -25,6 +26,8 @@ public class FirstBossMoveToState : FirstBossState
         SetTarget();
         MoveToEnter();
         AccelerationEnter();
+        TrailEnter();
+
     }
     public override void Tick()
     {
@@ -32,6 +35,8 @@ public class FirstBossMoveToState : FirstBossState
         AccelerationTick();
         RotationMoveTick();
         SetToCenter();
+        TrailTick();
+       
     }
     public override void Exit()
     {
@@ -55,7 +60,7 @@ public class FirstBossMoveToState : FirstBossState
         WallDistance = boss.CollisionDistance(hit.point);
         //Debug.Log(WallDistance);
         if (WallDistance <= 2) {
-            Debug.Log(WallDistance + "OK__________" );
+      //      Debug.Log(WallDistance + "OK__________" );
             animator.SetTrigger("Collision");
         }
         distance = Vector3.Distance(boss.transform.position, targetPosition);
@@ -87,7 +92,21 @@ public class FirstBossMoveToState : FirstBossState
     public void RotationMoveTick() {
         boss.View.MoveRotation(rotationMoveData.MaxSpeed);
     }
-
+    public void TrailTick()
+    {
+        
+        if (Time.time - timeStartTrail > moveToData.TrailDelay )
+        {
+            Debug.Log("dentro");
+            Instantiate(moveToData.TrailOb, boss.transform.position, Quaternion.identity);
+            timeStartTrail = Time.time;
+        }
+      
+    }
+    public void TrailEnter()
+    {
+        timeStartTrail = Time.time;
+    }
     public void SetToCenter() {
         if (boss.transform.position.x < -70 ||
             boss.transform.position.x > 70 ||

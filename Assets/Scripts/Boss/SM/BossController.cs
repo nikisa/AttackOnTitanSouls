@@ -13,8 +13,8 @@ public class BossController : MonoBehaviour
     public float MoveSpeed;
     [HideInInspector]
     public float RotationSpeed;
-
    
+
 
 
 
