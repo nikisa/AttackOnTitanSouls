@@ -49,7 +49,6 @@ public class Rope : MonoBehaviour
         // Simulation
         Vector3 forceGravity = new Vector3(0, -9.81f, 0);
 
-
         for (int i = 0; i < this.segmentLength; i++) {
             RopeSegment firstSegment = this.ropeSegments[i];
             Vector3 velocity = firstSegment.posNow - firstSegment.posOld;
