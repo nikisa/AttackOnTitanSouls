@@ -9,9 +9,9 @@ public class BossController : MonoBehaviour
     public BossView View;
     public PlayerController Player;
     public GameObject Graphics;
-    [HideInInspector]
+    //[HideInInspector]
     public float MoveSpeed;
-    [HideInInspector]
+    // [HideInInspector]
     public float RotationSpeed;
    
 
@@ -23,8 +23,10 @@ public class BossController : MonoBehaviour
     Vector3 targetDirection;
     Quaternion bossRotation;
     RaycastHit hitWalls;
+    RaycastHit hitChase;
     float negativeRotationSpeed;
     float distance;
+    float playerDirection;
     // Start is called before the first frame update
 
     public void BossSetup()
@@ -87,7 +89,31 @@ public class BossController : MonoBehaviour
         Physics.Raycast(transform.position, transform.forward, out hitWalls, Mathf.Infinity);
         Debug.DrawRay(transform.position, transform.forward, Color.blue);
         return hitWalls;
-    }  
+    }
+    //public void RotationChase(GameObject _target , float AngularSpeed)
+    //{
+    //    Physics.Raycast(transform.position, transform.forward, out hitChase, Mathf.Infinity);
+    //    Debug.Log(hitChase.collider.name);
+    //    // playerDirection=Vector3.Dot(this.transform.right , _target.transform.position);
+    //    if (_target.transform.position.x > hitChase.point.x || _target.transform.position.z > hitChase.point.z)
+    //    {
+    //        Debug.Log("rigth");
+    //        MoveRotationRight(AngularSpeed);
+    //    }
+    //    else if (_target.transform.position.x < hitChase.point.x)
+    //    {
+    //        Debug.Log("left");
+    //        MoveRotationLeft(AngularSpeed);
+    //    }
+    //}
+    //public void MoveRotationRight(float AngularSpeed)
+    //{
+    //    transform.Rotate(Vector3.up * Time.deltaTime * AngularSpeed);
+    //}
+    //public void MoveRotationLeft(float AngularSpeed)
+    //{
+    //    transform.Rotate(Vector3.down * Time.deltaTime * AngularSpeed);
+    //}
 
     public float CollisionDistance(Vector3 _hitWalls)
     {

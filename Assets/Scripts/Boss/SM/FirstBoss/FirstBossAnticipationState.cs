@@ -17,7 +17,7 @@ public class FirstBossAnticipationState : FirstBossState
      {
        
         loops = anticipationData.Loops;
-        Debug.Log("awake");
+
      }
     public override void Enter()
     {

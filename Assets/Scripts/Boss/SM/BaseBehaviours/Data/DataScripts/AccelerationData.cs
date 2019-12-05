@@ -9,4 +9,6 @@ public class AccelerationData : ScriptableObject
     public float TimeAcceleration;
     [Tooltip("On State Enter: wait X seconds before accelerating")]
     public float WaitOnStart;
+
+    public bool HasAcceleration;
 }

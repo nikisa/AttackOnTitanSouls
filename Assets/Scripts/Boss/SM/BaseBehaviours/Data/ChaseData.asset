@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29a4aec0e21c8624eaa3f6700f5be940, type: 3}
-  m_Name: AccelerationData
+  m_Script: {fileID: 11500000, guid: d148cdeed6aa2af41ad59f19f1e293e8, type: 3}
+  m_Name: ChaseData
   m_EditorClassIdentifier: 
-  TimeAcceleration: 1
-  WaitOnStart: 0
-  HasAcceleration: 1
+  MaxSpeed: 15
+  HasAngularSpeed: 1
+  AngularSpeed: 3
+  TimeChase: 30
