@@ -25,7 +25,7 @@ public class BossSetup : FirstBossState
         Setup();
         
         TriggerExitState();
-        Debug.Log("Enter");
+
     }
    
    
