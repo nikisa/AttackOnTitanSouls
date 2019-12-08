@@ -18,11 +18,13 @@ public class FirstBossMoveToState : FirstBossState
     float WallDistance;
     float timeStartAcceleration;
     float timeStartTrail;
+    float timeStartMoveTo;
     RaycastHit hit;
 
 
     public override void Enter()
     {
+        RotationEnter();
         SetTarget();
         MoveToEnter();
         AccelerationEnter();
@@ -51,20 +53,25 @@ public class FirstBossMoveToState : FirstBossState
     }
 
     public void MoveToEnter() {
+        boss.MoveSpeed += moveToData.AddToVelocity;
         startY = boss.transform.position.y;
         ChargeAttack();
         hit = boss.RaycastCollision();
+        timeStartMoveTo = Time.time;
     }
-
+    public void RotationEnter()
+    {
+        boss.RotationSpeed += rotationMoveData.AddToRotationSpeed;
+    }
     public void MoveToTick() {
         WallDistance = boss.CollisionDistance(hit.point);
-        //Debug.Log(WallDistance);
-        if (WallDistance <= 2) {
-      //      Debug.Log(WallDistance + "OK__________" );
+        distance = Vector3.Distance(boss.transform.position, targetPosition);
+        if (WallDistance <= 2 && moveToData.StopOnSolid) {
+
             animator.SetTrigger("Collision");
         }
-        distance = Vector3.Distance(boss.transform.position, targetPosition);
-        //newDistance = Vector3.Distance(boss.transform.position, Target.transform.position);
+        
+        
         if (moveToData.StopsAtTargetOvertaking) {
             if (boss.transform.position.x >= Target.transform.position.x - range && boss.transform.position.x <= Target.transform.position.x + range
                 || boss.transform.position.z >= Target.transform.position.z - range && boss.transform.position.z <= Target.transform.position.z + range) {
@@ -72,9 +79,14 @@ public class FirstBossMoveToState : FirstBossState
             }
 
         }
-        if (distance <= 1 && !moveToData.StopsAtTargetOvertaking) {
+        if (Time.time - timeStartMoveTo > moveToData.MoveToDuration)
+        {
+            Debug.Log("TEMPO");
             animator.SetTrigger(RECOVERY);
         }
+        //if (distance <= 1 && !moveToData.StopsAtTargetOvertaking) {
+        //    animator.SetTrigger(RECOVERY);  bohhhhh
+        //}
 
         boss.Move();
     }
