@@ -19,7 +19,6 @@ public class GrappleManager : MonoBehaviour
     // Private
     private ArrayList RopeNodes; 
 
-
     public void InstantiateRope() {
         for (int i = 0; i < MassPointNumber; i++) {
             RopeNode node = (GameObject.Instantiate(Resources.Load("RopeNode") as GameObject)).GetComponent<RopeNode>();
