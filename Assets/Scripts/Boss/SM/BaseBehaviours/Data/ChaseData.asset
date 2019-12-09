@@ -15,4 +15,4 @@ MonoBehaviour:
   MaxSpeed: 15
   HasAngularSpeed: 1
   AngularSpeed: 3
-  TimeChase: 30
+  TimeChase: 5

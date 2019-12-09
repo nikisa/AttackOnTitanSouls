@@ -10,8 +10,17 @@ public class PlayerController : MonoBehaviour
     
     public DataInput dataInput;
     public Animator animator;
+    public CharacterController controller;
+
+    Camera camera;
+
+    public Transform rotationTransform;
+    public Transform body;
+    public float movimentRatio;
 
     protected virtual void Start() {
+        camera = Camera.main;
+
         foreach (var item in animator.GetBehaviours<BaseState>()) {
             item.SetContext(this, animator);
         }
@@ -23,41 +32,82 @@ public class PlayerController : MonoBehaviour
     //        isMoving = true;
     //    }
 
-    private void FixedUpdate() {
+    private void Update() 
+    {
         CheckInput();
+
+
+
     }
 
-   
+    void CalculateOrientationFromMouse()
+    {
+        // point in plane from mouse position
+        Vector3 mouse = Input.mousePosition;
+        var ray = camera.ScreenPointToRay(mouse);
+        float x = ray.origin.x - ray.direction.x * ray.origin.y / ray.direction.y;
+        float z = ray.origin.z - ray.direction.z * ray.origin.y / ray.direction.y;
+        Vector3 point = new Vector3(x, 0, z);
+
+        var direction = (point - transform.position);
+        direction.y = 0;
+        if (direction.sqrMagnitude > 0.001f) dataInput.currentOrientation = Quaternion.LookRotation(direction.normalized);
+    }
+
     //public InputData getData() {
     //    return im.data;
     //}
 
-    
-    
+
+
     public void CheckInput() {
         dataInput.Horizontal = Input.GetAxis("Horizontal");
         dataInput.Vertical = Input.GetAxis("Vertical");
+        dataInput.HorizontalLook = Input.GetAxis("HorizontalLook");
+        dataInput.VerticalLook = Input.GetAxis("VerticalLook");
         dataInput.Dash = Input.GetButton("Dash");
         dataInput.DashDown = Input.GetButtonDown("Dash");
         dataInput.DashUp = Input.GetButtonUp("Dash");
+
+        Vector3 lookVector = new Vector3(dataInput.HorizontalLook, 0, dataInput.VerticalLook);
+
+        Debug.LogFormat("PAD:{0}", lookVector);
+
+        if (lookVector.sqrMagnitude<0.0001f)
+        {
+            //CalculateOrientationFromMouse();
+        }
+        else
+        {
+            dataInput.currentOrientation = Quaternion.LookRotation(lookVector.normalized);
+        }
+
+        
+
     }
 
 }
 
     public struct DataInput {
         public float Horizontal;
+        public float HorizontalLook;
         public float Vertical;
+        public float VerticalLook;
         public bool Dash;
         public bool DashDown;
         public bool DashUp;
+        public Quaternion currentOrientation;
 
 
-    public DataInput(float _horizontal, float _vertical , bool _dash , bool _dashDown , bool _dashUp) {
+    public DataInput(float _horizontal, float _vertical , bool _dash , bool _dashDown , bool _dashUp, Quaternion _currentRotation) {
         Horizontal = _horizontal;
         Vertical = _vertical;
         Dash = _dash;
         DashDown = _dashDown;
         DashUp = _dashUp;
+        this.currentOrientation = _currentRotation;
+        HorizontalLook = 0;
+        VerticalLook = 0;
     }
 
 

@@ -9,6 +9,7 @@ TagManager:
   - CenterPoint
   - Tentacle
   - Center
+  - Pushable
   layers:
   - Default
   - TransparentFX

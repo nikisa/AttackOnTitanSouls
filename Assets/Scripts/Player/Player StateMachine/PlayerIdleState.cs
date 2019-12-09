@@ -104,6 +104,13 @@ public class PlayerIdleState : PlayerBaseState {
 
         dataInput = player.dataInput;
 
+        player.rotationTransform.localRotation = dataInput.currentOrientation;
+
+        // ruoto il personaggio in funzione della del suo movimento
+        Vector3 rotationAxis = Quaternion.AngleAxis(90,Vector3.up)* movementVelocity;
+        Quaternion moveRotation = Quaternion.AngleAxis(movementVelocity.magnitude * player.movimentRatio, rotationAxis);
+        player.body.rotation = moveRotation * player.rotationTransform.rotation;
+
         if (dataInput.Dash && canDash)
         {
             startDash = Time.time;
@@ -154,8 +161,8 @@ public class PlayerIdleState : PlayerBaseState {
                 movementVelocity.z = 0;
             }
 
-            
-            player.transform.Translate(movementVelocity * Time.deltaTime);
+
+            Movement();
         }
         else {
             if (movementVelocity.y < decelRatePerSec * Time.deltaTime)
@@ -166,19 +173,79 @@ public class PlayerIdleState : PlayerBaseState {
                 movementVelocity.y = 0;
             }
 
-            player.transform.Translate(movementVelocity * Time.deltaTime);
+            Movement();
 
         }
 
     }
 
-    public void Movement() {
+    public void Movement() 
+    {
+        float skin = 1;
+        float softSkin = 0.01f;
+
+        if (movementVelocity.sqrMagnitude < 0.001) return;
+
+        int interpolation = (int)(movementVelocity.magnitude/1f) +1;
+
+        for (int i = 0; i < interpolation; i++)
+        {
+            if (movementVelocity.sqrMagnitude < 0.001) return;
+
+            float time = Time.deltaTime / interpolation;
+
+            RaycastHit[] hits = Physics.SphereCastAll(player.transform.position + Vector3.up * 1.1f, skin, movementVelocity, (movementVelocity * time).magnitude);
+
+            if (hits==null || hits.Length==0)
+            {
+                player.transform.Translate(movementVelocity * time);
+            }
+            else
+            {
+                //pushable
+                foreach (var hit in hits)
+                {
+                    if (hit.transform.gameObject.CompareTag("Pushable"))
+                    {
+                        var rb = hit.transform.GetComponent<Rigidbody>();
+                        rb.AddForceAtPosition(movementVelocity, hit.point, ForceMode.Acceleration);
+                        Debug.LogFormat("Impact:{0}", movementVelocity);
+                    }
+                }
+
+                //slope
+                if (hits.Length==1)
+                {
+                    var normal = Quaternion.AngleAxis(90, Vector3.up) * hits[0].normal;
+                    Debug.DrawRay(hits[0].point, normal * 4, Color.red, 2);
+
+                    movementVelocity = normal * Vector3.Dot(movementVelocity, normal);
+                    movementVelocity.y = 0;
+
+                    player.transform.Translate(movementVelocity * time);
+                }
+
+                
+
+            }
+
+                //player.transform.Translate(movementVelocity.normalized * (hit.distance- softSkin));
+                //Debug.Log(hit.transform.gameObject.name, hit.transform.gameObject);
+           
+        }
+
+
+        
+        //player.controller.Move(movementVelocity * Time.deltaTime + Vector3.down);
+
+        /*
         if (!playerIdleData.isHookTest) {
             player.transform.Translate(movementVelocity * Time.deltaTime);
         }
         else {
             player.transform.Translate(movementVelocity * Time.deltaTime);
         }
+        */
     }
 
 
