@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dda940d478a7eb4bb92d72f09cd8bf2, type: 3}
   m_Name: WallRecoveryData
   m_EditorClassIdentifier: 
-  RecoveryTime: 2
+  HasTimer: 0
+  Time: 0
+  TimeDeceleration: 0
+  LowSpeed: 0

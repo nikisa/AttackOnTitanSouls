@@ -41,12 +41,20 @@ public class BossChaseState : BossBaseState
     public void ChaseEnter()
     {
         //chaseData.AngularSpeed = chaseData.MaxSpeed /accelerationData.TimeAcceleration / 10;
-        float timeStartChase = Time.time;
+        if (chaseData.HasTimer)
+        {
+            timeStartChase = Time.time;
+        }
+        else
+        {
+            timeStartChase = Mathf.Infinity;
+        }
+        
         startY = boss.transform.position.y;
     }
     public void ChaseTick()
     {
-        if (Time.time - timeStartChase < chaseData.TimeChase)
+        if (Time.time - timeStartChase < chaseData.Time)
         {
             if (chaseData.HasAngularSpeed)
             {

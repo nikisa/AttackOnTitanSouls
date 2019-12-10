@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FirstBossMoveToState : FirstBossState
 {
-    public AccelerationData accelerationData;
+    //public AccelerationData accelerationData;
     public MoveToData moveToData;
     public RotationMoveData rotationMoveData;
     public BossController.Targets targets;
@@ -53,11 +53,21 @@ public class FirstBossMoveToState : FirstBossState
     }
 
     public void MoveToEnter() {
+        boss.moveToData = moveToData;
+        boss.MaxSpeed = moveToData.MaxSpeed;
         boss.MoveSpeed += moveToData.AddToVelocity;
         startY = boss.transform.position.y;
         ChargeAttack();
         hit = boss.RaycastCollision();
-        timeStartMoveTo = Time.time;
+        if (moveToData.HasTimer)
+        {
+            timeStartMoveTo = Time.time;
+        }
+        else
+        {
+            timeStartMoveTo = Mathf.Infinity;
+        }
+        
     }
     public void RotationEnter()
     {
@@ -75,14 +85,14 @@ public class FirstBossMoveToState : FirstBossState
         if (moveToData.StopsAtTargetOvertaking) {
             if (boss.transform.position.x >= Target.transform.position.x - range && boss.transform.position.x <= Target.transform.position.x + range
                 || boss.transform.position.z >= Target.transform.position.z - range && boss.transform.position.z <= Target.transform.position.z + range) {
-                animator.SetTrigger(RECOVERY);
+                animator.SetTrigger("Deceleration");
             }
 
         }
-        if (Time.time - timeStartMoveTo > moveToData.MoveToDuration)
+        if (Time.time - timeStartMoveTo > moveToData.Time)
         {
             Debug.Log("TEMPO");
-            animator.SetTrigger(RECOVERY);
+            animator.SetTrigger("Deceleration");
         }
         //if (distance <= 1 && !moveToData.StopsAtTargetOvertaking) {
         //    animator.SetTrigger(RECOVERY);  bohhhhh
@@ -96,9 +106,9 @@ public class FirstBossMoveToState : FirstBossState
     }
 
     public void AccelerationTick() {
-        if (Time.time - timeStartAcceleration > accelerationData.WaitOnStart) {
-            boss.Acceleration(accelerationData.TimeAcceleration, moveToData.MaxSpeed);
-        }
+        //if (Time.time - timeStartAcceleration > moveToData.WaitOnStart) {
+            boss.Acceleration(moveToData.TimeAcceleration, moveToData.MaxSpeed);
+        //}
     }
 
     public void RotationMoveTick() {
