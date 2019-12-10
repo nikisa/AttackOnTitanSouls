@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
 
         if (lookVector.sqrMagnitude<0.0001f)
         {
-            //CalculateOrientationFromMouse();
+            CalculateOrientationFromMouse();
         }
         else
         {
