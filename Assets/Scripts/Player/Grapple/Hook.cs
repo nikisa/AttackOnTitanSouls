@@ -9,7 +9,9 @@ public class Hook : MonoBehaviour
     public bool ropeFinished;
     public float VectorAngle;
     public float topSpeed;
+    public float DynamicFriction;
     public int hookPointID;
     public Vector3 OldPos;
     public Vector3 Inertia;
+    
 }

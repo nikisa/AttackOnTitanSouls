@@ -16,10 +16,9 @@ public class GrappleManager : MonoBehaviour
 
     public int MassPointNumber = 32;
     public float MassPointLength = 0.25f;
-    public float hookDynamicFriction = 0f;
 
 
-    private void Update() {
+    private void LateUpdate() {
 
         if (debugMode) {
             if (Input.GetKeyDown(KeyCode.Mouse0)) {
@@ -49,21 +48,27 @@ public class GrappleManager : MonoBehaviour
                     UpdateHook();
                     UpdateLinks();
                 }
-                if (Input.GetKeyDown(KeyCode.Mouse1)) {
+                if (Input.GetKey(KeyCode.Mouse1) && !Input.GetKeyUp(KeyCode.Mouse1)) {
                     RewindPoints();
                 }
                 
             }
         }
-        
-
     }
 
     // Private
     private ArrayList RopeNodes;
+    private Vector3 HookPosition;
+    private Vector3 HookScale;
+    private Quaternion HookRotation;
+    private GameObject HookParent;
 
     private void Start() {
         RopeNodes = new ArrayList();
+        HookParent = hook.transform.parent.gameObject;
+        HookPosition = hook.transform.localPosition;
+        HookScale = hook.transform.localScale;
+        HookRotation = hook.transform.localRotation;
     }
 
     public void InstantiateRope() {
@@ -90,7 +95,7 @@ public class GrappleManager : MonoBehaviour
         RopeNode firstInstanceNode = RopeNodes[0] as RopeNode;
         hook.OldPos = hook.transform.position;
         hook.transform.position = hook.transform.position + hook.Inertia;
-        hook.Inertia = (hook.transform.position - hook.OldPos) * (1-hookDynamicFriction);
+        hook.Inertia = (hook.transform.position - hook.OldPos) * (1- hook.DynamicFriction);
         pointsDistance = (firstInstanceNode.transform.position - hook.transform.position).magnitude;
 
         
@@ -107,21 +112,16 @@ public class GrappleManager : MonoBehaviour
 
         float directionX = Mathf.Abs(firstInstanceNode.transform.position.x - hook.transform.position.x);
         float directionY = Mathf.Abs(firstInstanceNode.transform.position.z - hook.transform.position.z);
-
         float angle = 1/Mathf.Tan(directionX/directionY);
-        Debug.LogFormat("UpdateHook Angle: {0}", angle);
-        Debug.LogFormat("DirectionX: {0}  ---- DirectionY: {1}", directionX , directionY);
-
-
         
         if (hook.ropeFinished && pointsDistance > MassPointLength) {
-            hookDynamicFriction = 0.4f;
+            hook.DynamicFriction = 0.4f;
             error = pointsDistance - MassPointLength;
             direction = (hook.transform.position - firstInstanceNode.transform.position).normalized;
             movement = error * direction;
             hook.transform.position -= movement * springValue;
             firstInstanceNode.transform.position += movement * (1 - springValue);
-            hook.Inertia = (hook.transform.position - hook.OldPos) * (1 - hookDynamicFriction);
+            hook.Inertia = (hook.transform.position - hook.OldPos) * (1 - hook.DynamicFriction);
             firstInstanceNode.Inertia = (firstInstanceNode.transform.position - firstInstanceNode.OldPos) * (1 - dynamicFriction);
             hook.transform.position = new Vector3(hook.transform.position.x , 1.375f , hook.transform.position.z);
 
@@ -130,10 +130,7 @@ public class GrappleManager : MonoBehaviour
                 // todo: pick hookPlaque where hookPlaque.isHooked && hookPlaque.life > 0
                     //Pull_HookPoint(HookPlaqueID);
             }
-
         }
-
-
     }
 
     public void UpdatePoints() {
@@ -161,9 +158,7 @@ public class GrappleManager : MonoBehaviour
             massPoint.transform.position += movement;
             massPoint.Inertia = (massPoint.transform.position - massPoint.OldPos) * (1 - DynamicFriction);
             pointsDistance = (GrappleGun.transform.position - massPoint.transform.position).magnitude;
-
         }
-
 
         for (int i = 1; i < RopeNodes.Count; i++) {
             massPoint = RopeNodes[RopeNodes.Count-1-i] as RopeNode;
@@ -230,6 +225,7 @@ public class GrappleManager : MonoBehaviour
             }
 
             SumOfLength += pointsDistance;
+            //Debug.LogFormat("SumOfLength(for): {0}", SumOfLength);
         }
 
         massPoint = RopeNodes[RopeNodes.Count - 1] as RopeNode;
@@ -249,7 +245,6 @@ public class GrappleManager : MonoBehaviour
         massPoint = RopeNodes[RopeNodes.Count - 1] as RopeNode;
         pointsDistance = (massPoint.transform.position - GrappleGun.transform.position).magnitude;
         SumOfLength += pointsDistance;
-        Debug.LogFormat("SumOfLength = {0} ", SumOfLength);
 
         if (SumOfLength*(2-springValue) > RopeNodes.Count * MassPointLength) {
            hook.ropeFinished = true;
@@ -257,19 +252,17 @@ public class GrappleManager : MonoBehaviour
        else {
            hook.ropeFinished = false;
        }
+        
     }
 
     
 
     public void RewindPoints() {
         int pointsRewinded = 0;
-        int pointsRewindedCount = 0;
         float springValue = 1;
-        float DynamicFriction = 0.5f;
+        float DynamicFriction = 1f;
         float pointsDistance = 0;
         float error = 0;
-        float changeX = 0;
-        float changeY = 0;
         float pointsDisatnce = 0;
         Vector3 previousInstance = Vector3.zero;
         Vector3 direction = Vector3.zero;
@@ -287,30 +280,36 @@ public class GrappleManager : MonoBehaviour
         }
         //funzione
 
-        pointsRewinded = (int) Mathf.Floor(GrappleGun.RewindVector / MassPointLength) + 1;
+        pointsRewinded = (int) Mathf.Ceil(GrappleGun.RewindVector / MassPointLength) - 1;
 
-        if (pointsRewinded >= RopeNodes.Count) {
+
+        if (pointsRewinded >= RopeNodes.Count-1) {
+            Debug.LogFormat("PointsRewinded: {0}", pointsRewinded);
+            DestroyMassPoints(0);
             hook.shooted = false;
             hook.ropeFinished = false;
             hook.isHooked = false;
-            pointsRewindedCount = DestroyMassPoints(0);
-            //pointsRewindedCount = RopeNodes.Count - pointsRewindedCount; 
         }
         else {
             for (int i = 0; i < pointsRewinded; i++) {
                 massPoint = RopeNodes[RopeNodes.Count - 1 - i] as RopeNode;
-                massPoint.transform.position = new Vector3(GrappleGun.transform.position.x  , GrappleGun.transform.position.y, GrappleGun.transform.position.z);                        
+                massPoint.transform.position = new Vector3(GrappleGun.transform.position.x - MassPointLength * Mathf.Cos(GrappleGun.transform.rotation.x), GrappleGun.transform.position.y, GrappleGun.transform.position.z - MassPointLength * Mathf.Sin(GrappleGun.transform.rotation.z));
+                
             }
             massPoint = RopeNodes[RopeNodes.Count - 1 - pointsRewinded] as RopeNode;
-            massPoint.transform.position = massPoint.OldPos;
-            massPoint.transform.position = new Vector3(massPoint.transform.position.x + massPoint.Inertia.x - GrappleGun.RewindVector * Mathf.Sin(Vector3.Angle(GrappleGun.transform.position, massPoint.transform.position)), massPoint.transform.position.y, massPoint.transform.position.z + massPoint.Inertia.z - GrappleGun.RewindVector * Mathf.Cos(Vector3.Angle(GrappleGun.transform.position, massPoint.transform.position)));
+            massPoint.OldPos = massPoint.transform.position;
+            massPoint.transform.position = massPoint.transform.position + massPoint.Inertia;
             massPoint.Inertia = (massPoint.transform.position - massPoint.OldPos) * (1-DynamicFriction);
             pointsDisatnce = Vector3.Distance(GrappleGun.transform.position, massPoint.transform.position);
-
+            
             if (pointsDisatnce > MassPointLength) {
                 error = pointsDisatnce - MassPointLength;
-                changeX = error * Mathf.Sin(Vector3.Angle(GrappleGun.transform.position, massPoint.transform.position));
-                changeY = error * Mathf.Cos(Vector3.Angle(GrappleGun.transform.position, massPoint.transform.position));
+                direction = (GrappleGun.transform.position - massPoint.transform.position).normalized;
+                movement = error * direction;
+                massPoint.transform.position += movement * springValue;
+                GrappleGun.transform.position -= movement * (1 - springValue);
+                massPoint.Inertia = (massPoint.transform.position - massPoint.OldPos) * (1 - DynamicFriction);
+
             }
             previousInstance = massPoint.transform.position;
 
@@ -340,7 +339,7 @@ public class GrappleManager : MonoBehaviour
 
     public void UpdateRewind(int _index) {
         float springValue = 1;
-        float DynamicFriction = 0.5f;
+        float DynamicFriction = 1f;
         float pointsDistance = 0;
         float error = 0;
         float SumOfLength = 0;
@@ -413,7 +412,7 @@ public class GrappleManager : MonoBehaviour
             if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) {
                 pointsUnwinded = Mathf.Ceil(pointsDistance / MassPointLength) - 1;
 
-                for (int i = 1; i <= pointsUnwinded; i++) {
+                for (int i = _index+1; i <= _index + 1 + pointsUnwinded; i++) {
                     massPoint = RopeNodes[i] as RopeNode;
                     nextMassPoint = RopeNodes[i - 1] as RopeNode;
 
@@ -430,6 +429,7 @@ public class GrappleManager : MonoBehaviour
                         pointsDistance = (massPoint.transform.position - nextMassPoint.transform.position).magnitude;
                     }
                     SumOfLength += pointsDisatnce;
+                    
                 }
 
                 if (pointsDisatnce > MassPointLength) {
@@ -447,7 +447,7 @@ public class GrappleManager : MonoBehaviour
                 if (SumOfLength * (2 - springValue) > RopeNodes.Count * MassPointLength) {
                     hook.ropeFinished = true;
                 }
-
+                
             }
         }
     }
@@ -463,12 +463,40 @@ public class GrappleManager : MonoBehaviour
     }
 
     
-    public int DestroyMassPoints(int _fromIndex) {
-        int count = 0;
-        for (int i = _fromIndex; i < RopeNodes.Count; i++) {
-            count++;
+    public void DestroyMassPoints(int _fromIndex) {
+        RopeNode massPoint;
+
+        if (_fromIndex == 0) {
+            for (int i = _fromIndex; i < RopeNodes.Count; i++) {
+                massPoint = RopeNodes[i] as RopeNode;
+                Destroy(massPoint.transform.gameObject);
+            }
+            RopeNodes.Clear();
+            HookReset();
+            ResetRewindVector();
         }
-        return count;
+        else {
+            for (int i = _fromIndex; i < RopeNodes.Count; i++) {
+                massPoint = RopeNodes[i] as RopeNode;
+                Destroy(massPoint.transform.gameObject);
+                RopeNodes.RemoveAt(i);
+            }
+        }
+    }
+
+    void HookReset() {
+        hook.transform.SetParent(HookParent.transform);
+        hook.transform.localPosition = new Vector3(HookPosition.x , HookPosition.y , HookPosition.z);
+        hook.transform.localScale = new Vector3(HookScale.x, HookScale.y, HookScale.z);
+        hook.transform.localRotation = new Quaternion(HookRotation.x , HookRotation.y , HookRotation.z , HookRotation.w);
+        hook.OldPos = Vector3.zero;
+        hook.Inertia = Vector3.zero;
+        hook.DynamicFriction = 0;
+        
+    }
+
+    void ResetRewindVector() {
+        GrappleGun.RewindVector = 0;
     }
 
     public void HookShooting() {
