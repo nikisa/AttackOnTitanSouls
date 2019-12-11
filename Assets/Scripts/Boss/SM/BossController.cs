@@ -13,8 +13,10 @@ public class BossController : MonoBehaviour
     public float MoveSpeed;
     // [HideInInspector]
     public float RotationSpeed;
-   
-
+    [HideInInspector]
+    public MoveToData moveToData;
+    [HideInInspector]
+    public float MaxSpeed;
 
 
 
@@ -51,9 +53,9 @@ public class BossController : MonoBehaviour
         transform.Translate(Vector3.back * MoveSpeed * Time.deltaTime);
         //Graphics.transform.Translate(transform.forward * MoveSpeed * Time.deltaTime);
     }
-    public void Deceleration(float _timeDeceleration ,float _lowSpeed )
+    public void Deceleration(float _timeDeceleration ,float _lowSpeed , float _maxSpeed)
     {
-        _timeDeceleration = MoveSpeed / _timeDeceleration;
+        _timeDeceleration = _maxSpeed / _timeDeceleration;
        MoveSpeed -= _timeDeceleration * Time.deltaTime;
         if (_lowSpeed>=0) {
            MoveSpeed = Mathf.Clamp(MoveSpeed, _lowSpeed, 100);
@@ -157,6 +159,10 @@ public class BossController : MonoBehaviour
 
 
 
+    }
+    public MoveToData GetMoveToData()
+    {
+        return moveToData;
     }
     public enum Targets
     {
