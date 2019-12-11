@@ -181,7 +181,7 @@ public class PlayerIdleState : PlayerBaseState {
 
     public void Movement() 
     {
-        float skin = 1;
+        float skin = .5f;
         float softSkin = 0.01f;
 
         if (movementVelocity.sqrMagnitude < 0.001) return;
@@ -199,6 +199,7 @@ public class PlayerIdleState : PlayerBaseState {
             if (hits==null || hits.Length==0)
             {
                 player.transform.Translate(movementVelocity * time);
+                //Verlet movement
             }
             else
             {
@@ -223,9 +224,10 @@ public class PlayerIdleState : PlayerBaseState {
                     movementVelocity.y = 0;
 
                     player.transform.Translate(movementVelocity * time);
+                    //Verlet movement
                 }
 
-                
+
 
             }
 

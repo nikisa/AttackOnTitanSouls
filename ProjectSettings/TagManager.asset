@@ -10,6 +10,7 @@ TagManager:
   - Tentacle
   - Center
   - Pushable
+  - HookPoint
   layers:
   - Default
   - TransparentFX
