@@ -60,9 +60,7 @@ public class GrappleManager : MonoBehaviour
 
                 if (!Input.GetKeyDown(KeyCode.Mouse1)) {
                     UpdatePoints();
-                    if (!hook.isHooked) {
-                        UpdateHook();
-                    }
+                    UpdateHook();
                     UpdateLinks();
                 }
                 if (Input.GetKey(KeyCode.Mouse1) && !Input.GetKeyUp(KeyCode.Mouse1)) {
@@ -77,20 +75,23 @@ public class GrappleManager : MonoBehaviour
                 if (hit.transform != null && hit.transform.GetComponent<HookPoint>()) {
                     Debug.Log(hit.transform.gameObject.name + "---");
                     hookPoint = hit.transform.GetComponent<HookPoint>();
-                    hookPoint.Hooked = true;
                     hook.isHooked = true;
 
                 }
                 else {
-                    UpdateHook();
+                    //UpdateHook();
                     Debug.Log("Missing Target");
                 }
             }
 
             if (hook.isHooked) {
-                hook.transform.position = hit.transform.position;
-                hook.Inertia = Vector3.zero;
-                //Call hookPoint function
+                if (!hookPoint.isHooked) {
+                    hook.transform.position = hit.transform.position;
+                    hook.Inertia = Vector3.zero;
+                    hook.hitDistance = 0;
+                }
+                hookPoint.isHooked = true;
+                
             }
         }
     }
@@ -122,19 +123,7 @@ public class GrappleManager : MonoBehaviour
         hook.transform.position = hook.transform.position + hook.Inertia;
         hook.Inertia = (hook.transform.position - hook.OldPos) * (1- hook.DynamicFriction);
         pointsDistance = (firstInstanceNode.transform.position - hook.transform.position).magnitude;
-
         
-        RaycastHit hit;
-        Physics.Raycast(hook.transform.position, hook.transform.forward, out hit, Mathf.Infinity);
-        Debug.DrawRay(hook.transform.position, hook.transform.forward, Color.blue);
-
-        //if (hit.transform.gameObject.GetComponent<HookPlaque>()) {
-        //    hookPlaque.Hooked = true;
-        //    hook.isHooked = true;
-        //    hook.transform.position = hookPlaque.transform.position;
-        //    hook.Inertia = Vector3.zero;
-        //}
-
         float directionX = Mathf.Abs(firstInstanceNode.transform.position.x - hook.transform.position.x);
         float directionY = Mathf.Abs(firstInstanceNode.transform.position.z - hook.transform.position.z);
         float angle = 1/Mathf.Tan(directionX/directionY);
@@ -149,13 +138,13 @@ public class GrappleManager : MonoBehaviour
             hook.Inertia = (hook.transform.position - hook.OldPos) * (1 - hook.DynamicFriction);
             firstInstanceNode.Inertia = (firstInstanceNode.transform.position - firstInstanceNode.OldPos) * (1 - dynamicFriction);
             hook.transform.position = new Vector3(hook.transform.position.x , 1.375f , hook.transform.position.z);
-
-
-            if (hook.isHooked) {
-                // todo: pick hookPlaque where hookPlaque.isHooked && hookPlaque.life > 0
-                    //Pull_HookPoint(HookPlaqueID);
-            }
+            
         }
+
+        if (hook.isHooked) {
+            hookPoint.hookPointSpring();
+        }
+
     }
 
     public void UpdatePoints() {

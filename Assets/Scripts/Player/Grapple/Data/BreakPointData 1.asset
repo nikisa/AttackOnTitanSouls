@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 194aa66301e78c94b8b11fd124efb968, type: 3}
-  m_Name: BreakPointData
+  m_Name: BreakPointData 1
   m_EditorClassIdentifier: 
-  lifeMax: 60
-  InitialElasticK: 55
-  FinalElasticK: 52
+  lifeMax: 75
+  InitialElasticK: 50
+  FinalElasticK: 45
   Particles:
   - {fileID: 0}
   RestoreLifeRatio: 0

@@ -36,9 +36,6 @@ public class PlayerController : MonoBehaviour
     private void Update() 
     {
         CheckInput();
-
-
-
     }
 
     void CalculateOrientationFromMouse()

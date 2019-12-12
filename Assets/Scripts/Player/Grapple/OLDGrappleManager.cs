@@ -57,7 +57,7 @@ public class OLDGrappleManager : MonoBehaviour
                 if (hit.transform != null && hit.transform.GetComponent<HookPoint>()) {
                     Debug.Log(hit.transform.gameObject.name + "---");
                     hookPoint = hit.transform.GetComponent<HookPoint>();
-                    hookPoint.Hooked = true;
+                    hookPoint.isHooked = true;
                     hook.isHooked = true;
 
                 }
