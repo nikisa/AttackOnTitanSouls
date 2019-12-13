@@ -38,7 +38,7 @@ public class FirtsBossDecelerationState : BossBaseState
        boss.View.DecelerationRotation(rotationDecelerationData.DecelerationTime, rotationDecelerationData.LowSpeed);
         if (boss.MoveSpeed <= 0)
         {
-            animator.SetTrigger(RECOVERY);
+            animator.SetTrigger(END_STATE_TRIGGER);
         }
         
     }

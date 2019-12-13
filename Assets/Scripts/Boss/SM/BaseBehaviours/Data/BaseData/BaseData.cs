@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseData : ScriptableObject
 {
-    public bool HasTimer;
+    //public bool HasTimer;
     public float Time;
 }
 

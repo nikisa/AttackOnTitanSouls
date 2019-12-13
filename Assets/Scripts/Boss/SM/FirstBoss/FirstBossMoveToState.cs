@@ -59,14 +59,14 @@ public class FirstBossMoveToState : FirstBossState
         startY = boss.transform.position.y;
         ChargeAttack();
         hit = boss.RaycastCollision();
-        if (moveToData.HasTimer)
-        {
+        //if (moveToData.HasTimer)
+        //{
             timeStartMoveTo = Time.time;
-        }
-        else
-        {
-            timeStartMoveTo = Mathf.Infinity;
-        }
+        //}
+        //else
+        //{
+        //    timeStartMoveTo = Mathf.Infinity;
+        //}
         
     }
     public void RotationEnter()
@@ -77,7 +77,7 @@ public class FirstBossMoveToState : FirstBossState
         WallDistance = boss.CollisionDistance(hit.point);
         distance = Vector3.Distance(boss.transform.position, targetPosition);
         if (WallDistance <= 2 && moveToData.StopOnSolid) {
-
+            Debug.Log("collisione");
             animator.SetTrigger("Collision");
         }
         
@@ -119,7 +119,7 @@ public class FirstBossMoveToState : FirstBossState
         
         if (Time.time - timeStartTrail > moveToData.TrailDelay )
         {
-            Debug.Log("dentro");
+
             Instantiate(moveToData.TrailOb, boss.transform.position, Quaternion.identity);
             timeStartTrail = Time.time;
         }

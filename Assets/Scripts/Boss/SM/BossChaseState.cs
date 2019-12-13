@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossChaseState : BossBaseState
 {
     // data
-    public AccelerationData accelerationData;
+    //public AccelerationData accelerationData;
     public ChaseData chaseData;
 
 
@@ -41,14 +41,14 @@ public class BossChaseState : BossBaseState
     public void ChaseEnter()
     {
         //chaseData.AngularSpeed = chaseData.MaxSpeed /accelerationData.TimeAcceleration / 10;
-        if (chaseData.HasTimer)
-        {
+        //if (chaseData.HasTimer)
+        //{
             timeStartChase = Time.time;
-        }
-        else
-        {
-            timeStartChase = Mathf.Infinity;
-        }
+        //}
+        //else
+        //{
+        //    timeStartChase = Mathf.Infinity;
+        //}
         
         startY = boss.transform.position.y;
     }
@@ -69,17 +69,15 @@ public class BossChaseState : BossBaseState
         }
         else
         {
-            animator.SetTrigger(IDLE);
+            animator.SetTrigger(END_STATE_TRIGGER);
         }
     }
     public void AccelerationTick()
     {
 
-        if (Time.time - timeStartAcceleration > accelerationData.WaitOnStart)
-        {
-            if (accelerationData.HasAcceleration)
+         if (chaseData.HasAcceleration)
             {
-                boss.Acceleration(accelerationData.TimeAcceleration, chaseData.MaxSpeed);
+                boss.Acceleration(chaseData.TimeAcceleration, chaseData.MaxSpeed);
             }
             else
             {
@@ -87,7 +85,7 @@ public class BossChaseState : BossBaseState
             }
            
         }
-    }
+    
     public void SetTarget()
     {
         Target = boss.SetTarget(targets);

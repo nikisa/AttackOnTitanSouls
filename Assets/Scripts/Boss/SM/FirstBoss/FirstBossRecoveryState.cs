@@ -52,7 +52,7 @@ public class FirstBossRecoveryState : FirstBossState
         //}
 
         if ((Time.time - timeStartRecovery) > recoveryData.Time) {
-            animator.SetTrigger("Anticipation");
+            animator.SetTrigger(END_STATE_TRIGGER);
         }
     }
 

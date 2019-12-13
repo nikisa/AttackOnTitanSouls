@@ -9,6 +9,8 @@ public class ChaseData : BaseData
     public bool HasAngularSpeed;
     [Tooltip("in degrees / sec.")]
     public float AngularSpeed;
-    
-   
+    [Tooltip("Increasing rate of entry speed, in m/sec^2")]
+    public float TimeAcceleration;
+    public bool HasAcceleration;
+
 }

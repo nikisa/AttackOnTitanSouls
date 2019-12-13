@@ -11,14 +11,15 @@ public class FirstBossAnticipationState : FirstBossState
     //private
     float timeStartAnticipation;
     float timeStartRotation;
-    float loops;
+    int loops;
 
      public void Awake()   /// dove metterla?
      {
        
         loops = anticipationData.Loops;
+        //animator.SetInteger("Loops", anticipationData.Loops);
 
-     }
+    }
     public override void Enter()
     {
         //loopsInit();
@@ -37,6 +38,7 @@ public class FirstBossAnticipationState : FirstBossState
     public override void Exit()
     {
        boss.View.ChangeMaterial(graphicsAnticipationData.NormalMat);
+        AnticipationExit();
     }
 
     public void loopsInit() {
@@ -47,16 +49,13 @@ public class FirstBossAnticipationState : FirstBossState
 
         //boss.MoveSpeed = 0; è da fare? 
         loops--; // 
+        animator.SetInteger("Loops", loops);
         timeStartAnticipation = Time.time;
         if (anticipationData.InfinteLoops && loops <= 0) {
             loops = 999999;
             //animator.SetTrigger(IDLE);
         }
-        if (loops <= 0) {
-            Debug.Log("fine ciclo");
-            loops = anticipationData.Loops;
-            animator.SetTrigger(IDLE);
-        }
+  
     }
 
     public void EnterRotationAcceleration() {
@@ -71,12 +70,21 @@ public class FirstBossAnticipationState : FirstBossState
 
     public void AnticipationTick() {
         if ((Time.time - timeStartAnticipation) > anticipationData.AnticipationTime) {
-            animator.SetTrigger(MOVETO);
+            animator.SetTrigger(END_STATE_TRIGGER);
         }
     }
 
     public void RotationMoveTick() {
         boss.View.MoveRotation(rotationMoveData.MaxSpeed);
+    }
+    public void AnticipationExit()
+    {
+        if (loops <= 0)
+        {
+            Debug.Log("fine ciclo");
+            loops = anticipationData.Loops;
+           
+        }
     }
 
 }
