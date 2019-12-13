@@ -30,7 +30,7 @@ Transform:
   - {fileID: 2311932302573305712}
   - {fileID: 2393111249961247697}
   m_Father: {fileID: 2311932303056696442}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2311932302458231826
 GameObject:
@@ -258,12 +258,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2311932303056696447}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.54, y: -11.449, z: 1.4254}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2311932303878457261}
-  - {fileID: 2393111249709856308}
   - {fileID: 336048699703469393}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -285,6 +284,7 @@ MonoBehaviour:
   rotationTransform: {fileID: 336048699703469393}
   body: {fileID: 2311932302573305712}
   movimentRatio: 0.5
+  DPS: 60
 --- !u!95 &2311932303056696446
 Animator:
   serializedVersion: 3
@@ -420,36 +420,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &2393111249709856309
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2393111249709856308}
-  m_Layer: 2
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2393111249709856308
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2393111249709856309}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2311932303056696442}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2393111249961247698
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,6 +509,7 @@ GameObject:
   - component: {fileID: 2393111251030539248}
   - component: {fileID: 2393111251030538254}
   - component: {fileID: 2393111251030538255}
+  - component: {fileID: 742037867}
   m_Layer: 2
   m_Name: Hook
   m_TagString: Untagged
@@ -578,6 +549,7 @@ MonoBehaviour:
   VectorAngle: 0
   topSpeed: 78
   DynamicFriction: 0
+  hitDistance: 100
   hookPointID: 0
   OldPos: {x: 0, y: 0, z: 0}
   Inertia: {x: 0, y: 0, z: 0}
@@ -626,3 +598,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!136 &742037867
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2393111251030539250}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5000001
+  m_Height: 2.0000002
+  m_Direction: 1
+  m_Center: {x: 0.00000011920929, y: -0.000030517578, z: 0.0000038146973}

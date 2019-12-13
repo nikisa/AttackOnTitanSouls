@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public Transform rotationTransform;
     public Transform body;
     public float movimentRatio;
+    public float DPS;
 
     protected virtual void Start() {
         camera = Camera.main;
@@ -35,9 +36,6 @@ public class PlayerController : MonoBehaviour
     private void Update() 
     {
         CheckInput();
-
-
-
     }
 
     void CalculateOrientationFromMouse()

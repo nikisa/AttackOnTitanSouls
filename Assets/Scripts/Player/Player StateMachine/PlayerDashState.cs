@@ -8,9 +8,7 @@ public class PlayerDashState : PlayerBaseState {
     //Inspector
     public PlayerDashData playerDashData;
 
-
     // Private
-
     DataInput dataInput;
     Vector3 position;
     Transform transform;
@@ -40,7 +38,7 @@ public class PlayerDashState : PlayerBaseState {
     }
 
     public void Dash(float _DashTimeFrames, float _ResumeControl, float _DashTimeFreeze, DataInput _dataInput) {
-
+        
         position = player.transform.position;
         transform = player.transform;
 
