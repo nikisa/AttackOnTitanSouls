@@ -80,18 +80,24 @@ public class GrappleManager : MonoBehaviour
                 }
                 else {
                     //UpdateHook();
+                    
                     Debug.Log("Missing Target");
                 }
             }
 
             if (hook.isHooked) {
                 if (!hookPoint.isHooked) {
+                    
                     hook.transform.position = hit.transform.position;
                     hook.Inertia = Vector3.zero;
                     hook.hitDistance = 0;
                 }
                 hookPoint.isHooked = true;
-                
+
+            }
+            else {
+                hookPoint.isHooked = false;
+                hook.hitDistance = 1;
             }
         }
     }

@@ -26,8 +26,10 @@ public class HookPoint : HookPointManager , IGrappable
 
     //private
     BreakPointData breakPointData;
+    [SerializeField]
     private int BreakPointsCount = 0;
     private float springVector;
+    [SerializeField]
     private float currentLife;
     private float currentElasticK;
     private float distance;
@@ -94,6 +96,10 @@ public class HookPoint : HookPointManager , IGrappable
             isHooked = false;
             hook.isHooked = false;
             hook.hitDistance = 1;
+
+            if (BreakPointsCount == graphics.Length && currentLife < 0) {
+                Destroy(this.gameObject);
+            }
 
         }
     }

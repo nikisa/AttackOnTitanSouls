@@ -563,6 +563,8 @@ MonoBehaviour:
   - {fileID: 8976925650897183614, guid: 55135bfc8ebdd1547895937189c4198b, type: 3}
   - {fileID: 8976925650897183614, guid: 55135bfc8ebdd1547895937189c4198b, type: 3}
   - {fileID: 7160175276461913361, guid: 6a67a4de1d6ecc344816955f1a756b67, type: 3}
+  BreakPointsCount: 0
+  currentLife: 0
 --- !u!136 &292361352
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -573,10 +575,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5000001
+  m_Radius: 0.79130244
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0.0000019073486}
+  m_Center: {x: 0.008015216, y: 0, z: 0.0000019071795}
 --- !u!1 &308029412
 GameObject:
   m_ObjectHideFlags: 0
@@ -2377,6 +2379,8 @@ MonoBehaviour:
   BreakPoints: []
   graphics: []
   particles: []
+  BreakPointsCount: 0
+  currentLife: 0
 --- !u!135 &1314830558
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3654,6 +3658,8 @@ MonoBehaviour:
   BreakPoints: []
   graphics: []
   particles: []
+  BreakPointsCount: 0
+  currentLife: 0
 --- !u!135 &1766615360
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4208,6 +4214,8 @@ MonoBehaviour:
   BreakPoints: []
   graphics: []
   particles: []
+  BreakPointsCount: 0
+  currentLife: 0
 --- !u!4 &2005182126 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8319031690567516170, guid: 9db5eb2ec7da4f84eac3247a924e1488,
@@ -4821,6 +4829,8 @@ MonoBehaviour:
   BreakPoints: []
   graphics: []
   particles: []
+  BreakPointsCount: 0
+  currentLife: 0
 --- !u!135 &2125139816
 SphereCollider:
   m_ObjectHideFlags: 0
