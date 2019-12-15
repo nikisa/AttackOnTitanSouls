@@ -293,6 +293,7 @@ MonoBehaviour:
   rotationTransform: {fileID: 0}
   body: {fileID: 0}
   movimentRatio: 0
+  DPS: 0
 --- !u!1 &3623586589993174511
 GameObject:
   m_ObjectHideFlags: 0
@@ -1991,7 +1992,7 @@ PrefabInstance:
     - target: {fileID: 5257090766047344790, guid: 9db5eb2ec7da4f84eac3247a924e1488,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.29952088
+      value: -0.9117361
       objectReference: {fileID: 0}
     - target: {fileID: 5257090766047344790, guid: 9db5eb2ec7da4f84eac3247a924e1488,
         type: 3}
@@ -2001,7 +2002,7 @@ PrefabInstance:
     - target: {fileID: 5257090766047344790, guid: 9db5eb2ec7da4f84eac3247a924e1488,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.95408976
+      value: 0.41077667
       objectReference: {fileID: 0}
     - target: {fileID: 1195018097, guid: 9db5eb2ec7da4f84eac3247a924e1488, type: 3}
       propertyPath: Data
@@ -2029,13 +2030,13 @@ PrefabInstance:
     - target: {fileID: 5257090764918558598, guid: 9db5eb2ec7da4f84eac3247a924e1488,
         type: 3}
       propertyPath: RotationSpeed
-      value: 222.17233
+      value: 186.78197
       objectReference: {fileID: 0}
     - target: {fileID: 5257090766047344788, guid: 9db5eb2ec7da4f84eac3247a924e1488,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e1e5b254d1b12834d92ab224fc101557, type: 2}
+      objectReference: {fileID: 2100000, guid: e9267dea08a8ac84c93674195bcdb5be, type: 2}
     m_RemovedComponents:
     - {fileID: 5257090766047344785, guid: 9db5eb2ec7da4f84eac3247a924e1488, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9db5eb2ec7da4f84eac3247a924e1488, type: 3}

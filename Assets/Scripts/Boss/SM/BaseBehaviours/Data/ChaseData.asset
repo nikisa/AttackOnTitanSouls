@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d148cdeed6aa2af41ad59f19f1e293e8, type: 3}
   m_Name: ChaseData
   m_EditorClassIdentifier: 
-  Time: 5
+  Time: 20
   MaxSpeed: 15
-  HasAngularSpeed: 1
-  AngularSpeed: 3
+  HasVectorRotationRate: 1
+  VectorRotationRate: 3
+  ChaseRadius: 17
   TimeAcceleration: 2
   HasAcceleration: 1

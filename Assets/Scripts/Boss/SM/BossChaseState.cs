@@ -16,7 +16,9 @@ public class BossChaseState : BossBaseState
     float startY;
     float timeStartAcceleration;
     float timeStartChase;
-    //float AngularSpeed;
+    float AngularSpeed;
+    float deltaAngle;
+
     public override void Enter()
     {
         SetTarget();
@@ -40,9 +42,11 @@ public class BossChaseState : BossBaseState
     }
     public void ChaseEnter()
     {
+     
         //chaseData.AngularSpeed = chaseData.MaxSpeed /accelerationData.TimeAcceleration / 10;
         //if (chaseData.HasTimer)
         //{
+        
             timeStartChase = Time.time;
         //}
         //else
@@ -54,11 +58,13 @@ public class BossChaseState : BossBaseState
     }
     public void ChaseTick()
     {
+        deltaAngle = Vector3.Angle(boss.transform.position, Target.transform.position);
+        AngularSpeed = deltaAngle / chaseData.VectorRotationRate;
         if (Time.time - timeStartChase < chaseData.Time)
         {
-            if (chaseData.HasAngularSpeed)
+            if (chaseData.HasVectorRotationRate)
             {
-                boss.transform.rotation = Quaternion.Slerp(boss.transform.rotation, Quaternion.LookRotation(Target.transform.position - boss.transform.position), chaseData.AngularSpeed * Time.deltaTime);
+                boss.transform.rotation = Quaternion.Slerp(boss.transform.rotation, Quaternion.LookRotation(Target.transform.position - boss.transform.position), AngularSpeed * Time.deltaTime);
                
             }
             else
@@ -68,6 +74,10 @@ public class BossChaseState : BossBaseState
 
         }
         else
+        {
+            animator.SetTrigger(END_STATE_TRIGGER);
+        }
+        if ((Target.transform.position-boss.transform.position).magnitude > chaseData.ChaseRadius)
         {
             animator.SetTrigger(END_STATE_TRIGGER);
         }
@@ -90,4 +100,5 @@ public class BossChaseState : BossBaseState
     {
         Target = boss.SetTarget(targets);
     }
+
 }
