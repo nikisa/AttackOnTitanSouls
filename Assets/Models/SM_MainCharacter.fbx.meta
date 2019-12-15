@@ -1,14 +1,15 @@
 fileFormatVersion: 2
-guid: 19a3e9b96def9664e8605dd73992ed3b
+guid: 9e00258579f8ebe47ada303c7ddf1819
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: lambert2
+    2100000: lambert1
+    2100002: lambert13
     2300000: //RootNode
     3300000: //RootNode
-    4300000: SM_MainCharacter
+    4300000: SK_main_character_LP
   externalObjects: {}
   materials:
     importMaterials: 1

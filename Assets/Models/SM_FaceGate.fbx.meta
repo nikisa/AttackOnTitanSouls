@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: d610119414260534ab0f7255b929153d
+guid: 3f98260979d6c444b90a8b9dc1b60f45
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: lambert1
+    2100000: lambert4
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pCube19
+    4300000: SM_FaceRock
   externalObjects: {}
   materials:
     importMaterials: 1
