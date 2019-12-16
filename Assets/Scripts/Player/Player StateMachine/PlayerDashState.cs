@@ -14,23 +14,21 @@ public class PlayerDashState : PlayerBaseState {
     Transform transform;
     float Horizontal;
     float Vertical;
-    float time;
-    
+    float _timeFreeze;
+    float timeStart;
+
+
     public override void Enter() {
-        time = Time.time;
+        player.playerDashData = playerDashData;
+        player.DoFreeze(playerDashData.TimeFreeze , playerDashData.Rallenty);
         Dash(playerDashData.DashTimeFrames , playerDashData.ResumeControl , playerDashData.DashTimeFreeze , player.dataInput);
         Debug.Log("Dash enter");
-        
+        _timeFreeze = playerDashData.DashTimeFreeze;
     }
 
     public override void Tick() {
-        //if (Time.time > time + playerDashData.DashTimeFrames &&  Time.time < time + playerDashData.DashTimeFrames + playerDashData.frameCombo) {
-        //    if (dataInput.Dash) 
-        //        animator.SetTrigger(DASH);
-        //}
-        //else {
-        //    animator.SetTrigger(IDLE);
-        //}
+        timeFreeze(_timeFreeze);
+
     }
 
     public override void Exit() {
@@ -55,9 +53,16 @@ public class PlayerDashState : PlayerBaseState {
         else {
             transform.DOMove(new Vector3((playerDashData.DashDistance * Horizontal) + position.x, -(playerDashData.DashDistance * Vertical) + position.y, position.z), _DashTimeFrames).SetEase(playerDashData.DashEase);
         }
-        animator.SetTrigger(IDLE);
-        
 
+
+        animator.SetTrigger(DASH_RESUME);
+
+    }
+
+    public void timeFreeze(float _timeFreeze) {
+        if (Time.time - timeStart < _timeFreeze) {
+            Time.timeScale = 1;
+        }
     }
 
 }

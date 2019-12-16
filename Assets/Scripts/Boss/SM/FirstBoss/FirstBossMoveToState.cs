@@ -119,7 +119,6 @@ public class FirstBossMoveToState : FirstBossState
         
         if (Time.time - timeStartTrail > moveToData.TrailDelay )
         {
-
             Instantiate(moveToData.TrailOb, boss.transform.position, Quaternion.identity);
             timeStartTrail = Time.time;
         }

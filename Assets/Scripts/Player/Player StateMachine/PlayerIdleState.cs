@@ -118,7 +118,7 @@ public class PlayerIdleState : PlayerBaseState {
             animator.SetTrigger(DASH);
         }
 
-        if ((Time.time - startDash) > playerIdleData.resumeControl) {
+        if (forwardVelocity == playerIdleData.maxSpeed) {
             canDash = true;
         }
 
