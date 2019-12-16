@@ -40,7 +40,7 @@ ModelImporter:
     4300010: SM_FirstBossShield4
   externalObjects: {}
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
