@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194aa66301e78c94b8b11fd124efb968, type: 3}
   m_Name: BreakPointData
   m_EditorClassIdentifier: 
-  lifeMax: 60
+  lifeMax: 6000000
   InitialElasticK: 55
   FinalElasticK: 52
-  Particles:
-  - {fileID: 0}
   RestoreLifeRatio: 0

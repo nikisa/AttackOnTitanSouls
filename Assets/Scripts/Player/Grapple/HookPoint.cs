@@ -44,7 +44,7 @@ public class HookPoint : HookPointManager , IGrappable
     void SetUp() {
         currentLife = BreakPoints[BreakPointsCount].lifeMax;
         OldPos = transform.position;
-        GameObject mask = Instantiate(graphics[0] , transform.position , Quaternion.identity);
+        GameObject mask = Instantiate(graphics[0] , transform.position - new Vector3(0, 1.375f,0) , transform.rotation);
         mask.transform.SetParent(transform);
     }
 
@@ -81,7 +81,7 @@ public class HookPoint : HookPointManager , IGrappable
                 Destroy(transform.GetChild(0).gameObject);
                 BreakPointsCount++;
                 currentLife = BreakPoints[BreakPointsCount].lifeMax;
-                GameObject mask = Instantiate(graphics[BreakPointsCount].gameObject , transform.position , Quaternion.identity);
+                GameObject mask = Instantiate(graphics[BreakPointsCount].gameObject , transform.position - new Vector3(0, 1.375f, 0), transform.rotation);
                 mask.transform.SetParent(transform);
                 ParticleSystem particle = Instantiate(particles[BreakPointsCount-1] as ParticleSystem, transform.position, Quaternion.identity);
                 if (BreakPointsCount == 2) {
