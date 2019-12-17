@@ -64,9 +64,8 @@ public class PlayerController : MonoBehaviour
         dataInput.Vertical = Input.GetAxis("Vertical");
         dataInput.HorizontalLook = Input.GetAxis("HorizontalLook");
         dataInput.VerticalLook = Input.GetAxis("VerticalLook");
-        dataInput.Dash = Input.GetButton("Dash");
-        dataInput.DashDown = Input.GetButtonDown("Dash");
-        dataInput.DashUp = Input.GetButtonUp("Dash");
+        dataInput.Dash = Input.GetButtonDown("Dash");
+        
 
         Vector3 lookVector = new Vector3(dataInput.HorizontalLook, 0, dataInput.VerticalLook);
 
@@ -104,17 +103,13 @@ public class PlayerController : MonoBehaviour
         public float Vertical;
         public float VerticalLook;
         public bool Dash;
-        public bool DashDown;
-        public bool DashUp;
         public Quaternion currentOrientation;
 
 
-    public DataInput(float _horizontal, float _vertical , bool _dash , bool _dashDown , bool _dashUp, Quaternion _currentRotation) {
+    public DataInput(float _horizontal, float _vertical , bool _dash , Quaternion _currentRotation) {
         Horizontal = _horizontal;
         Vertical = _vertical;
         Dash = _dash;
-        DashDown = _dashDown;
-        DashUp = _dashUp;
         this.currentOrientation = _currentRotation;
         HorizontalLook = 0;
         VerticalLook = 0;

@@ -15,6 +15,4 @@ MonoBehaviour:
   lifeMax: 60
   InitialElasticK: 55
   FinalElasticK: 52
-  Particles:
-  - {fileID: 0}
   RestoreLifeRatio: 0

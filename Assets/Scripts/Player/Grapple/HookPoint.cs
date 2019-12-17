@@ -35,6 +35,7 @@ public class HookPoint : HookPointManager , IGrappable
     private float distance;
     Vector3 direction = Vector3.zero;
     Vector3 movement = Vector3.zero;
+    GameObject mask;
 
 
     private void Awake() {//da spostare quando ci sarà GameManager
@@ -44,7 +45,7 @@ public class HookPoint : HookPointManager , IGrappable
     void SetUp() {
         currentLife = BreakPoints[BreakPointsCount].lifeMax;
         OldPos = transform.position;
-        GameObject mask = Instantiate(graphics[0]);
+        mask = Instantiate(graphics[0] , transform.position - new Vector3(0, 1.375f,0) , transform.rotation);
         mask.transform.SetParent(transform);
     }
 
@@ -78,19 +79,28 @@ public class HookPoint : HookPointManager , IGrappable
         if (currentLife < 0) {
             
             if (BreakPointsCount < graphics.Length) {
-                Destroy(transform.GetChild(0).gameObject);
+
+                if (BreakPointsCount == graphics.Length-1 && transform.childCount > 0 && currentLife < 0) {
+                    
+                    transform.GetChild(0).gameObject.transform.position = hook.transform.position;
+                }
+                else {
+                    //Destroy(transform.GetChild(0).gameObject);
+                }
+
                 BreakPointsCount++;
                 currentLife = BreakPoints[BreakPointsCount].lifeMax;
-                GameObject mask = Instantiate(graphics[BreakPointsCount].gameObject);
+                GameObject mask = Instantiate(graphics[BreakPointsCount].gameObject , transform.position - new Vector3(0, 1.375f, 0), transform.rotation);
                 mask.transform.SetParent(transform);
                 ParticleSystem particle = Instantiate(particles[BreakPointsCount-1] as ParticleSystem, transform.position, Quaternion.identity);
                 if (BreakPointsCount == 2) {
                     particle = Instantiate(particles[BreakPointsCount] as ParticleSystem, transform.position, Quaternion.identity);
                 }
             }
-            
+
             if (BreakPointsCount == graphics.Length && transform.childCount > 0 && currentLife < 0) {
                 Destroy(transform.GetChild(0).gameObject);
+                //Instantiate(graphics[0], hook.transform.position /*- new Vector3(0, 1.375f, 0)*/, transform.rotation);
             }
 
             isHooked = false;
@@ -98,7 +108,7 @@ public class HookPoint : HookPointManager , IGrappable
             hook.hitDistance = 1;
 
             if (BreakPointsCount == graphics.Length && currentLife < 0) {
-                Destroy(this.gameObject);
+                 Destroy(this.gameObject);
             }
 
         }
