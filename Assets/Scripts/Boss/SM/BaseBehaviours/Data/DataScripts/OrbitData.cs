@@ -13,4 +13,7 @@ public class OrbitData : ScriptableObject
     public float FinalRadius;
     public float Angle;
     public float OrbitSpeed;
+    [HideInInspector]
+    public float initialPosition;
+    public bool HasPingPong;
 }

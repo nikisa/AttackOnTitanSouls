@@ -22,6 +22,11 @@ public class FirstBossAnticipationState : FirstBossState
     }
     public override void Enter()
     {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Anticipation"))
+        {
+            animator.SetBool("Anticipation", true);
+        }
+
         //loopsInit();
         EnterAnticipation();
         boss.View.ChangeMaterial(graphicsAnticipationData.AnticipationMat);
@@ -85,6 +90,7 @@ public class FirstBossAnticipationState : FirstBossState
             loops = anticipationData.Loops;
            
         }
+        animator.SetBool("Anticipation", false);
     }
 
 }

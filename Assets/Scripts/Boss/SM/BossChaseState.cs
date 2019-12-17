@@ -19,6 +19,10 @@ public class BossChaseState : BossBaseState
     //float AngularSpeed;
     public override void Enter()
     {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Chase"))
+        {
+            animator.SetBool("Chase", true);
+        }
         SetTarget();
         AccelerationEnter();
         ChaseEnter();
@@ -32,7 +36,7 @@ public class BossChaseState : BossBaseState
     }
     public override void Exit()
     {
-      
+        animator.SetBool("Chase", false);
     }
     public void AccelerationEnter()
     {

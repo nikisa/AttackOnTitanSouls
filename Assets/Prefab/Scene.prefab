@@ -293,6 +293,8 @@ MonoBehaviour:
   rotationTransform: {fileID: 0}
   body: {fileID: 0}
   movimentRatio: 0
+  DPS: 0
+  playerDashData: {fileID: 0}
 --- !u!1 &3623586589993174511
 GameObject:
   m_ObjectHideFlags: 0
@@ -1873,16 +1875,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1060819317393852858}
     m_Modifications:
-    - target: {fileID: 2817090957454111729, guid: 9db5eb2ec7da4f84eac3247a924e1488,
-        type: 3}
-      propertyPath: m_Name
-      value: FirstBoss
-      objectReference: {fileID: 0}
-    - target: {fileID: 2817090957454111729, guid: 9db5eb2ec7da4f84eac3247a924e1488,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1864217657619509360, guid: 9db5eb2ec7da4f84eac3247a924e1488,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1953,6 +1945,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2817090957454111729, guid: 9db5eb2ec7da4f84eac3247a924e1488,
+        type: 3}
+      propertyPath: m_Name
+      value: FirstBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 2817090957454111729, guid: 9db5eb2ec7da4f84eac3247a924e1488,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5257090766047344790, guid: 9db5eb2ec7da4f84eac3247a924e1488,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -1991,7 +1993,7 @@ PrefabInstance:
     - target: {fileID: 5257090766047344790, guid: 9db5eb2ec7da4f84eac3247a924e1488,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.29952088
+      value: 0.25076017
       objectReference: {fileID: 0}
     - target: {fileID: 5257090766047344790, guid: 9db5eb2ec7da4f84eac3247a924e1488,
         type: 3}
@@ -2001,7 +2003,7 @@ PrefabInstance:
     - target: {fileID: 5257090766047344790, guid: 9db5eb2ec7da4f84eac3247a924e1488,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.95408976
+      value: -0.9680493
       objectReference: {fileID: 0}
     - target: {fileID: 1195018097, guid: 9db5eb2ec7da4f84eac3247a924e1488, type: 3}
       propertyPath: Data
@@ -2029,7 +2031,7 @@ PrefabInstance:
     - target: {fileID: 5257090764918558598, guid: 9db5eb2ec7da4f84eac3247a924e1488,
         type: 3}
       propertyPath: RotationSpeed
-      value: 222.17233
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 5257090766047344788, guid: 9db5eb2ec7da4f84eac3247a924e1488,
         type: 3}
