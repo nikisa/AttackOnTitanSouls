@@ -18,6 +18,7 @@ public class BossController : MonoBehaviour
     [HideInInspector]
     public float MaxSpeed;
 
+    public string CurrentStateBoss;
 
 
     //private 

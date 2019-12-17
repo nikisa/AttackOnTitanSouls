@@ -17,3 +17,5 @@ MonoBehaviour:
   FinalRadius: 10
   Angle: 90
   OrbitSpeed: 30
+  initialPosition: 0
+  HasPingPong: 0

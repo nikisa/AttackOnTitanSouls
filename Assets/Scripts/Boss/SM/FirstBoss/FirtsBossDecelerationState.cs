@@ -13,6 +13,10 @@ public class FirtsBossDecelerationState : BossBaseState
     RaycastHit hit;
     public override void Enter()
     {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("DecelerationMoveTo"))
+        {
+            animator.SetBool("DecelerationMoveTo", true);
+        }
         CollisionEnter();
         DecelerationEnter();
     }
@@ -26,7 +30,7 @@ public class FirtsBossDecelerationState : BossBaseState
     }
     public void DecelerationTick()
     {
-        Debug.Log("decellera");
+       
         boss.Deceleration(moveToData.TimeDeceleration, moveToData.LowSpeed , moveToData.MaxSpeed);
     }
     public void RotationMoveTick()
@@ -59,5 +63,9 @@ public class FirtsBossDecelerationState : BossBaseState
     {
         moveToData = boss.GetMoveToData();
     }
-   
+    public override void Exit()
+    {
+        animator.SetBool("DecelerationMoveTo", false);
+    }
+
 }

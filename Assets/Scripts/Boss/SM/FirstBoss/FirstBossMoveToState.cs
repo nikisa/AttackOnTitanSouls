@@ -24,6 +24,10 @@ public class FirstBossMoveToState : FirstBossState
 
     public override void Enter()
     {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("MoveTo"))
+        {
+            animator.SetBool("MoveTo", true);
+        }
         RotationEnter();
         SetTarget();
         MoveToEnter();
@@ -42,7 +46,7 @@ public class FirstBossMoveToState : FirstBossState
     }
     public override void Exit()
     {
-        
+        animator.SetBool("MoveTo", false);
     }
     public void ChargeAttack()
     { 
