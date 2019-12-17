@@ -14,5 +14,7 @@ public class PlayerDashData : ScriptableObject
     public Ease DashEase;
     public float ResumeControl;
     public float DashTimeFreeze;
-    public float frameCombo;
+    public float FrameCombo;
+    public float TimeFreeze;
+    public float Rallenty;
 }

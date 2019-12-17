@@ -16,6 +16,8 @@ MonoBehaviour:
   DashDistance: 10
   DashTimeFrames: 4
   DashEase: 1
-  ResumeControl: 1
-  DashTimeFreeze: 0
-  frameCombo: 1
+  ResumeControl: 0.2
+  DashTimeFreeze: 1
+  FrameCombo: 0
+  TimeFreeze: 0.02
+  Rallenty: 0

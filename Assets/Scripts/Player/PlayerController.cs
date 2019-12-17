@@ -11,13 +11,14 @@ public class PlayerController : MonoBehaviour
     public DataInput dataInput;
     public Animator animator;
     public CharacterController controller;
-
-    Camera camera;
-
     public Transform rotationTransform;
     public Transform body;
     public float movimentRatio;
     public float DPS;
+    [HideInInspector]
+    public PlayerDashData playerDashData;
+
+    Camera camera;
 
     protected virtual void Start() {
         camera = Camera.main;
@@ -84,6 +85,17 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void DoFreeze(float _timeFreeze, float _rallenty) {
+        StartCoroutine(DoFreezeCoroutine(_timeFreeze , _rallenty));
+    }
+
+    IEnumerator DoFreezeCoroutine(float _timeFreeze ,float _rallenty) {
+        float originalScale = Time.timeScale;
+        Time.timeScale = _rallenty;
+        yield return new WaitForSecondsRealtime(_timeFreeze);
+        Time.timeScale = originalScale;
+    }
+
 }
 
     public struct DataInput {
@@ -107,6 +119,5 @@ public class PlayerController : MonoBehaviour
         HorizontalLook = 0;
         VerticalLook = 0;
     }
-
-
+    
 }

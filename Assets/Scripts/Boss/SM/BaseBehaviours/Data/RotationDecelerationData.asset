@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: RotationDecelerationData
   m_EditorClassIdentifier: 
   LowSpeed: 0
-  DecelerationTime: 2
+  DecelerationTime: 2.5
   WaitOnStart: 0

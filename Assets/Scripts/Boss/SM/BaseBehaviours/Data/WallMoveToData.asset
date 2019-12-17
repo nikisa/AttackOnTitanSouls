@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Time: 2
   MaxSpeed: 100
-  TimeAcceleration: 4
+  TimeAcceleration: 1
   HasAcceleration: 1
   StopsAtTargetOvertaking: 0
   TimeDeceleration: 3

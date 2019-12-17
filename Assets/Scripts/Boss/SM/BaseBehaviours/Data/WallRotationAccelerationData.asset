@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fcad89b6c56fd54f9a8d940094d3862, type: 3}
   m_Name: WallRotationAccelerationData
   m_EditorClassIdentifier: 
-  AccelerationTime: 40
+  AccelerationTime: 1.5
   WaitOnStart: 0
