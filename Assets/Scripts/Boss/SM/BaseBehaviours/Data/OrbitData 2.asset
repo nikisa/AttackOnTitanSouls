@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d148cdeed6aa2af41ad59f19f1e293e8, type: 3}
-  m_Name: ChaseData
+  m_Script: {fileID: 11500000, guid: 2aa83cd6802695841b4a44b0a777c87d, type: 3}
+  m_Name: OrbitData 2
   m_EditorClassIdentifier: 
-  Time: 9000
-  MaxSpeed: 0
-  HasAngularSpeed: 1
-  AngularSpeed: 3
-  TimeAcceleration: 1
-  HasAcceleration: 1
+  InitialRadius: 4
+  HasDeltaRadius: 0
+  FinalRadius: 10
+  Angle: 90
+  OrbitSpeed: 30
+  initialPosition: -2.73
+  HasPingPong: 0

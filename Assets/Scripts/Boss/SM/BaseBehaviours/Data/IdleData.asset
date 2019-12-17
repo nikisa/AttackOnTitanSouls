@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6ee48d336abfe4292b235d8577ee7a, type: 3}
   m_Name: IdleData
   m_EditorClassIdentifier: 
-  stateDuration: 0.5
+  stateDuration: 70

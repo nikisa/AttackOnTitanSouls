@@ -18,7 +18,7 @@ public class BS_BossOrbitState : BossBaseState
     {
         orbitManager = FindObjectOfType<BossOrbitManager>();
         //SetTargets();
-        OrbitEnter();   
+        OrbitEnter(); 
     }
     public override void Tick()
     {
@@ -38,7 +38,8 @@ public class BS_BossOrbitState : BossBaseState
         //initialPosition = orbitData.InitialRadius;
         for (int i = 0; i < orbitData.Count; i++)
         {
-            orbitManager.SetInitial(orbitData[i].InitialRadius, i , orbitData[i]);
+            //orbitManager.SetInitial(orbitData[i].InitialRadius, i , orbitData[i]);   girare le maschere e vedere se funziona
+            orbitManager.SetAllInitialPosition(i, orbitData[i]);
         }
     }
 
@@ -63,7 +64,7 @@ public class BS_BossOrbitState : BossBaseState
         {
             if (orbitData[i].HasDeltaRadius)
             {
-                orbitManager.MoveRadius(orbitData[i].FinalRadius, i , orbitData[i].initialPosition , orbitData[i].HasPingPong);
+                orbitManager.MoveRadius(orbitData[i].FinalRadius, i, orbitData[i].initialPosition, orbitData[i].HasPingPong);
             }
         }
     }

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitialRadius: 4
   HasDeltaRadius: 1
-  FinalRadius: 10
+  FinalRadius: 7
   Angle: 90
   OrbitSpeed: 30
-  initialPosition: 0
+  initialPosition: 1.6500003
   HasPingPong: 0

@@ -264,6 +264,7 @@ MonoBehaviour:
   RotationSpeed: 300
   moveToData: {fileID: 0}
   MaxSpeed: 0
+  CurrentStateBoss: 
   loops: 0
 --- !u!114 &3704836181323475859
 MonoBehaviour:
@@ -2321,7 +2322,7 @@ Transform:
   m_PrefabInstance: {fileID: 3704836182450269410}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8907777918123021426}
-  m_LocalRotation: {x: 0, y: -0.34445584, z: 0, w: 0.93880254}
+  m_LocalRotation: {x: 0, y: 0.8294524, z: 0, w: 0.5585773}
   m_LocalPosition: {x: 0.0000019073486, y: 0, z: 0.0000009536743}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children:
@@ -2356,7 +2357,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6c5c3e7f6657bca4cac7d63a3a011140, type: 2}
+  - {fileID: 2100000, guid: e1e5b254d1b12834d92ab224fc101557, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
