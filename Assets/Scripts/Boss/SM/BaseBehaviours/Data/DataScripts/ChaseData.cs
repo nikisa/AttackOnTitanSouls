@@ -6,11 +6,9 @@ public class ChaseData : BaseData
 { 
     [Tooltip("Maximum reachable speed, in m/sec.")]
     public float MaxSpeed;
-    public bool HasVectorRotationRate;
+    public bool HasAngularSpeed;
     [Tooltip("in degrees / sec.")]
-    public float VectorRotationRate;
-    [Tooltip("n m. If the target distance is major this value, the object leaves the state")]
-    public float ChaseRadius;
+    public float AngularSpeed;
     [Tooltip("Increasing rate of entry speed, in m/sec^2")]
     public float TimeAcceleration;
     public bool HasAcceleration;
