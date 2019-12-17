@@ -19,5 +19,5 @@ MonoBehaviour:
   ResumeControl: 0.2
   DashTimeFreeze: 1
   FrameCombo: 0
-  TimeFreeze: 0.2
-  Rallenty: 0.05
+  TimeFreeze: 0.02
+  Rallenty: 0
