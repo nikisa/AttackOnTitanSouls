@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public float DPS;
     [HideInInspector]
     public PlayerDashData playerDashData;
+    [HideInInspector]
+    public PlayerIdleData playerIdleData;
 
     Camera camera;
 

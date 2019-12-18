@@ -20,7 +20,7 @@ public class PlayerDashState : PlayerBaseState {
 
     public override void Enter() {
         player.playerDashData = playerDashData;
-        player.DoFreeze(playerDashData.TimeFreeze , playerDashData.Rallenty);
+        player.DoFreeze(playerDashData.TimeFreeze , playerDashData.SetTimeScale);
         Dash(playerDashData.DashTimeFrames , playerDashData.ResumeControl , playerDashData.DashTimeFreeze , player.dataInput);
         Debug.Log("Dash enter");
         _timeFreeze = playerDashData.DashTimeFreeze;
@@ -47,12 +47,24 @@ public class PlayerDashState : PlayerBaseState {
         _ResumeControl = playerDashData.ResumeControl / 60;
         _DashTimeFreeze = playerDashData.DashTimeFreeze / 60;
 
-        if (!playerDashData.isHookTest) {
-            transform.DOMove(new Vector3((playerDashData.DashDistance * Horizontal) + position.x, position.y, (playerDashData.DashDistance * Vertical) + position.z), _DashTimeFrames).SetEase(playerDashData.DashEase);//.OnComplete( () => { _playerController.ChangeState(IdleState); });
-        }
-        else {
-            transform.DOMove(new Vector3((playerDashData.DashDistance * Horizontal) + position.x, -(playerDashData.DashDistance * Vertical) + position.y, position.z), _DashTimeFrames).SetEase(playerDashData.DashEase);
-        }
+        //if (!playerDashData.isHookTest) {
+
+
+        transform.DOMove(new Vector3((playerDashData.DashDistance * Horizontal) + position.x, position.y, (playerDashData.DashDistance * Vertical) + position.z), _DashTimeFrames).OnComplete( () => { animator.SetTrigger(DASH_DECELERATION); });
+        
+        
+        //}
+        //else {
+        //    transform.DOMove(new Vector3((playerDashData.DashDistance * Horizontal) + position.x, -(playerDashData.DashDistance * Vertical) + position.y, position.z), _DashTimeFrames).SetEase(playerDashData.DashEase);
+        //}
+
+        //public void Deceleration() {
+        //    Debug.Log(velocity);
+        //    velocity -= timeDeceleration * Time.deltaTime;
+        //    if (velocity <= playerIdleData.maxSpeed) {
+        //        animator.SetTrigger(DASH_RESUME);
+        //    }
+        //}
 
 
         animator.SetTrigger(DASH_RESUME);

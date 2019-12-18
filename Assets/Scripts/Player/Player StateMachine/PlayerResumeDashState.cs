@@ -15,6 +15,9 @@ public class PlayerResumeDashState : PlayerBaseState
         if (Time.time - timeStart > player.playerDashData.ResumeControl) {
             animator.SetTrigger(DASH_FRAME_PERFECT);
         }
+        if (player.dataInput.Dash) {
+            animator.SetTrigger(IDLE);
+        }
     }
 
     public override void Exit() {

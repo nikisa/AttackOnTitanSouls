@@ -11,10 +11,8 @@ public class PlayerDashData : ScriptableObject
     public bool isHookTest;
     public float DashDistance;
     public float DashTimeFrames;
-    public Ease DashEase;
     public float ResumeControl;
     public float DashTimeFreeze;
-    public float FrameCombo;
     public float TimeFreeze;
-    public float Rallenty;
+    public float SetTimeScale;
 }
