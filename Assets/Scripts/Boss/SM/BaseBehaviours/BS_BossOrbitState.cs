@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class BS_BossOrbitState : BossBaseState
 {
-    public List <OrbitData> orbitData;
 
+    //Inspector
+    public List <OrbitData> orbitData;
+    public OrbitManagerData orbitManagerData;
+
+    //Private
     float orbitTimeStart;
     BossOrbitManager orbitManager;
-    //private
     float angleRotation;
     float currentRadius;
     
@@ -16,13 +19,18 @@ public class BS_BossOrbitState : BossBaseState
 
     public override void Enter()
     {
+
+        orbitTimeStart = Time.time;
         orbitManager = FindObjectOfType<BossOrbitManager>();
         //SetTargets();
         OrbitEnter(); 
     }
     public override void Tick()
     {
-        OrbitTick();
+        if (Time.time - orbitTimeStart < orbitManagerData.Time) {
+            OrbitTick();
+        }
+
 
     }
     public override void Exit()
@@ -59,12 +67,12 @@ public class BS_BossOrbitState : BossBaseState
         //else {
         //    animator.SetTrigger("Idle");
         //}
-        orbitManager.RotationMove();
+        orbitManager.RotationMove(orbitManagerData.speedRadius , orbitManagerData.MaxSpeed);
         for (int i = 0; i < orbitData.Count; i++)
         {
             if (orbitData[i].HasDeltaRadius)
             {
-                orbitManager.MoveRadius(orbitData[i].FinalRadius, i, orbitData[i].initialPosition, orbitData[i].HasPingPong);
+                orbitManager.MoveRadius(orbitData[i].FinalRadius, i, orbitData[i].initialPosition, orbitData[i].HasPingPong , orbitManagerData.speedRadius);
             }
         }
     }

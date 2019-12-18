@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class BossOrbitManager : MonoBehaviour
 {
+
     public List<GameObject> OrbitList;
-    public float MaxSpeed;
-    public float TimeAcceleration;
+
+
+    //Private
+    bool hasFinished;
     float timeAcceleration;
-    float speedRadius = 3;
     float moveSpeed;
+
     void Start()
     {
-        
+        hasFinished = false;
     }
 
     // Update is called once per frame
@@ -20,38 +23,40 @@ public class BossOrbitManager : MonoBehaviour
     {
         
     }
-    public void SetInitial(float _initialRadius , int _index , OrbitData _data)
-    {
-        Vector3 Temp = OrbitList[_index].transform.position;
-        _data.initialPosition = Temp.z + _initialRadius;
-        OrbitList[_index].transform.position = new Vector3(Temp.x, Temp.y, _data.initialPosition);
+    //public void SetInitial(float _initialRadius , int _index , OrbitData _data)
+    //{
+    //    Vector3 Temp = OrbitList[_index].transform.position;
+    //    _data.initialPosition = Temp.z + _initialRadius;
+    //    OrbitList[_index].transform.position = new Vector3(Temp.x, Temp.y, _data.initialPosition);
        
-    }
-    public void MoveRadius(float _finalRadius , int _index , float _initialPosition , bool _hasPingPong)
+    //}
+
+    public void MoveRadius(float _finalRadius , int _index , float _initialPosition , bool _hasPingPong , float _speedRadius)
     {
-        Debug.Log(OrbitList[_index].transform.localPosition.z);
+        Debug.Log(OrbitList[_index].gameObject.transform.parent.name);
         Debug.Log(_initialPosition + _finalRadius);
-        if (!_hasPingPong && _initialPosition + _finalRadius > OrbitList[_index].transform.localPosition.z)
+        if (_initialPosition + _finalRadius >= OrbitList[_index].transform.localPosition.z && !hasFinished)
         {
-            //Debug.Log(OrbitList[_index].transform.position.z);
-             OrbitList[_index].transform.Translate(/*OrbitList[_index].transform.forward*/ Vector3.forward* speedRadius * Time.deltaTime);
-            //OrbitList[_index].transform.position = new Vector3(OrbitList[_index].transform.localPosition.x, OrbitList[_index].transform.position.y, OrbitList[_index].transform.position.z + speedRadius * Time.deltaTime);
-           // OrbitList[_index].transform.position  = new Vector3(OrbitList[_index].transform.position.x, OrbitList[_index].transform.position.y, Mathf.Clamp(OrbitList[_index].transform.position.z, _initialPosition, _finalRadius));
+             OrbitList[_index].transform.Translate(Vector3.forward* _speedRadius * Time.deltaTime);
         }
-        if(OrbitList[_index].transform.position.z >= _finalRadius && _hasPingPong)
+        if((_initialPosition + _finalRadius <= OrbitList[_index].transform.localPosition.z  || _initialPosition + _finalRadius >= OrbitList[_index].transform.localPosition.z) && _hasPingPong)
         {
-            OrbitList[_index].transform.Translate(-OrbitList[_index].transform.forward * speedRadius * Time.deltaTime);
-            Mathf.Clamp(OrbitList[_index].transform.position.z, _finalRadius, _initialPosition);
+            OrbitList[_index].transform.Translate(-OrbitList[_index].transform.forward * _speedRadius * Time.deltaTime);
+            hasFinished = true;
         }
-        
+        if (OrbitList[_index].transform.localPosition.z <= _initialPosition) {
+            Debug.Log("RESET");
+            hasFinished = false;
+        }
+
     }
-    public void RotationMove()
+    public void RotationMove(float _maxSpeed , float _timeAcceleration)
     {
-        timeAcceleration = MaxSpeed / TimeAcceleration;
+        timeAcceleration = _maxSpeed / _timeAcceleration;
         moveSpeed += timeAcceleration * Time.deltaTime;
 
         transform.Rotate(Vector3.up * moveSpeed);
-        moveSpeed = Mathf.Clamp(moveSpeed, 0, MaxSpeed);
+        moveSpeed = Mathf.Clamp(moveSpeed, 0, _maxSpeed);
     }
     public void SetAllInitialPosition(int _index, OrbitData _data)
     {

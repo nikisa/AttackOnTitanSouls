@@ -157,6 +157,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 017e01d429f0b764e9447c1b50fe3571, type: 2}
   - {fileID: 11400000, guid: 24983096535aef3429ee33d022f79247, type: 2}
   - {fileID: 11400000, guid: 461b10a201887214b8f1b9a4be397e9c, type: 2}
+  orbitManagerData: {fileID: 11400000, guid: 760edc6fee246b64aa7a2891f0c3c245, type: 2}
 --- !u!114 &114189148150809618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -170,6 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orbitData: []
+  orbitManagerData: {fileID: 0}
 --- !u!114 &114204836049494000
 MonoBehaviour:
   m_ObjectHideFlags: 1

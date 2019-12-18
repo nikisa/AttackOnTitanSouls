@@ -1561,8 +1561,6 @@ MonoBehaviour:
   - {fileID: 1415619204}
   - {fileID: 930037821}
   - {fileID: 1437580429}
-  MaxSpeed: 2
-  TimeAcceleration: 1
 --- !u!1818360608 &630262234
 PositionConstraint:
   m_ObjectHideFlags: 0
@@ -6211,7 +6209,7 @@ PrefabInstance:
     - target: {fileID: 3047864546545766620, guid: 20becccbc1f579542bb8b44f3faa67f0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3047864548040559234, guid: 20becccbc1f579542bb8b44f3faa67f0,
         type: 3}
@@ -6233,6 +6231,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3047864546015354146, guid: 20becccbc1f579542bb8b44f3faa67f0,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 3047864546545766619, guid: 20becccbc1f579542bb8b44f3faa67f0,
         type: 3}
       propertyPath: m_LocalPosition.x

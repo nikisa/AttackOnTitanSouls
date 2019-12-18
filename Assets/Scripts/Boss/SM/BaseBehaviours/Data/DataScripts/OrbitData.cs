@@ -4,11 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "OrbitData", menuName = "BossData/OrbitData")]
 public class OrbitData : ScriptableObject
 {
-
-
-
     //Inspector
-    public float InitialRadius;
+    //public float InitialRadius;
     public bool HasDeltaRadius;
     public float FinalRadius;
     public float Angle;
