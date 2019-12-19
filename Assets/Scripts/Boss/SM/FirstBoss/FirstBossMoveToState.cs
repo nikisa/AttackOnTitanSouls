@@ -40,7 +40,7 @@ public class FirstBossMoveToState : FirstBossState
         MoveToTick();
         AccelerationTick();
         RotationMoveTick();
-        SetToCenter();
+        //SetToCenter();
         TrailTick();
        
     }
@@ -78,14 +78,27 @@ public class FirstBossMoveToState : FirstBossState
         boss.RotationSpeed += rotationMoveData.AddToRotationSpeed;
     }
     public void MoveToTick() {
-        WallDistance = boss.CollisionDistance(hit.point);
-        distance = Vector3.Distance(boss.transform.position, targetPosition);
-        if (WallDistance <= 2 && moveToData.StopOnSolid) {
+        //WallDistance = boss.CollisionDistance(hit.point);
+        //distance = Vector3.Distance(boss.transform.position, targetPosition);
+        //if (WallDistance <= 2 && moveToData.StopOnSolid) {
+        //    Debug.Log("collisione");
+        //    animator.SetTrigger("Collision");
+        //}
+   
+        if (boss.DetectCollision() == 1 && Time.time - timeStartMoveTo > 0.15)
+        {
             Debug.Log("collisione");
-            animator.SetTrigger("Collision");
+              animator.SetTrigger("Collision");
         }
-        
-        
+        else if (boss.DetectCollision() == 2)
+        {
+            Debug.Log("CAVOLFIORE");
+        }
+        else
+        {
+            boss.Move();
+        }
+     
         if (moveToData.StopsAtTargetOvertaking) {
             if (boss.transform.position.x >= Target.transform.position.x - range && boss.transform.position.x <= Target.transform.position.x + range
                 || boss.transform.position.z >= Target.transform.position.z - range && boss.transform.position.z <= Target.transform.position.z + range) {
@@ -102,7 +115,7 @@ public class FirstBossMoveToState : FirstBossState
         //    animator.SetTrigger(RECOVERY);  bohhhhh
         //}
 
-        boss.Move();
+      
     }
 
     public void AccelerationEnter() {

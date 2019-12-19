@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WallMoveToData
   m_EditorClassIdentifier: 
   Time: 2
-  MaxSpeed: 100
+  MaxSpeed: 50
   TimeAcceleration: 1
   HasAcceleration: 1
   StopsAtTargetOvertaking: 0

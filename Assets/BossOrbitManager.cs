@@ -6,7 +6,7 @@ public class BossOrbitManager : MonoBehaviour
 {
 
     public List<GameObject> OrbitList;
-
+    public List<HookPoint> HookPointList;
 
     //Private
     bool hasFinished;
@@ -63,4 +63,20 @@ public class BossOrbitManager : MonoBehaviour
         _data.initialPosition = OrbitList[_index].transform.localPosition.z;
         Debug.Log(OrbitList[_index].transform.localPosition.z);
     }
+    public void SetHookPoints()
+    {
+        for (int i = 0; i < OrbitList.Count; i++)
+        {
+            HookPointList[i]= OrbitList[i].transform.GetChild(1).GetComponent<HookPoint>();
+        
+        }
+    } 
+    //public void Controllo()
+    //{
+    //    for (int i = 0; i < OrbitList.Count; i++)
+    //    {
+    //        HookPointList[i].
+
+    //    }
+    //}
 }
