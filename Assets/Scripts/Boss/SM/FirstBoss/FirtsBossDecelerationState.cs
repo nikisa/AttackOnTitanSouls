@@ -26,7 +26,7 @@ public class FirtsBossDecelerationState : BossBaseState
         RotationMoveTick();
         DecelerationRotationTick();
         CollisionTick();
-        boss.Move();
+      
     }
     public void DecelerationTick()
     {
@@ -48,11 +48,14 @@ public class FirtsBossDecelerationState : BossBaseState
     }
     public void CollisionTick()
     {
-        distance = boss.CollisionDistance(hit.point);
-        if (distance <= 2 && moveToData.StopOnSolid)
+        if (boss.DetectCollision() == 1)
         {
             Debug.Log("collisione");
             animator.SetTrigger("Collision");
+        }
+        else
+        {
+            boss.Move();
         }
     }
     public void CollisionEnter()

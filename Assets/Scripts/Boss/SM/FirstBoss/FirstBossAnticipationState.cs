@@ -16,7 +16,7 @@ public class FirstBossAnticipationState : FirstBossState
      public void Awake()   /// dove metterla?
      {
        
-        loops = anticipationData.Loops;
+        loops = anticipationData.Loops +1;
         //animator.SetInteger("Loops", anticipationData.Loops);
 
     }
@@ -87,7 +87,7 @@ public class FirstBossAnticipationState : FirstBossState
         if (loops <= 0)
         {
             Debug.Log("fine ciclo");
-            loops = anticipationData.Loops;
+            loops = anticipationData.Loops +1;
            
         }
         animator.SetBool("Anticipation", false);

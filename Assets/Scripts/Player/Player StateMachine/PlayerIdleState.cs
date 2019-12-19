@@ -19,6 +19,7 @@ public class PlayerIdleState : PlayerBaseState {
     float startTime;
     float boostTime;
     float timer;
+    int layerMask;
     Vector3 movementVelocity = Vector3.zero;
     //InputData inputData;
     DataInput dataInput;
@@ -85,7 +86,7 @@ public class PlayerIdleState : PlayerBaseState {
 
 
     public override void Enter() {
-
+        layerMask = 1 << 10;
         timer = Time.time;
 
         accelRatePerSec = playerIdleData.maxSpeed / (playerIdleData.framesZeroToMax / 60);
@@ -194,7 +195,7 @@ public class PlayerIdleState : PlayerBaseState {
 
             float time = Time.deltaTime / interpolation;
 
-            RaycastHit[] hits = Physics.SphereCastAll(player.transform.position + Vector3.up * 1.1f, skin, movementVelocity, (movementVelocity * time).magnitude);
+            RaycastHit[] hits = Physics.SphereCastAll(player.transform.position + Vector3.up * 1.1f, skin, movementVelocity, (movementVelocity * time).magnitude , layerMask);
 
             if (hits==null || hits.Length==0)
             {
@@ -210,7 +211,7 @@ public class PlayerIdleState : PlayerBaseState {
                     {
                         var rb = hit.transform.GetComponent<Rigidbody>();
                         rb.AddForceAtPosition(movementVelocity, hit.point, ForceMode.Acceleration);
-                        Debug.LogFormat("Impact:{0}", movementVelocity);
+                        //Debug.LogFormat("Impact:{0}", movementVelocity);
                     }
                 }
 

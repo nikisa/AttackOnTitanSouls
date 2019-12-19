@@ -45,11 +45,7 @@ public class FirstBossRecoveryState : FirstBossState
     }
    
     public void RecoveryInfoTick() {
-        //distance = boss.CollisionDistance(hit.point);
-        //if (distance <= 2 && moveToData.StopOnSolid) {
-        //    Debug.Log("collisione");
-        //    animator.SetTrigger("Collision");
-        //}
+       
 
         if ((Time.time - timeStartRecovery) > recoveryData.Time) {
             animator.SetTrigger(END_STATE_TRIGGER);
@@ -64,6 +60,7 @@ public class FirstBossRecoveryState : FirstBossState
 
     //    //if (Time.time - timeStartDeceleration > recoveryData.WaitOnStart) {
           boss.Deceleration(decelerationData.TimeDeceleration, decelerationData.LowSpeed , boss.MaxSpeed);
+        Debug.Log(boss.MaxSpeed);
     //    //}
     }
 

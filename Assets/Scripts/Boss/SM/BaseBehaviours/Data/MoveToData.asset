@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dc24604c90bf4a4fbecf065a41f4986, type: 3}
   m_Name: MoveToData
   m_EditorClassIdentifier: 
-  Time: 2
-  MaxSpeed: 300
+  Time: 0.2
+  MaxSpeed: 50
   TimeAcceleration: 1
   HasAcceleration: 1
   StopsAtTargetOvertaking: 0
   TimeDeceleration: 1
   LowSpeed: 0
-  StopOnSolid: 1
+  StopOnSolid: 0
   AddToVelocity: 0
   TrailOb: {fileID: 1581561734376683112, guid: ea6312ed7295df1408345b4d11282216, type: 3}
   TrailDelay: 0
