@@ -51,12 +51,16 @@ public class BossOrbitManager : MonoBehaviour
     }
     public void RotationMove(float _maxSpeed , float _timeAcceleration)
     {
+
         timeAcceleration = _maxSpeed / _timeAcceleration;
         moveSpeed += timeAcceleration * Time.deltaTime;
 
         transform.Rotate(Vector3.up * moveSpeed);
         moveSpeed = Mathf.Clamp(moveSpeed, 0, _maxSpeed);
+        Debug.Log(timeAcceleration);
+
     }
+
     public void SetAllInitialPosition(int _index, OrbitData _data)
     {
         _data.initialPosition = OrbitList[_index].transform.localPosition.z;
@@ -69,7 +73,13 @@ public class BossOrbitManager : MonoBehaviour
             HookPointList[i]= OrbitList[i].transform.GetChild(1).GetComponent<HookPoint>();
         
         }
-    } 
+    }
+    
+    public void SetUp() {
+        moveSpeed = 0;
+        timeAcceleration = 0;
+    }
+
     //public void Controllo()
     //{
     //    for (int i = 0; i < OrbitList.Count; i++)

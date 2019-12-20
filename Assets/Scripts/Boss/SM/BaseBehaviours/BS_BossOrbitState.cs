@@ -19,11 +19,11 @@ public class BS_BossOrbitState : BossBaseState
 
     public override void Enter()
     {
-
         orbitTimeStart = Time.time;
         orbitManager = FindObjectOfType<BossOrbitManager>();
         //SetTargets();
-        OrbitEnter(); 
+        OrbitEnter();
+        orbitManager.SetUp();
     }
     public override void Tick()
     {
@@ -68,6 +68,8 @@ public class BS_BossOrbitState : BossBaseState
         //    animator.SetTrigger("Idle");
         //}
         orbitManager.RotationMove(orbitManagerData.speedRadius , orbitManagerData.MaxSpeed);
+
+
         for (int i = 0; i < orbitData.Count; i++)
         {
             if (orbitData[i].HasDeltaRadius)
