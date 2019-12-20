@@ -21,6 +21,11 @@ public class FirstBossRecoveryState : FirstBossState
 
     public override void Enter()
     {
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Recovery")) {
+            animator.SetBool("RecoveryOrbit", true);
+        }
+
         RecoveryInfoEnter();
       //  DecelerationEnter();
         //DecelerationRotationEnter();
@@ -31,10 +36,12 @@ public class FirstBossRecoveryState : FirstBossState
         DecelerationTick();
         //RotationMoveTick();
         //DecelerationRotationTick();
+
     }
     public override void Exit()
     {
-       
+        animator.SetBool("RecoveryOrbit", false);
+        CheckVulnerability();
     }
 
     public void RecoveryInfoEnter() {

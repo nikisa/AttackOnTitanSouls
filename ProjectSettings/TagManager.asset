@@ -11,6 +11,7 @@ TagManager:
   - Center
   - Pushable
   - HookPoint
+  - BossCore
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - HookPoint
   - Walls
   - Player
-  - 
+  - Boss
   - 
   - 
   - 

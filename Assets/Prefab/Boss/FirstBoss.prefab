@@ -1,5 +1,109 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1044595278
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1044595279}
+  m_Layer: 2
+  m_Name: BossCoreHookPoint
+  m_TagString: BossCore
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1044595279
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044595278}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1388776524}
+  m_Father: {fileID: 3047864547448822622}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1388776523
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1388776524}
+  - component: {fileID: 1388776526}
+  - component: {fileID: 1388776525}
+  m_Layer: 9
+  m_Name: AssetPivot (1)
+  m_TagString: HookPoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1388776524
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388776523}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_Children: []
+  m_Father: {fileID: 1044595279}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1388776526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388776523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ed89614ee71c2641a788273d2375ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HookPointPivot: {fileID: 3047864546311299905}
+  HookPointAsset: {fileID: 1388776523}
+  hook: {fileID: 0}
+  player: {fileID: 0}
+  isHooked: 0
+  OldPos: {x: 0, y: 0, z: 0}
+  Inertia: {x: 0, y: 0, z: 0}
+  BreakPoints: []
+  graphics: []
+  particles:
+  - {fileID: 8976925650897183614, guid: 55135bfc8ebdd1547895937189c4198b, type: 3}
+  - {fileID: 8976925650897183614, guid: 55135bfc8ebdd1547895937189c4198b, type: 3}
+  - {fileID: 7160175276461913361, guid: 6a67a4de1d6ecc344816955f1a756b67, type: 3}
+  BreakPointsCount: 0
+  currentLife: 1
+--- !u!136 &1388776525
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388776523}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.79130244
+  m_Height: 3.2205215
+  m_Direction: 1
+  m_Center: {x: 0.008015236, y: 0.6102594, z: 0.0000019073486}
 --- !u!1 &3047864545998998219
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,7 +115,7 @@ GameObject:
   - component: {fileID: 3047864545998998218}
   - component: {fileID: 3047864545998998216}
   - component: {fileID: 3047864545998998217}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AssetPivot
   m_TagString: HookPoint
   m_Icon: {fileID: 0}
@@ -88,7 +192,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3047864546015354145}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HookPoint (1)
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -213,7 +317,7 @@ GameObject:
   - component: {fileID: 3047864546311299905}
   - component: {fileID: 3047864546311299919}
   - component: {fileID: 3047864546311299904}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HookPointPivot
   m_TagString: HookPoint
   m_Icon: {fileID: 0}
@@ -290,7 +394,7 @@ GameObject:
   - component: {fileID: 3047864546510570465}
   - component: {fileID: 3047864546510570479}
   - component: {fileID: 3047864546510570464}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AssetPivot
   m_TagString: HookPoint
   m_Icon: {fileID: 0}
@@ -402,7 +506,7 @@ GameObject:
   - component: {fileID: 3047864546592088192}
   - component: {fileID: 3047864546592088206}
   - component: {fileID: 3047864546592088207}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HookPointPivot
   m_TagString: HookPoint
   m_Icon: {fileID: 0}
@@ -479,7 +583,7 @@ GameObject:
   - component: {fileID: 3047864546601609027}
   - component: {fileID: 3047864546601609025}
   - component: {fileID: 3047864546601609026}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AssetPivot
   m_TagString: HookPoint
   m_Icon: {fileID: 0}
@@ -556,7 +660,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3047864546670144509}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HookPoint (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -590,7 +694,7 @@ GameObject:
   - component: {fileID: 3047864546724003008}
   - component: {fileID: 3047864546724003022}
   - component: {fileID: 3047864546724003023}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HookPointPivot
   m_TagString: HookPoint
   m_Icon: {fileID: 0}
@@ -695,7 +799,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3047864547139965438}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HookPoint (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -729,7 +833,7 @@ GameObject:
   - component: {fileID: 3047864547207313650}
   - component: {fileID: 3047864547207313648}
   - component: {fileID: 3047864547207313649}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AssetPivot
   m_TagString: HookPoint
   m_Icon: {fileID: 0}
@@ -814,7 +918,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3047864547448822622
 Transform:
   m_ObjectHideFlags: 0
@@ -831,6 +935,7 @@ Transform:
   - {fileID: 3047864547139965438}
   - {fileID: 3047864548040559233}
   - {fileID: 3047864548037480115}
+  - {fileID: 1044595279}
   m_Father: {fileID: 3047864546545766619}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -871,6 +976,12 @@ MonoBehaviour:
   - {fileID: 3047864547139965439}
   - {fileID: 3047864548040559234}
   - {fileID: 3047864548037480116}
+  HookPointList:
+  - {fileID: 3047864546510570479}
+  - {fileID: 3047864547895534031}
+  - {fileID: 3047864545998998216}
+  - {fileID: 3047864546601609025}
+  - {fileID: 3047864547207313648}
 --- !u!1 &3047864547460990470
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,7 +993,7 @@ GameObject:
   - component: {fileID: 3047864547460990469}
   - component: {fileID: 3047864547460990467}
   - component: {fileID: 3047864547460990468}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HookPointPivot
   m_TagString: HookPoint
   m_Icon: {fileID: 0}
@@ -1016,9 +1127,10 @@ MonoBehaviour:
   animator: {fileID: 3047864547624720483}
   debug: {fileID: 3704836181791441610, guid: 030473f00ebc52d4a88b141d27ac83c5, type: 3}
   View: {fileID: 3047864547624720485}
-  Player: {fileID: 3623586589825629502, guid: 030473f00ebc52d4a88b141d27ac83c5, type: 3}
+  Player: {fileID: 0}
   Graphics: {fileID: 8907777918123021426, guid: 030473f00ebc52d4a88b141d27ac83c5,
     type: 3}
+  bossOrbitManager: {fileID: 630262233}
   MoveSpeed: 0
   RotationSpeed: 0
   moveToData: {fileID: 0}
@@ -1037,7 +1149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967ea07e8b387494c9aebe084398b3d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boss: {fileID: 8907777919250817892, guid: 030473f00ebc52d4a88b141d27ac83c5, type: 3}
+  boss: {fileID: 3047864547624720484}
 --- !u!1 &3047864547895534018
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,7 +1161,7 @@ GameObject:
   - component: {fileID: 3047864547895534017}
   - component: {fileID: 3047864547895534031}
   - component: {fileID: 3047864547895534016}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AssetPivot
   m_TagString: HookPoint
   m_Icon: {fileID: 0}
@@ -1131,7 +1243,8 @@ GameObject:
   - component: {fileID: 3047864547901241188}
   - component: {fileID: 3047864547901241190}
   - component: {fileID: 3047864547901241191}
-  m_Layer: 2
+  - component: {fileID: 1330558746}
+  m_Layer: 12
   m_Name: FirstBossGraphics
   m_TagString: BossGraphics
   m_Icon: {fileID: 0}
@@ -1210,7 +1323,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 3.2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3047864547901241190
 Rigidbody:
@@ -1247,6 +1360,18 @@ PositionConstraint:
   m_Sources:
   - sourceTransform: {fileID: 3047864547624720486}
     weight: 1
+--- !u!114 &1330558746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3047864547901241209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7525aa69b578e24280e330ad5ad6674, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3047864547915410685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,7 +1383,7 @@ GameObject:
   - component: {fileID: 3047864547915410684}
   - component: {fileID: 3047864547915410682}
   - component: {fileID: 3047864547915410683}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HookPointPivot
   m_TagString: HookPoint
   m_Icon: {fileID: 0}
@@ -1333,7 +1458,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3047864548037480115}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HookPoint (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1365,7 +1490,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3047864548040559233}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HookPoint (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1399,6 +1524,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Boss_prova
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982400532797293560, guid: ad53951c90dcb204dac602ba2ced8b68,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982400532797293560, guid: ad53951c90dcb204dac602ba2ced8b68,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982400532797293560, guid: ad53951c90dcb204dac602ba2ced8b68,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982400532797293560, guid: ad53951c90dcb204dac602ba2ced8b68,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982400532797293560, guid: ad53951c90dcb204dac602ba2ced8b68,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982400532797293560, guid: ad53951c90dcb204dac602ba2ced8b68,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1456614764135342286, guid: ad53951c90dcb204dac602ba2ced8b68,
         type: 3}
@@ -1469,36 +1624,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4982400532797293560, guid: ad53951c90dcb204dac602ba2ced8b68,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4982400532797293560, guid: ad53951c90dcb204dac602ba2ced8b68,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4982400532797293560, guid: ad53951c90dcb204dac602ba2ced8b68,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4982400532797293560, guid: ad53951c90dcb204dac602ba2ced8b68,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4982400532797293560, guid: ad53951c90dcb204dac602ba2ced8b68,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4982400532797293560, guid: ad53951c90dcb204dac602ba2ced8b68,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4982400532799586584, guid: ad53951c90dcb204dac602ba2ced8b68,
         type: 3}

@@ -22,10 +22,11 @@ public class FirstBossAnticipationState : FirstBossState
     }
     public override void Enter()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Anticipation"))
-        {
-            animator.SetBool("Anticipation", true);
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Anticipation")) {
+            animator.SetBool("AnticipationOrbit", true);
         }
+
 
         //loopsInit();
         EnterAnticipation();
@@ -37,12 +38,14 @@ public class FirstBossAnticipationState : FirstBossState
     {
         RotationAccelerationTick();
         AnticipationTick();
-        RotationMoveTick();
+        //RotationMoveTick();
 
     }
     public override void Exit()
     {
-       boss.View.ChangeMaterial(graphicsAnticipationData.NormalMat);
+        animator.SetBool("AnticipationOrbit", false);
+        CheckVulnerability();
+        boss.View.ChangeMaterial(graphicsAnticipationData.NormalMat);
         AnticipationExit();
     }
 

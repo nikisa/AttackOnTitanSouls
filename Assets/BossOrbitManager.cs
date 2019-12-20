@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossOrbitManager : MonoBehaviour
 {
-
+    //Inspector
     public List<GameObject> OrbitList;
     public List<HookPoint> HookPointList;
 
@@ -33,8 +33,8 @@ public class BossOrbitManager : MonoBehaviour
 
     public void MoveRadius(float _finalRadius , int _index , float _initialPosition , bool _hasPingPong , float _speedRadius)
     {
-        Debug.Log(OrbitList[_index].gameObject.transform.parent.name);
-        Debug.Log(_initialPosition + _finalRadius);
+        //Debug.Log(OrbitList[_index].gameObject.transform.parent.name);
+        //Debug.Log(_initialPosition + _finalRadius);
         if (_initialPosition + _finalRadius >= OrbitList[_index].transform.localPosition.z && !hasFinished)
         {
              OrbitList[_index].transform.Translate(Vector3.forward* _speedRadius * Time.deltaTime);
@@ -45,7 +45,6 @@ public class BossOrbitManager : MonoBehaviour
             hasFinished = true;
         }
         if (OrbitList[_index].transform.localPosition.z <= _initialPosition) {
-            Debug.Log("RESET");
             hasFinished = false;
         }
 

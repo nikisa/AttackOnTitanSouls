@@ -7,7 +7,7 @@ using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
-    
+    //Inspector
     public DataInput dataInput;
     public Animator animator;
     public CharacterController controller;
@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     public Transform body;
     public float movimentRatio;
     public float DPS;
+    public BossOrbitManager bossOrbitManager;
+
+    //Public
     [HideInInspector]
     public PlayerDashData playerDashData;
     [HideInInspector]
@@ -26,7 +29,7 @@ public class PlayerController : MonoBehaviour
         camera = Camera.main;
 
         foreach (var item in animator.GetBehaviours<BaseState>()) {
-            item.SetContext(this, animator);
+            item.SetContext(this, animator , bossOrbitManager);
         }
     }
 

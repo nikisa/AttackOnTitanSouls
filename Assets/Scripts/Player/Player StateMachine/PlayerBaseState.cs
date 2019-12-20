@@ -20,8 +20,8 @@ public class PlayerBaseState : BaseState {
     //protected const string MOVETO = "MoveTo";
     //protected const string RECOVERY = "Recovery";
 
-    public override void SetContext(object context, Animator animator) {
-        base.SetContext(context, animator);
+    public override void SetContext(object context, Animator animator , BossOrbitManager bossOrbitManager) { //Togliere bossOrbitManager dal Player
+        base.SetContext(context, animator , bossOrbitManager);
         player = context as PlayerController;
     }
 

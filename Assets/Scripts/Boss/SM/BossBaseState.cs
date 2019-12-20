@@ -5,7 +5,6 @@ using UnityEngine;
 public class BossBaseState : BaseState
 {
     protected BossController boss;
-    //  protected FirstBossData data;
 
     protected const string END_STATE_TRIGGER = "EndState";
 
@@ -15,9 +14,9 @@ public class BossBaseState : BaseState
     protected const string MOVETO = "MoveTo";
     protected const string RECOVERY = "Recovery";
 
-    public override void SetContext(object context, Animator animator)
+    public override void SetContext(object context, Animator animator , BossOrbitManager bossOrbitManager)
     {
-        base.SetContext(context, animator);
+        base.SetContext(context, animator , bossOrbitManager);
         boss = context as BossController;
         
         //data = boss.
@@ -28,4 +27,12 @@ public class BossBaseState : BaseState
     {
         animator.SetTrigger(END_STATE_TRIGGER);
     }
+
+
+    public void DetectCollision(int _iteration) {
+        if (boss.MovingDetectCollision(_iteration) == 2) {
+            Debug.Log("CAVOLFIORE");
+        }
+    }
+
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FirstBossMoveToState : FirstBossState
 {
@@ -20,10 +21,18 @@ public class FirstBossMoveToState : FirstBossState
     float timeStartTrail;
     float timeStartMoveTo;
     RaycastHit hit;
+    int iterations;
 
 
     public override void Enter()
     {
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("MoveTo")) {
+            animator.SetBool("MoveToOrbit", true);
+        }
+
+        iterations = 30;
+
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("MoveTo"))
         {
             animator.SetBool("MoveTo", true);
@@ -39,14 +48,15 @@ public class FirstBossMoveToState : FirstBossState
     {
         MoveToTick();
         AccelerationTick();
-        RotationMoveTick();
+        //RotationMoveTick();
         //SetToCenter();
-        TrailTick();
+        //TrailTick();
        
     }
     public override void Exit()
     {
-        animator.SetBool("MoveTo", false);
+        CheckVulnerability();
+        animator.SetBool("MoveToOrbit", false);
     }
     public void ChargeAttack()
     { 
@@ -85,18 +95,19 @@ public class FirstBossMoveToState : FirstBossState
         //    animator.SetTrigger("Collision");
         //}
    
-        if (boss.DetectCollision() == 1 && Time.time - timeStartMoveTo > 0.15)
+        if (boss.MovingDetectCollision(iterations) == 1 && Time.time - timeStartMoveTo > .5f) // BUG HERE!!! Probabilmente causato dal Timer
         {
             Debug.Log("collisione");
               animator.SetTrigger("Collision");
         }
-        else if (boss.DetectCollision() == 2)
-        {
-            Debug.Log("CAVOLFIORE");
-        }
-        else
-        {
+        else {
+
             boss.Move();
+
+            if (boss.MovingDetectCollision(iterations) == 2) {
+                Debug.Log("CAVOLFIORE");
+                SceneManager.LoadScene(2);
+            }
         }
      
         if (moveToData.StopsAtTargetOvertaking) {

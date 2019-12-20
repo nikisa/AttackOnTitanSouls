@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerIdleState : PlayerBaseState {
@@ -86,7 +87,7 @@ public class PlayerIdleState : PlayerBaseState {
 
 
     public override void Enter() {
-        layerMask = 1 << 10;
+        layerMask = 1 << 10 | 1<<12;
         timer = Time.time;
 
         accelRatePerSec = playerIdleData.maxSpeed / (playerIdleData.framesZeroToMax / 60);
@@ -197,38 +198,36 @@ public class PlayerIdleState : PlayerBaseState {
 
             RaycastHit[] hits = Physics.SphereCastAll(player.transform.position + Vector3.up * 1.1f, skin, movementVelocity, (movementVelocity * time).magnitude , layerMask);
 
-            if (hits==null || hits.Length==0)
-            {
+            if (hits == null || hits.Length == 0) {
                 player.transform.Translate(movementVelocity * time);
-                //Verlet movement
             }
-            else
-            {
+        else {
                 //pushable
-                foreach (var hit in hits)
-                {
-                    if (hit.transform.gameObject.CompareTag("Pushable"))
-                    {
+                foreach (var hit in hits) {
+                    if (hit.transform.gameObject.CompareTag("Pushable")) {
                         var rb = hit.transform.GetComponent<Rigidbody>();
                         rb.AddForceAtPosition(movementVelocity, hit.point, ForceMode.Acceleration);
                         //Debug.LogFormat("Impact:{0}", movementVelocity);
                     }
+                    else if (hits[0].transform.gameObject.CompareTag("BossGraphics")) {
+                        Debug.Log("CAVOLFIORE");
+                        SceneManager.LoadScene(2);
+
+                    }
+
+                    //slope
+                    if (hits.Length == 1) {
+                        var normal = Quaternion.AngleAxis(90, Vector3.up) * hits[0].normal;
+                        Debug.DrawRay(hits[0].point, normal * 4, Color.red, 2);
+
+                        movementVelocity = normal * Vector3.Dot(movementVelocity, normal);
+                        movementVelocity.y = 0;
+
+                        player.transform.Translate(movementVelocity * time);
+                        //Verlet movement
+                    }
+
                 }
-
-                //slope
-                if (hits.Length==1)
-                {
-                    var normal = Quaternion.AngleAxis(90, Vector3.up) * hits[0].normal;
-                    Debug.DrawRay(hits[0].point, normal * 4, Color.red, 2);
-
-                    movementVelocity = normal * Vector3.Dot(movementVelocity, normal);
-                    movementVelocity.y = 0;
-
-                    player.transform.Translate(movementVelocity * time);
-                    //Verlet movement
-                }
-
-
 
             }
 

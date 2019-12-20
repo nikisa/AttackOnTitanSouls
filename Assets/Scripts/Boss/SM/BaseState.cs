@@ -7,15 +7,19 @@ public class BaseState : StateMachineBehaviour
 
     protected object context;
     protected Animator animator;
+    protected BossOrbitManager bossOrbitManager;
+
+    protected const string MASKS_COUNT = "MasksCount";
 
     private void Awake() {
         
     }
 
-    public virtual void SetContext(object context, Animator animator)
+    public virtual void SetContext(object context, Animator animator , BossOrbitManager bossOrbitManager)
     {
         this.context = context;
         this.animator = animator;
+        this.bossOrbitManager = bossOrbitManager;
     }
 
     public virtual void Enter()
@@ -49,5 +53,9 @@ public class BaseState : StateMachineBehaviour
         Tick();
     }
 
-   
+    public void CheckVulnerability() {
+        animator.SetInteger(MASKS_COUNT, bossOrbitManager.HookPointList.Count);
+    }
+
+
 }

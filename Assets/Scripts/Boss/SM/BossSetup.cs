@@ -23,7 +23,6 @@ public class BossSetup : FirstBossState
 
     public override void Enter() {
         Setup();
-        
         TriggerExitState();
 
     }

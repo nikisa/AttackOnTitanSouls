@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ff377a095d8e7489234f0c610ed5a7, type: 3}
   m_Name: OrbitManagerData
   m_EditorClassIdentifier: 
-  Time: 20
+  Time: 1000
   speedRadius: 3
   MaxSpeed: 10
   TimeAcceleration: 1

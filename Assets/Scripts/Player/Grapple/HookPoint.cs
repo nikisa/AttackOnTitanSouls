@@ -36,10 +36,12 @@ public class HookPoint : HookPointManager , IGrappable
     Vector3 direction = Vector3.zero;
     Vector3 movement = Vector3.zero;
     GameObject mask;
+    BossOrbitManager bossOrbitManager;
 
 
     private void Awake() {//da spostare quando ci sarà GameManager
         SetUp();
+        bossOrbitManager = FindObjectOfType<BossOrbitManager>();
     }
 
     void SetUp() {
@@ -73,7 +75,7 @@ public class HookPoint : HookPointManager , IGrappable
         
         if (springVector >= Inertia.magnitude && distance > .2f) {
             currentLife -= player.DPS / 60;
-            Debug.Log(currentLife);
+            //Debug.Log(currentLife);
         }
 
         if (currentLife < 0) {
@@ -109,6 +111,7 @@ public class HookPoint : HookPointManager , IGrappable
 
             if (BreakPointsCount == graphics.Length && currentLife < 0) {
                  Destroy(this.gameObject);
+                 bossOrbitManager.HookPointList.Remove(this);
             }
 
         }

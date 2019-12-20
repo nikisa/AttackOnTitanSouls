@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class BossController : MonoBehaviour
     public BossView View;
     public PlayerController Player;
     public GameObject Graphics;
+    public BossOrbitManager bossOrbitManager;
     //[HideInInspector]
     public float MoveSpeed;
     // [HideInInspector]
@@ -41,7 +43,7 @@ public class BossController : MonoBehaviour
     {
         HookPointLayerMask = 1 << 10 | 1 << 11;
         foreach (var item in animator.GetBehaviours<BaseState>()) {
-            item.SetContext(this, animator);
+            item.SetContext(this, animator , bossOrbitManager);
         }
 
     }
@@ -95,16 +97,16 @@ public class BossController : MonoBehaviour
     /// 2 = player
     /// </summary>
     /// <returns></returns>
-    public int DetectCollision()
+    public int MovingDetectCollision(int _iteration)
     {
+
         int result = 0;
         float skin = 4.2f;
         float softSkin = 0.01f;
 
         if (Mathf.Sqrt(MoveSpeed) < 0.001) result = 0; ;
 
-        //int interpolation = (int)(MoveSpeed / 1f) ;
-        int interpolation = 30;
+        int interpolation = 30;//(int)(MoveSpeed / 1f) ;
         for (int i = 0; i < interpolation; i++)
         {
             if (Mathf.Sqrt(MoveSpeed) < 0.001) result = 0; ;
@@ -115,19 +117,16 @@ public class BossController : MonoBehaviour
             if (hits == null || hits.Length == 0)
             {
                  result=0;
-                
             }
             else
             {
 
                 if (hits[0].collider.tag == "Player")
                 {
-                    Debug.Log("PLAYER");
                     result = 2;
                 }
                 else
                 {
-                    Debug.Log(hits[0].collider.name);
                     result = 1;
                 }
                

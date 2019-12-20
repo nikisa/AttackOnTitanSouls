@@ -12,6 +12,7 @@ public class BossChaseState : BossBaseState
     public BossController.Targets targets;
     [HideInInspector]
     public GameObject Target;
+
     // private 
     float startY;
     float timeStartAcceleration;
@@ -19,14 +20,21 @@ public class BossChaseState : BossBaseState
     float AngularSpeed;
     float deltaAngle;
 
+
     public override void Enter()
     {
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Chase")) {
+            animator.SetBool("ChaseOrbit", true);
+        }
+
         SetTarget();
         AccelerationEnter();
         ChaseEnter();
     }
     public override void Tick()
     {
+
         AccelerationTick();
         ChaseTick();
         boss.Move();
@@ -34,7 +42,9 @@ public class BossChaseState : BossBaseState
     }
     public override void Exit()
     {
-      
+        CheckVulnerability();
+        Debug.Log(bossOrbitManager.HookPointList.Count);
+        animator.SetBool("ChaseOrbit", false);
     }
     public void AccelerationEnter()
     {
@@ -100,5 +110,7 @@ public class BossChaseState : BossBaseState
     {
         Target = boss.SetTarget(targets);
     }
+
+    
 
 }

@@ -8,30 +8,39 @@ public class FirtsBossDecelerationState : BossBaseState
     public RotationMoveData rotationMoveData;
     public RotationDecelerationData rotationDecelerationData;
 
+    //Private
     MoveToData moveToData;
     float distance;
     RaycastHit hit;
+    int iterations;
+
     public override void Enter()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("DecelerationMoveTo"))
-        {
-            animator.SetBool("DecelerationMoveTo", true);
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("DecelerationMoveTo")) {
+            animator.SetBool("DecelerationMoveToOrbit", true);
         }
+
+        iterations = 30;
+
         CollisionEnter();
         DecelerationEnter();
     }
     public override void Tick()
     {
         DecelerationTick();
-        RotationMoveTick();
-        DecelerationRotationTick();
+        //RotationMoveTick();
+        //DecelerationRotationTick();
         CollisionTick();
       
     }
     public void DecelerationTick()
     {
-       
         boss.Deceleration(moveToData.TimeDeceleration, moveToData.LowSpeed , moveToData.MaxSpeed);
+
+        if (boss.MoveSpeed <= 0) {
+            animator.SetTrigger(END_STATE_TRIGGER);
+        }
     }
     public void RotationMoveTick()
     {
@@ -40,17 +49,12 @@ public class FirtsBossDecelerationState : BossBaseState
     public void DecelerationRotationTick()
     {
        boss.View.DecelerationRotation(rotationDecelerationData.DecelerationTime, rotationDecelerationData.LowSpeed);
-        if (boss.MoveSpeed <= 0)
-        {
-            animator.SetTrigger(END_STATE_TRIGGER);
-        }
         
     }
     public void CollisionTick()
     {
-        if (boss.DetectCollision() == 1)
+        if (boss.MovingDetectCollision(iterations) == 1)
         {
-            Debug.Log("collisione");
             animator.SetTrigger("Collision");
         }
         else
@@ -68,7 +72,8 @@ public class FirtsBossDecelerationState : BossBaseState
     }
     public override void Exit()
     {
-        animator.SetBool("DecelerationMoveTo", false);
+        CheckVulnerability();
+        animator.SetBool("DecelerationMoveToOrbit", false);
     }
 
 }

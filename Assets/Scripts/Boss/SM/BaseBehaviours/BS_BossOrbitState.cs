@@ -27,10 +27,10 @@ public class BS_BossOrbitState : BossBaseState
     }
     public override void Tick()
     {
-        if (Time.time - orbitTimeStart < orbitManagerData.Time) {
-            OrbitTick();
-        }
-
+        //if (Time.time - orbitTimeStart < orbitManagerData.Time) {
+        //    OrbitTick();
+        //}
+        OrbitTick();
 
     }
     public override void Exit()

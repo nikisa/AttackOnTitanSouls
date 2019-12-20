@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class BS_BossIdle : BS_TimeBaseState
 {
+
+    //Private
+
     public override void Enter()
     {
+
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             animator.SetBool("IdleOrbit", true);
@@ -20,6 +24,7 @@ public class BS_BossIdle : BS_TimeBaseState
     }
     public override void Exit()
     {
+        CheckVulnerability();
         animator.SetBool("IdleOrbit", false);
     }
 

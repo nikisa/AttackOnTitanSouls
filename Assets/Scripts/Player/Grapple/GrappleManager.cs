@@ -83,11 +83,12 @@ public class GrappleManager : MonoBehaviour
                     
                     Debug.Log("Missing Target");
                     
+
                 }
             }
 
             if (hook.shooted && hook.ropeFinished && !hook.isHooked) {
-                hook.hitDistance = 0;
+                //hook.hitDistance = 0;
             }
             else {
                 hook.hitDistance = 1;
