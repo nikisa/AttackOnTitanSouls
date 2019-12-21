@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: IdleData
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
+<<<<<<< HEAD
   stateDuration: 5
 =======
   stateDuration: 2
 >>>>>>> 8dad7e2cbe215329253ad37896efe1f77ab4977d
+=======
+  stateDuration: 5
+>>>>>>> 19d3e8e001ff04bde4b8d23e88dba39e8d3d8a2f
