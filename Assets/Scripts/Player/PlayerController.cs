@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour
     public PlayerDashData playerDashData;
     [HideInInspector]
     public PlayerIdleData playerIdleData;
+    [HideInInspector]
+    public Vector3 dashDirection;
+    [HideInInspector]
+    public float InitialDashVelocity;
 
     Camera camera;
 

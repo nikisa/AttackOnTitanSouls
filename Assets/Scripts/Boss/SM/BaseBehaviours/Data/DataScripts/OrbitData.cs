@@ -5,7 +5,7 @@ using UnityEngine;
 public class OrbitData : ScriptableObject
 {
     //Inspector
-    //public float InitialRadius;
+    public float InitialRadius;
     public bool HasDeltaRadius;
     public float FinalRadius;
     public float Angle;

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aa83cd6802695841b4a44b0a777c87d, type: 3}
   m_Name: OrbitData
   m_EditorClassIdentifier: 
+  InitialRadius: 2
   HasDeltaRadius: 0
   FinalRadius: 7
   Angle: 90

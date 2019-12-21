@@ -21,7 +21,7 @@ public class PlayerDashDecelerationState : PlayerBaseState
     }
 
     public override void Tick() {
-        
+        Deceleration();
     }
 
     public override void Exit() {
@@ -32,6 +32,7 @@ public class PlayerDashDecelerationState : PlayerBaseState
         
         InitialVelocity -= timeDeceleration * Time.deltaTime;
         if (InitialVelocity <= playerIdleData.maxSpeed) {
+
             animator.SetTrigger(DASH_RESUME);
         }
     }

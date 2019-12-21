@@ -14,10 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isHookTest: 0
   DashDistance: 10
-  DashTimeFrames: 4
-  DashEase: 1
-  ResumeControl: 0.2
-  DashTimeFreeze: 1
-  FrameCombo: 0
+  DashTimeFrames: 10
+  ResumeControl: 0.1
   TimeFreeze: 0.03
-  Rallenty: 0
+  SetTimeScale: 0

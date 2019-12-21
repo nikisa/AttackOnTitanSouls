@@ -12,7 +12,6 @@ public class PlayerDashData : ScriptableObject
     public float DashDistance;
     public float DashTimeFrames;
     public float ResumeControl;
-    public float DashTimeFreeze;
     public float TimeFreeze;
     public float SetTimeScale;
 }

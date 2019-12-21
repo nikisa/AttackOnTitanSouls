@@ -8,6 +8,8 @@ public class PlayerDashState : PlayerBaseState {
     //Inspector
     public PlayerDashData playerDashData;
 
+    
+
     // Private
     RaycastHit hitDash;
     float realDashDistance;
@@ -20,13 +22,14 @@ public class PlayerDashState : PlayerBaseState {
     float timeStart;
 
 
+
     public override void Enter() {
        
         player.playerDashData = playerDashData;
         player.DoFreeze(playerDashData.TimeFreeze , playerDashData.SetTimeScale);
-        Dash(playerDashData.DashTimeFrames , playerDashData.ResumeControl , playerDashData.DashTimeFreeze , player.dataInput);
+        Dash(playerDashData.DashTimeFrames , playerDashData.ResumeControl , player.dataInput);
         Debug.Log("Dash enter");
-        _timeFreeze = playerDashData.DashTimeFreeze;
+        _timeFreeze = playerDashData.TimeFreeze;
     }
 
     public override void Tick() {
@@ -38,7 +41,7 @@ public class PlayerDashState : PlayerBaseState {
         
     }
 
-    public void Dash(float _DashTimeFrames, float _ResumeControl, float _DashTimeFreeze, DataInput _dataInput) {
+    public void Dash(float _DashTimeFrames, float _ResumeControl, DataInput _dataInput) {
 
         
 
@@ -50,18 +53,19 @@ public class PlayerDashState : PlayerBaseState {
 
         _DashTimeFrames = _DashTimeFrames / 60;
         _ResumeControl = playerDashData.ResumeControl / 60;
-        _DashTimeFreeze = playerDashData.DashTimeFreeze / 60;
 
         //if (!playerDashData.isHookTest) {
         Physics.Raycast(player.transform.position, new Vector3(Horizontal, 0, Vertical),out hitDash, playerDashData.DashDistance *2);
         realDashDistance=Vector3.Distance(hitDash.point, player.transform.position);
         if (realDashDistance > playerDashData.DashDistance)
         {
-            transform.DOMove(new Vector3((playerDashData.DashDistance * Horizontal) + position.x, position.y, (playerDashData.DashDistance * Vertical) + position.z), _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
+            player.dashDirection = new Vector3((playerDashData.DashDistance * Horizontal) + position.x, position.y, (playerDashData.DashDistance * Vertical) + position.z);
+            transform.DOMove(player.dashDirection, _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_RESUME); });
         }
         else
         {
-            transform.DOMove(new Vector3(((realDashDistance - 1) * Horizontal) + position.x, position.y, ((realDashDistance - 1) * Vertical) + position.z), _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
+            player.dashDirection = new Vector3(((realDashDistance - 1) * Horizontal) + position.x, position.y, ((realDashDistance - 1) * Vertical) + position.z);
+            transform.DOMove(player.dashDirection , _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_RESUME); });
         }
         // da togliere la skin al posto di 1
 
@@ -78,7 +82,7 @@ public class PlayerDashState : PlayerBaseState {
         //    }
         //}
 
-
+        player.InitialDashVelocity = playerDashData.DashDistance / (_DashTimeFrames / Time.deltaTime);
         animator.SetTrigger(DASH_RESUME);
 
     }

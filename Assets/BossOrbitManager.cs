@@ -23,13 +23,12 @@ public class BossOrbitManager : MonoBehaviour
     {
         
     }
-    //public void SetInitial(float _initialRadius , int _index , OrbitData _data)
-    //{
-    //    Vector3 Temp = OrbitList[_index].transform.position;
-    //    _data.initialPosition = Temp.z + _initialRadius;
-    //    OrbitList[_index].transform.position = new Vector3(Temp.x, Temp.y, _data.initialPosition);
-       
-    //}
+    public void SetInitial(float _initialRadius, int _index, OrbitData _data) {
+        Vector3 Temp = OrbitList[_index].transform.localPosition;
+        _data.initialPosition = Temp.z + _initialRadius;
+        OrbitList[_index].transform.position = new Vector3(Temp.x, Temp.y, _data.initialPosition);
+
+    }
 
     public void MoveRadius(float _finalRadius , int _index , float _initialPosition , bool _hasPingPong , float _speedRadius)
     {
