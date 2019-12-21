@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dc24604c90bf4a4fbecf065a41f4986, type: 3}
   m_Name: WallMoveToData
   m_EditorClassIdentifier: 
-  Time: 2
+  Time: 0.7
   MaxSpeed: 50
-  TimeAcceleration: 1
+  TimeAcceleration: 0.001
   HasAcceleration: 1
   StopsAtTargetOvertaking: 0
-  TimeDeceleration: 3
+  TimeDeceleration: 0.7
   LowSpeed: 0
   StopOnSolid: 1
   AddToVelocity: 0
