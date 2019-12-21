@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dda940d478a7eb4bb92d72f09cd8bf2, type: 3}
   m_Name: RecoveryData
   m_EditorClassIdentifier: 
-  Time: 1
+  Time: 2
   TimeDeceleration: 0
   LowSpeed: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerIdleData
   m_EditorClassIdentifier: 
   isHookTest: 0
-  maxSpeed: 30
+  maxSpeed: 18
   framesZeroToMax: 8
   framesMaxToZero: 6
   resumeControl: 1

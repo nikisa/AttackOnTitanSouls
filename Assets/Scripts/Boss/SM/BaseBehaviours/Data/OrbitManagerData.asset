@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Time: 1
   speedRadius: 3
-  MaxSpeed: 10
-  TimeAcceleration: 1
+  MaxSpeed: 0.5
+  TimeAcceleration: 0.5

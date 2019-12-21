@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ChaseData
   m_EditorClassIdentifier: 
   Time: 10
-  MaxSpeed: 10
-  HasVectorRotationRate: 0
-  VectorRotationRate: 0
-  ChaseRadius: 20
+  MaxSpeed: 20
+  HasVectorRotationRate: 1
+  VectorRotationRate: 5
+  ChaseRadius: 500
   TimeAcceleration: 1
   HasAcceleration: 1

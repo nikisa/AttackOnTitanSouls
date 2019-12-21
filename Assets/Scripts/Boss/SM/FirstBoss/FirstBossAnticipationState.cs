@@ -23,7 +23,8 @@ public class FirstBossAnticipationState : FirstBossState
     public override void Enter()
     {
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Anticipation")) {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Chase Anticipation")) {
+            Debug.Log("ORBIT");
             animator.SetBool("AnticipationOrbit", true);
         }
 
@@ -38,6 +39,7 @@ public class FirstBossAnticipationState : FirstBossState
     {
         RotationAccelerationTick();
         AnticipationTick();
+        Debug.Log("TIMEOUT");
         //RotationMoveTick();
 
     }
@@ -77,7 +79,9 @@ public class FirstBossAnticipationState : FirstBossState
     }
 
     public void AnticipationTick() {
+        
         if ((Time.time - timeStartAnticipation) > anticipationData.AnticipationTime) {
+            
             animator.SetTrigger(END_STATE_TRIGGER);
         }
     }
