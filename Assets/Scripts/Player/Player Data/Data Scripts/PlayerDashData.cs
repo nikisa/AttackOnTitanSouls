@@ -8,7 +8,6 @@ public class PlayerDashData : ScriptableObject
 {
 
     // Public
-    public bool isHookTest;
     public float DashDistance;
     public float DashTimeFrames;
     public float ResumeControl;

@@ -8,8 +8,6 @@ public class PlayerDashState : PlayerBaseState {
     //Inspector
     public PlayerDashData playerDashData;
 
-    
-
     // Private
     RaycastHit hitDash;
     float realDashDistance;
@@ -34,7 +32,6 @@ public class PlayerDashState : PlayerBaseState {
 
     public override void Tick() {
         timeFreeze(_timeFreeze);
-
     }
 
     public override void Exit() {
@@ -42,8 +39,6 @@ public class PlayerDashState : PlayerBaseState {
     }
 
     public void Dash(float _DashTimeFrames, float _ResumeControl, DataInput _dataInput) {
-
-        
 
         position = player.transform.position;
         transform = player.transform;
@@ -55,19 +50,54 @@ public class PlayerDashState : PlayerBaseState {
         _ResumeControl = playerDashData.ResumeControl / 60;
 
         //if (!playerDashData.isHookTest) {
-        Physics.Raycast(player.transform.position, new Vector3(Horizontal, 0, Vertical),out hitDash, playerDashData.DashDistance *2);
-        realDashDistance=Vector3.Distance(hitDash.point, player.transform.position);
+        /*
+         * Dash compenetra quando il movimento è diagonale (horizonta e vertical insieme)
+         * Sostituire RayCast con SphereCastAll per quanto riguarda il controllo?
+         */
+
+         Physics.Raycast(player.transform.position, new Vector3(Horizontal, 0, Vertical), out hitDash, playerDashData.DashDistance * 2);
+         realDashDistance = Vector3.Distance(hitDash.point, player.transform.position);
+
+        //Physics.SphereCastAll(player.transform.position , player.transform.localScale.x , new Vector3(Horizontal , 0 , Vertical) , playerDashData.DashDistance);
+
         if (realDashDistance > playerDashData.DashDistance)
         {
             player.dashDirection = new Vector3((playerDashData.DashDistance * Horizontal) + position.x, position.y, (playerDashData.DashDistance * Vertical) + position.z);
             transform.DOMove(player.dashDirection, _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_RESUME); });
         }
-        else
-        {
-            player.dashDirection = new Vector3(((realDashDistance - 1) * Horizontal) + position.x, position.y, ((realDashDistance - 1) * Vertical) + position.z);
-            transform.DOMove(player.dashDirection , _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_RESUME); });
-        }
-        // da togliere la skin al posto di 1
+        else {
+            if (Horizontal != 0 && Vertical != 0) {
+
+                //Sottrarre o sommare da realDashDistance in base alla direzione del dash
+
+                //if (Horizontal > 0  && Vertical > 0) {
+                //    player.dashDirection = new Vector3(((realDashDistance - 2.75f) * Horizontal) + position.x, position.y, ((realDashDistance - 2.75f) * Vertical) + position.z);                   
+                //}
+
+                //else if (Horizontal > 0 && Vertical < 0) {
+                //    player.dashDirection = new Vector3(((realDashDistance - 2.75f) * Horizontal) + position.x, position.y, ((realDashDistance + 2.75f) * Vertical) + position.z);
+                //}
+
+                //else if (Horizontal < 0 && Vertical > 0) {
+                //    player.dashDirection = new Vector3(((realDashDistance + 2.75f) * Horizontal) + position.x, position.y, ((realDashDistance - 2.75f) * Vertical) + position.z);
+                //}
+
+                //else if (Horizontal < 0 && Vertical < 0) {
+                //    player.dashDirection = new Vector3(((realDashDistance - 2.75f) * Horizontal) + position.x, position.y, ((realDashDistance - 2.75f) * Vertical) + position.z);
+                //}
+                animator.SetTrigger(IDLE);
+
+            }
+            else {
+                player.dashDirection = new Vector3(((realDashDistance - 0.75f) * Horizontal) + position.x, position.y, ((realDashDistance - 0.75f) * Vertical) + position.z);
+                transform.DOMove(player.dashDirection, _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_RESUME); });
+            }
+
+            
+
+        } // da togliere la skin+(skin/2) al posto di 0.75f
+
+
 
         //}
         //else {

@@ -97,6 +97,8 @@ public class PlayerIdleState : PlayerBaseState {
 
     public override void Tick() {
 
+        //Debug.LogFormat("Horizontal: {0} ||| Vertical: {1}", player.dataInput.Horizontal, player.dataInput.Vertical);
+
         if (Time.time < timer + playerIdleData.resumeControl) {
             canDash = false;
         }

@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
         Debug.LogFormat("PAD:{0}", lookVector);
 
-        if (lookVector.sqrMagnitude<0.0001f)
+        if (lookVector.sqrMagnitude < 0.0001f)
         {
             CalculateOrientationFromMouse();
         }
