@@ -25,7 +25,7 @@ public class FirstBossPreFightState : FirstBossState
     }
 
     public override void Exit() {
-        
+        boss.IsPrevStateReinitialize = false;
     }
 
 }

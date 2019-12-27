@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossChaseState : BossBaseState
+public class BossChaseState : FirstBossState
 {
     // data
     //public AccelerationData accelerationData;
@@ -43,6 +43,7 @@ public class BossChaseState : BossBaseState
     }
     public override void Exit()
     {
+        boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
         Debug.Log(bossOrbitManager.HookPointList.Count);
         animator.SetBool("ChaseOrbit", false);

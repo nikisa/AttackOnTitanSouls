@@ -42,6 +42,7 @@ public class FirstBossRecoveryState : FirstBossState
     {
         animator.SetBool("RecoveryOrbit", false);
         CheckVulnerability();
+        boss.IsPrevStateReinitialize = false;
     }
 
     public void RecoveryInfoEnter() {

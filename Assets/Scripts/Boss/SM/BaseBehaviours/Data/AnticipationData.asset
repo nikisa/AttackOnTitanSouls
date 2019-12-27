@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbe9f0acc746784ea129145cf014e3d, type: 3}
   m_Name: AnticipationData
   m_EditorClassIdentifier: 
-  AnticipationTime: 1
+  AnticipationTime: 3
   Loops: 3
   InfinteLoops: 0

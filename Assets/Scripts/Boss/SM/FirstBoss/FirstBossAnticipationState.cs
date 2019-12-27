@@ -22,13 +22,14 @@ public class FirstBossAnticipationState : FirstBossState
     }
     public override void Enter()
     {
-
+       
         //Se Tag = 0 non reinizializza loops
-        if (animator.GetCurrentAnimatorStateInfo(0).IsTag("1")) {
+        if (boss.IsPrevStateReinitialize) {
             loops = boss.loops;
+            Debug.Log("DIO PORCO");
         }
-
-
+       
+        Debug.Log(loops + "QUI");
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Chase Anticipation")) {
             Debug.Log("ORBIT");
             animator.SetBool("AnticipationOrbit", true);
@@ -64,7 +65,8 @@ public class FirstBossAnticipationState : FirstBossState
     public void EnterAnticipation() {
 
         //boss.MoveSpeed = 0; è da fare? 
-        loops--; // 
+        --loops; // 
+        boss.loops = loops;
         animator.SetInteger("Loops", loops);
         timeStartAnticipation = Time.time;
         if (anticipationData.InfinteLoops && loops <= 0) {
@@ -101,9 +103,9 @@ public class FirstBossAnticipationState : FirstBossState
         //{
         //    Debug.Log("fine ciclo");
         //    loops = anticipationData.Loops +1;
-           
-        //}
 
+        //}
+        boss.IsPrevStateReinitialize = false;
         animator.SetBool("Anticipation", false);
     }
 

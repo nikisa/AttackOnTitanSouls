@@ -19,7 +19,7 @@ public class BossController : MonoBehaviour
     public MoveToData moveToData;
     [HideInInspector]
     public float MaxSpeed;
-
+    
     public string CurrentStateBoss;
 
 

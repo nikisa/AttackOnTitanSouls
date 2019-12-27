@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FirtsBossDecelerationState : BossBaseState
+public class FirtsBossDecelerationState : FirstBossState
 {
    // public DecelerationData decelerationData;
     public RotationMoveData rotationMoveData;
@@ -72,6 +72,7 @@ public class FirtsBossDecelerationState : BossBaseState
     }
     public override void Exit()
     {
+        boss.IsPrevStateReinitialize = false; // 
         CheckVulnerability();
         animator.SetBool("DecelerationMoveToOrbit", false);
     }

@@ -22,7 +22,7 @@ public class FirstBossMoveToState : FirstBossState
     float timeStartMoveTo;
     RaycastHit hit;
     int iterations;
-
+    float timeMoveTo;
 
     public override void Enter()
     {
@@ -57,6 +57,7 @@ public class FirstBossMoveToState : FirstBossState
     }
     public override void Exit()
     {
+        boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
         animator.SetBool("MoveToOrbit", false);
     }
@@ -73,6 +74,7 @@ public class FirstBossMoveToState : FirstBossState
         boss.MaxSpeed = moveToData.MaxSpeed;
         boss.MoveSpeed += moveToData.AddToVelocity;
         startY = boss.transform.position.y;
+        timeMoveTo = moveToData.Time - moveToData.TimeDeceleration;
         ChargeAttack();
         hit = boss.RaycastCollision();
         //if (moveToData.HasTimer)
@@ -119,7 +121,7 @@ public class FirstBossMoveToState : FirstBossState
             }
 
         }
-        if (Time.time - timeStartMoveTo > moveToData.Time)
+        if (Time.time - timeStartMoveTo > timeMoveTo)
         {
             Debug.Log("TEMPO");
             animator.SetTrigger("Deceleration");
