@@ -27,7 +27,9 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public float InitialDashVelocity;
 
+    //Private
     Camera camera;
+    bool useController;
 
     protected virtual void Start() {
         camera = Camera.main;
@@ -66,21 +68,20 @@ public class PlayerController : MonoBehaviour
     //    return im.data;
     //}
 
-
-
     public void CheckInput() {
         dataInput.Horizontal = Input.GetAxis("Horizontal");
         dataInput.Vertical = Input.GetAxis("Vertical");
         dataInput.HorizontalLook = Input.GetAxis("HorizontalLook");
         dataInput.VerticalLook = Input.GetAxis("VerticalLook");
         dataInput.Dash = Input.GetButtonDown("Dash");
-        
 
-        Vector3 lookVector = new Vector3(dataInput.HorizontalLook, 0, dataInput.VerticalLook);
+
+        //Vector3 lookVector = new Vector3(dataInput.HorizontalLook, 0, dataInput.VerticalLook);
+        Vector3 lookVector = Vector3.right * dataInput.HorizontalLook + Vector3.forward * dataInput.VerticalLook;
 
         Debug.LogFormat("PAD:{0}", lookVector);
 
-        if (lookVector.sqrMagnitude < 0.0001f)
+        if (lookVector.sqrMagnitude < 0.0001f && Input.GetJoystickNames().Length<=0)
         {
             CalculateOrientationFromMouse();
         }
@@ -88,8 +89,6 @@ public class PlayerController : MonoBehaviour
         {
             dataInput.currentOrientation = Quaternion.LookRotation(lookVector.normalized);
         }
-
-        
 
     }
 

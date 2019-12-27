@@ -23,6 +23,12 @@ public class FirstBossAnticipationState : FirstBossState
     public override void Enter()
     {
 
+        //Se Tag = 0 non reinizializza loops
+        if (animator.GetCurrentAnimatorStateInfo(0).IsTag("1")) {
+            loops = boss.loops;
+        }
+
+
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Chase Anticipation")) {
             Debug.Log("ORBIT");
             animator.SetBool("AnticipationOrbit", true);
@@ -91,12 +97,13 @@ public class FirstBossAnticipationState : FirstBossState
     }
     public void AnticipationExit()
     {
-        if (loops <= 0)
-        {
-            Debug.Log("fine ciclo");
-            loops = anticipationData.Loops +1;
+        //if (loops <= 0)
+        //{
+        //    Debug.Log("fine ciclo");
+        //    loops = anticipationData.Loops +1;
            
-        }
+        //}
+
         animator.SetBool("Anticipation", false);
     }
 

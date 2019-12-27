@@ -24,7 +24,8 @@ public class BossChaseState : BossBaseState
     public override void Enter()
     {
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Chase")) {
+        if (/*animator.GetCurrentAnimatorStateInfo(0).IsName("Chase")*/ animator.GetCurrentAnimatorStateInfo(0).IsTag("0")) {
+            Debug.Log("TAG");
             animator.SetBool("ChaseOrbit", true);
         }
 

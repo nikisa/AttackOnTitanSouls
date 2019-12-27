@@ -26,17 +26,19 @@ public class FirstBossMoveToState : FirstBossState
 
     public override void Enter()
     {
+        iterations = 30;
+
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("MoveTo")) {
             animator.SetBool("MoveToOrbit", true);
         }
 
-        iterations = 30;
-
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("MoveTo"))
         {
             animator.SetBool("MoveTo", true);
         }
+
+
         RotationEnter();
         SetTarget();
         MoveToEnter();

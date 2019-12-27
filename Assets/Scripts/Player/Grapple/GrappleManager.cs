@@ -36,7 +36,7 @@ public class GrappleManager : MonoBehaviour
     private void LateUpdate() {
 
         if (debugMode) {
-            if (Input.GetKeyDown(KeyCode.Mouse0)) {
+            if (Input.GetKeyDown(KeyCode.Mouse0)/* || Input.GetButtonDown("ShootPS4")*/) {
                 HookShooting();
                 if (!hook.shooted)
                     InstantiateRope();
@@ -51,21 +51,29 @@ public class GrappleManager : MonoBehaviour
             }
         }
         else {
-            if (Input.GetKeyDown(KeyCode.Mouse0)) {
+            if (Input.GetKeyDown(KeyCode.Mouse0) /*|| Input.GetButtonDown("ShootPS4")*/) {
                 HookShooting();
                 if (!hook.shooted)
                     InstantiateRope();
             }
             if (hook.shooted) {
 
+                
+
                 if (!Input.GetKeyDown(KeyCode.Mouse1)) {
                     UpdatePoints();
                     UpdateHook();
                     UpdateLinks();
                 }
-                if (Input.GetKey(KeyCode.Mouse1) && !Input.GetKeyUp(KeyCode.Mouse1)) {
+                if ((Input.GetKey(KeyCode.Mouse1) && !Input.GetKeyUp(KeyCode.Mouse1)) /*|| (Input.GetButton("ShootPS4") && !Input.GetButtonUp("ShootPS4"))*/) {
                     RewindPoints();
                 }
+
+                //if (Input.GetButtonDown("UnhookPS4")) {
+                //    while (hook.shooted) {
+                //        RewindPoints();
+                //    }
+                //}
 
             }
 
@@ -365,6 +373,7 @@ public class GrappleManager : MonoBehaviour
             }
         }
         UpdateHook();
+        UpdateRewind(RopeNodes.Count-1-pointsRewinded);
         UpdateRewind(RopeNodes.Count-1-pointsRewinded);
     }
 
