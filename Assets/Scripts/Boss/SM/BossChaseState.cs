@@ -23,11 +23,9 @@ public class BossChaseState : FirstBossState
 
     public override void Enter()
     {
+        OrbitTag();
 
-        if (/*animator.GetCurrentAnimatorStateInfo(0).IsName("Chase")*/ animator.GetCurrentAnimatorStateInfo(0).IsTag("0")) {
-            Debug.Log("TAG");
-            animator.SetBool("ChaseOrbit", true);
-        }
+   
 
         SetTarget();
         AccelerationEnter();
@@ -112,7 +110,15 @@ public class BossChaseState : FirstBossState
     {
         Target = boss.SetTarget(targets);
     }
+    public void OrbitTag()// funzione unica per tutto in orbit data in ingresso
+    {
 
-    
+        Debug.Log("Anticipation");
+        animator.SetInteger("OrbitTag", chaseData.OrbitTag);
+
+
+    }
+
+
 
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "RotationAccelerationData", menuName = "BossData/RotationAccelerationData")]
-public class RotationAccelerationData : ScriptableObject
+public class RotationAccelerationData : BaseData
 {
  
     [Tooltip("Increasing rate of entry rotation speed , in degrees/sec^2.")]

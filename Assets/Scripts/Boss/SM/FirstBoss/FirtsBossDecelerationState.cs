@@ -16,10 +16,8 @@ public class FirtsBossDecelerationState : FirstBossState
 
     public override void Enter()
     {
+        OrbitTag();
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("DecelerationMoveTo")) {
-            animator.SetBool("DecelerationMoveToOrbit", true);
-        }
 
         iterations = 30;
 
@@ -75,6 +73,14 @@ public class FirtsBossDecelerationState : FirstBossState
         boss.IsPrevStateReinitialize = false; // 
         CheckVulnerability();
         animator.SetBool("DecelerationMoveToOrbit", false);
+    }
+    public void OrbitTag()// funzione unica per tutto in orbit data in ingresso
+    {
+
+        //Debug.Log("Anticipation");
+        //animator.SetInteger("OrbitTag", de.OrbitTag);
+
+
     }
 
 }

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MoveToData
   m_EditorClassIdentifier: 
   Time: 1
+  OrbitTag: 4
   MaxSpeed: 50
   TimeAcceleration: 0.2
   HasAcceleration: 1

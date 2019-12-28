@@ -26,19 +26,8 @@ public class FirstBossMoveToState : FirstBossState
 
     public override void Enter()
     {
+        OrbitTag();
         iterations = 30;
-
-
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("MoveTo")) {
-            animator.SetBool("MoveToOrbit", true);
-        }
-
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("MoveTo"))
-        {
-            animator.SetBool("MoveTo", true);
-        }
-
-
         RotationEnter();
         SetTarget();
         MoveToEnter();
@@ -172,5 +161,13 @@ public class FirstBossMoveToState : FirstBossState
     public void SetTarget()
     {
         Target=boss.SetTarget(targets);
+    }
+    public void OrbitTag()// funzione unica per tutto in orbit data in ingresso
+    {
+
+        Debug.Log("Anticipation");
+        animator.SetInteger("OrbitTag", moveToData.OrbitTag);
+
+
     }
 }

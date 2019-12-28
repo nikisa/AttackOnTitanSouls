@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "AnticipationData", menuName = "BossData/AnticipationData")]
-public class AnticipationData : ScriptableObject
+public class AnticipationData : BaseData
 {
     [Tooltip("Wait for Anticipation Time seconds. Then, exit.")]
     public float AnticipationTime;

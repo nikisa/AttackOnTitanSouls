@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: WallMoveToData
   m_EditorClassIdentifier: 
   Time: 0.7
+  OrbitTag: 6
   MaxSpeed: 50
   TimeAcceleration: 0.001
   HasAcceleration: 1

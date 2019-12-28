@@ -11,7 +11,7 @@ public class BossOrbitManager : MonoBehaviour
     //Private
     bool hasFinished;
     float timeAcceleration;
-    float moveSpeed;
+    
 
     void Start()
     {
@@ -48,14 +48,14 @@ public class BossOrbitManager : MonoBehaviour
         }
 
     }
-    public void RotationMove(float _maxSpeed , float _timeAcceleration)
+    public void RotationMove(float _maxSpeed , float _timeAcceleration , HookPointController _centerPoint)
     {
 
         timeAcceleration = _maxSpeed / _timeAcceleration;
-        moveSpeed += timeAcceleration * Time.deltaTime;
+        _centerPoint.MoveSpeed += timeAcceleration * Time.deltaTime;
 
-        transform.Rotate(Vector3.up * moveSpeed);
-        moveSpeed = Mathf.Clamp(moveSpeed, 0, _maxSpeed);
+        _centerPoint.transform.Rotate(Vector3.up * _centerPoint.MoveSpeed);
+        _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed);
         Debug.Log(timeAcceleration);
 
     }
@@ -75,7 +75,7 @@ public class BossOrbitManager : MonoBehaviour
     }
     
     public void SetUp() {
-        moveSpeed = 0;
+
         timeAcceleration = 0;
     }
 

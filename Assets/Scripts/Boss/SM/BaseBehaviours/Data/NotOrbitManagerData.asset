@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: NotOrbitManagerData
   m_EditorClassIdentifier: 
   Time: 1
-  speedRadius: 0
-  MaxSpeed: 0
-  TimeAcceleration: 0
+  OrbitTag: 0
+  speedRadius: 3
+  MaxSpeed: 2
+  TimeAcceleration: 1
+  orbitData:
+  - {fileID: 11400000, guid: 1500f6401435a0e44ba87169431dbdf2, type: 2}
+  - {fileID: 11400000, guid: f1ffd998778412b42b5170c57bd4c737, type: 2}
+  - {fileID: 11400000, guid: 017e01d429f0b764e9447c1b50fe3571, type: 2}
+  CenterRotation: {fileID: 0}

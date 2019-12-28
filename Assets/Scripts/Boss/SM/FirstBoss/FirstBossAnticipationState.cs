@@ -22,18 +22,15 @@ public class FirstBossAnticipationState : FirstBossState
     }
     public override void Enter()
     {
-       
+        OrbitTag();
         //Se Tag = 0 non reinizializza loops
         if (boss.IsPrevStateReinitialize) {
             loops = boss.loops;
-            Debug.Log("DIO PORCO");
+      
         }
        
-        Debug.Log(loops + "QUI");
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Chase Anticipation")) {
-            Debug.Log("ORBIT");
-            animator.SetBool("AnticipationOrbit", true);
-        }
+     
+       
 
 
         //loopsInit();
@@ -107,6 +104,14 @@ public class FirstBossAnticipationState : FirstBossState
         //}
         boss.IsPrevStateReinitialize = false;
         animator.SetBool("Anticipation", false);
+    }
+    public void OrbitTag()// funzione unica per tutto in orbit data in ingresso
+    {
+       
+     Debug.Log("Anticipation");
+     animator.SetInteger("OrbitTag", anticipationData.OrbitTag);
+        
+        
     }
 
 }

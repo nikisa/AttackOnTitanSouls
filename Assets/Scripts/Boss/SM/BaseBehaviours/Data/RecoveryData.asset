@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: RecoveryData
   m_EditorClassIdentifier: 
   Time: 2
+  OrbitTag: 7
   TimeDeceleration: 0
   LowSpeed: 0

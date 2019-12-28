@@ -6,8 +6,8 @@ public class BS_BossOrbitState : BossBaseState
 {
 
     //Inspector
-    public List <OrbitData> orbitData;
-    public OrbitManagerData orbitManagerData;
+    public List<OrbitManagerData> OrbitManager;
+    
 
     //Private
     float orbitTimeStart;
@@ -40,7 +40,7 @@ public class BS_BossOrbitState : BossBaseState
     }
     public override void Exit()
     {
-
+        OrbitExit();
     }
 
     public void OrbitEnter() {
@@ -49,12 +49,18 @@ public class BS_BossOrbitState : BossBaseState
         //Tentacle.transform.SetParent(CenterPoint.transform);
         //Tentacle.transform.position = new Vector3(Tentacle.transform.position.x + orbitData.InitialRadius, Tentacle.transform.position.y, Tentacle.transform.position.z);
         //initialPosition = orbitData.InitialRadius;
-        for (int i = 0; i < orbitData.Count; i++)
+
+        for (int i = 0; i < OrbitManager.Count; i++)
         {
-            //girare le maschere e vedere se funziona
-            orbitManager.SetAllInitialPosition(i, orbitData[i]);
+
+            for (int y = 0; y < OrbitManager[i].orbitData.Count; y++)
+            {
+                orbitManager.SetAllInitialPosition(i, OrbitManager[i].orbitData[y]);
+            }
+           
+
+            }
         }
-    }
 
     public void OrbitTick() {
         //angleRotation = Time.deltaTime * orbitData.OrbitSpeed;
@@ -72,20 +78,26 @@ public class BS_BossOrbitState : BossBaseState
         //else {
         //    animator.SetTrigger("Idle");
         //}
-        orbitManager.RotationMove(orbitManagerData.speedRadius , orbitManagerData.MaxSpeed);
 
 
-        for (int i = 0; i < orbitData.Count; i++)
+     
+
+
+        for (int i = 0; i < OrbitManager.Count; i++)
         {
-            if (orbitData[i].HasDeltaRadius)
-            {
-                orbitManager.MoveRadius(orbitData[i].FinalRadius, i, orbitData[i].initialPosition, orbitData[i].HasPingPong , orbitManagerData.speedRadius);
-            }
+            orbitManager.RotationMove(OrbitManager[i].MaxSpeed,OrbitManager[i].TimeAcceleration , OrbitManager[i].CenterRotation);
+            //if (orbitData[i].HasDeltaRadius)
+            //{
+            //    orbitManager.MoveRadius(orbitData[i].FinalRadius, i, orbitData[i].initialPosition, orbitData[i].HasPingPong, orbitManagerData.speedRadius);
+            //}
         }
     }
 
     public void OrbitExit() {
-        
+        for (int i = 0; i < OrbitManager.Count; i++)
+        {
+            OrbitManager[i].CenterRotation.MoveSpeed = 0;
+        }
     }
 
     //float toFinalRadious(float _curreRadious , float _finalPosition , float _angleRotation) {

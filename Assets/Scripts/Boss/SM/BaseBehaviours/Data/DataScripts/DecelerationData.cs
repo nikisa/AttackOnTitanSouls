@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "DecelerationData", menuName = "BossData/DecelerationData")]
-public class DecelerationData : ScriptableObject
+public class DecelerationData : BaseData
 {
     [Tooltip("Decreasing rate of entry speed, in m/sec^2.")]
     public float TimeDeceleration;

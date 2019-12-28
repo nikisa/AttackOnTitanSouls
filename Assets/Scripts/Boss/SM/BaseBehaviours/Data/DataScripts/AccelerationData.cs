@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "AccelerationData", menuName = "BossData/AccelerationData")]
-public class AccelerationData : ScriptableObject
+public class AccelerationData : BaseData
 {
     
     [Tooltip("Increasing rate of entry speed, in m/sec^2")]

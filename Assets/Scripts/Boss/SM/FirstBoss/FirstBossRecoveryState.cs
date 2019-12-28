@@ -21,10 +21,8 @@ public class FirstBossRecoveryState : FirstBossState
 
     public override void Enter()
     {
-
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Recovery")) {
-            animator.SetBool("RecoveryOrbit", true);
-        }
+        OrbitTag();
+     
 
         RecoveryInfoEnter();
       //  DecelerationEnter();
@@ -71,13 +69,21 @@ public class FirstBossRecoveryState : FirstBossState
         Debug.Log(boss.MaxSpeed);
     //    //}
     }
+    public void OrbitTag()// funzione unica per tutto in orbit data in ingresso
+    {
 
-   
+        Debug.Log("Anticipation");
+        animator.SetInteger("OrbitTag", recoveryData.OrbitTag);
+
+
+    }
+
+
 
     //public void DecelerationRotationEnter() {
 
     //    timeStartRotationDeceleration = Time.time;
     //}
 
- 
+
 }
