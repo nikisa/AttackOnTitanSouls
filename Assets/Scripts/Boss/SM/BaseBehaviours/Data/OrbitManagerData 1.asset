@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Time: 2
   OrbitTag: 0
-  speedRadius: 20
+  speedRadius: 2
   MaxSpeed: -10
   TimeAcceleration: 1
   orbitData:

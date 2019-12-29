@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Time: 1
   OrbitTag: 0
-  speedRadius: 20
-  MaxSpeed: -2
+  speedRadius: 1
+  MaxSpeed: 6
   TimeAcceleration: 1
   orbitData:
   - {fileID: 11400000, guid: 24983096535aef3429ee33d022f79247, type: 2}

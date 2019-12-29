@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChaseData
   m_EditorClassIdentifier: 
   Time: 4
-  OrbitTag: 0
+  OrbitTag: 3
   MaxSpeed: 0
   HasVectorRotationRate: 1
   VectorRotationRate: 1.5

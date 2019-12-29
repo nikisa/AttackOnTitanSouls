@@ -38,13 +38,8 @@ public class BossOrbitManager : MonoBehaviour
         //Debug.Log(_initialPosition + _finalRadius);
         if (Mathf.Abs(_initialPosition) + _finalRadius >= Mathf.Abs(OrbitList[_index].transform.localPosition.z))
         {
-
             OrbitList[_index].transform.Translate(Vector3.forward* _speedRadius * Time.deltaTime);
         }
-
-
-
-
 
 
         //if((_initialPosition + _finalRadius <= OrbitList[_index].transform.localPosition.z  || _initialPosition + _finalRadius >= OrbitList[_index].transform.localPosition.z) && _hasPingPong)
@@ -100,6 +95,18 @@ public class BossOrbitManager : MonoBehaviour
     public void SetUp() {
 
         timeAcceleration = 0;
+    }
+
+
+    public void SetMasks(List <OrbitManagerData> _orbitManagerList) {
+        int orbitCount = 0;
+        for (int i = 0; i < _orbitManagerList.Count ; i++) {
+            for (int y = 0; y < _orbitManagerList[i].orbitData.Count; y++) {
+                Debug.Log("OrbitCount: " + orbitCount);
+                this.OrbitList[orbitCount].transform.SetParent(_orbitManagerList[i].CenterRotation.transform);
+                orbitCount++;
+            }
+        }
     }
 
     //public void Controllo()
