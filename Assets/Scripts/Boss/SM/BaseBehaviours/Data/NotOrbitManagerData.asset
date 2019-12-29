@@ -15,7 +15,7 @@ MonoBehaviour:
   Time: 1
   OrbitTag: 0
   speedRadius: 3
-  MaxSpeed: 2
+  MaxSpeed: 20
   TimeAcceleration: 1
   orbitData:
   - {fileID: 11400000, guid: 1500f6401435a0e44ba87169431dbdf2, type: 2}

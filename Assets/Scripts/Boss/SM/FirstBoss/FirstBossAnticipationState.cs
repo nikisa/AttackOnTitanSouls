@@ -43,7 +43,7 @@ public class FirstBossAnticipationState : FirstBossState
     {
         RotationAccelerationTick();
         AnticipationTick();
-        Debug.Log("TIMEOUT");
+    
         //RotationMoveTick();
 
     }
@@ -108,7 +108,7 @@ public class FirstBossAnticipationState : FirstBossState
     public void OrbitTag()// funzione unica per tutto in orbit data in ingresso
     {
        
-     Debug.Log("Anticipation");
+
      animator.SetInteger("OrbitTag", anticipationData.OrbitTag);
         
         

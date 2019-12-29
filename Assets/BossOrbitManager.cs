@@ -24,9 +24,11 @@ public class BossOrbitManager : MonoBehaviour
         
     }
     public void SetInitial(float _initialRadius, int _index, OrbitData _data) {
+        OrbitList[_index].transform.localPosition = new Vector3(OrbitList[_index].transform.position.x, OrbitList[_index].transform.position.y, 0);
         Vector3 Temp = OrbitList[_index].transform.localPosition;
         _data.initialPosition = Temp.z + _initialRadius;
-        OrbitList[_index].transform.position = new Vector3(Temp.x, Temp.y, _data.initialPosition);
+        OrbitList[_index].transform.localPosition = new Vector3(Temp.x, Temp.y, _data.initialPosition);
+        Debug.Log("ci sonio");
 
     }
 
@@ -34,36 +36,57 @@ public class BossOrbitManager : MonoBehaviour
     {
         //Debug.Log(OrbitList[_index].gameObject.transform.parent.name);
         //Debug.Log(_initialPosition + _finalRadius);
-        if (_initialPosition + _finalRadius >= OrbitList[_index].transform.localPosition.z && !hasFinished)
+        if (Mathf.Abs(_initialPosition) + _finalRadius >= Mathf.Abs(OrbitList[_index].transform.localPosition.z))
         {
-             OrbitList[_index].transform.Translate(Vector3.forward* _speedRadius * Time.deltaTime);
+
+            OrbitList[_index].transform.Translate(Vector3.forward* _speedRadius * Time.deltaTime);
         }
-        if((_initialPosition + _finalRadius <= OrbitList[_index].transform.localPosition.z  || _initialPosition + _finalRadius >= OrbitList[_index].transform.localPosition.z) && _hasPingPong)
-        {
-            OrbitList[_index].transform.Translate(-OrbitList[_index].transform.forward * _speedRadius * Time.deltaTime);
-            hasFinished = true;
-        }
-        if (OrbitList[_index].transform.localPosition.z <= _initialPosition) {
-            hasFinished = false;
-        }
+
+
+
+
+
+
+        //if((_initialPosition + _finalRadius <= OrbitList[_index].transform.localPosition.z  || _initialPosition + _finalRadius >= OrbitList[_index].transform.localPosition.z) && _hasPingPong)
+        //{
+        //    OrbitList[_index].transform.Translate(-OrbitList[_index].transform.forward * _speedRadius * Time.deltaTime);
+        //    hasFinished = true;
+        //}
+        //if (OrbitList[_index].transform.localPosition.z <= _initialPosition) {
+        //    hasFinished = false;
+        //}
 
     }
     public void RotationMove(float _maxSpeed , float _timeAcceleration , HookPointController _centerPoint)
     {
 
+
+        if (_maxSpeed >= 0 )
+        {
+
         timeAcceleration = _maxSpeed / _timeAcceleration;
         _centerPoint.MoveSpeed += timeAcceleration * Time.deltaTime;
-
         _centerPoint.transform.Rotate(Vector3.up * _centerPoint.MoveSpeed);
         _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed);
-        Debug.Log(timeAcceleration);
+        
+        }
+        else
+        {
+            _maxSpeed = Mathf.Abs(_maxSpeed);
+            timeAcceleration = _maxSpeed / _timeAcceleration;
+            _centerPoint.MoveSpeed += timeAcceleration * Time.deltaTime;
+            _centerPoint.transform.Rotate(Vector3.down * _centerPoint.MoveSpeed);
+            _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed);
+
+        }
+        
 
     }
 
     public void SetAllInitialPosition(int _index, OrbitData _data)
     {
         _data.initialPosition = OrbitList[_index].transform.localPosition.z;
-        Debug.Log(OrbitList[_index].transform.localPosition.z);
+       
     }
     public void SetHookPoints()
     {

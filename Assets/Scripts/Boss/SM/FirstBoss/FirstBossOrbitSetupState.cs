@@ -17,7 +17,7 @@ public class FirstBossOrbitSetupState : FirstBossState
             for (int y = 0; y < OrbitManagerList[i].orbitData.Count; y++)
             {
                 
-                Debug.Log(y + "QUUIIIIIIII");
+
                 orbitManager.OrbitList[orbitCount].transform.SetParent(OrbitManagerList[i].CenterRotation.transform);
                 orbitCount++;
             }

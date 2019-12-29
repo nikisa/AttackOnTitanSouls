@@ -19,7 +19,7 @@ public class FirstBossPreFightState : FirstBossState
 
 
         if (bossOrbitManager.HookPointList.Count != HookPointsCount) {
-            Debug.Log("Enter");
+
             animator.SetTrigger(END_STATE_TRIGGER);
         }
     }

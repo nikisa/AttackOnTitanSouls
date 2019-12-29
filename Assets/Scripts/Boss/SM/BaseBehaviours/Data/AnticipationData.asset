@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AnticipationData
   m_EditorClassIdentifier: 
   Time: 0
-  OrbitTag: 3
+  OrbitTag: 2
   AnticipationTime: 3
   Loops: 3
   InfinteLoops: 0

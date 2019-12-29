@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
         //Vector3 lookVector = new Vector3(dataInput.HorizontalLook, 0, dataInput.VerticalLook);
         Vector3 lookVector = Vector3.right * dataInput.HorizontalLook + Vector3.forward * dataInput.VerticalLook;
 
-        Debug.LogFormat("PAD:{0}", lookVector);
+
 
         if (lookVector.sqrMagnitude < 0.0001f && Input.GetJoystickNames().Length<=0)
         {
