@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aa83cd6802695841b4a44b0a777c87d, type: 3}
   m_Name: OrbitData 1
   m_EditorClassIdentifier: 
-  InitialRadius: 5
-  HasDeltaRadius: 0
-  FinalRadius: 10
-  initialPosition: 5
+  isSetup: 0
+  SetupAngle: 0
+  SetupRadius: 0
+  HasDeltaRadius: 1
+  FinalRadius: 6
+  TravelTime: 1
+  OrbitMoveToEase: 1
+  initialPosition: 1.6100004
   HasPingPong: 0

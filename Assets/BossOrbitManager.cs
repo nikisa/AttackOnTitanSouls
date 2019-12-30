@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class BossOrbitManager : MonoBehaviour
 {
@@ -24,34 +25,44 @@ public class BossOrbitManager : MonoBehaviour
         
     }
     public void SetInitial(float _initialRadius, int _index, OrbitData _data) {
-        OrbitList[_index].transform.localPosition = new Vector3(OrbitList[_index].transform.position.x, OrbitList[_index].transform.position.y, 0);
-        Vector3 Temp = OrbitList[_index].transform.localPosition;
-        _data.initialPosition = Temp.z + _initialRadius;
-        OrbitList[_index].transform.localPosition = new Vector3(Temp.x, Temp.y, _data.initialPosition);
-        Debug.Log("ci sonio");
+        //OrbitList[_index].transform.localPosition = new Vector3(OrbitList[_index].transform.localPosition.x, OrbitList[_index].transform.localPosition.y, 0);
+        //Vector3 Temp = OrbitList[_index].transform.localPosition;
+        //_data.initialPosition = Temp.z + _initialRadius;
+        //OrbitList[_index].transform.localPosition = new Vector3(Temp.x, Temp.y, _data.initialPosition);
 
-    }
-
-    public void MoveRadius(float _finalRadius , int _index , float _initialPosition , bool _hasPingPong , float _speedRadius)
-    {
-        //Debug.Log(OrbitList[_index].gameObject.transform.parent.name);
-        //Debug.Log(_initialPosition + _finalRadius);
-        if (Mathf.Abs(_initialPosition) + _finalRadius >= Mathf.Abs(OrbitList[_index].transform.localPosition.z))
-        {
-            OrbitList[_index].transform.Translate(Vector3.forward* _speedRadius * Time.deltaTime);
+        if (Mathf.Abs(_initialRadius) >= Mathf.Abs(OrbitList[_index].transform.localPosition.z)) {
+            Debug.Log("ToFinal");
+            OrbitList[_index].transform.Translate(Vector3.forward * 50 * Time.deltaTime);
         }
 
-
-        //if((_initialPosition + _finalRadius <= OrbitList[_index].transform.localPosition.z  || _initialPosition + _finalRadius >= OrbitList[_index].transform.localPosition.z) && _hasPingPong)
-        //{
-        //    OrbitList[_index].transform.Translate(-OrbitList[_index].transform.forward * _speedRadius * Time.deltaTime);
-        //    hasFinished = true;
-        //}
-        //if (OrbitList[_index].transform.localPosition.z <= _initialPosition) {
-        //    hasFinished = false;
-        //}
-
     }
+
+    public void MoveRadius(float _finalRadius , int _index , float _initialPosition , float _time , Ease _ease)
+    {
+        Vector3 temp;
+
+
+        if (OrbitList[_index].transform.localPosition.x > 0) {
+            if (OrbitList[_index].transform.localPosition.z > 0) {
+                temp = new Vector3((_finalRadius - _initialPosition), OrbitList[_index].transform.localPosition.y, (_finalRadius - _initialPosition));
+            }
+            else {
+                temp = new Vector3((_finalRadius - _initialPosition), OrbitList[_index].transform.localPosition.y, (0- _finalRadius + _initialPosition));
+            }
+        }
+        else {
+            if (OrbitList[_index].transform.localPosition.z > 0) {
+                temp = new Vector3((0 - _finalRadius + _initialPosition), OrbitList[_index].transform.localPosition.y, (_finalRadius - _initialPosition));
+            }
+            else {
+                temp = new Vector3((0 - _finalRadius + _initialPosition), OrbitList[_index].transform.localPosition.y, (0 - _finalRadius + _initialPosition));
+            }
+        }
+        
+        OrbitList[_index].transform.DOMove(temp, _time).SetRelative().SetEase(_ease);
+    }
+
+
     public void RotationMove(float _maxSpeed , float _timeAcceleration , HookPointController _centerPoint)
     {
 
@@ -81,7 +92,6 @@ public class BossOrbitManager : MonoBehaviour
     public void SetAllInitialPosition(int _index, OrbitData _data)
     {
         _data.initialPosition = OrbitList[_index].transform.localPosition.z;
-       
     }
     public void SetHookPoints()
     {

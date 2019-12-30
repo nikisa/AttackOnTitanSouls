@@ -16,6 +16,8 @@ public class BS_BossOrbitState : BossBaseState
     float currentRadius;
     int countRadius;
     int countInitial;
+
+
     private void Awake() {
         //for (int i = 0; i < orbitData.Count; i++) {
         //    orbitManager.SetInitial(orbitData[i].InitialRadius, i, orbitData[i]);
@@ -46,6 +48,7 @@ public class BS_BossOrbitState : BossBaseState
         OrbitExit();
     }
 
+    //SetInitial spostato in Orbit SetUp
     public void OrbitEnter() {
         //CenterPoint.transform.SetParent(Center.transform);
         ////Tentacle.transform.localScale = new Vector3(Tentacle.transform.localScale.x, InitialRadius, Tentacle.transform.localScale.z); viaggione onirico sul tentacolo
@@ -53,15 +56,24 @@ public class BS_BossOrbitState : BossBaseState
         //Tentacle.transform.position = new Vector3(Tentacle.transform.position.x + orbitData.InitialRadius, Tentacle.transform.position.y, Tentacle.transform.position.z);
         //initialPosition = orbitData.InitialRadius;
 
-        for (int i = 0; i < OrbitManagerList.Count; i++)
-        {
-            for (int y = 0; y < OrbitManagerList[i].orbitData.Count; y++)
-            {
-                orbitManager.SetAllInitialPosition(i, OrbitManagerList[i].orbitData[y]);
-                //orbitManager.SetInitial(OrbitManager[i].orbitData[y].InitialRadius, countInitial, OrbitManager[i].orbitData[y]);
+        for (int i = 0; i < OrbitManagerList.Count; i++) {
+            for (int y = 0; y < OrbitManagerList[i].orbitData.Count; y++) {
+                orbitManager.SetAllInitialPosition(countInitial , OrbitManagerList[i].orbitData[y]);
                 countInitial++;
             }
         }
+
+        for (int i = 0; i < OrbitManagerList.Count; i++) {
+            for (int y = 0; y < OrbitManagerList[i].orbitData.Count; y++) {
+                if (OrbitManagerList[i].orbitData[y].HasDeltaRadius) {
+                    orbitManager.MoveRadius(OrbitManagerList[i].orbitData[y].FinalRadius, countRadius, OrbitManagerList[i].orbitData[y].initialPosition, OrbitManagerList[i].orbitData[y].TravelTime , OrbitManagerList[i].orbitData[y].OrbitMoveToEase);
+                }
+                Debug.Log(countRadius);
+                countRadius++;
+            }
+        }
+        countRadius = 0;
+
     }
 
     public void OrbitTick() {
@@ -81,31 +93,11 @@ public class BS_BossOrbitState : BossBaseState
         //    animator.SetTrigger("Idle");
         //}
 
-           
-
-
         for (int i = 0; i < OrbitManagerList.Count; i++)
         {
-            orbitManager.RotationMove(OrbitManagerList[i].MaxSpeed, OrbitManagerList[i].TimeAcceleration, OrbitManagerList[i].CenterRotation);
+            orbitManager.RotationMove(OrbitManagerList[i].AngularMaxSpeed, OrbitManagerList[i].AngularAccelerationTime, OrbitManagerList[i].CenterRotation);
             Debug.Log("YYYYYYYYYY");
         }
-        for (int i = 0; i < OrbitManagerList.Count; i++)
-        {
-            
-            for (int y = 0; y < OrbitManagerList[i].orbitData.Count; y++)
-            {
-                if (OrbitManagerList[i].orbitData[y].HasDeltaRadius)
-                {
-                    
-                    orbitManager.MoveRadius(OrbitManagerList[i].orbitData[y].FinalRadius, countRadius, OrbitManagerList[i].orbitData[y].initialPosition, OrbitManagerList[i].orbitData[y].HasPingPong, OrbitManagerList[i].speedRadius);
-                    
-                }
-                Debug.Log(countRadius);
-                countRadius++;
-            }
-         
-        }
-        countRadius = 0;
     }
 
     public void OrbitExit() {
