@@ -19,7 +19,11 @@ public class FirstBossOrbitSetupState : FirstBossState
         for (int i = 0; i < OrbitManagerList.Count; i++)
         {
             OrbitManagerList[i].CenterRotation = GameObject.Instantiate(Resources.Load("CenterPoint") as GameObject, orbitManager.transform).GetComponent<HookPointController>();
-            OrbitManagerList[i].CenterRotation.transform.SetParent(boss.transform);            
+            OrbitManagerList[i].CenterRotation.transform.SetParent(boss.transform);
+
+            if (OrbitManagerList[i].CenterRotation.transform.childCount == 0) {
+                Destroy(OrbitManagerList[i].CenterRotation);
+            }
         }
 
         

@@ -98,7 +98,6 @@ public class FirstBossMoveToState : FirstBossState
             boss.Move();
 
             if (boss.MovingDetectCollision(iterations) == 2) {
-                Debug.Log("CAVOLFIORE");
                 SceneManager.LoadScene(2);
             }
         }

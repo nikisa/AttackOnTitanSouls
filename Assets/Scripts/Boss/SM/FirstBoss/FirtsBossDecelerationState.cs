@@ -16,11 +16,7 @@ public class FirtsBossDecelerationState : FirstBossState
 
     public override void Enter()
     {
-        OrbitTag();
-
-
         iterations = 30;
-
         CollisionEnter();
         DecelerationEnter();
     }
@@ -40,15 +36,18 @@ public class FirtsBossDecelerationState : FirstBossState
             animator.SetTrigger(END_STATE_TRIGGER);
         }
     }
+
     public void RotationMoveTick()
     {
         boss.View.MoveRotation(rotationMoveData.MaxSpeed);
     }
+
     public void DecelerationRotationTick()
     {
        boss.View.DecelerationRotation(rotationDecelerationData.DecelerationTime, rotationDecelerationData.LowSpeed);
         
     }
+
     public void CollisionTick()
     {
         if (boss.MovingDetectCollision(iterations) == 1)
@@ -60,27 +59,24 @@ public class FirtsBossDecelerationState : FirstBossState
             boss.Move();
         }
     }
+
     public void CollisionEnter()
     {
         hit = boss.RaycastCollision();
     }
+
     public void DecelerationEnter()
     {
         moveToData = boss.GetMoveToData();
     }
+
     public override void Exit()
     {
         boss.IsPrevStateReinitialize = false; // 
         CheckVulnerability();
         animator.SetBool("DecelerationMoveToOrbit", false);
     }
-    public void OrbitTag()// funzione unica per tutto in orbit data in ingresso
-    {
-
-        //Debug.Log("Anticipation");
-        //animator.SetInteger("OrbitTag", de.OrbitTag);
 
 
-    }
 
 }

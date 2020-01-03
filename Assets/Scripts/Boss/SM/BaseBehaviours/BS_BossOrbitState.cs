@@ -16,16 +16,10 @@ public class BS_BossOrbitState : BossBaseState
     float currentRadius;
     int countRadius;
     int countInitial;
+    float angularAcceleration;
+    float angularDeceleration;
 
-
-    private void Awake() {
-        //for (int i = 0; i < orbitData.Count; i++) {
-        //    orbitManager.SetInitial(orbitData[i].InitialRadius, i, orbitData[i]);
-        //}
-        
-    }
-
-
+    
     public override void Enter()
     {
         orbitTimeStart = Time.time;
@@ -35,14 +29,16 @@ public class BS_BossOrbitState : BossBaseState
         orbitManager.SetUp();
         orbitManager.SetMasks(OrbitManagerList);
     }
+
+
     public override void Tick()
     {
         //if (Time.time - orbitTimeStart < orbitManagerData.Time) {
         //    OrbitTick();
         //}
         OrbitTick();
-
     }
+
     public override void Exit()
     {
         OrbitExit();
@@ -50,16 +46,20 @@ public class BS_BossOrbitState : BossBaseState
 
     //SetInitial spostato in Orbit SetUp
     public void OrbitEnter() {
-        //CenterPoint.transform.SetParent(Center.transform);
-        ////Tentacle.transform.localScale = new Vector3(Tentacle.transform.localScale.x, InitialRadius, Tentacle.transform.localScale.z); viaggione onirico sul tentacolo
-        //Tentacle.transform.SetParent(CenterPoint.transform);
-        //Tentacle.transform.position = new Vector3(Tentacle.transform.position.x + orbitData.InitialRadius, Tentacle.transform.position.y, Tentacle.transform.position.z);
-        //initialPosition = orbitData.InitialRadius;
 
         for (int i = 0; i < OrbitManagerList.Count; i++) {
             for (int y = 0; y < OrbitManagerList[i].orbitData.Count; y++) {
                 orbitManager.SetAllInitialPosition(countInitial , OrbitManagerList[i].orbitData[y]);
                 countInitial++;
+
+                if (OrbitManagerList[i].AngularAccelerationTime == 0) angularAcceleration = 0;
+
+                if (OrbitManagerList[i].AngularDecelerationTime == 0) angularDeceleration = 0;
+                
+                if (OrbitManagerList[i].hasAngularDeleceration && OrbitManagerList[i].OrbitTravelTime >= OrbitManagerList[i].AngularAccelerationTime + OrbitManagerList[i].AngularDecelerationTime) {
+                    angularAcceleration = OrbitManagerList[i].AngularMaxSpeed / OrbitManagerList[i].AngularAccelerationTime;
+                    angularDeceleration = OrbitManagerList[i].AngularMaxSpeed / OrbitManagerList[i].AngularDecelerationTime;
+                }
             }
         }
 
@@ -73,30 +73,12 @@ public class BS_BossOrbitState : BossBaseState
             }
         }
         countRadius = 0;
-
     }
 
     public void OrbitTick() {
-        //angleRotation = Time.deltaTime * orbitData.OrbitSpeed;
-        //if (CenterPoint.transform.localEulerAngles.y <= orbitData.Angle) {
-
-        //    if (orbitData.HasDeltaRadius) {
-
-        //        Tentacle.transform.localPosition = new Vector3(toFinalRadious(CenterPoint.transform.localEulerAngles.y, orbitData.FinalRadius, orbitData.Angle), Tentacle.transform.localPosition.y, Tentacle.transform.localPosition.z);
-
-        //        Mathf.Clamp(Tentacle.transform.localPosition.x, initialPosition, orbitData.FinalRadius);
-        //    }
-        //   CenterPoint.transform.Rotate(Vector3.up * angleRotation);
-
-        //}
-        //else {
-        //    animator.SetTrigger("Idle");
-        //}
-
         for (int i = 0; i < OrbitManagerList.Count; i++)
         {
             orbitManager.RotationMove(OrbitManagerList[i].AngularMaxSpeed, OrbitManagerList[i].AngularAccelerationTime, OrbitManagerList[i].CenterRotation);
-            Debug.Log("YYYYYYYYYY");
         }
     }
 
@@ -108,21 +90,4 @@ public class BS_BossOrbitState : BossBaseState
     }
     
 
-    //float toFinalRadious(float _curreRadious , float _finalPosition , float _angleRotation) {
-    //    _finalPosition = orbitData.FinalRadius - orbitData.InitialRadius;
-    //    float currentPosition = (_curreRadious * _finalPosition) / _angleRotation;
-
-    //    if (currentRadius < orbitData.InitialRadius) {
-    //        return currentPosition + orbitData.InitialRadius;
-    //    }
-    //    else {
-    //        return currentPosition;
-    //    }
-    //}
-    //public void SetTargets()
-    //{
-    //   CenterPoint=boss.SetTargetOrbit(centerPoint);
-    //   Center = boss.SetTargetOrbit(center);
-    //   Tentacle = boss.SetTargetOrbit(tentacle);
-    //}
 }

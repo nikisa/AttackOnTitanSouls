@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8dbe9f0acc746784ea129145cf014e3d, type: 3}
-  m_Name: ChaseAnticipationData
+  m_Name: INTRO_AnticipationDATA
   m_EditorClassIdentifier: 
   Time: 0
-  OrbitTag: 1
-  AnticipationTime: 3
+  OrbitTag: 10
+  AnticipationTime: 5
   Loops: 1
   InfinteLoops: 0

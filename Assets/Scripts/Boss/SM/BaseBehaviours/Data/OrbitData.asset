@@ -16,8 +16,8 @@ MonoBehaviour:
   SetupAngle: 0
   SetupRadius: 0
   HasDeltaRadius: 1
-  FinalRadius: 5
-  TravelTime: 1
+  FinalRadius: 6
+  TravelTime: 0
   OrbitMoveToEase: 1
   initialPosition: -2.73
   HasPingPong: 0
