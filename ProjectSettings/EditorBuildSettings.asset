@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/ScenesThatWillBeRemoved/Start.unity
     guid: 0569b57292a484d4992a40167c3659b5
   - enabled: 1
-    path: Assets/Scenes/TestingRoom.unity
+    path: Assets/Scenes/Programmers Scenes/TestingRoom.unity
     guid: 079f831e2502bba4d8b821487df400f8
   - enabled: 1
     path: Assets/Scenes/ScenesThatWillBeRemoved/Dead.unity
