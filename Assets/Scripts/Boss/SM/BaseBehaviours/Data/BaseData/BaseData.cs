@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BaseData : ScriptableObject
 {
-    //public bool HasTimer;
     public float Time;
     public int OrbitTag;
 }

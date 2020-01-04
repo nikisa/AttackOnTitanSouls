@@ -6,21 +6,19 @@ public class BossBaseState : BaseState
 {
     protected BossController boss;
 
-    protected const string END_STATE_TRIGGER = "EndState";
 
-    //private
+
+    //SateMachine Parameters
     protected const string IDLE = "Idle";
     protected const string ANTICIPATION = "Anticipation";
     protected const string MOVETO = "MoveTo";
     protected const string RECOVERY = "Recovery";
+    protected const string END_STATE_TRIGGER = "EndState";
 
-    public override void SetContext(object context, Animator animator , BossOrbitManager bossOrbitManager)
+    public override void SetContext(object context, Animator animator)
     {
-        base.SetContext(context, animator , bossOrbitManager);
+        base.SetContext(context, animator);
         boss = context as BossController;
-        
-        //data = boss.
-
     }
 
     protected void TriggerExitState()
@@ -28,11 +26,5 @@ public class BossBaseState : BaseState
         animator.SetTrigger(END_STATE_TRIGGER);
     }
 
-
-    public void DetectCollision(int _iteration) {
-        if (boss.MovingDetectCollision(_iteration) == 2) {
-            Debug.Log("CAVOLFIORE");
-        }
-    }
 
 }

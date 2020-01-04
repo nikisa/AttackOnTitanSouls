@@ -5,16 +5,8 @@ using UnityEngine;
 public class BS_BossIdle : BS_TimeBaseState
 {
 
-    //Private
-
     public override void Enter()
-    {
-
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-        {
-            animator.SetBool("IdleOrbit", true);
-        }
-     
+    {     
         base.Enter();
         boss.MoveSpeed = 0;
     }

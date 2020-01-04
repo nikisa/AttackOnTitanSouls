@@ -5,57 +5,54 @@ using UnityEngine.SceneManagement;
 
 public class FirstBossMoveToState : FirstBossState
 {
-    //public AccelerationData accelerationData;
+    //Inspector
     public MoveToData moveToData;
     public RotationMoveData rotationMoveData;
     public BossController.Targets targets;
+
+    //Public
     [HideInInspector]
     public GameObject Target;
-    //private 
+
+    //Private 
     Vector3 targetPosition;
     float startY;
-    int range=1;
-    float distance;
-    float WallDistance;
     float timeStartAcceleration;
     float timeStartTrail;
     float timeStartMoveTo;
-    RaycastHit hit;
-    int iterations;
     float timeMoveTo;
+    int iterations;
 
     public override void Enter()
     {
-        OrbitTag();
+        OrbitTag(moveToData);
         iterations = 30;
         RotationEnter();
         SetTarget();
         MoveToEnter();
         AccelerationEnter();
-        TrailEnter();
 
     }
     public override void Tick()
     {
         MoveToTick();
         AccelerationTick();
-        //RotationMoveTick();
-        //SetToCenter();
-        //TrailTick();
-       
     }
+
+
     public override void Exit()
     {
         boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
         animator.SetBool("MoveToOrbit", false);
     }
+
+
+    //Set direction and position of the Target
     public void ChargeAttack()
     { 
-
         targetPosition = new Vector3(Target.transform.position.x, startY, Target.transform.position.z);
         boss.RotateTarget(targetPosition);
-
     }
 
     public void MoveToEnter() {
@@ -65,28 +62,16 @@ public class FirstBossMoveToState : FirstBossState
         startY = boss.transform.position.y;
         timeMoveTo = moveToData.Time - moveToData.TimeDeceleration;
         ChargeAttack();
-        hit = boss.RaycastCollision();
-        //if (moveToData.HasTimer)
-        //{
-            timeStartMoveTo = Time.time;
-        //}
-        //else
-        //{
-        //    timeStartMoveTo = Mathf.Infinity;
-        //}
-        
+        timeStartMoveTo = Time.time;
     }
+
     public void RotationEnter()
     {
         boss.RotationSpeed += rotationMoveData.AddToRotationSpeed;
     }
+
+    // TO REFACTOR
     public void MoveToTick() {
-        //WallDistance = boss.CollisionDistance(hit.point);
-        //distance = Vector3.Distance(boss.transform.position, targetPosition);
-        //if (WallDistance <= 2 && moveToData.StopOnSolid) {
-        //    Debug.Log("collisione");
-        //    animator.SetTrigger("Collision");
-        //}
    
         if (boss.MovingDetectCollision(iterations) == 1 && Time.time - timeStartMoveTo > .5f) // BUG HERE!!! Probabilmente causato dal Timer
         {
@@ -102,23 +87,11 @@ public class FirstBossMoveToState : FirstBossState
             }
         }
      
-        if (moveToData.StopsAtTargetOvertaking) {
-            if (boss.transform.position.x >= Target.transform.position.x - range && boss.transform.position.x <= Target.transform.position.x + range
-                || boss.transform.position.z >= Target.transform.position.z - range && boss.transform.position.z <= Target.transform.position.z + range) {
-                animator.SetTrigger("Deceleration");
-            }
 
-        }
         if (Time.time - timeStartMoveTo > timeMoveTo)
         {
-            Debug.Log("TEMPO");
-            animator.SetTrigger("Deceleration");
+            animator.SetTrigger(DECELERATION);
         }
-        //if (distance <= 1 && !moveToData.StopsAtTargetOvertaking) {
-        //    animator.SetTrigger(RECOVERY);  bohhhhh
-        //}
-
-      
     }
 
     public void AccelerationEnter() {
@@ -126,47 +99,13 @@ public class FirstBossMoveToState : FirstBossState
     }
 
     public void AccelerationTick() {
-        //if (Time.time - timeStartAcceleration > moveToData.WaitOnStart) {
-            boss.Acceleration(moveToData.TimeAcceleration, moveToData.MaxSpeed);
-        //}
+        boss.Acceleration(moveToData.TimeAcceleration, moveToData.MaxSpeed);
     }
 
-    public void RotationMoveTick() {
-        boss.View.MoveRotation(rotationMoveData.MaxSpeed);
-    }
-    public void TrailTick()
-    {
-        
-        if (Time.time - timeStartTrail > moveToData.TrailDelay )
-        {
-            Instantiate(moveToData.TrailOb, boss.transform.position, Quaternion.identity);
-            timeStartTrail = Time.time;
-        }
-      
-    }
-    public void TrailEnter()
-    {
-        timeStartTrail = Time.time;
-    }
-    public void SetToCenter() {
-        if (boss.transform.position.x < -70 ||
-            boss.transform.position.x > 70 ||
-            boss.transform.position.z < -100 ||
-            boss.transform.position.z > 120) {
-            boss.transform.position = GameObject.FindGameObjectWithTag("Center").transform.position;
-            animator.SetTrigger(IDLE);
-        }
-    }
+
     public void SetTarget()
     {
         Target=boss.SetTarget(targets);
     }
-    public void OrbitTag()// funzione unica per tutto in orbit data in ingresso
-    {
 
-        Debug.Log("Anticipation");
-        animator.SetInteger("OrbitTag", moveToData.OrbitTag);
-
-
-    }
 }

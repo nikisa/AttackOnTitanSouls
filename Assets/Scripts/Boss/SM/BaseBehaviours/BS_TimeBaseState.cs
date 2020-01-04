@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BS_TimeBaseState : BossBaseState
+public class BS_TimeBaseState : FirstBossState
 {
-    public IdleData idleData; // da sistemare in time data
+    //PROBABILMENTE NON SERVE 
+
+    public IdleData idleData; 
     float endTime;
 
     public override void Enter()

@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossChaseState : FirstBossState
+public class FirstBossChaseState : FirstBossState
 {
-    // data
-    //public AccelerationData accelerationData;
+    //Inspector
     public ChaseData chaseData;
-
-
     public BossController.Targets targets;
+
+    //Public
     [HideInInspector]
     public GameObject Target;
 
-    // private 
+    //Private 
     float startY;
     float timeStartAcceleration;
     float timeStartChase;
@@ -23,22 +22,19 @@ public class BossChaseState : FirstBossState
 
     public override void Enter()
     {
-        OrbitTag();
-
-   
-
+        OrbitTag(chaseData);
         SetTarget();
         AccelerationEnter();
         ChaseEnter();
     }
+
     public override void Tick()
     {
-
         AccelerationTick();
         ChaseTick();
         boss.Move();
-        //AngularSpeed = boss.MoveSpeed / 5;
     }
+
     public override void Exit()
     {
         boss.IsPrevStateReinitialize = false;
@@ -46,26 +42,19 @@ public class BossChaseState : FirstBossState
         Debug.Log(bossOrbitManager.HookPointList.Count);
         animator.SetBool("ChaseOrbit", false);
     }
+
     public void AccelerationEnter()
     {
         timeStartAcceleration = Time.time;
     }
+
     public void ChaseEnter()
     {
-     
-        //chaseData.AngularSpeed = chaseData.MaxSpeed /accelerationData.TimeAcceleration / 10;
-        //if (chaseData.HasTimer)
-        //{
-        
-            timeStartChase = Time.time;
-        //}
-        //else
-        //{
-        //    timeStartChase = Mathf.Infinity;
-        //}
-        
-        startY = boss.transform.position.y;
+        timeStartChase = Time.time;
+        startY = boss.transform.position.y; //Keep costant the Y axes of the Boss position
     }
+
+    //Chase the target
     public void ChaseTick()
     {
         deltaAngle = Vector3.Angle(boss.transform.position, Target.transform.position);
@@ -75,50 +64,39 @@ public class BossChaseState : FirstBossState
             if (chaseData.HasVectorRotationRate)
             {
                 boss.transform.rotation = Quaternion.Slerp(boss.transform.rotation, Quaternion.LookRotation(Target.transform.position - boss.transform.position), AngularSpeed * Time.deltaTime);
-               
             }
             else
             {
                 boss.RotateTarget(Target.transform.position);
             }
-
         }
         else
         {
             animator.SetTrigger(END_STATE_TRIGGER);
         }
+
         if ((Target.transform.position-boss.transform.position).magnitude > chaseData.ChaseRadius)
         {
             animator.SetTrigger(END_STATE_TRIGGER);
         }
     }
+
+    //Does an acceleration when starts chasing the target
     public void AccelerationTick()
     {
-
          if (chaseData.HasAcceleration)
-            {
-                boss.Acceleration(chaseData.TimeAcceleration, chaseData.MaxSpeed);
-            }
-            else
-            {
-                boss.Acceleration(1, chaseData.MaxSpeed);
-            }
-           
-        }
+         {
+            boss.Acceleration(chaseData.TimeAcceleration, chaseData.MaxSpeed);
+         }
+         else
+         {
+            boss.Acceleration(1, chaseData.MaxSpeed);
+         }
+    }
     
     public void SetTarget()
     {
         Target = boss.SetTarget(targets);
     }
-    public void OrbitTag()// funzione unica per tutto in orbit data in ingresso
-    {
-
-        Debug.Log("Anticipation");
-        animator.SetInteger("OrbitTag", chaseData.OrbitTag);
-
-
-    }
-
-
 
 }

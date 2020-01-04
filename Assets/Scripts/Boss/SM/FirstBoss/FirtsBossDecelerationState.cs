@@ -4,29 +4,23 @@ using UnityEngine;
 
 public class FirtsBossDecelerationState : FirstBossState
 {
-   // public DecelerationData decelerationData;
+    //Inspector
     public RotationMoveData rotationMoveData;
     public RotationDecelerationData rotationDecelerationData;
 
     //Private
     MoveToData moveToData;
-    float distance;
-    RaycastHit hit;
     int iterations;
 
     public override void Enter()
     {
         iterations = 30;
-        CollisionEnter();
         DecelerationEnter();
     }
     public override void Tick()
     {
         DecelerationTick();
-        //RotationMoveTick();
-        //DecelerationRotationTick();
         CollisionTick();
-      
     }
     public void DecelerationTick()
     {
@@ -37,16 +31,6 @@ public class FirtsBossDecelerationState : FirstBossState
         }
     }
 
-    public void RotationMoveTick()
-    {
-        boss.View.MoveRotation(rotationMoveData.MaxSpeed);
-    }
-
-    public void DecelerationRotationTick()
-    {
-       boss.View.DecelerationRotation(rotationDecelerationData.DecelerationTime, rotationDecelerationData.LowSpeed);
-        
-    }
 
     public void CollisionTick()
     {
@@ -60,11 +44,6 @@ public class FirtsBossDecelerationState : FirstBossState
         }
     }
 
-    public void CollisionEnter()
-    {
-        hit = boss.RaycastCollision();
-    }
-
     public void DecelerationEnter()
     {
         moveToData = boss.GetMoveToData();
@@ -72,11 +51,8 @@ public class FirtsBossDecelerationState : FirstBossState
 
     public override void Exit()
     {
-        boss.IsPrevStateReinitialize = false; // 
+        boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
         animator.SetBool("DecelerationMoveToOrbit", false);
     }
-
-
-
 }

@@ -4,36 +4,46 @@ using UnityEngine;
 
 public class FirstBossState : BaseState
 {
+
+    protected BossOrbitManager bossOrbitManager;
     protected FirstBossController boss;
 
-
-
-    protected const string END_STATE_TRIGGER = "EndState";
-
-    //private
+    //SateMachine Parameters
     protected const string IDLE = "Idle";
     protected const string ANTICIPATION = "Anticipation";
     protected const string MOVETO = "MoveTo";
     protected const string RECOVERY = "Recovery";
+    protected const string MASKS_COUNT = "MasksCount";
+    protected const string DECELERATION = "Deceleration";
+    protected const string END_STATE_TRIGGER = "EndState";
 
 
 
-    public override void SetContext(object context, Animator animator , BossOrbitManager bossOrbitManager)
+
+
+    public void SetContext(object context, Animator animator , BossOrbitManager bossOrbitManager)
     {
-        base.SetContext(context, animator , bossOrbitManager);
-
+        //base.SetContext(context, animator , bossOrbitManager);
         boss = context as FirstBossController;
-        
+        this.animator = animator; 
+        this.bossOrbitManager = bossOrbitManager;
+
     }
     protected void TriggerExitState()
     {
         animator.SetTrigger(END_STATE_TRIGGER);
     }
 
-    protected void DetectCollision(int _iteration) {
-        if (boss.MovingDetectCollision(_iteration) == 2) {
-            Debug.Log("CAVOLFIORE");
-        }
+
+    //Updates the MASK_COUNT SM Parameters when a Boss' Mask is detroyed
+    public void CheckVulnerability() {
+        animator.SetInteger(MASKS_COUNT, bossOrbitManager.HookPointList.Count);
+    }
+
+    //Set the tag to choose the next OrbitState
+    public void OrbitTag(BaseData _baseData)
+    {
+        animator.SetInteger("OrbitTag", _baseData.OrbitTag);
     }
 
 }

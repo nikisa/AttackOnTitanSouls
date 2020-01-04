@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class FirstBossController : BossController
 {
+    //Inspector
+    public BossOrbitManager bossOrbitManager;
+
+    //Public
     //[HideInInspector]
-    public int loops; // c'è un probema non so dove metterlo
+    public int loops;
     [HideInInspector]
     public bool IsPrevStateReinitialize;
+
+    protected override void Start() {
+        foreach (var item in animator.GetBehaviours<FirstBossState>()) {
+            item.SetContext(this, animator , bossOrbitManager);
+        }
+
+    }
 }

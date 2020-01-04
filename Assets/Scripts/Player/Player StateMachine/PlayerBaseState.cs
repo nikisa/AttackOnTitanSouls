@@ -6,22 +6,19 @@ public class PlayerBaseState : BaseState {
 
     protected BossController boss;
     protected PlayerController player;
-    //  protected FirstBossData data;
 
+
+    //SateMachine Parameters
     protected const string END_STATE_TRIGGER = "EndState";
-
     protected const string IDLE = "Idle";
     protected const string DASH = "Dash";
     protected const string DASH_DECELERATION = "DashDeceleration";
     protected const string DASH_RESUME = "Resume";
     protected const string DASH_FRAME_PERFECT = "DashFramePerfect";
     
-    //protected const string ANTICIPATION = "Anticipation";
-    //protected const string MOVETO = "MoveTo";
-    //protected const string RECOVERY = "Recovery";
 
-    public override void SetContext(object context, Animator animator , BossOrbitManager bossOrbitManager) { //Togliere bossOrbitManager dal Player
-        base.SetContext(context, animator , bossOrbitManager);
+    public override void SetContext(object context, Animator animator) { //Togliere bossOrbitManager dal Player
+        base.SetContext(context, animator);
         player = context as PlayerController;
     }
 

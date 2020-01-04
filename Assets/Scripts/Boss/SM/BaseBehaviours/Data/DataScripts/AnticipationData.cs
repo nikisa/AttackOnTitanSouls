@@ -10,4 +10,8 @@ public class AnticipationData : BaseData
     public int Loops;
     [Tooltip("Never stops the loop.")]
     public bool InfinteLoops;
+
+    //Variabile d'appoggio usata negli stati con i loop
+    [HideInInspector]
+    public int loops;
 }

@@ -5,21 +5,21 @@ using UnityEngine;
 public class BS_BossOrbitState : BossBaseState
 {
 
+    //NON ANCORA REFACTORATO
+
     //Inspector
     public List<OrbitManagerData> OrbitManagerList;
-    
+
 
     //Private
-    float orbitTimeStart;
-    BossOrbitManager orbitManager;
-    float angleRotation;
-    float currentRadius;
     int countRadius;
     int countInitial;
+    float orbitTimeStart;
+    float angleRotation;
     float angularAcceleration;
     float angularDeceleration;
+    BossOrbitManager orbitManager;
 
-    
     public override void Enter()
     {
         orbitTimeStart = Time.time;

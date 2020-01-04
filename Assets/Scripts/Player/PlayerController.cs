@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         camera = Camera.main;
 
         foreach (var item in animator.GetBehaviours<BaseState>()) {
-            item.SetContext(this, animator , bossOrbitManager);
+            item.SetContext(this, animator);
         }
     }
 

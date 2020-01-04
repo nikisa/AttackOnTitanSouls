@@ -4,47 +4,31 @@ using UnityEngine;
 
 public class FirstBossAnticipationState : FirstBossState
 {
+    //Public 
     public AnticipationData anticipationData;
     public RotationAccelerationData rotationAccelerationData;
     public GraphicsAnticipationData graphicsAnticipationData;
     public RotationMoveData rotationMoveData;
-    //private
+    
+    //Private
     float timeStartAnticipation;
-    float timeStartRotation;
-    int loops;
-
-     public void Awake()   /// dove metterla?
-     {
-       
-        loops = anticipationData.Loops +1;
-        //animator.SetInteger("Loops", anticipationData.Loops);
-
-    }
+ 
     public override void Enter()
     {
-        OrbitTag();
+        OrbitTag(anticipationData);
         //Se Tag = 0 non reinizializza loops
         if (boss.IsPrevStateReinitialize) {
-            loops = boss.loops;
+            anticipationData.loops = boss.loops;
       
         }
-       
-     
-       
-
-
-        //loopsInit();
         EnterAnticipation();
         boss.View.ChangeMaterial(graphicsAnticipationData.AnticipationMat);
-        EnterRotationAcceleration();
     }
 
     public override void Tick()
     {
-        RotationAccelerationTick();
+        //RotationAccelerationTick();
         AnticipationTick();
-    
-        //RotationMoveTick();
 
     }
     public override void Exit()
@@ -55,63 +39,28 @@ public class FirstBossAnticipationState : FirstBossState
         AnticipationExit();
     }
 
-    public void loopsInit() {
-        loops = anticipationData.Loops;
-    }
-
     public void EnterAnticipation() {
 
-        //boss.MoveSpeed = 0; è da fare? 
-        --loops; // 
-        boss.loops = loops;
-        animator.SetInteger("Loops", loops);
+        --anticipationData.loops; 
+        boss.loops = anticipationData.loops; //Used for the Reinitialize State
+        animator.SetInteger("Loops", anticipationData.loops);
         timeStartAnticipation = Time.time;
-        if (anticipationData.InfinteLoops && loops <= 0) {
-            loops = 999999;
-            //animator.SetTrigger(IDLE);
-        }
-  
-    }
-
-    public void EnterRotationAcceleration() {
-        timeStartRotation = Time.time;
-    }
-
-    public void RotationAccelerationTick() {
-        if (Time.time - timeStartRotation > rotationAccelerationData.WaitOnStart) {
-            boss.View.AccelerationRotation(rotationAccelerationData.AccelerationTime, rotationMoveData.MaxSpeed);
+        if (anticipationData.InfinteLoops && anticipationData.loops <= 0) {
+            anticipationData.loops = int.MaxValue;
         }
     }
 
+    //Da refactorare con i timer come Parameters
     public void AnticipationTick() {
-        
         if ((Time.time - timeStartAnticipation) > anticipationData.AnticipationTime) {
-            
             animator.SetTrigger(END_STATE_TRIGGER);
         }
     }
 
-    public void RotationMoveTick() {
-        boss.View.MoveRotation(rotationMoveData.MaxSpeed);
-    }
+
     public void AnticipationExit()
     {
-        //if (loops <= 0)
-        //{
-        //    Debug.Log("fine ciclo");
-        //    loops = anticipationData.Loops +1;
-
-        //}
         boss.IsPrevStateReinitialize = false;
         animator.SetBool("Anticipation", false);
     }
-    public void OrbitTag()// funzione unica per tutto in orbit data in ingresso
-    {
-       
-
-     animator.SetInteger("OrbitTag", anticipationData.OrbitTag);
-        
-        
-    }
-
 }
