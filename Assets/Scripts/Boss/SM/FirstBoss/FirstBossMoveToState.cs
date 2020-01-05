@@ -8,13 +8,14 @@ public class FirstBossMoveToState : FirstBossState
     //Inspector
     public MoveToData moveToData;
     public RotationMoveData rotationMoveData;
-    public BossController.Targets targets;
+    //public BossController.Targets targets;
 
     //Public
-    [HideInInspector]
-    public GameObject Target;
+    //[HideInInspector]
+    ////public GameObject Target;
 
     //Private 
+    GameObject Target;
     Vector3 targetPosition;
     float startY;
     float timeStartAcceleration;
@@ -25,10 +26,11 @@ public class FirstBossMoveToState : FirstBossState
 
     public override void Enter()
     {
+        Target = moveToData.Target.instance;
         OrbitTag(moveToData);
         iterations = 30;
         RotationEnter();
-        SetTarget();
+        //SetTarget();
         MoveToEnter();
         AccelerationEnter();
 
@@ -73,9 +75,8 @@ public class FirstBossMoveToState : FirstBossState
     // TO REFACTOR
     public void MoveToTick() {
    
-        if (boss.MovingDetectCollision(iterations) == 1 && Time.time - timeStartMoveTo > .5f) // BUG HERE!!! Probabilmente causato dal Timer
+        if (boss.MovingDetectCollision(iterations) == 1 && Time.time - timeStartMoveTo > .05f) // BUG HERE!!! Probabilmente causato dal Timer
         {
-            Debug.Log("collisione");
               animator.SetTrigger("Collision");
         }
         else {
@@ -103,9 +104,9 @@ public class FirstBossMoveToState : FirstBossState
     }
 
 
-    public void SetTarget()
-    {
-        Target=boss.SetTarget(targets);
-    }
+    //public void SetTarget()
+    //{
+    //    Target=boss.SetTarget(targets);
+    //}
 
 }

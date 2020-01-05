@@ -8,22 +8,19 @@ public class FirstBossChaseState : FirstBossState
     public ChaseData chaseData;
     public BossController.Targets targets;
 
-    //Public
-    [HideInInspector]
-    public GameObject Target;
-
     //Private 
     float startY;
     float timeStartAcceleration;
     float timeStartChase;
     float AngularSpeed;
     float deltaAngle;
+    public GameObject Target;
 
 
     public override void Enter()
     {
+        Target = chaseData.Target.instance;
         OrbitTag(chaseData);
-        SetTarget();
         AccelerationEnter();
         ChaseEnter();
     }
@@ -93,10 +90,4 @@ public class FirstBossChaseState : FirstBossState
             boss.Acceleration(1, chaseData.MaxSpeed);
          }
     }
-    
-    public void SetTarget()
-    {
-        Target = boss.SetTarget(targets);
-    }
-
 }

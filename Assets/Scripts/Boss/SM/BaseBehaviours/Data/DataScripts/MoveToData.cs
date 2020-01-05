@@ -5,6 +5,7 @@ using UnityEngine;
 public class MoveToData : BaseData
 {
 
+    public TargetType Target;
     [Tooltip("Maximum reachable speed, in m/sec.")]
     public float MaxSpeed;
     [Tooltip("Increasing rate of entry speed, in m/sec^2")]

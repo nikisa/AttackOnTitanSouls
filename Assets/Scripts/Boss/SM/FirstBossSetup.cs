@@ -5,15 +5,15 @@ using UnityEngine;
 public class FirstBossSetup : FirstBossState
 {
     //Inspector
-    public AnticipationData anticipationData;
+    public List<AnticipationData> everyAnticipationData;
 
     void Setup() {        
-        boss.Player = FindObjectOfType<PlayerController>();
-        boss.Graphics = GameObject.FindGameObjectWithTag("BossGraphics");
-        boss.loops = anticipationData.Loops;
+        boss.loops = everyAnticipationData[0].Loops;
 
         //Anticipation Setup
-        anticipationData.loops = anticipationData.Loops + 1;
+        for (int i = 0; i < everyAnticipationData.Count; i++) {
+            everyAnticipationData[i].loops = everyAnticipationData[i].Loops + 1;
+        }
     }
 
     public override void Enter() {

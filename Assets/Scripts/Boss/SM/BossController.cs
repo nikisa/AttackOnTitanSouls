@@ -102,7 +102,6 @@ public class BossController : MonoBehaviour
             }
             else
             {
-
                 if (hits[0].collider.tag == "Player")
                 {
                     result = 2;
@@ -110,23 +109,27 @@ public class BossController : MonoBehaviour
                 else
                 {
                     result = 1;
+                    
                 }
             }
         }
         return result;
     }
-   
-    public GameObject SetTarget(BossController.Targets _enumTarget)
-    {
-        GameObject result = null;
-        switch (_enumTarget)
-        {
-            case BossController.Targets.Player:
-                result = FindObjectOfType<PlayerController>().gameObject;
-                break;
-        }
-        return result;
-    }
+
+    //SetTarget with enum could be useful in future
+    #region
+    //public GameObject SetTarget(BossController.Targets _enumTarget)
+    //{
+    //    GameObject result = null;
+    //    switch (_enumTarget)
+    //    {
+    //        case BossController.Targets.Player:
+    //            result = FindObjectOfType<PlayerController>().gameObject;
+    //            break;
+    //    }
+    //    return result;
+    //}
+    #endregion
 
     public MoveToData GetMoveToData()
     {

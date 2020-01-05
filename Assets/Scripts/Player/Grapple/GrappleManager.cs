@@ -89,7 +89,7 @@ public class GrappleManager : MonoBehaviour
                 else {
                     //UpdateHook();
                     
-                    Debug.Log("Missing Target");
+                    //Debug.Log("Missing Target");
                     
 
                 }

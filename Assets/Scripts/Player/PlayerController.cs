@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public float movimentRatio;
     public float DPS;
     public BossOrbitManager bossOrbitManager;
+    public TargetType playerTarget;
 
     //Public
     [HideInInspector]
@@ -31,6 +32,8 @@ public class PlayerController : MonoBehaviour
     public float InitialDashVelocity;
     [HideInInspector]
     public int layerMask;
+    [HideInInspector]
+    public float skin = .95f;
 
     //Private
     Camera camera;
@@ -38,6 +41,9 @@ public class PlayerController : MonoBehaviour
     float forwardVelocity;
     float timeStart;
 
+    protected virtual void Awake() {
+        playerTarget.instance = this.gameObject;
+    }
 
     protected virtual void Start() {
         camera = Camera.main;
@@ -101,7 +107,7 @@ public class PlayerController : MonoBehaviour
 
 
     public void Movement() {
-        float skin = .95f;
+        
 
         if (movementVelocity.sqrMagnitude < 0.001) return;
 
@@ -184,7 +190,6 @@ public class PlayerController : MonoBehaviour
     newInput = true;
     
 }
-
 
     public void ReadInputGamepad(DataInput dataInput, float _acceleration , float _maxSpeed) {
 

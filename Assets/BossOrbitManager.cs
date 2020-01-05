@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 
 public class BossOrbitManager : MonoBehaviour
-{
+{   
     //Inspector
     public List<GameObject> OrbitList;
     public List<HookPoint> HookPointList;
@@ -13,11 +13,11 @@ public class BossOrbitManager : MonoBehaviour
     bool hasFinished;
     float timeAcceleration;
 
+
     void Start()
     {
         hasFinished = false;
     }
-
 
     public void SetInitial(float _initialRadius, int _index, OrbitData _data) {
         //OrbitList[_index].transform.localPosition = new Vector3(OrbitList[_index].transform.localPosition.x, OrbitList[_index].transform.localPosition.y, 0);
@@ -30,7 +30,6 @@ public class BossOrbitManager : MonoBehaviour
                 OrbitList[_index].transform.Translate(Vector3.forward * 50 * Time.deltaTime);
             }
         }
-
     }
 
     public void MoveRadius(float _finalRadius , int _index , float _initialPosition , float _time , Ease _ease)
@@ -114,6 +113,10 @@ public class BossOrbitManager : MonoBehaviour
                 orbitCount++;
             }
         }
+    }
+
+    public void RemoveMask(HookPoint _hookPoint) {
+        HookPointList.Remove(_hookPoint);
     }
 
 }

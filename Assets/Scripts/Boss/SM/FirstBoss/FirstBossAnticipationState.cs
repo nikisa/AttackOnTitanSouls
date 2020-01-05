@@ -40,7 +40,6 @@ public class FirstBossAnticipationState : FirstBossState
     }
 
     public void EnterAnticipation() {
-
         --anticipationData.loops; 
         boss.loops = anticipationData.loops; //Used for the Reinitialize State
         animator.SetInteger("Loops", anticipationData.loops);
@@ -63,4 +62,5 @@ public class FirstBossAnticipationState : FirstBossState
         boss.IsPrevStateReinitialize = false;
         animator.SetBool("Anticipation", false);
     }
+    
 }

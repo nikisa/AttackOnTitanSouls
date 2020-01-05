@@ -14,6 +14,7 @@ public class FirstBossController : BossController
     public bool IsPrevStateReinitialize;
 
     protected override void Start() {
+        base.Start();
         foreach (var item in animator.GetBehaviours<FirstBossState>()) {
             item.SetContext(this, animator , bossOrbitManager);
         }

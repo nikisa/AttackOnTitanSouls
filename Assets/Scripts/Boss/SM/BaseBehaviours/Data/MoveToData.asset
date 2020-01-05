@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Time: 1
   OrbitTag: 4
+  Target: {fileID: 11400000, guid: 320bf9f104a0b814481ec323e5fa955a, type: 2}
   MaxSpeed: 50
   TimeAcceleration: 0.2
   HasAcceleration: 1

@@ -22,8 +22,6 @@ public class HookPoint : HookPointManager , IGrappable
     public GameObject[] graphics;
     public ParticleSystem[] particles;
 
-
-
     //private
     BreakPointData breakPointData;
     [SerializeField]
@@ -41,10 +39,10 @@ public class HookPoint : HookPointManager , IGrappable
 
     private void Awake() {//da spostare quando ci sarà GameManager
         SetUp();
-        bossOrbitManager = FindObjectOfType<BossOrbitManager>();
     }
 
     void SetUp() {
+        bossOrbitManager = FindObjectOfType<BossOrbitManager>();
         currentLife = BreakPoints[BreakPointsCount].lifeMax;
         OldPos = transform.position;
         mask = Instantiate(graphics[0] , transform.position - new Vector3(0, 1.375f,0) , transform.rotation);
