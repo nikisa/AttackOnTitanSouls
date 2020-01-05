@@ -36,7 +36,8 @@ public class PlayerController : MonoBehaviour
     Camera camera;
     Vector3 movementVelocity = Vector3.zero;
     float forwardVelocity;
-    
+    float timeStart;
+
 
     protected virtual void Start() {
         camera = Camera.main;
@@ -205,7 +206,23 @@ public class PlayerController : MonoBehaviour
         newInput = true;
     }
 
-
+    public void timeFreeze(float _timeFreeze)
+    {
+        if (Time.time - timeStart < _timeFreeze)
+        {
+            Time.timeScale = 1;
+        }
+    }
+    public RaycastHit RayCastDash(float _horizontal , float _vertical)
+    {
+        RaycastHit hitDash;
+        Physics.Raycast(transform.position, new Vector3(_horizontal, 0, _vertical), out hitDash, playerDashData.DashDistance * 2);
+        return hitDash;
+    }
+    public void Dash(float _dashTimeFrames)  // on complete sulla funzione ?
+    {
+        transform.DOMove(dashDirection, _dashTimeFrames);
+    }
 
     public void PlayerInclination() {
 

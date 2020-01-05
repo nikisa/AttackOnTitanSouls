@@ -17,7 +17,7 @@ public class PlayerDashState : PlayerBaseState {
     float Horizontal;
     float Vertical;
     float _timeFreeze;
-    float timeStart;
+    
 
 
 
@@ -31,7 +31,7 @@ public class PlayerDashState : PlayerBaseState {
     }
 
     public override void Tick() {
-        timeFreeze(_timeFreeze);
+        player.timeFreeze(_timeFreeze);
     }
 
     public override void Exit() {
@@ -55,8 +55,8 @@ public class PlayerDashState : PlayerBaseState {
          * Sostituire RayCast con SphereCastAll per quanto riguarda il controllo?
          */
 
-         Physics.Raycast(player.transform.position, new Vector3(Horizontal, 0, Vertical), out hitDash, playerDashData.DashDistance * 2);
-         realDashDistance = Vector3.Distance(hitDash.point, player.transform.position);
+        hitDash= player.RayCastDash(Horizontal, Vertical);
+        realDashDistance = Vector3.Distance(hitDash.point, player.transform.position);
 
         //Physics.SphereCastAll(player.transform.position , player.transform.localScale.x , new Vector3(Horizontal , 0 , Vertical) , playerDashData.DashDistance);
 
@@ -117,10 +117,6 @@ public class PlayerDashState : PlayerBaseState {
 
     }
 
-    public void timeFreeze(float _timeFreeze) {
-        if (Time.time - timeStart < _timeFreeze) {
-            Time.timeScale = 1;
-        }
-    }
+  
 
 }
