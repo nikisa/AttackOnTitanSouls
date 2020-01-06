@@ -24,7 +24,7 @@ public class PlayerIdleState : PlayerBaseState {
 
 
     public override void Enter() {
-        player.layerMask = 1 << 10 | 1<<12;
+        player.layerMask = 1 << 10 /*| 1<<12*/;
         timer = Time.time;
 
         accelRatePerSec = playerIdleData.maxSpeed / (playerIdleData.framesZeroToMax / 60);

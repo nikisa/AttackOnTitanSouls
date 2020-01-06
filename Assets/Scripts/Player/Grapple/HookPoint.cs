@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HookPoint : HookPointManager , IGrappable
+public class HookPoint : HookPointManager , IGrappable , IKiller
 {
     
     public enum HookPointType {

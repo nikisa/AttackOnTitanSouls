@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class FirstBossVulnerableState : FirstBossState {
 
-
     //Private
     GameObject BossCore;
     HookPoint BossHookPoint;
@@ -19,8 +18,7 @@ public class FirstBossVulnerableState : FirstBossState {
 
     public override void Tick() {
         if (BossHookPoint.isHooked) {
-            Debug.Log("YOU WON");
-            SceneManager.LoadScene(3);
+            PlayerController.VictoryEvent();
         }
     }
 

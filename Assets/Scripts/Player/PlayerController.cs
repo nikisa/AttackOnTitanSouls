@@ -8,6 +8,21 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    //Events
+    public delegate void GameEvent();
+    public static GameEvent DeathEvent;
+    public static GameEvent VictoryEvent;
+
+    private void OnEnable() {
+        DeathEvent += PlayerDeath;
+        VictoryEvent += Victory;
+    }
+
+    private void OnDisable() {
+        DeathEvent -= PlayerDeath;
+        VictoryEvent -= Victory;
+    }
+
     //Inspector
     public DataInput dataInput;
     public Animator animator;
@@ -105,9 +120,14 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("HookPoint")) {
+            PlayerController.DeathEvent();
+        }
+    }
+
 
     public void Movement() {
-        
 
         if (movementVelocity.sqrMagnitude < 0.001) return;
 
@@ -130,10 +150,6 @@ public class PlayerController : MonoBehaviour
                         var rb = hit.transform.GetComponent<Rigidbody>();
                         rb.AddForceAtPosition(movementVelocity, hit.point, ForceMode.Acceleration);
                     }
-                    else if (hits[0].transform.gameObject.CompareTag("BossGraphics")) {
-                        SceneManager.LoadScene(2);
-                    }
-
                     //slope
                     if (hits.Length == 1) {
                         var normal = Quaternion.AngleAxis(90, Vector3.up) * hits[0].normal;
@@ -240,12 +256,19 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    public void PlayerDeath() {
+        SceneManager.LoadScene(2);
+    }
+
+    public void Victory() {
+        SceneManager.LoadScene(3);
+    }
+
     //?Test player rope length constraint?
     public void RopeLengthConstraint(Vector3 nodePosition) {
         Vector3 constraint = new Vector3(nodePosition.x, nodePosition.y, transform.position.z);
         transform.Translate(constraint * Time.deltaTime);
     }
-
 
 }
 
@@ -268,6 +291,8 @@ public struct DataInput
         VerticalLook = 0;
     }
 
+
+    
    
 }
 

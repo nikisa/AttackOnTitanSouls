@@ -24,6 +24,8 @@ public class FirstBossMoveToState : FirstBossState
     float timeMoveTo;
     int iterations;
 
+
+
     public override void Enter()
     {
         Target = moveToData.Target.instance;
@@ -84,7 +86,7 @@ public class FirstBossMoveToState : FirstBossState
             boss.Move();
 
             if (boss.MovingDetectCollision(iterations) == 2) {
-                SceneManager.LoadScene(2);
+                PlayerController.DeathEvent();
             }
         }
      
@@ -103,10 +105,5 @@ public class FirstBossMoveToState : FirstBossState
         boss.Acceleration(moveToData.TimeAcceleration, moveToData.MaxSpeed);
     }
 
-
-    //public void SetTarget()
-    //{
-    //    Target=boss.SetTarget(targets);
-    //}
 
 }
