@@ -20,6 +20,7 @@ public class BS_BossOrbitState : FirstBossState
     int index;
 
     public override void Enter() {
+        bossOrbitManager.countMasksArrived = 0;
         orientation = 360;
         ResetPosition();
         SetOrbitData();
@@ -32,10 +33,14 @@ public class BS_BossOrbitState : FirstBossState
 
 
     public override void Tick() {
-        if (BossOrbitManager.prova) {
+        Debug.Log(bossOrbitManager.countMasksArrived);
+
+        if (bossOrbitManager.countMasksArrived >= bossOrbitManager.HookPointList.Count) {
             OrbitTick();
         }
+
         
+
     }
 
     public override void Exit() {

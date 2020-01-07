@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("HookPoint")) {
-            PlayerController.DeathEvent();
+            //PlayerController.DeathEvent();
         }
     }
 

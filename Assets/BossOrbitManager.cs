@@ -20,7 +20,9 @@ public class BossOrbitManager : MonoBehaviour
     public List<OrbitData> OrbitDataList;
     [HideInInspector]
     public List<int> removedIndexList;
-    
+    [HideInInspector]
+    public int countMasksArrived;
+
     //Private
     bool hasFinished;
     float timeAcceleration;
@@ -50,6 +52,14 @@ public class BossOrbitManager : MonoBehaviour
             _centerPoint.MoveSpeed += timeAcceleration * Time.deltaTime;
             _centerPoint.transform.Rotate(Vector3.down * _centerPoint.MoveSpeed);
             _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed);
+        }
+    }
+
+    public void RotationDeceleration(float _timeDeceleration, float _lowSpeed, float _maxSpeed , HookPointController _centerPoint) {
+        _timeDeceleration = _maxSpeed / _timeDeceleration;
+        _centerPoint.MoveSpeed -= _timeDeceleration * Time.deltaTime;
+        if (_lowSpeed >= 0) {
+            _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, _lowSpeed, _maxSpeed);
         }
     }
 
@@ -111,7 +121,7 @@ public class BossOrbitManager : MonoBehaviour
     }
 
     public void MoveMasks(int _index , float _time) {
-        OrbitList[_index].transform.DOMove(EndPoints[_index].transform.position, _time).OnComplete(() => BossOrbitManager.prova = true); ;
+        OrbitList[_index].transform.DOMove(EndPoints[_index].transform.position, _time).OnComplete(() => countMasksArrived++); ;
     }
 
     public void FillOrbitData(OrbitData _orbitData) {

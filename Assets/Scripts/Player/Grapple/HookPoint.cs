@@ -14,13 +14,14 @@ public class HookPoint : HookPointManager , IGrappable , IKiller
     public bool isHooked;
     public Vector3 OldPos;
     public Vector3 Inertia;
-
-
-
     [Tooltip("Insert BreakPointData")]
     public BreakPointData[] BreakPoints;
     public GameObject[] graphics;
     public ParticleSystem[] particles;
+
+    //Public
+    [HideInInspector]
+    public bool hasArrived;
 
     //private
     BreakPointData breakPointData;

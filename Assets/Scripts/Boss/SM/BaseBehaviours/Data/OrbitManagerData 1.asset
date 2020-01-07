@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ff377a095d8e7489234f0c610ed5a7, type: 3}
   m_Name: OrbitManagerData 1
   m_EditorClassIdentifier: 
-  Time: 2
-  OrbitTag: 0
-  speedRadius: 2
-  MaxSpeed: -10
-  TimeAcceleration: 1
+  AngularAccelerationTime: 10
+  AngularMaxSpeed: 60
+  hasAngularDeleceration: 0
+  AngularDecelerationTime: 0
+  OrbitTravelTime: 0
   orbitData:
   - {fileID: 11400000, guid: 24983096535aef3429ee33d022f79247, type: 2}
   - {fileID: 11400000, guid: 461b10a201887214b8f1b9a4be397e9c, type: 2}
