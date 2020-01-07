@@ -19,12 +19,4 @@ public class OrbitData : ScriptableObject
     [Tooltip("in sec. How long it takes the object to go from Initial Radius value to Final one")]
     public float TravelTime;
     public Ease OrbitMoveToEase;
-    
-    
-    
-   // public float Angle;
-    //public float OrbitSpeed;
-    [HideInInspector]
-    public float initialPosition;
-    public bool HasPingPong;
 }

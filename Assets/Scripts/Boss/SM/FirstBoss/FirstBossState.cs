@@ -17,10 +17,6 @@ public class FirstBossState : BaseState
     protected const string DECELERATION = "Deceleration";
     protected const string END_STATE_TRIGGER = "EndState";
 
-
-
-
-
     public void SetContext(object context, Animator animator , BossOrbitManager bossOrbitManager)
     {
         //base.SetContext(context, animator , bossOrbitManager);

@@ -9,6 +9,12 @@ public class BossOrbitManager : MonoBehaviour
     public List<GameObject> OrbitList;
     public List<HookPoint> HookPointList;
 
+    //Public
+    //[HideInInspector]
+    public List<GameObject> EndPoints;
+    //[HideInInspector]
+    public List<GameObject> InitialPoints;
+
     //Private
     bool hasFinished;
     float timeAcceleration;
@@ -86,10 +92,6 @@ public class BossOrbitManager : MonoBehaviour
         }
     }
 
-    public void SetAllInitialPosition(int _index, OrbitData _data)
-    {
-        _data.initialPosition = OrbitList[_index].transform.localPosition.z;
-    }
 
     public void SetHookPoints()
     {
@@ -117,6 +119,33 @@ public class BossOrbitManager : MonoBehaviour
 
     public void RemoveMask(HookPoint _hookPoint) {
         HookPointList.Remove(_hookPoint);
+    }
+
+    public void ResetPointPosition(BossController _boss) {
+        for (int i = 0; i < EndPoints.Count; i++) {
+            EndPoints[i].transform.position = _boss.transform.position;
+            InitialPoints[i].transform.position = _boss.transform.position;
+        }
+    }
+
+    //PASSARE IL TIME DELLA MASK
+    public void SetObjectsPosition(float _initialRadius , float _finalRadius , int _index , float _time , float _orientation) {
+            InitialPoints[_index].transform.eulerAngles = new Vector3(InitialPoints[_index].transform.eulerAngles.x, _orientation, InitialPoints[_index].transform.eulerAngles.z);
+            InitialPoints[_index].transform.DOLocalMove(InitialPoints[_index].transform.forward * _initialRadius , _time).OnComplete(()=> { 
+                                                                                                                          OrbitList[_index].transform.position = InitialPoints[_index].transform.position;
+                                                                                                                          OrbitList[_index].transform.eulerAngles = InitialPoints[_index].transform.eulerAngles;
+                EndPoints[_index].transform.eulerAngles = new Vector3(EndPoints[_index].transform.eulerAngles.x, _orientation, EndPoints[_index].transform.eulerAngles.z);
+                EndPoints[_index].transform.DOLocalMove(EndPoints[_index].transform.forward * _finalRadius, _time).OnComplete(()=> { MoveMasks(_index, 5); });
+            });
+    }
+
+
+    public void SetMasks(int _index , float _time) {
+        OrbitList[_index].transform.DOMove(InitialPoints[_index].transform.position, _time);
+    }
+
+    public void MoveMasks(int _index , float _time) {
+            OrbitList[_index].transform.DOMove(EndPoints[_index].transform.position, _time);
     }
 
 }

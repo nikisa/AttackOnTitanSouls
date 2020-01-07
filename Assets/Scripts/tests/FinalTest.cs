@@ -47,7 +47,6 @@ public class FinalTest : MonoBehaviour
             //Destroy Mask
             Destroy(Masks[totalEndPoints - 1]);
             Masks.RemoveAt(totalEndPoints - 1);
-            
         }
     }
 
