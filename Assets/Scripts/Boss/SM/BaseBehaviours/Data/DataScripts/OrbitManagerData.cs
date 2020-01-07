@@ -16,7 +16,7 @@ public class OrbitManagerData : ScriptableObject
     public float OrbitTravelTime;
 
     public List<OrbitData> orbitData;
-    [HideInInspector]
+    //[HideInInspector]
     public HookPointController CenterRotation;
 
 

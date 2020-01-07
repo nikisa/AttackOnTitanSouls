@@ -21,9 +21,10 @@ public class FirstBossOrbitSetupState : FirstBossState
     public override void Enter()
     {
         orientation = 360;
-        FillPointsPosition();
         SetCenterPoint();
+        FillPointsPosition();
         SetUpPositionPoints();
+        
     }
 
     public override void Tick() {//Aggiungere una condizione per evitare che faccia doppio for in Tick
@@ -37,6 +38,10 @@ public class FirstBossOrbitSetupState : FirstBossState
         //}
 
 
+    }
+
+    public override void Exit() {
+        BossOrbitManager.prova = false;
     }
 
     public void FillPointsPosition() {
@@ -60,21 +65,20 @@ public class FirstBossOrbitSetupState : FirstBossState
             OrbitManagerList[i].CenterRotation = GameObject.Instantiate(Resources.Load("CenterPoint") as GameObject, bossOrbitManager.transform).GetComponent<HookPointController>();
             OrbitManagerList[i].CenterRotation.transform.SetParent(boss.transform);
 
-            if (OrbitManagerList[i].CenterRotation.transform.childCount == 0) {
-                Destroy(OrbitManagerList[i].CenterRotation);
-            }
+            //if (OrbitManagerList[i].CenterRotation.transform.childCount == 0) {
+            //    Destroy(OrbitManagerList[i].CenterRotation);
+            //}
         }
     }
 
     public void SetUpPositionPoints() {
         for (int i = 0; i < OrbitManagerList.Count; i++) {
             for (int y = 0; y < OrbitManagerList[i].orbitData.Count; y++) {
-                bossOrbitManager.SetObjectsPosition(OrbitManagerList[i].orbitData[y].SetupRadius, OrbitManagerList[i].orbitData[y].FinalRadius , index, positionPointTime , orientation);
+                bossOrbitManager.SetObjectsPosition(OrbitManagerList[i].orbitData[y].SetupRadius, OrbitManagerList[i].orbitData[y].FinalRadius , index, positionPointTime , orientation, OrbitManagerList[i].orbitData[y].TravelTime , OrbitManagerList[i].orbitData[y].HasDeltaRadius);
                 index++;
                 orientation -= 360 / bossOrbitManager.EndPoints.Count;
             }
         }
         index = 0;
     }
-
 }

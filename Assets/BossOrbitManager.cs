@@ -4,17 +4,23 @@ using UnityEngine;
 using DG.Tweening;
 
 public class BossOrbitManager : MonoBehaviour
-{   
+{
+    public static bool prova = false;
+
     //Inspector
     public List<GameObject> OrbitList;
     public List<HookPoint> HookPointList;
 
     //Public
-    //[HideInInspector]
+    [HideInInspector]
     public List<GameObject> EndPoints;
-    //[HideInInspector]
+    [HideInInspector]
     public List<GameObject> InitialPoints;
-
+    //[HideInInspector]
+    public List<OrbitData> OrbitDataList;
+    [HideInInspector]
+    public List<int> removedIndexList;
+    
     //Private
     bool hasFinished;
     float timeAcceleration;
@@ -25,55 +31,10 @@ public class BossOrbitManager : MonoBehaviour
         hasFinished = false;
     }
 
-    public void SetInitial(float _initialRadius, int _index, OrbitData _data) {
-        //OrbitList[_index].transform.localPosition = new Vector3(OrbitList[_index].transform.localPosition.x, OrbitList[_index].transform.localPosition.y, 0);
-        //Vector3 Temp = OrbitList[_index].transform.localPosition;
-        //_data.initialPosition = Temp.z + _initialRadius;
-        //OrbitList[_index].transform.localPosition = new Vector3(Temp.x, Temp.y, _data.initialPosition);
-
-        if (_data.isSetup) {
-            if (Mathf.Abs(_initialRadius) >= Mathf.Abs(OrbitList[_index].transform.localPosition.z)) {
-                OrbitList[_index].transform.Translate(Vector3.forward * 50 * Time.deltaTime);
-            }
-        }
-    }
-
-    public void MoveRadius(float _finalRadius , int _index , float _initialPosition , float _time , Ease _ease)
-    {
-        Vector3 temp;
-
-        //if (OrbitList[_index].transform.localPosition.x > 0) {
-        //    if (OrbitList[_index].transform.localPosition.z > 0) {
-        //        temp = new Vector3((_finalRadius - _initialPosition), OrbitList[_index].transform.localPosition.y, (_finalRadius - _initialPosition));
-        //    }
-        //    else {
-        //        temp = new Vector3((_finalRadius - _initialPosition), OrbitList[_index].transform.localPosition.y, (0 - _finalRadius + _initialPosition));
-        //    }
-
-        //}
-        //else {
-        //    if (OrbitList[_index].transform.localPosition.z > 0) {
-        //        temp = new Vector3((0 - _finalRadius + _initialPosition), OrbitList[_index].transform.localPosition.y, (_finalRadius - _initialPosition));
-        //    }
-        //    else {
-        //        temp = new Vector3((0 - _finalRadius + _initialPosition), OrbitList[_index].transform.localPosition.y, (0 - _finalRadius + _initialPosition));
-        //    }
-        //}
-
-        OrbitList[_index].transform.DOMove(OrbitList[_index].transform.forward * _finalRadius, _time).SetRelative(true).SetEase(_ease);
-
-        Debug.Log("temp " + (_finalRadius - _initialPosition).ToString());
-        Debug.Log("final " + _finalRadius);
-        Debug.Log("initial " + _initialPosition);
-
-    }
-
-
     public void RotationMove(float _maxSpeed , float _timeAcceleration , HookPointController _centerPoint)
     {
-
-        //_maxSpeed /= 60;
-        //_timeAcceleration /= 60;
+        _maxSpeed /= 60;
+        _timeAcceleration /= 60;
 
         if (_maxSpeed >= 0 )
         {
@@ -105,8 +66,8 @@ public class BossOrbitManager : MonoBehaviour
         timeAcceleration = 0;
     }
 
-
-    public void SetMasks(List <OrbitManagerData> _orbitManagerList) {
+    //Riempie i CenterRotation basandosi sui OrbitDataManager
+    public void SetMasksRotation(List <OrbitManagerData> _orbitManagerList) {
         int orbitCount = 0;
         for (int i = 0; i < _orbitManagerList.Count ; i++) {
             for (int y = 0; y < _orbitManagerList[i].orbitData.Count; y++) {
@@ -128,24 +89,43 @@ public class BossOrbitManager : MonoBehaviour
         }
     }
 
-    //PASSARE IL TIME DELLA MASK
-    public void SetObjectsPosition(float _initialRadius , float _finalRadius , int _index , float _time , float _orientation) {
+    public void SetObjectsPosition(float _initialRadius , float _finalRadius , int _index , float _time , float _orientation , float _movementTime , bool _hasDeltaRadius) {
             InitialPoints[_index].transform.eulerAngles = new Vector3(InitialPoints[_index].transform.eulerAngles.x, _orientation, InitialPoints[_index].transform.eulerAngles.z);
-            InitialPoints[_index].transform.DOLocalMove(InitialPoints[_index].transform.forward * _initialRadius , _time).OnComplete(()=> { 
-                                                                                                                          OrbitList[_index].transform.position = InitialPoints[_index].transform.position;
-                                                                                                                          OrbitList[_index].transform.eulerAngles = InitialPoints[_index].transform.eulerAngles;
+            InitialPoints[_index].transform.DOLocalMove(InitialPoints[_index].transform.forward * _initialRadius , _time).OnComplete(()=> {
+                SetMasks(_index);
                 EndPoints[_index].transform.eulerAngles = new Vector3(EndPoints[_index].transform.eulerAngles.x, _orientation, EndPoints[_index].transform.eulerAngles.z);
-                EndPoints[_index].transform.DOLocalMove(EndPoints[_index].transform.forward * _finalRadius, _time).OnComplete(()=> { MoveMasks(_index, 5); });
+                EndPoints[_index].transform.DOLocalMove(EndPoints[_index].transform.forward * _finalRadius, _time).OnComplete(()=> {
+                    if (_hasDeltaRadius) {
+                        MoveMasks(_index, _movementTime);
+                    }
+                    
+                });
             });
     }
 
 
-    public void SetMasks(int _index , float _time) {
-        OrbitList[_index].transform.DOMove(InitialPoints[_index].transform.position, _time);
+    public void SetMasks(int _index) {
+        OrbitList[_index].transform.position = InitialPoints[_index].transform.position;
+        OrbitList[_index].transform.eulerAngles = InitialPoints[_index].transform.eulerAngles;
+        Debug.Log(OrbitList[_index].name);
     }
 
     public void MoveMasks(int _index , float _time) {
-            OrbitList[_index].transform.DOMove(EndPoints[_index].transform.position, _time);
+        OrbitList[_index].transform.DOMove(EndPoints[_index].transform.position, _time).OnComplete(() => BossOrbitManager.prova = true); ;
+    }
+
+    public void FillOrbitData(OrbitData _orbitData) {
+        OrbitDataList.Add(_orbitData);
+    }
+
+    public void RemoveOrbitDataList() {
+        for (int i = 0; i < removedIndexList.Count; i++) {
+            OrbitDataList.RemoveAt(removedIndexList[i]);
+        }
+    }
+
+    public void EmptyOrbitDataList() {
+        OrbitDataList.Clear();
     }
 
 }

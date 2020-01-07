@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: OrbitManagerData
   m_EditorClassIdentifier: 
   AngularAccelerationTime: 2
-  AngularMaxSpeed: 20
+  AngularMaxSpeed: 60
   hasAngularDeleceration: 0
   AngularDecelerationTime: 5
   OrbitTravelTime: 0
   orbitData:
   - {fileID: 11400000, guid: 24983096535aef3429ee33d022f79247, type: 2}
+  - {fileID: 11400000, guid: 461b10a201887214b8f1b9a4be397e9c, type: 2}
   - {fileID: 11400000, guid: 461b10a201887214b8f1b9a4be397e9c, type: 2}
   CenterRotation: {fileID: 0}

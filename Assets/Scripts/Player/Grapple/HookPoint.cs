@@ -108,14 +108,26 @@ public class HookPoint : HookPointManager , IGrappable , IKiller
             hook.hitDistance = 1;
 
             if (BreakPointsCount == graphics.Length && currentLife < 0) {
+                int index;
 
-                Destroy(this.gameObject);
+                index = bossOrbitManager.HookPointList.IndexOf(this);
+                bossOrbitManager.removedIndexList.Add(index);
+
+                Debug.Log(index);
+
+
+                bossOrbitManager.OrbitList.Remove(this.transform.parent.gameObject);
                 bossOrbitManager.HookPointList.Remove(this);
+                Destroy(this.gameObject.transform.parent.gameObject);
+                
+                
+                Destroy(bossOrbitManager.InitialPoints[index]);
+                bossOrbitManager.InitialPoints.Remove(bossOrbitManager.InitialPoints[index]);
+                Destroy(bossOrbitManager.EndPoints[index]);
+                bossOrbitManager.EndPoints.Remove(bossOrbitManager.EndPoints[index]);
 
-                Destroy(bossOrbitManager.InitialPoints[bossOrbitManager.InitialPoints.Count - 1]);
-                bossOrbitManager.InitialPoints.Remove(bossOrbitManager.InitialPoints[bossOrbitManager.EndPoints.Count - 1]);
-                Destroy(bossOrbitManager.EndPoints[bossOrbitManager.EndPoints.Count-1]);
-                bossOrbitManager.EndPoints.Remove(bossOrbitManager.EndPoints[bossOrbitManager.EndPoints.Count - 1]);
+                
+                
             }
 
         }
