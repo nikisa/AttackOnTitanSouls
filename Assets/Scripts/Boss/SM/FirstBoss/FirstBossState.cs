@@ -16,12 +16,13 @@ public class FirstBossState : BaseState
     protected const string MASKS_COUNT = "MasksCount";
     protected const string DECELERATION = "Deceleration";
     protected const string END_STATE_TRIGGER = "EndState";
+    protected const string TIMER = "Timer";
 
-    public void SetContext(object context, Animator animator , BossOrbitManager bossOrbitManager)
+    public void SetContext(object context, Animator animator, BossOrbitManager bossOrbitManager)
     {
         //base.SetContext(context, animator , bossOrbitManager);
         boss = context as FirstBossController;
-        this.animator = animator; 
+        this.animator = animator;
         this.bossOrbitManager = bossOrbitManager;
 
     }
@@ -40,6 +41,16 @@ public class FirstBossState : BaseState
     public void OrbitTag(BaseData _baseData)
     {
         animator.SetInteger("OrbitTag", _baseData.OrbitTag);
+    }
+    public void Timer(BaseData _baseData)
+    {
+        _baseData.Time += Time.deltaTime;
+        animator.SetFloat(TIMER, _baseData.Time);
+    }
+    public void ResetTimer(BaseData _baseData)
+    {
+        _baseData.Time = 0;
+        animator.SetFloat(TIMER, _baseData.Time);
     }
 
 }

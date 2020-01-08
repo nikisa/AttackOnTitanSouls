@@ -6,10 +6,7 @@ public class FirstBossAnticipationState : FirstBossState
 {
     //Public 
     public AnticipationData anticipationData;
-    public RotationAccelerationData rotationAccelerationData;
-    public GraphicsAnticipationData graphicsAnticipationData;
-    public RotationMoveData rotationMoveData;
-    
+
     //Private
     float timeStartAnticipation;
  
@@ -22,20 +19,21 @@ public class FirstBossAnticipationState : FirstBossState
       
         }
         EnterAnticipation();
-        boss.View.ChangeMaterial(graphicsAnticipationData.AnticipationMat);
+        //boss.View.ChangeMaterial(graphicsAnticipationData.AnticipationMat);
     }
 
     public override void Tick()
     {
+        Timer(anticipationData);
         //RotationAccelerationTick();
-        AnticipationTick();
+       // AnticipationTick();
 
     }
     public override void Exit()
     {
         animator.SetBool("AnticipationOrbit", false);
         CheckVulnerability();
-        boss.View.ChangeMaterial(graphicsAnticipationData.NormalMat);
+       // boss.View.ChangeMaterial(graphicsAnticipationData.NormalMat);
         AnticipationExit();
     }
 
@@ -50,15 +48,16 @@ public class FirstBossAnticipationState : FirstBossState
     }
 
     //Da refactorare con i timer come Parameters
-    public void AnticipationTick() {
-        if ((Time.time - timeStartAnticipation) > anticipationData.AnticipationTime) {
-            animator.SetTrigger(END_STATE_TRIGGER);
-        }
-    }
+    //public void AnticipationTick() {
+    //    if ((Time.time - timeStartAnticipation) > anticipationData.AnticipationTime) {
+    //        animator.SetTrigger(END_STATE_TRIGGER);
+    //    }
+    //}
 
 
     public void AnticipationExit()
     {
+        ResetTimer(anticipationData);
         boss.IsPrevStateReinitialize = false;
         animator.SetBool("Anticipation", false);
     }

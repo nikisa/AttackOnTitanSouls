@@ -34,7 +34,7 @@ public class PlayerIdleState : PlayerBaseState {
 
     public override void Tick() {
 
-        player.PlayerInclination();
+        //player.PlayerInclination();
 
         if (Time.time < timer + playerIdleData.resumeControl) {
             canDash = false;
@@ -45,6 +45,7 @@ public class PlayerIdleState : PlayerBaseState {
 
         dataInput = player.dataInput;
 
+        SetAnimationParameter();
         if (dataInput.Dash && canDash)
         {
             startDash = Time.time;
@@ -69,6 +70,11 @@ public class PlayerIdleState : PlayerBaseState {
         }
 
         player.newInput = false;
+    }
+    public void SetAnimationParameter()
+    {
+        animator.SetFloat("Horizontal", dataInput.Horizontal);
+        animator.SetFloat("Vertical", dataInput.Vertical);
     }
 
     public override void Exit() {

@@ -117,7 +117,7 @@ public class BossOrbitManager : MonoBehaviour
     public void SetMasks(int _index) {
         OrbitList[_index].transform.position = InitialPoints[_index].transform.position;
         OrbitList[_index].transform.eulerAngles = InitialPoints[_index].transform.eulerAngles;
-        Debug.Log(OrbitList[_index].name);
+
     }
 
     public void MoveMasks(int _index , float _time) {
