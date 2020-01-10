@@ -29,7 +29,6 @@ public class FirstBossMoveToState : FirstBossState
     public override void Enter()
     {
         base.Enter();
-
         Target = moveToData.Target.instance;
         OrbitTag(moveToData);
         iterations = 30;
@@ -44,6 +43,7 @@ public class FirstBossMoveToState : FirstBossState
         Timer(moveToData);
         MoveToTick();
         AccelerationTick();
+        SetSpeed();
     }
 
 
@@ -111,5 +111,9 @@ public class FirstBossMoveToState : FirstBossState
         boss.Acceleration(moveToData.TimeAcceleration, moveToData.MaxSpeed);
     }
 
+    //Set speed parameter in the animator
+    public void SetSpeed() {
+        animator.SetFloat("Speed", boss.MoveSpeed);
+    }
 
 }

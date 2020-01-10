@@ -105,6 +105,9 @@ public class BossController : MonoBehaviour
             }
             else
             {
+
+                animator.SetInteger("Layer" , hits[0].collider.gameObject.layer);
+
                 if (hits[0].collider.tag == "Player")
                 {
                     result = 2;

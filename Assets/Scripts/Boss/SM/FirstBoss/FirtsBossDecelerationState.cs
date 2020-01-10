@@ -21,6 +21,7 @@ public class FirtsBossDecelerationState : FirstBossState
     {
         DecelerationTick();
         CollisionTick();
+        SetSpeed();
     }
     public void DecelerationTick()
     {
@@ -55,4 +56,10 @@ public class FirtsBossDecelerationState : FirstBossState
         CheckVulnerability();
         animator.SetBool("DecelerationMoveToOrbit", false);
     }
+
+    //Set speed parameter in the animator
+    public void SetSpeed() {
+        animator.SetFloat("Speed", boss.MoveSpeed);
+    }
+
 }

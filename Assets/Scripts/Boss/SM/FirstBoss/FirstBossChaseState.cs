@@ -27,11 +27,12 @@ public class FirstBossChaseState : FirstBossState
     public override void Tick()
     {
         base.Enter();
-
+        setChaseRadius();
         Timer(chaseData);
         AccelerationTick();
         ChaseTick();
         boss.Move();
+        SetSpeed();
     }
 
     public override void Exit()
@@ -59,8 +60,6 @@ public class FirstBossChaseState : FirstBossState
     {
         deltaAngle = Vector3.Angle(boss.transform.position, Target.transform.position);
         AngularSpeed = deltaAngle / chaseData.VectorRotationRate;
-        //if (Time.time - timeStartChase < chaseData.Time)
-        //{
             if (chaseData.HasVectorRotationRate)
             {
                 boss.transform.rotation = Quaternion.Slerp(boss.transform.rotation, Quaternion.LookRotation(Target.transform.position - boss.transform.position), AngularSpeed * Time.deltaTime);
@@ -69,16 +68,6 @@ public class FirstBossChaseState : FirstBossState
             {
                 boss.RotateTarget(Target.transform.position);
             }
-        
-        //else
-        //{
-        //    animator.SetTrigger(END_STATE_TRIGGER);
-        //}
-
-        if ((Target.transform.position-boss.transform.position).magnitude > chaseData.ChaseRadius)
-        {
-            animator.SetTrigger(END_STATE_TRIGGER);
-        }
     }
 
     //Does an acceleration when starts chasing the target
@@ -92,5 +81,15 @@ public class FirstBossChaseState : FirstBossState
          {
             boss.Acceleration(1, chaseData.MaxSpeed);
          }
+    }
+
+    public void setChaseRadius() {
+        float distance = (Target.transform.position - boss.transform.position).magnitude;
+        animator.SetFloat("ChaseRadius", distance);
+    }
+
+    //Set speed parameter in the animator
+    public void SetSpeed() {
+        animator.SetFloat("Speed" , boss.MoveSpeed);
     }
 }

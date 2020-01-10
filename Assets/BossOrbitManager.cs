@@ -72,7 +72,6 @@ public class BossOrbitManager : MonoBehaviour
             _timeDeceleration = _maxSpeed / _timeDeceleration;
             _centerPoint.MoveSpeed -= _timeDeceleration * Time.deltaTime;
             _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed); //Se vogliono che rimanga fermo --> 0 anziche Mathf.Abs(_lowSpeed)
-            Debug.Log("PositiveDecel: " + _centerPoint.MoveSpeed);
         }
         else {
             _maxSpeed = Mathf.Abs(_maxSpeed);
@@ -80,9 +79,7 @@ public class BossOrbitManager : MonoBehaviour
             _timeDeceleration = _maxSpeed / _timeDeceleration;
             _centerPoint.MoveSpeed -= _timeDeceleration * Time.deltaTime;
             _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed); //Se vogliono che rimanga fermo --> 0 anziche Mathf.Abs(_lowSpeed)
-            Debug.Log("NEGATIVEDecel: " + _centerPoint.MoveSpeed);
         }
-        
     }
 
 
