@@ -14,9 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AngularAccelerationTime: 5
   AngularMaxSpeed: -360
-  hasAngularDeleceration: 0
-  AngularDecelerationTime: 0
-  OrbitTravelTime: 0
+  AngularDecelerationTime: 5
   orbitData:
   - {fileID: 11400000, guid: c108dc1acbff77b42accbdb9d0a41c66, type: 2}
   - {fileID: 11400000, guid: c108dc1acbff77b42accbdb9d0a41c66, type: 2}

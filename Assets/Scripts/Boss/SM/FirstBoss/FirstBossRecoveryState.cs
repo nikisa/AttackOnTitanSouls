@@ -32,6 +32,7 @@ public class FirstBossRecoveryState : FirstBossState
 
     public void RecoveryInfoEnter() {
         timeStartRecovery = Time.time;
+        OrbitTag(recoveryData);
     }
    
     //public void RecoveryInfoTick() {

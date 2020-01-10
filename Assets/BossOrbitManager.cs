@@ -26,12 +26,14 @@ public class BossOrbitManager : MonoBehaviour
     public List<GameObject> EndPoints;
     [HideInInspector]
     public List<GameObject> InitialPoints;
-    //[HideInInspector]
+    [HideInInspector]
     public List<OrbitData> OrbitDataList;
     [HideInInspector]
     public List<int> removedIndexList;
     [HideInInspector]
     public int countMasksArrived;
+    //[HideInInspector]
+    public List<OrbitManagerData> OrbitManagerDataList;
 
     //Private
     bool hasFinished;
@@ -60,12 +62,27 @@ public class BossOrbitManager : MonoBehaviour
         }
     }
 
-    public void RotationDeceleration(float _timeDeceleration, float _lowSpeed, float _maxSpeed, HookPointController _centerPoint) {
-        _timeDeceleration = _maxSpeed / _timeDeceleration;
-        _centerPoint.MoveSpeed -= _timeDeceleration * Time.deltaTime;
-        if (_lowSpeed >= 0) {
-            _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, _lowSpeed, _maxSpeed);
+    public void OrbitDeceleration(float _maxSpeed, float _timeDeceleration, HookPointController _centerPoint) {
+
+        _maxSpeed /= 60;
+        Debug.Log("mAXsPEED: " + _maxSpeed);
+
+        if (_maxSpeed > 0) {
+            _centerPoint.transform.Rotate(Vector3.up * _centerPoint.MoveSpeed);
+            _timeDeceleration = _maxSpeed / _timeDeceleration;
+            _centerPoint.MoveSpeed -= _timeDeceleration * Time.deltaTime;
+            _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed); //Se vogliono che rimanga fermo --> 0 anziche Mathf.Abs(_lowSpeed)
+            Debug.Log("PositiveDecel: " + _centerPoint.MoveSpeed);
         }
+        else {
+            _maxSpeed = Mathf.Abs(_maxSpeed);
+            _centerPoint.transform.Rotate(Vector3.down * _centerPoint.MoveSpeed);
+            _timeDeceleration = _maxSpeed / _timeDeceleration;
+            _centerPoint.MoveSpeed -= _timeDeceleration * Time.deltaTime;
+            _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed); //Se vogliono che rimanga fermo --> 0 anziche Mathf.Abs(_lowSpeed)
+            Debug.Log("NEGATIVEDecel: " + _centerPoint.MoveSpeed);
+        }
+        
     }
 
 
@@ -82,9 +99,9 @@ public class BossOrbitManager : MonoBehaviour
     //Riempie i CenterRotation basandosi sui OrbitDataManager
     public void SetMasksRotation(List<OrbitManagerData> _orbitManagerList) {
         int orbitCount = 0;
+        Debug.Log("SETMASKS!");
         for (int i = 0; i < _orbitManagerList.Count; i++) {
             for (int y = 0; y < _orbitManagerList[i].orbitData.Count; y++) {
-                Debug.Log("OrbitCount: " + orbitCount);
                 this.OrbitList[orbitCount].transform.SetParent(_orbitManagerList[i].CenterRotation.transform);
                 orbitCount++;
             }
@@ -166,4 +183,6 @@ public class BossOrbitManager : MonoBehaviour
             }
         }
 
-    }
+        
+
+}

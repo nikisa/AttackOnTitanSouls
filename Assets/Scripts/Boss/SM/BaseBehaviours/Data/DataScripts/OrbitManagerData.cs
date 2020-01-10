@@ -9,14 +9,12 @@ public class OrbitManagerData : ScriptableObject
     public float AngularAccelerationTime;
     [Tooltip("in degrees/sec. Positive values: orbit clockwise. Negative values: orbit anticlockwise")]
     public float AngularMaxSpeed;
-    public bool hasAngularDeleceration;
     [Tooltip("in sec. How long it takes the object to reach 0 angular speed")]
     public float AngularDecelerationTime;
-    [Tooltip("[in sec. Can’t be less then Angular Acceleration Time + Angular Deceleration Time")]
-    public float OrbitTravelTime;
 
     public List<OrbitData> orbitData;
-    //[HideInInspector]
+    
+    [HideInInspector]
     public HookPointController CenterRotation;
 
 }

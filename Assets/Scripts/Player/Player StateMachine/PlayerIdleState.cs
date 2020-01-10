@@ -34,7 +34,7 @@ public class PlayerIdleState : PlayerBaseState {
 
     public override void Tick() {
 
-        //player.PlayerInclination();
+        player.PlayerInclination();
 
         if (Time.time < timer + playerIdleData.resumeControl) {
             canDash = false;
