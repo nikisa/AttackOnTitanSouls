@@ -18,6 +18,12 @@ public class FirstBossState : BaseState
     protected const string END_STATE_TRIGGER = "EndState";
     protected const string TIMER = "Timer";
 
+
+    public override void Enter() {
+        BossOrbitManager.ChangedStateEvent();
+    }
+
+
     public void SetContext(object context, Animator animator, BossOrbitManager bossOrbitManager)
     {
         //base.SetContext(context, animator , bossOrbitManager);

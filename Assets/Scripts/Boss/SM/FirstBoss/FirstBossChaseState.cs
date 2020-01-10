@@ -6,7 +6,6 @@ public class FirstBossChaseState : FirstBossState
 {
     //Inspector
     public ChaseData chaseData;
-    public BossController.Targets targets;
 
     //Private 
     float startY;
@@ -14,7 +13,7 @@ public class FirstBossChaseState : FirstBossState
     float timeStartChase;
     float AngularSpeed;
     float deltaAngle;
-    public GameObject Target;
+    GameObject Target;
 
 
     public override void Enter()
@@ -27,6 +26,8 @@ public class FirstBossChaseState : FirstBossState
 
     public override void Tick()
     {
+        base.Enter();
+
         Timer(chaseData);
         AccelerationTick();
         ChaseTick();

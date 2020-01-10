@@ -28,6 +28,8 @@ public class FirstBossMoveToState : FirstBossState
 
     public override void Enter()
     {
+        base.Enter();
+
         Target = moveToData.Target.instance;
         OrbitTag(moveToData);
         iterations = 30;
