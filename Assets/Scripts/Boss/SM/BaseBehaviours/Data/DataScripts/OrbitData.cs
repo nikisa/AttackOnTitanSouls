@@ -8,8 +8,6 @@ public class OrbitData : ScriptableObject
 {
     //Inspector
     public bool isSetup;
-    [Tooltip("in degrees. The initial angle relative to the Center object.")]
-    public float SetupAngle;
     [Tooltip("in meters. The distance from Center")]
     public float SetupRadius;
     [Tooltip("Variation of Radius in time")]

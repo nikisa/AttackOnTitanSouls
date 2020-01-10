@@ -41,7 +41,7 @@ public class FirstBossOrbitSetupState : FirstBossState
     }
 
     public override void Exit() {
-        BossOrbitManager.prova = false;
+
     }
 
     public void FillPointsPosition() {
@@ -74,7 +74,7 @@ public class FirstBossOrbitSetupState : FirstBossState
     public void SetUpPositionPoints() {
         for (int i = 0; i < OrbitManagerList.Count; i++) {
             for (int y = 0; y < OrbitManagerList[i].orbitData.Count; y++) {
-                bossOrbitManager.SetObjectsPosition(OrbitManagerList[i].orbitData[y].SetupRadius, OrbitManagerList[i].orbitData[y].FinalRadius , index, positionPointTime , orientation, OrbitManagerList[i].orbitData[y].TravelTime , OrbitManagerList[i].orbitData[y].HasDeltaRadius);
+                bossOrbitManager.SetObjectsPosition(OrbitManagerList[i].orbitData[y].SetupRadius, OrbitManagerList[i].orbitData[y].FinalRadius , index, positionPointTime , orientation, OrbitManagerList[i].orbitData[y].TravelTime , OrbitManagerList[i].orbitData[y].HasDeltaRadius , OrbitManagerList[i].orbitData[y].isSetup);
                 index++;
                 orientation -= 360 / bossOrbitManager.EndPoints.Count;
             }

@@ -19,6 +19,4 @@ public class OrbitManagerData : ScriptableObject
     //[HideInInspector]
     public HookPointController CenterRotation;
 
-
-
 }

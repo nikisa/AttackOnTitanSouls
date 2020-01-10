@@ -15,7 +15,7 @@ MonoBehaviour:
   AngularAccelerationTime: 2
   AngularMaxSpeed: 60
   hasAngularDeleceration: 0
-  AngularDecelerationTime: 5
+  AngularDecelerationTime: 0
   OrbitTravelTime: 0
   orbitData:
   - {fileID: 11400000, guid: 24983096535aef3429ee33d022f79247, type: 2}

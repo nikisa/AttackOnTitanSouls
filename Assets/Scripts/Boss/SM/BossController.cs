@@ -84,7 +84,7 @@ public class BossController : MonoBehaviour
     public int MovingDetectCollision(int _iteration)
     {
         int result = 0;
-        float skin = 4.2f;
+        float skin = 0;
 
         if (Mathf.Sqrt(MoveSpeed) < 0.001) result = 0;
 

@@ -5,8 +5,6 @@ using UnityEngine;
 public class FirstBossOrbitDecelerationState : FirstBossState
 {
 
-
-
     public override void Enter() {
         base.Enter();
     }

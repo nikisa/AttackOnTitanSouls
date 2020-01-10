@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Time: 0.7
   OrbitTag: 6
+  Target: {fileID: 11400000, guid: 320bf9f104a0b814481ec323e5fa955a, type: 2}
   MaxSpeed: 50
   TimeAcceleration: 0.001
   HasAcceleration: 1
@@ -22,5 +23,3 @@ MonoBehaviour:
   LowSpeed: 0
   StopOnSolid: 1
   AddToVelocity: 0
-  TrailOb: {fileID: 1581561734376683112, guid: ea6312ed7295df1408345b4d11282216, type: 3}
-  TrailDelay: 0

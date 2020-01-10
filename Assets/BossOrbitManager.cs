@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class BossOrbitManager : MonoBehaviour
 {
-    public static bool prova = false;
+    //Event
 
     //Inspector
     public List<GameObject> OrbitList;
@@ -36,7 +36,6 @@ public class BossOrbitManager : MonoBehaviour
     public void RotationMove(float _maxSpeed , float _timeAcceleration , HookPointController _centerPoint)
     {
         _maxSpeed /= 60;
-        _timeAcceleration /= 60;
 
         if (_maxSpeed >= 0 )
         {
@@ -99,29 +98,40 @@ public class BossOrbitManager : MonoBehaviour
         }
     }
 
-    public void SetObjectsPosition(float _initialRadius , float _finalRadius , int _index , float _time , float _orientation , float _movementTime , bool _hasDeltaRadius) {
+    public void SetObjectsPosition(float _initialRadius , float _finalRadius , int _index , float _time , float _orientation , float _movementTime , bool _hasDeltaRadius , bool _isSetUp) {
+
+        if (_isSetUp) {
             InitialPoints[_index].transform.eulerAngles = new Vector3(InitialPoints[_index].transform.eulerAngles.x, _orientation, InitialPoints[_index].transform.eulerAngles.z);
-            InitialPoints[_index].transform.DOLocalMove(InitialPoints[_index].transform.forward * _initialRadius , _time).OnComplete(()=> {
-                SetMasks(_index);
+            InitialPoints[_index].transform.DOLocalMove(InitialPoints[_index].transform.forward * _initialRadius, _time).OnComplete(() => {
+                SetMasks(_index, _movementTime);
                 EndPoints[_index].transform.eulerAngles = new Vector3(EndPoints[_index].transform.eulerAngles.x, _orientation, EndPoints[_index].transform.eulerAngles.z);
-                EndPoints[_index].transform.DOLocalMove(EndPoints[_index].transform.forward * _finalRadius, _time).OnComplete(()=> {
+                EndPoints[_index].transform.DOLocalMove(EndPoints[_index].transform.forward * _finalRadius, _time).OnComplete(() => {
                     if (_hasDeltaRadius) {
                         MoveMasks(_index, _movementTime);
                     }
-                    
-                });
+
+                });//EndPoints OnComplete
+            });//InitialPoints OnComplete
+        }
+        else {
+            EndPoints[_index].transform.eulerAngles = new Vector3(EndPoints[_index].transform.eulerAngles.x, _orientation, EndPoints[_index].transform.eulerAngles.z);
+            EndPoints[_index].transform.DOLocalMove(EndPoints[_index].transform.forward * _finalRadius, _time).OnComplete(() => {
+                if (_hasDeltaRadius) {
+                    MoveMasks(_index, _movementTime);
+                }
             });
+        }
+            
     }
 
-
-    public void SetMasks(int _index) {
-        OrbitList[_index].transform.position = InitialPoints[_index].transform.position;
-        OrbitList[_index].transform.eulerAngles = InitialPoints[_index].transform.eulerAngles;
-        Debug.Log(OrbitList[_index].name);
+    public void SetMasks(int _index , float _time) {
+        OrbitList[_index].transform.DORotate(InitialPoints[_index].transform.eulerAngles, _time);
+        OrbitList[_index].transform.DOMove(InitialPoints[_index].transform.position, _time);
     }
 
     public void MoveMasks(int _index , float _time) {
-        OrbitList[_index].transform.DOMove(EndPoints[_index].transform.position, _time).OnComplete(() => countMasksArrived++); ;
+        OrbitList[_index].transform.DORotate(EndPoints[_index].transform.eulerAngles, _time);
+        OrbitList[_index].transform.DOMove(EndPoints[_index].transform.position, _time).OnComplete(() => countMasksArrived++);
     }
 
     public void FillOrbitData(OrbitData _orbitData) {
@@ -135,6 +145,7 @@ public class BossOrbitManager : MonoBehaviour
     }
 
     public void EmptyOrbitDataList() {
+        Debug.Log("Clear");
         OrbitDataList.Clear();
     }
 

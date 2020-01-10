@@ -25,7 +25,4 @@ public class MoveToData : BaseData
     public bool StopOnSolid;
     [Tooltip ("The value to add (or subtract, if negative) to the entry velocity parameter.")]
     public float AddToVelocity;
-    // scia
-    public GameObject TrailOb;
-    public float TrailDelay;
 }
