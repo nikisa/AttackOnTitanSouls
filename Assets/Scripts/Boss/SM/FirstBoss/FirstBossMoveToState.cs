@@ -24,7 +24,7 @@ public class FirstBossMoveToState : FirstBossState
     float timeMoveTo;
     int iterations;
 
-
+  
 
     public override void Enter()
     {
@@ -39,6 +39,7 @@ public class FirstBossMoveToState : FirstBossState
     }
     public override void Tick()
     {
+        Timer(moveToData);
         MoveToTick();
         AccelerationTick();
     }
@@ -46,6 +47,7 @@ public class FirstBossMoveToState : FirstBossState
 
     public override void Exit()
     {
+        ResetTimer(moveToData);
         boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
         animator.SetBool("MoveToOrbit", false);
@@ -77,9 +79,11 @@ public class FirstBossMoveToState : FirstBossState
     // TO REFACTOR
     public void MoveToTick() {
    
-        if (boss.MovingDetectCollision(iterations) == 1 && Time.time - timeStartMoveTo > .05f) // BUG HERE!!! Probabilmente causato dal Timer
+        if (boss.MovingDetectCollision(iterations) == 1 && Time.time - timeStartMoveTo > 0.05f) // BUG HERE!!! Probabilmente causato dal Timer
         {
               animator.SetTrigger("Collision");
+            
+            Debug.Log("COLLISIONE");
         }
         else {
 
@@ -91,10 +95,10 @@ public class FirstBossMoveToState : FirstBossState
         }
      
 
-        if (Time.time - timeStartMoveTo > timeMoveTo)
-        {
-            animator.SetTrigger(DECELERATION);
-        }
+        //if (Time.time - timeStartMoveTo > timeMoveTo)
+        //{
+        //    animator.SetTrigger(DECELERATION);
+        //}
     }
 
     public void AccelerationEnter() {

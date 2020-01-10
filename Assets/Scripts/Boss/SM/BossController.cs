@@ -20,6 +20,8 @@ public class BossController : MonoBehaviour
     public MoveToData moveToData;
     [HideInInspector]
     public float MaxSpeed;
+    [HideInInspector]
+    public float skin;
 
     //Private
     int HookPointLayerMask;
@@ -31,6 +33,7 @@ public class BossController : MonoBehaviour
         foreach (var item in animator.GetBehaviours<BossBaseState>()) {
             item.SetContext(this, animator);
         }
+        skin = 4.2f;
     }
 
 
@@ -84,7 +87,11 @@ public class BossController : MonoBehaviour
     public int MovingDetectCollision(int _iteration)
     {
         int result = 0;
+<<<<<<< HEAD
         float skin = 0;
+=======
+       
+>>>>>>> 0bc5c42925f82abfa9d33b6d40e86304565fbd3c
 
         if (Mathf.Sqrt(MoveSpeed) < 0.001) result = 0;
 

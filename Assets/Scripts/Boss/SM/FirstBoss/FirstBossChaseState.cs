@@ -27,6 +27,7 @@ public class FirstBossChaseState : FirstBossState
 
     public override void Tick()
     {
+        Timer(chaseData);
         AccelerationTick();
         ChaseTick();
         boss.Move();
@@ -34,8 +35,9 @@ public class FirstBossChaseState : FirstBossState
 
     public override void Exit()
     {
+        ResetTimer(chaseData);
         boss.IsPrevStateReinitialize = false;
-        CheckVulnerability();
+        CheckVulnerability();      // fare una base o una funzione che racciuda tutte 
         Debug.Log(bossOrbitManager.HookPointList.Count);
         animator.SetBool("ChaseOrbit", false);
     }
@@ -56,8 +58,8 @@ public class FirstBossChaseState : FirstBossState
     {
         deltaAngle = Vector3.Angle(boss.transform.position, Target.transform.position);
         AngularSpeed = deltaAngle / chaseData.VectorRotationRate;
-        if (Time.time - timeStartChase < chaseData.Time)
-        {
+        //if (Time.time - timeStartChase < chaseData.Time)
+        //{
             if (chaseData.HasVectorRotationRate)
             {
                 boss.transform.rotation = Quaternion.Slerp(boss.transform.rotation, Quaternion.LookRotation(Target.transform.position - boss.transform.position), AngularSpeed * Time.deltaTime);
@@ -66,11 +68,11 @@ public class FirstBossChaseState : FirstBossState
             {
                 boss.RotateTarget(Target.transform.position);
             }
-        }
-        else
-        {
-            animator.SetTrigger(END_STATE_TRIGGER);
-        }
+        
+        //else
+        //{
+        //    animator.SetTrigger(END_STATE_TRIGGER);
+        //}
 
         if ((Target.transform.position-boss.transform.position).magnitude > chaseData.ChaseRadius)
         {

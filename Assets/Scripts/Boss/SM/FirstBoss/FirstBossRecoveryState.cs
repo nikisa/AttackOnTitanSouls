@@ -18,7 +18,8 @@ public class FirstBossRecoveryState : FirstBossState
     }
     public override void Tick()
     {
-        RecoveryInfoTick();
+        Timer(recoveryData);
+        //RecoveryInfoTick();
         DecelerationTick();
     }
     public override void Exit()
@@ -26,18 +27,19 @@ public class FirstBossRecoveryState : FirstBossState
         animator.SetBool("RecoveryOrbit", false);
         CheckVulnerability();
         boss.IsPrevStateReinitialize = false;
+        ResetTimer(recoveryData);
     }
 
     public void RecoveryInfoEnter() {
         timeStartRecovery = Time.time;
     }
    
-    public void RecoveryInfoTick() {
-        //Ends state when the timer has finished
-        if ((Time.time - timeStartRecovery) > recoveryData.Time) {
-            animator.SetTrigger(END_STATE_TRIGGER);
-        }
-    }
+    //public void RecoveryInfoTick() {
+    //    //Ends state when the timer has finished
+    //    if ((Time.time - timeStartRecovery) > recoveryData.Time) {
+    //        animator.SetTrigger(END_STATE_TRIGGER);
+    //    }
+    //}
 
     //Does a deceleration when finishing the movement
     public void DecelerationTick() {

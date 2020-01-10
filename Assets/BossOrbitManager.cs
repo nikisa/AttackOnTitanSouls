@@ -124,9 +124,17 @@ public class BossOrbitManager : MonoBehaviour
             
     }
 
+<<<<<<< HEAD
     public void SetMasks(int _index , float _time) {
         OrbitList[_index].transform.DORotate(InitialPoints[_index].transform.eulerAngles, _time);
         OrbitList[_index].transform.DOMove(InitialPoints[_index].transform.position, _time);
+=======
+
+    public void SetMasks(int _index) {
+        OrbitList[_index].transform.position = InitialPoints[_index].transform.position;
+        OrbitList[_index].transform.eulerAngles = InitialPoints[_index].transform.eulerAngles;
+
+>>>>>>> 0bc5c42925f82abfa9d33b6d40e86304565fbd3c
     }
 
     public void MoveMasks(int _index , float _time) {
