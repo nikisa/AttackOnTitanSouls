@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8ff377a095d8e7489234f0c610ed5a7, type: 3}
-  m_Name: AWAKE_Orbit00
+  m_Name: AWAKE_Orbit02
   m_EditorClassIdentifier: 
-  AngularAccelerationTime: 5
-  AngularMaxSpeed: -360
+  AngularAccelerationTime: 0.15
+  AngularMaxSpeed: 560
   AngularDecelerationTime: 5
   orbitData:
-  - {fileID: 11400000, guid: c108dc1acbff77b42accbdb9d0a41c66, type: 2}
-  - {fileID: 11400000, guid: c108dc1acbff77b42accbdb9d0a41c66, type: 2}
-  - {fileID: 11400000, guid: c108dc1acbff77b42accbdb9d0a41c66, type: 2}
-  - {fileID: 11400000, guid: c108dc1acbff77b42accbdb9d0a41c66, type: 2}
-  - {fileID: 11400000, guid: c108dc1acbff77b42accbdb9d0a41c66, type: 2}
+  - {fileID: 11400000, guid: 6519d5d75251a7b41b7991a76e5fca8c, type: 2}
+  - {fileID: 11400000, guid: 6519d5d75251a7b41b7991a76e5fca8c, type: 2}
+  - {fileID: 11400000, guid: 6519d5d75251a7b41b7991a76e5fca8c, type: 2}
+  - {fileID: 11400000, guid: 6519d5d75251a7b41b7991a76e5fca8c, type: 2}
+  - {fileID: 11400000, guid: 6519d5d75251a7b41b7991a76e5fca8c, type: 2}
   CenterRotation: {fileID: 0}

@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: ChaseData
   m_EditorClassIdentifier: 
   Time: 4
-  OrbitTag: 3
+  OrbitTag: 0
   Target: {fileID: 11400000, guid: 320bf9f104a0b814481ec323e5fa955a, type: 2}
-  MaxSpeed: 5
+  HasAcceleration: 1
+  TimeAcceleration: 1
+  MaxSpeed: 30
   HasVectorRotationRate: 1
   VectorRotationRate: 1.5
-  ChaseRadius: 500
-  TimeAcceleration: 1
-  HasAcceleration: 1

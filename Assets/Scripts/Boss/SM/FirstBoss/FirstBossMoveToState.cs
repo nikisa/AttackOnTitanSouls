@@ -23,17 +23,26 @@ public class FirstBossMoveToState : FirstBossState
     float timeStartMoveTo;
     float timeMoveTo;
     int iterations;
+    int layerResult;
 
-  
+    int layerWall;
+    int layerPlayer;
+    float reinitSphereCastTimer;
+
 
     public override void Enter()
     {
+
         base.Enter();
+
+        iterations = 30;
+        layerWall = 10;
+        layerPlayer = 11;
+        reinitSphereCastTimer = 0.05f;
+
         Target = moveToData.Target.instance;
         OrbitTag(moveToData);
-        iterations = 30;
         RotationEnter();
-        //SetTarget();
         MoveToEnter();
         AccelerationEnter();
 
@@ -53,6 +62,7 @@ public class FirstBossMoveToState : FirstBossState
         boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
         animator.SetBool("MoveToOrbit", false);
+        animator.SetInteger("Layer", 0);
     }
 
 
@@ -78,29 +88,22 @@ public class FirstBossMoveToState : FirstBossState
         boss.RotationSpeed += rotationMoveData.AddToRotationSpeed;
     }
 
-    // TO REFACTOR
     public void MoveToTick() {
-   
-        if (boss.MovingDetectCollision(iterations) == 1 && Time.time - timeStartMoveTo > 0.05f) // BUG HERE!!! Probabilmente causato dal Timer
+
+        layerResult = boss.MovingDetectCollision(iterations);
+
+        if (layerResult == layerWall && Time.time - timeStartMoveTo > reinitSphereCastTimer)
         {
-              animator.SetTrigger("Collision");
-            
-            Debug.Log("COLLISIONE");
+            animator.SetInteger("Layer", layerResult);
         }
         else {
 
             boss.Move();
 
-            if (boss.MovingDetectCollision(iterations) == 2) {
+            if (layerResult == layerPlayer) {
                 PlayerController.DeathEvent();
             }
         }
-     
-
-        //if (Time.time - timeStartMoveTo > timeMoveTo)
-        //{
-        //    animator.SetTrigger(DECELERATION);
-        //}
     }
 
     public void AccelerationEnter() {

@@ -81,8 +81,8 @@ public class BossController : MonoBehaviour
     /// </summary>
     /// <returns> 
     /// 0 = no collision
-    /// 1 = wall
-    /// 2 = player 
+    /// 10 = wall layer
+    /// 11 = player layer
     /// </returns>
     public int MovingDetectCollision(int _iteration)
     {
@@ -101,22 +101,11 @@ public class BossController : MonoBehaviour
             
             if (hits == null || hits.Length == 0)
             {
-                 result=0;
+                 return result = 0;
             }
             else
             {
-
-                animator.SetInteger("Layer" , hits[0].collider.gameObject.layer);
-
-                if (hits[0].collider.tag == "Player")
-                {
-                    result = 2;
-                }
-                else
-                {
-                    result = 1;
-                    
-                }
+                result = hits[0].collider.gameObject.layer;
             }
         }
         return result;
