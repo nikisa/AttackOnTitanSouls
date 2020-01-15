@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb3acde00be496e4bb3e0d304fc22b6d, type: 3}
-  m_Name: PlayerIdleData
+  m_Script: {fileID: 11500000, guid: 194aa66301e78c94b8b11fd124efb968, type: 3}
+  m_Name: BreakPointData
   m_EditorClassIdentifier: 
-  isHookTest: 0
-  maxSpeed: 18
-  framesZeroToMax: 3
-  framesMaxToZero: 6
-  resumeControl: 1
+  lifeMax: 60
+  InitialElasticK: 40
+  FinalElasticK: 40
+  RestoreLifeRatio: 0
