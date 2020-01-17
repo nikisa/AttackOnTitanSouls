@@ -32,6 +32,8 @@ public class BossOrbitManager : MonoBehaviour
     public List<int> removedIndexList;
     [HideInInspector]
     public int countMasksArrived;
+    [HideInInspector]
+    public float actualSpeed;
     //[HideInInspector]
     public List<OrbitManagerData> OrbitManagerDataList;
 
@@ -50,15 +52,15 @@ public class BossOrbitManager : MonoBehaviour
         if (_maxSpeed >= 0) {
             timeAcceleration = _maxSpeed / _timeAcceleration;
             _centerPoint.MoveSpeed += timeAcceleration * Time.deltaTime;
-            _centerPoint.transform.Rotate(Vector3.up * _centerPoint.MoveSpeed);
             _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed);
+            _centerPoint.transform.Rotate(Vector3.up * _centerPoint.MoveSpeed);
         }
         else {
             _maxSpeed = Mathf.Abs(_maxSpeed);
             timeAcceleration = _maxSpeed / _timeAcceleration;
             _centerPoint.MoveSpeed += timeAcceleration * Time.deltaTime;
-            _centerPoint.transform.Rotate(Vector3.down * _centerPoint.MoveSpeed);
             _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed);
+            _centerPoint.transform.Rotate(Vector3.down * _centerPoint.MoveSpeed);
         }
     }
 

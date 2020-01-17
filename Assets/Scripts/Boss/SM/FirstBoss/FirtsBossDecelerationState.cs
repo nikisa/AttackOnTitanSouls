@@ -5,15 +5,16 @@ using UnityEngine;
 public class FirtsBossDecelerationState : FirstBossState
 {
     //Inspector
-    public RotationMoveData rotationMoveData;
-    public RotationDecelerationData rotationDecelerationData;
+    public DecelerationData decelerationData;
 
     //Private
     MoveToData moveToData;
     int iterations;
+    int wallLayer;
 
     public override void Enter()
     {
+        wallLayer = 10;
         iterations = 30;
         DecelerationEnter();
     }
@@ -25,7 +26,7 @@ public class FirtsBossDecelerationState : FirstBossState
     }
     public void DecelerationTick()
     {
-        boss.Deceleration(moveToData.TimeDeceleration, moveToData.LowSpeed , moveToData.MaxSpeed);
+        boss.Deceleration(decelerationData.TimeDeceleration, decelerationData.LowSpeed , moveToData.MaxSpeed);
 
         if (boss.MoveSpeed <= 0) {
             animator.SetTrigger(END_STATE_TRIGGER);
@@ -35,7 +36,7 @@ public class FirtsBossDecelerationState : FirstBossState
 
     public void CollisionTick()
     {
-        if (boss.MovingDetectCollision(iterations) == 1)
+        if (boss.MovingDetectCollision(iterations) == wallLayer)
         {
             animator.SetTrigger("Collision");
         }

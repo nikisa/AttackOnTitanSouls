@@ -7,12 +7,6 @@ public class FirstBossMoveToState : FirstBossState
 {
     //Inspector
     public MoveToData moveToData;
-    public RotationMoveData rotationMoveData;
-    //public BossController.Targets targets;
-
-    //Public
-    //[HideInInspector]
-    ////public GameObject Target;
 
     //Private 
     GameObject Target;
@@ -42,7 +36,6 @@ public class FirstBossMoveToState : FirstBossState
 
         Target = moveToData.Target.instance;
         OrbitTag(moveToData);
-        RotationEnter();
         MoveToEnter();
         AccelerationEnter();
 
@@ -78,15 +71,10 @@ public class FirstBossMoveToState : FirstBossState
         boss.MaxSpeed = moveToData.MaxSpeed;
         boss.MoveSpeed += moveToData.AddToVelocity;
         startY = boss.transform.position.y;
-        timeMoveTo = moveToData.Time - moveToData.TimeDeceleration;
         ChargeAttack();
         timeStartMoveTo = Time.time;
     }
 
-    public void RotationEnter()
-    {
-        boss.RotationSpeed += rotationMoveData.AddToRotationSpeed;
-    }
 
     public void MoveToTick() {
 

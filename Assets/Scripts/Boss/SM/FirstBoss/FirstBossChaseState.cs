@@ -31,7 +31,7 @@ public class FirstBossChaseState : FirstBossState
         Timer(chaseData);
         AccelerationTick();
         ChaseTick();
-        boss.Move();
+        //boss.Move();
         SetSpeed();
     }
 
@@ -39,7 +39,7 @@ public class FirstBossChaseState : FirstBossState
     {
         ResetTimer(chaseData);
         boss.IsPrevStateReinitialize = false;
-        CheckVulnerability();      // fare una base o una funzione che racciuda tutte 
+        CheckVulnerability();
         Debug.Log(bossOrbitManager.HookPointList.Count);
         animator.SetBool("ChaseOrbit", false);
     }
@@ -58,16 +58,21 @@ public class FirstBossChaseState : FirstBossState
     //Chase the target
     public void ChaseTick()
     {
-        deltaAngle = Vector3.Angle(boss.transform.position, Target.transform.position);
-        AngularSpeed = deltaAngle / chaseData.VectorRotationRate;
-            if (chaseData.HasVectorRotationRate)
-            {
-                boss.transform.rotation = Quaternion.Slerp(boss.transform.rotation, Quaternion.LookRotation(Target.transform.position - boss.transform.position), AngularSpeed * Time.deltaTime);
-            }
-            else
-            {
-                boss.RotateTarget(Target.transform.position);
-            }
+        //deltaAngle = Vector3.Angle(boss.transform.position, Target.transform.position);
+        //AngularSpeed = deltaAngle / chaseData.VectorRotationRate;
+        //    if (chaseData.HasVectorRotationRate)
+        //    {
+        //        boss.transform.rotation = Quaternion.Slerp(boss.transform.rotation, Quaternion.LookRotation(Target.transform.position - boss.transform.position), AngularSpeed * Time.deltaTime);
+        //    }
+        //    else
+        //    {
+        //        boss.RotateTarget(Target.transform.position);
+        //    }
+
+        boss.vectorAngle = Target.transform.position - boss.transform.position;
+        boss.OldPos = boss.transform.position;
+        boss.transform.position = boss.transform.position + boss.Inertia + boss.MoveSpeed * boss.vectorAngle.normalized * Time.deltaTime;
+        boss.Inertia = (boss.transform.position - boss.OldPos) * (1 - chaseData.DynamicDrag);
     }
 
     //Does an acceleration when starts chasing the target

@@ -14,7 +14,7 @@ public class ChaseData : BaseData
     public bool HasVectorRotationRate;
     [Tooltip("in degrees / sec.")]
     public float VectorRotationRate;
+    public float DynamicDrag;
 
-    
 
 }

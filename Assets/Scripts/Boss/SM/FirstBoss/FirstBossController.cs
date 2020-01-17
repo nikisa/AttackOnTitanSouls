@@ -8,6 +8,13 @@ public class FirstBossController : BossController
     public BossOrbitManager bossOrbitManager;
 
     //Public
+    [HideInInspector]
+    public Vector3 vectorAngle;
+    [HideInInspector]
+    public Vector3 OldPos;
+    [HideInInspector]
+    public Vector3 Inertia;
+
     //[HideInInspector]
     public int loops;
     [HideInInspector]
