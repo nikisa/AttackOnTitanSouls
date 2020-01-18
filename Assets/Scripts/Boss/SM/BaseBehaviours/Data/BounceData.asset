@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d148cdeed6aa2af41ad59f19f1e293e8, type: 3}
-  m_Name: ChaseData
+  m_Script: {fileID: 11500000, guid: c5c80ca171136c24ba4cb364c1883eab, type: 3}
+  m_Name: BounceData
   m_EditorClassIdentifier: 
   Time: 0
   OrbitTag: 0
-  Target: {fileID: 11400000, guid: 320bf9f104a0b814481ec323e5fa955a, type: 2}
-  TimeAcceleration: 24
-  MaxSpeed: 24
-  DynamicDrag: 0.5830696
+  impactFreeze: 0
+  shakeMagnitude: 0
+  kinetikEnergyLoss: 0
+  WaitOnStart: 0
+  Deceleration: 10
+  BounceAngle: 45

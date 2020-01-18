@@ -8,6 +8,7 @@ public class FirstBossChaseState : FirstBossState
     public ChaseData chaseData;
 
     //Private 
+    float maxSpeed;
     float startY;
     float timeStartAcceleration;
     float timeStartChase;
@@ -68,24 +69,24 @@ public class FirstBossChaseState : FirstBossState
         //    {
         //        boss.RotateTarget(Target.transform.position);
         //    }
+        //_______________________________________________________________________________________________________________________________________________________________________________________________
 
+        // MaxSpeed / Acceleration = 1/DD
+        // Acceleration = MaxSpeed / AccelerationTime
+        // MaxSpeed / (MaxSpeed / AccelerationTime) = 1/DD
+        // DD = 1/AccelerationTime
+
+        chaseData.DynamicDrag = (chaseData.MaxSpeed - boss.MoveSpeed) / chaseData.MaxSpeed;
         boss.vectorAngle = Target.transform.position - boss.transform.position;
         boss.OldPos = boss.transform.position;
         boss.transform.position = boss.transform.position + boss.Inertia + boss.MoveSpeed * boss.vectorAngle.normalized * Time.deltaTime;
-        boss.Inertia = (boss.transform.position - boss.OldPos) * (1 - chaseData.DynamicDrag);
+        boss.Inertia = (boss.transform.position - boss.OldPos) * (chaseData.DynamicDrag);
     }
 
     //Does an acceleration when starts chasing the target
     public void AccelerationTick()
     {
-         if (chaseData.HasAcceleration)
-         {
-            boss.Acceleration(chaseData.TimeAcceleration, chaseData.MaxSpeed);
-         }
-         else
-         {
-            boss.Acceleration(1, chaseData.MaxSpeed);
-         }
+        boss.Acceleration(chaseData.TimeAcceleration, chaseData.MaxSpeed);         
     }
 
     public void setChaseRadius() {

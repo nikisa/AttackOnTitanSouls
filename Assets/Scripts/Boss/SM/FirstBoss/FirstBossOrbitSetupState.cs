@@ -54,7 +54,6 @@ public class FirstBossOrbitSetupState : FirstBossState
             bossOrbitManager.EndPoints.Add(EndPosition);
         }
         for (int i = 0; i < bossOrbitManager.HookPointList.Count; i++) {
-            Debug.Log(bossOrbitManager.transform.position);
             bossOrbitManager.InitialPoints[i].transform.position = bossOrbitManager.transform.position;
             bossOrbitManager.EndPoints[i].transform.position = bossOrbitManager.transform.position;
         }

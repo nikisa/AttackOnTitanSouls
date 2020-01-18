@@ -22,6 +22,8 @@ public class BossController : MonoBehaviour
     public float MaxSpeed;
     [HideInInspector]
     public float skin;
+    [HideInInspector]
+    public RaycastHit hitObject;  
 
     //Private
     int HookPointLayerMask;
@@ -106,6 +108,7 @@ public class BossController : MonoBehaviour
             else
             {
                 result = hits[0].collider.gameObject.layer;
+                hitObject = hits[0];
             }
         }
         return result;

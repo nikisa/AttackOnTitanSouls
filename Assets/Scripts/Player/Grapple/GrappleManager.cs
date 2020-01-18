@@ -83,7 +83,6 @@ public class GrappleManager : MonoBehaviour
                 hit = hook.RaycastCollsion();
 
                 if (hit.transform != null && hit.transform.GetComponent<HookPoint>()) {
-                    Debug.Log(hit.transform.gameObject.name + "---");
                     hookPoint = hit.transform.GetComponent<HookPoint>();
                     hook.isHooked = true;
 
