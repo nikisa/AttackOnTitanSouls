@@ -36,7 +36,7 @@ public class GrappleManager : MonoBehaviour
     private void LateUpdate() {
 
         if (debugMode) {
-            if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown("ShootPS4")) {
+            if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown("ShootPS4") || Input.GetButtonDown("ShootXBOX")) {
                 HookShooting();
                 if (!hook.shooted)
                     InstantiateRope();
@@ -51,7 +51,7 @@ public class GrappleManager : MonoBehaviour
             }
         }
         else {
-            if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown("ShootPS4")) {
+            if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown("ShootPS4") || Input.GetButtonDown("ShootXBOX")) {
                 HookShooting();
                 if (!hook.shooted)
                     InstantiateRope();
@@ -65,11 +65,11 @@ public class GrappleManager : MonoBehaviour
                     UpdateHook();
                     UpdateLinks();
                 }
-                if ((Input.GetKey(KeyCode.Mouse1) && !Input.GetKeyUp(KeyCode.Mouse1)) || (Input.GetButton("ShootPS4") && !Input.GetButtonUp("ShootPS4"))) {
+                if ((Input.GetKey(KeyCode.Mouse1) && !Input.GetKeyUp(KeyCode.Mouse1)) || (Input.GetButton("ShootPS4") && !Input.GetButtonUp("ShootPS4")) || (Input.GetButton("ShootXBOX") && !Input.GetButtonUp("ShootXBOX"))) {
                     RewindPoints();
                 }
 
-                if (Input.GetButtonDown("UnhookPS4"))
+                if (Input.GetButtonDown("UnhookPS4") || Input.GetButtonDown("UnhookXBOX"))
                 {
                     while (hook.shooted)
                     {

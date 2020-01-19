@@ -22,8 +22,8 @@ public class FirstBossBounceState : FirstBossState
         freezeTimeStart = Time.time;
         hitNormal = boss.hitObject.normal;
         angle = Quaternion.AngleAxis(180 - bounceData.BounceAngle, Vector3.up) * hitNormal;
-        distance = Mathf.Pow(boss.MoveSpeed, 2) / (2 * bounceData.Deceleration);
-        stopPoint = /*boss.transform.position +*/ angle * distance;
+        distance = (Mathf.Pow(boss.MoveSpeed, 2) / (2 * bounceData.Deceleration))/10;
+        stopPoint = angle * distance;
         Instantiate(Objecttt , stopPoint , Quaternion.identity);
         Debug.LogFormat("Velocità: {0} , Distance: {1} , StopPoint: {2}" , boss.MoveSpeed , distance ,stopPoint);
     }
