@@ -109,6 +109,7 @@ public class BossController : MonoBehaviour
             {
                 result = hits[0].collider.gameObject.layer;
                 hitObject = hits[0];
+                Debug.Log(hits[0].point);
             }
         }
         return result;

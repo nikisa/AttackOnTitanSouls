@@ -19,6 +19,7 @@ public class BS_BossOrbitState : FirstBossState
 
     // Se bossOrbitManager.SetMasksRotation(OrbitManagerList) è presente , le funzioni sotto non vengono chiamate [SET PARENT]
     public override void Enter() {
+        index = 0;
         ClearOrbitManagerDataList();
         FillOrbitManagerDataList();
         SetOrbitData();
@@ -56,6 +57,7 @@ public class BS_BossOrbitState : FirstBossState
     }
 
     public void SetUpPositionPoints() {
+        
         for (int i = 0; i < bossOrbitManager.OrbitManagerDataList.Count; i++) {
             for (int y = 0; y < bossOrbitManager.OrbitManagerDataList[i].orbitData.Count; y++) {
                 bossOrbitManager.SetObjectsPosition(bossOrbitManager.OrbitManagerDataList[i].orbitData[y].SetupRadius, bossOrbitManager.OrbitManagerDataList[i].orbitData[y].FinalRadius, index, positionPointTime, orientation, bossOrbitManager.OrbitManagerDataList[i].orbitData[y].TravelTime, bossOrbitManager.OrbitManagerDataList[i].orbitData[y].HasDeltaRadius, bossOrbitManager.OrbitDataList[i].isSetup);
