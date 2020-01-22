@@ -120,15 +120,13 @@ public class HookPoint : HookPointManager , IGrappable , IKiller
                 bossOrbitManager.OrbitList.Remove(this.transform.parent.gameObject);
                 bossOrbitManager.HookPointList.Remove(this);
                 Destroy(this.gameObject.transform.parent.gameObject);
-                
-                
+                transform.gameObject.SetActive(false);
+
                 Destroy(bossOrbitManager.InitialPoints[index]);
                 bossOrbitManager.InitialPoints.Remove(bossOrbitManager.InitialPoints[index]);
                 Destroy(bossOrbitManager.EndPoints[index]);
                 bossOrbitManager.EndPoints.Remove(bossOrbitManager.EndPoints[index]);
 
-                
-                
             }
 
         }
