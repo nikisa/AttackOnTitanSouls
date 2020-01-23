@@ -257,7 +257,7 @@ public class PlayerController : MonoBehaviour
 
 
     public void PlayerDeath() {
-        //SceneManager.LoadScene(2);
+        SceneManager.LoadScene(2);
     }
 
     public void Victory() {
