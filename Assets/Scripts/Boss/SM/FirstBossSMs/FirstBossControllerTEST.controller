@@ -920,7 +920,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d96a42dfc62c1c640b4599c4b6c5af53, type: 3}
   m_Name: 
@@ -1355,7 +1355,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: Timer
-    m_EventTreshold: 0.5
+    m_EventTreshold: 0.2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102749227235190736}
   m_Solo: 0
@@ -2324,7 +2324,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: Timer
-    m_EventTreshold: 1
+    m_EventTreshold: 0.2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102307549116604424}
   m_Solo: 0
@@ -3022,7 +3022,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -3556,7 +3556,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: Timer
-    m_EventTreshold: 10
+    m_EventTreshold: 0.1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102166547867695698}
   m_Solo: 0
@@ -7536,7 +7536,7 @@ AnimatorStateMachine:
     m_Position: {x: 96, y: 312, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102030576814373422}
-    m_Position: {x: 648, y: 528, z: 0}
+    m_Position: {x: 708, y: 660, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102156805742548650}
     m_Position: {x: 900, y: 516, z: 0}

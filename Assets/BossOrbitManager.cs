@@ -48,7 +48,6 @@ public class BossOrbitManager : MonoBehaviour
 
     public void RotationMove(float _maxSpeed, float _timeAcceleration, HookPointController _centerPoint) {
         _maxSpeed /= 60;
-        Debug.Log("INSIDIE ORCO DIO");
         if (_maxSpeed >= 0) {
             timeAcceleration = _maxSpeed / _timeAcceleration;
             _centerPoint.MoveSpeed += timeAcceleration * Time.deltaTime;

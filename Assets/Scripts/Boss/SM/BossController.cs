@@ -91,12 +91,11 @@ public class BossController : MonoBehaviour
         int result = 0;
         float skin = 4.2f;
 
-        if (Mathf.Sqrt(MoveSpeed) < 0.001) result = 0;
+        int interpolation = _iteration;//(int)(MoveSpeed / 1f);
 
-        int interpolation = 30;//(int)(MoveSpeed / 1f);
         for (int i = 0; i < interpolation; i++)
         {
-            if (Mathf.Sqrt(MoveSpeed) < 0.001) result = 0; ;
+            if (Mathf.Sqrt(MoveSpeed) < 0.001) result = 0;
 
             float time = Time.deltaTime / interpolation;
             RaycastHit[] hits = Physics.SphereCastAll(transform.position + Vector3.up * 1.1f, skin, MoveSpeed * Vector3.forward, (MoveSpeed * time) , HookPointLayerMask);
@@ -109,7 +108,7 @@ public class BossController : MonoBehaviour
             {
                 result = hits[0].collider.gameObject.layer;
                 hitObject = hits[0];
-                Debug.Log(hits[0].point);
+                Debug.LogFormat("Hit point:{0} ---- Object Hit:{1} ---- Object Transform:{2}", hitObject.point, hitObject.transform.gameObject.name, hitObject.transform.position);
             }
         }
         return result;

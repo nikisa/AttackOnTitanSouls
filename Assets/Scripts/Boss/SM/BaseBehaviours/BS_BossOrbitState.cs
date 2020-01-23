@@ -51,7 +51,6 @@ public class BS_BossOrbitState : FirstBossState
     public void OrbitTick() {
         Debug.Log("count " + OrbitManagerList.Count);
         for (int i = 0; i < OrbitManagerList.Count; i++) {
-            Debug.Log("PROBLEMA: " + OrbitManagerList[i].CenterRotation);
             bossOrbitManager.RotationMove(OrbitManagerList[i].AngularMaxSpeed, OrbitManagerList[i].AngularAccelerationTime, OrbitManagerList[i].CenterRotation);
         }
     }
