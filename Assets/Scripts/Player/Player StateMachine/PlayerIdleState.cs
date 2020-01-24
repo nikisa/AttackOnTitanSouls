@@ -9,6 +9,10 @@ public class PlayerIdleState : PlayerBaseState {
     //Inspector
     public PlayerIdleData playerIdleData;
 
+    //Public 
+    [HideInInspector]
+    public PlayerDashData playerDashData;
+
 
     // Private
     bool canDash = true;    
@@ -24,6 +28,9 @@ public class PlayerIdleState : PlayerBaseState {
 
 
     public override void Enter() {
+
+        playerDashData = player.playerDashData;
+
         player.layerMask = 1 << 10 /*| 1<<12*/;
         timer = Time.time;
 
@@ -34,9 +41,11 @@ public class PlayerIdleState : PlayerBaseState {
 
     public override void Tick() {
 
+        player.CheckInput();
+
         player.PlayerInclination();
 
-        if (Time.time < timer + playerIdleData.resumeControl) {
+        if (Time.time < timer + playerDashData.EnableDashAt) {
             canDash = false;
         }
         else {

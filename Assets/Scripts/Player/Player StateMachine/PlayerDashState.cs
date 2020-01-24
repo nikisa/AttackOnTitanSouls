@@ -21,7 +21,6 @@ public class PlayerDashState : PlayerBaseState {
     float _timeScale;
     float freezeTimeStart;
     
-    
 
     public override void Enter() {
         player.playerDashData = playerDashData;
@@ -64,12 +63,12 @@ public class PlayerDashState : PlayerBaseState {
 
         if (realDashDistance > _DashTimeDistance) {
             player.dashDirection = new Vector3((_DashTimeDistance * Horizontal) + playerPosition.x, playerPosition.y, (_DashTimeDistance * Vertical) + playerPosition.z);
-            transform.DOMove(player.dashDirection, _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION);});
+            player.transform.DOMove(player.dashDirection, _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
         }
 
         else {
             player.dashDirection = new Vector3(((realDashDistance - (player.skin + (player.skin / 2))) * Horizontal) + playerPosition.x, playerPosition.y, ((realDashDistance - 0.75f) * Vertical) + playerPosition.z);
-            transform.DOMove(player.dashDirection, _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION);});
+            player.transform.DOMove(player.dashDirection, _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
         }
     }
 }

@@ -12,6 +12,8 @@ public class PlayerDashData : ScriptableObject
     public float ActiveDashDistance;
     public float ActiveDashTime;
     public float DashDecelerationTime;
-    public float ResumeControl;
+    [Tooltip("[in %. Enable player’s input during deceleration when the PC reaches a velocity beetween zero (0) and MaxSpeed (1).")]
+    [Range(0,1)]
+    public float ResumePlayerInput;
     public float EnableDashAt;
 }

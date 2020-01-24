@@ -19,11 +19,20 @@ public class PlayerDashDecelerationState : PlayerBaseState
         Horizontal = player.dataInput.Horizontal;
         Vertical = player.dataInput.Vertical;
 
+        playerIdleData = player.playerIdleData;
         playerDashData = player.playerDashData;
+
     }
 
     public override void Tick() {
-        player.DashDeceleration(Horizontal ,  Vertical , playerDashData.DashDecelerationTime , playerDashData.ActiveDashDistance , playerDashData.ActiveDashTime);
+
+        player.DashDeceleration(Horizontal , Vertical , playerDashData.DashDecelerationTime , playerDashData.ActiveDashDistance , playerDashData.ActiveDashTime);
+
+        if (player.dashMovementSpeed <= (playerDashData.ResumePlayerInput * playerIdleData.maxSpeed)) {
+            if (Vertical != 0 || Horizontal != 0) {
+                animator.SetTrigger(IDLE);
+            }
+        }
     }
 
     public override void Exit() {

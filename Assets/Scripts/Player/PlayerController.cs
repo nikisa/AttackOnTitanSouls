@@ -49,6 +49,8 @@ public class PlayerController : MonoBehaviour
     public int layerMask;
     [HideInInspector]
     public float skin = .95f;
+    [HideInInspector]
+    public float dashMovementSpeed;
 
     //Private
     Camera camera;
@@ -72,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update() 
     {
-        CheckInput();
+        //CheckInput();
     }
 
     void CalculateOrientationFromMouse()
@@ -190,34 +192,21 @@ public class PlayerController : MonoBehaviour
 
     public void DashDeceleration(float _horizontal , float _vertical ,float _decelerationTime , float _dashDistance , float _dashTime) {
 
-        Vector3 nextPosition;
-        forwardVelocity = 0;
+        Vector3 direction = new Vector3(_horizontal , 0 , _vertical);
         dashDecelerationVelocity = _dashDistance / _dashTime;
         dashDeceleration = dashDecelerationVelocity / _decelerationTime;
 
+        dashMovementSpeed -= dashDeceleration * Time.deltaTime;
+        dashMovementSpeed = Mathf.Clamp(dashMovementSpeed, 0, dashDecelerationVelocity);
+        Debug.Log(dashMovementSpeed);
 
-        if (movementVelocity.x < dashDeceleration * Time.deltaTime)
-            movementVelocity.x = movementVelocity.x - dashDeceleration * Time.deltaTime;
-        else if (movementVelocity.x > -dashDeceleration * Time.deltaTime)
-            movementVelocity.x = movementVelocity.x + dashDeceleration * Time.deltaTime;
-        else {
-            movementVelocity.x = 0;
-        }
-        if (movementVelocity.z < dashDeceleration * Time.deltaTime)
-            movementVelocity.z = movementVelocity.z - dashDeceleration * Time.deltaTime;
-        else if (movementVelocity.z > -dashDeceleration * Time.deltaTime)
-            movementVelocity.z = movementVelocity.z + dashDeceleration * Time.deltaTime;
-        else {
-            movementVelocity.z = 0;
-        }
+        transform.Translate((dashMovementSpeed*Time.deltaTime) * direction);
 
-        nextPosition = new Vector3(transform.position.x + (movementVelocity.x * _horizontal) , movementVelocity.y , transform.position.z + (movementVelocity.z * _vertical));
-        transform.position = nextPosition;
     }
 
     public void SetDashVelocity(float _horizontal , float _vertical , float _dashDistance, float _dashTime) {
         float dashVelocity = _dashDistance / _dashTime;
-        movementVelocity = new Vector3(dashVelocity * _horizontal , movementVelocity.y , dashVelocity * _vertical);
+        dashMovementSpeed = dashVelocity;
     }
 
 
