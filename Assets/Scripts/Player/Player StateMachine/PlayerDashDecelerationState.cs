@@ -11,13 +11,15 @@ public class PlayerDashDecelerationState : PlayerBaseState
     float InitialVelocity;
     float DashTimeFrames;
     float timeDeceleration;
+    float HorizontalDash;
+    float VerticalDash;
     float Horizontal;
     float Vertical;
 
     public override void Enter() {
 
-        Horizontal = player.dataInput.Horizontal;
-        Vertical = player.dataInput.Vertical;
+        HorizontalDash = player.horizontalDash;
+        VerticalDash = player.verticalDash;
 
         playerIdleData = player.playerIdleData;
         playerDashData = player.playerDashData;
@@ -26,9 +28,11 @@ public class PlayerDashDecelerationState : PlayerBaseState
 
     public override void Tick() {
 
-        player.DashDeceleration(Horizontal , Vertical , playerDashData.DashDecelerationTime , playerDashData.ActiveDashDistance , playerDashData.ActiveDashTime);
+        player.DashDeceleration(HorizontalDash , VerticalDash , playerDashData.DashDecelerationTime , playerDashData.ActiveDashDistance , playerDashData.ActiveDashTime);
 
         if (player.dashMovementSpeed <= (playerDashData.ResumePlayerInput * playerIdleData.maxSpeed)) {
+            Horizontal = player.dataInput.Horizontal;
+            Vertical = player.dataInput.Vertical;
             if (Vertical != 0 || Horizontal != 0) {
                 animator.SetTrigger(IDLE);
             }

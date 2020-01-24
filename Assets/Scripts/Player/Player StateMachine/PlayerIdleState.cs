@@ -59,6 +59,8 @@ public class PlayerIdleState : PlayerBaseState {
         {
             startDash = Time.time;
             canDash = false;
+            player.horizontalDash = player.dataInput.Horizontal;
+            player.verticalDash = player.dataInput.Vertical;
             animator.SetTrigger(DASH);
         }
 

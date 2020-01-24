@@ -27,8 +27,8 @@ public class PlayerDashState : PlayerBaseState {
 
         isDashing = false;
 
-        Horizontal = player.dataInput.Horizontal;
-        Vertical = player.dataInput.Vertical;
+        Horizontal = player.horizontalDash;
+        Vertical = player.verticalDash;
 
         freezeTimeStart = Time.time;
         player.DoFreeze(playerDashData.PreDashFreeze ,0);
@@ -42,7 +42,7 @@ public class PlayerDashState : PlayerBaseState {
         //    player.timeFreeze(1);
 
             if (!isDashing) {
-                Dash(playerDashData.ActiveDashTime , playerDashData.ActiveDashDistance);
+                Dash(playerDashData.ActiveDashTime , playerDashData.ActiveDashDistance, playerDashData.DashDecelerationTime);
             }
         //}
     }
@@ -51,17 +51,19 @@ public class PlayerDashState : PlayerBaseState {
         
     }
 
-    public void Dash(float _DashTimeFrames, float _DashTimeDistance) {
+    public void Dash(float _DashTimeFrames, float _DashTimeDistance, float _decelerationTime) {
         isDashing = true;
         playerPosition = player.transform.position;
         hitDash = player.RayCastDash(Horizontal, Vertical);
         realDashDistance = Vector3.Distance(hitDash.point, player.transform.position);
-
+        realDashDistance = realDashDistance + Mathf.Pow(player.dashMovementSpeed, 2) / (2 * (player.dashMovementSpeed / _decelerationTime)); // questa formula è sbagliata fa 1000/1000 e non aggiunge nulla
         //if (Horizontal == 0 && Vertical == 0) {
         //    animator.SetTrigger(IDLE);
         //}
 
-        if (realDashDistance > _DashTimeDistance) {
+        // (Mathf.Pow(boss.MoveSpeed, 2) / (2 * bounceData.Deceleration)) QUIII usare questa
+
+         if (realDashDistance > _DashTimeDistance) {
             player.dashDirection = new Vector3((_DashTimeDistance * Horizontal) + playerPosition.x, playerPosition.y, (_DashTimeDistance * Vertical) + playerPosition.z);
             player.transform.DOMove(player.dashDirection, _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
         }
