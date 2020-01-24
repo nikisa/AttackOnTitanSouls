@@ -63,12 +63,15 @@ public class PlayerController : MonoBehaviour
     float timeStart;
     float dashDecelerationVelocity;
     float dashDeceleration;
+    //sghigna
+    float minVelocity;
 
     protected virtual void Awake() {
         playerTarget.instance = this.gameObject;
     }
 
     protected virtual void Start() {
+
         camera = Camera.main;
         
         foreach (var item in animator.GetBehaviours<BaseState>()) {
@@ -198,9 +201,9 @@ public class PlayerController : MonoBehaviour
 
         Vector3 direction = new Vector3(_horizontal , 0 , _vertical);
         dashDecelerationVelocity = _dashDistance / _dashTime;
-        dashDeceleration = dashDecelerationVelocity / _decelerationTime;
+        dashDecelerationVelocity /=  _decelerationTime;
 
-        dashMovementSpeed -= dashDeceleration * Time.deltaTime;
+        dashMovementSpeed -= dashDecelerationVelocity * Time.deltaTime;
         dashMovementSpeed = Mathf.Clamp(dashMovementSpeed, 0, dashDecelerationVelocity);
         Debug.Log(dashMovementSpeed);
 

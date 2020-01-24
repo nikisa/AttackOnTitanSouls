@@ -16,4 +16,4 @@ MonoBehaviour:
   maxSpeed: 18
   framesZeroToMax: 3
   framesMaxToZero: 6
-  resumeControl: 1
+  resumeControl: 0
