@@ -15,13 +15,13 @@ public class PlayerResumeDashState : PlayerBaseState
 
 
     public override void Enter() {
-        timeStart = Time.time;
-        playerDashData = player.playerDashData;
-        playerIdleData = player.playerIdleData;
-        player.InitialDashVelocity = playerDashData.DashDistance / (playerDashData.DashTimeFrames / 60);
-        Debug.Log("InitialDashVelocity: " + player.InitialDashVelocity);
-        DashTimeFrames = playerDashData.DashTimeFrames;
-        timeDeceleration = player.InitialDashVelocity / playerDashData.DashTimeFrames;
+        //timeStart = Time.time;
+        //playerDashData = player.playerDashData;
+        //playerIdleData = player.playerIdleData;
+        //player.InitialDashVelocity = playerDashData.DashDistance / (playerDashData.DashTimeFrames / 60);
+        //Debug.Log("InitialDashVelocity: " + player.InitialDashVelocity);
+        //DashTimeFrames = playerDashData.DashTimeFrames;
+        //timeDeceleration = player.InitialDashVelocity / playerDashData.DashTimeFrames;
     }
 
     public override void Tick() {

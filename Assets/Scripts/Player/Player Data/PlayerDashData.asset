@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f448e5d3da51d2743a53a7f4e64be525, type: 3}
   m_Name: PlayerDashData
   m_EditorClassIdentifier: 
-  DashDistance: 10
-  DashTimeFrames: 5
+  PreDashFreeze: 0.3
+  ActiveDashDistance: 5
+  ActiveDashTime: 0.5
+  DashDecelerationTime: 10
   ResumeControl: 0.08
-  TimeFreeze: 0.03
-  SetTimeScale: 0
+  EnableDashAt: 0

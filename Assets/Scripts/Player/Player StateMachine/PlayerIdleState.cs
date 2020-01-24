@@ -53,10 +53,6 @@ public class PlayerIdleState : PlayerBaseState {
             animator.SetTrigger(DASH);
         }
 
-        if (forwardVelocity == playerIdleData.maxSpeed) {
-            canDash = true;
-        }
-
         if (dataInput.Vertical != 0 || dataInput.Horizontal != 0) {
             //player.ReadInputGamepad(dataInput , accelRatePerSec);
             player.ReadInputKeyboard(dataInput , accelRatePerSec , playerIdleData.maxSpeed);

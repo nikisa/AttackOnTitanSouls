@@ -11,30 +11,22 @@ public class PlayerDashDecelerationState : PlayerBaseState
     float InitialVelocity;
     float DashTimeFrames;
     float timeDeceleration;
+    float Horizontal;
+    float Vertical;
 
     public override void Enter() {
-        DashTimeFrames = playerDashData.DashTimeFrames;
+
+        Horizontal = player.dataInput.Horizontal;
+        Vertical = player.dataInput.Vertical;
+
         playerDashData = player.playerDashData;
-        playerIdleData = player.playerIdleData;
-        InitialVelocity = playerDashData.DashDistance / DashTimeFrames;
-        timeDeceleration = InitialVelocity / DashTimeFrames;
     }
 
     public override void Tick() {
-        Deceleration();
+        player.DashDeceleration(Horizontal ,  Vertical , playerDashData.DashDecelerationTime , playerDashData.ActiveDashDistance , playerDashData.ActiveDashTime);
     }
 
     public override void Exit() {
         
     }
-
-    void Deceleration() {
-        
-        InitialVelocity -= timeDeceleration * Time.deltaTime;
-        if (InitialVelocity <= playerIdleData.maxSpeed) {
-
-            animator.SetTrigger(DASH_RESUME);
-        }
-    }
-
 }

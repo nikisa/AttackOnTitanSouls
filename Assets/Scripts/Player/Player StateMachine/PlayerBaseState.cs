@@ -15,7 +15,7 @@ public class PlayerBaseState : BaseState {
     protected const string DASH_DECELERATION = "DashDeceleration";
     protected const string DASH_RESUME = "Resume";
     protected const string DASH_FRAME_PERFECT = "DashFramePerfect";
-    
+
 
     public override void SetContext(object context, Animator animator) { //Togliere bossOrbitManager dal Player
         base.SetContext(context, animator);

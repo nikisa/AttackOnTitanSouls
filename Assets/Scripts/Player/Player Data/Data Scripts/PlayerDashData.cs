@@ -8,9 +8,10 @@ public class PlayerDashData : ScriptableObject
 {
 
     // Public
-    public float DashDistance;
-    public float DashTimeFrames;
+    public float PreDashFreeze;
+    public float ActiveDashDistance;
+    public float ActiveDashTime;
+    public float DashDecelerationTime;
     public float ResumeControl;
-    public float TimeFreeze;
-    public float SetTimeScale;
+    public float EnableDashAt;
 }

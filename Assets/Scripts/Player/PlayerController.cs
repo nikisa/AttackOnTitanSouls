@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
     Vector3 movementVelocity = Vector3.zero;
     float forwardVelocity;
     float timeStart;
+    float dashDecelerationVelocity;
+    float dashDeceleration;
 
     protected virtual void Awake() {
         playerTarget.instance = this.gameObject;
@@ -186,6 +188,39 @@ public class PlayerController : MonoBehaviour
             Movement();
     }
 
+    public void DashDeceleration(float _horizontal , float _vertical ,float _decelerationTime , float _dashDistance , float _dashTime) {
+
+        Vector3 nextPosition;
+        forwardVelocity = 0;
+        dashDecelerationVelocity = _dashDistance / _dashTime;
+        dashDeceleration = dashDecelerationVelocity / _decelerationTime;
+
+
+        if (movementVelocity.x < dashDeceleration * Time.deltaTime)
+            movementVelocity.x = movementVelocity.x - dashDeceleration * Time.deltaTime;
+        else if (movementVelocity.x > -dashDeceleration * Time.deltaTime)
+            movementVelocity.x = movementVelocity.x + dashDeceleration * Time.deltaTime;
+        else {
+            movementVelocity.x = 0;
+        }
+        if (movementVelocity.z < dashDeceleration * Time.deltaTime)
+            movementVelocity.z = movementVelocity.z - dashDeceleration * Time.deltaTime;
+        else if (movementVelocity.z > -dashDeceleration * Time.deltaTime)
+            movementVelocity.z = movementVelocity.z + dashDeceleration * Time.deltaTime;
+        else {
+            movementVelocity.z = 0;
+        }
+
+        nextPosition = new Vector3(transform.position.x + (movementVelocity.x * _horizontal) , movementVelocity.y , transform.position.z + (movementVelocity.z * _vertical));
+        transform.position = nextPosition;
+    }
+
+    public void SetDashVelocity(float _horizontal , float _vertical , float _dashDistance, float _dashTime) {
+        float dashVelocity = _dashDistance / _dashTime;
+        movementVelocity = new Vector3(dashVelocity * _horizontal , movementVelocity.y , dashVelocity * _vertical);
+    }
+
+
     public void ReadInputKeyboard(DataInput dataInput , float _acceleration , float _maxSpeed) {
 
     movementVelocity = Vector3.zero;
@@ -227,17 +262,14 @@ public class PlayerController : MonoBehaviour
         newInput = true;
     }
 
-    public void timeFreeze(float _timeFreeze)
+    public void timeFreeze(float _timeScale)
     {
-        if (Time.time - timeStart < _timeFreeze)
-        {
-            Time.timeScale = 1;
-        }
+        Time.timeScale = _timeScale;
     }
     public RaycastHit RayCastDash(float _horizontal , float _vertical)
     {
         RaycastHit hitDash;
-        Physics.Raycast(transform.position, new Vector3(_horizontal, 0, _vertical), out hitDash, playerDashData.DashDistance * 2);
+        Physics.Raycast(transform.position, new Vector3(_horizontal, 0, _vertical), out hitDash, playerDashData.ActiveDashDistance * 2);
         return hitDash;
     }
     public void Dash(float _dashTimeFrames)  // on complete sulla funzione ?
