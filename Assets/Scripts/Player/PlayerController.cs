@@ -51,6 +51,10 @@ public class PlayerController : MonoBehaviour
     public float skin = .95f;
     [HideInInspector]
     public float dashMovementSpeed;
+    [HideInInspector]
+    public float horizontalDash;
+    [HideInInspector]
+    public float verticalDash;
 
     //Private
     Camera camera;
@@ -74,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update() 
     {
-        //CheckInput();
+        CheckInput();
     }
 
     void CalculateOrientationFromMouse()
