@@ -62,11 +62,14 @@ public class PlayerDashState : PlayerBaseState {
         //}
 
         if (realDashDistance > _DashTimeDistance) {
-            player.dashDirection = new Vector3((_DashTimeDistance * Horizontal) + playerPosition.x, playerPosition.y, (_DashTimeDistance * Vertical) + playerPosition.z);
+            Debug.Log("DASH 1: " + Horizontal + "  -  " + Vertical);
+            //Debug.Log("DASH 1: " + Mathf.Sign(Horizontal) * 1 + "  ---  " + Mathf.Sign(Vertical) * 1);
+            player.dashDirection = new Vector3((Horizontal < 0.9f ? 0 : (_DashTimeDistance * Mathf.Sign(Horizontal) * 1)) + playerPosition.x, playerPosition.y, (Vertical < 0.9f ? 0 : (_DashTimeDistance * Mathf.Sign(Vertical) * 1)) + playerPosition.z);
             player.transform.DOMove(player.dashDirection, _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
         }
 
         else {
+            Debug.Log("DASH 2");
             player.dashDirection = new Vector3(((realDashDistance - (player.skin + (player.skin / 2))) * Horizontal) + playerPosition.x, playerPosition.y, ((realDashDistance - 0.75f) * Vertical) + playerPosition.z);
             player.transform.DOMove(player.dashDirection, _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
         }

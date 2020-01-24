@@ -15,6 +15,6 @@ MonoBehaviour:
   PreDashFreeze: 0.2
   ActiveDashDistance: 10
   ActiveDashTime: 0.1
-  DashDecelerationTime: 0.5
+  DashDecelerationTime: 0.2
   ResumePlayerInput: 0.5
   EnableDashAt: 0.5
