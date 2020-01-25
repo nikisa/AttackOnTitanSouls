@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
     //Public
     [HideInInspector]
+    public bool canDash;
+    [HideInInspector]
     public bool newInput;
     [HideInInspector]
     public PlayerDashData playerDashData;
@@ -83,6 +85,8 @@ public class PlayerController : MonoBehaviour
     private void Update() 
     {
         CheckInput();
+        SetAnimationParameter();
+        InputDetection();
     }
 
     void CalculateOrientationFromMouse()
@@ -99,6 +103,10 @@ public class PlayerController : MonoBehaviour
         if (direction.sqrMagnitude > 0.001f) dataInput.currentOrientation = Quaternion.LookRotation(direction.normalized);
     }
 
+    public void SetAnimationParameter() {
+        animator.SetFloat("Horizontal", dataInput.Horizontal);
+        animator.SetFloat("Vertical", dataInput.Vertical);
+    }
 
     public void CheckInput() {
         dataInput.Horizontal = Input.GetAxis("Horizontal");
@@ -180,7 +188,6 @@ public class PlayerController : MonoBehaviour
 
     public void Deceleration(float _deceleration) {
         forwardVelocity = 0;
-
         if (movementVelocity.x < _deceleration * Time.deltaTime)
             movementVelocity.x = movementVelocity.x - _deceleration * Time.deltaTime;
         else if (movementVelocity.x > -_deceleration * Time.deltaTime)
@@ -195,7 +202,8 @@ public class PlayerController : MonoBehaviour
             else {
                 movementVelocity.z = 0;
             }
-            Movement();
+        Movement();
+        
     }
 
     public void DashDeceleration(float _horizontal , float _vertical ,float _decelerationTime , float _dashDistance , float _dashTime) {
@@ -222,18 +230,15 @@ public class PlayerController : MonoBehaviour
 
 
     public void ReadInputKeyboard(DataInput dataInput , float _acceleration , float _maxSpeed) {
-
-        if (true) {
-            movementVelocity = Vector3.zero;
-        }
-        
-
+        movementVelocity = Vector3.zero;
+       
         // Set vertical movement
         if (dataInput.Vertical != 0f) {
             forwardVelocity += _acceleration * Time.deltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
             movementVelocity += Vector3.forward * dataInput.Vertical * forwardVelocity;
         }
+        
 
         // Set horizontal movement
         if (dataInput.Horizontal != 0f) {
@@ -241,10 +246,23 @@ public class PlayerController : MonoBehaviour
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
             movementVelocity += Vector3.right * dataInput.Horizontal * forwardVelocity;
         }
-        
-        newInput = true;
-    
-}
+
+    }
+
+    public void InputDetection() {
+        if (dataInput.Vertical != 0f || dataInput.Horizontal != 0f) {
+            newInput = true;
+        }
+        else if(dataInput.Vertical != 1f || dataInput.Horizontal != 1f) {
+            newInput = false;
+        }
+
+
+        //if ((dataInput.Horizontal < 0.9f || dataInput.Horizontal > -0.9f) && (dataInput.Vertical < 0.9f || dataInput.Vertical > -0.9f)) {
+        //    newInput = false;
+        //}
+
+    }
 
     public void ReadInputGamepad(DataInput dataInput, float _acceleration , float _maxSpeed) {
 

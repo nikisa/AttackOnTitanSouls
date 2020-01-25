@@ -52,9 +52,6 @@ public class PlayerDashState : PlayerBaseState
     }
 
     public void Dash(float _DashTimeFrames, float _DashTimeDistance, float _decelerationTime) {
-
-        
-
         isDashing = true;
         playerPosition = player.transform.position;
         hitDash = player.RayCastDash(Horizontal, Vertical);

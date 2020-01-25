@@ -15,7 +15,7 @@ public class PlayerIdleState : PlayerBaseState {
 
 
     // Private
-    bool canDash = true;    
+    //bool canDash = true;    
     float startDash;
     float startTime;
     float boostTime;
@@ -41,50 +41,47 @@ public class PlayerIdleState : PlayerBaseState {
 
     public override void Tick() {
 
+        Debug.Log(player.newInput);
+
         Debug.Log("SPEED: " + player.dashMovementSpeed);
 
-        player.CheckInput();
+        //player.CheckInput();
 
         player.PlayerInclination();
 
-        if (Time.time < timer + playerDashData.EnableDashAt) {
-            canDash = false;
+        if (player.newInput) {
+            
+            player.Movement();
         }
         else {
-            canDash = true;
+            animator.SetTrigger(MOVEMENT_DECELERATION);
+        }
+
+        if (Time.time - timer > playerDashData.EnableDashAt) {
+            player.canDash = true;
+        }
+        else {
+            player.canDash = false;
         }
 
         dataInput = player.dataInput;
 
-        SetAnimationParameter();
-        if (dataInput.Dash && canDash)
+        if (dataInput.Dash && player.canDash /*&& ((dataInput.Horizontal == 1 || dataInput.Horizontal == -1) || (dataInput.Vertical == 1 || dataInput.Vertical == -1))*/ )
         {
             startDash = Time.time;
-            canDash = false;
+            player.canDash = false;
             player.horizontalDash = player.dataInput.Horizontal;
             player.verticalDash = player.dataInput.Vertical;
             animator.SetTrigger(DASH);
         }
 
-        if (dataInput.Vertical != 0 || dataInput.Horizontal != 0) {
+        //if (dataInput.Vertical != 0 || dataInput.Horizontal != 0) {
             //player.ReadInputGamepad(dataInput , accelRatePerSec);
             player.ReadInputKeyboard(dataInput , accelRatePerSec , playerIdleData.maxSpeed);
-        }
+        //}
 
-        if (player.newInput) {
-            player.Movement();
-        }
-        else {
-            player.Deceleration(decelRatePerSec);
-        }
-
-        player.newInput = false;
     }
-    public void SetAnimationParameter()
-    {
-        animator.SetFloat("Horizontal", dataInput.Horizontal);
-        animator.SetFloat("Vertical", dataInput.Vertical);
-    }
+    
 
     public override void Exit() {
         
