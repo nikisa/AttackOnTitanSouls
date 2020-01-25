@@ -16,5 +16,5 @@ MonoBehaviour:
   ActiveDashDistance: 10
   ActiveDashTime: 0.1
   DashDecelerationTime: 0.2
-  ResumePlayerInput: 0.5
+  ResumePlayerInput: 1
   EnableDashAt: 0.5

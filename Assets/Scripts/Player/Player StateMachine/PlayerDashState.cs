@@ -20,7 +20,7 @@ public class PlayerDashState : PlayerBaseState
     float Vertical;
     float _timeFreeze;
     float _timeScale;
-    float freezeTimeStart;
+
 
 
     public override void Enter() {
@@ -31,8 +31,7 @@ public class PlayerDashState : PlayerBaseState
         Horizontal = player.horizontalDash;
         Vertical = player.verticalDash;
 
-        freezeTimeStart = Time.time;
-        player.DoFreeze(playerDashData.PreDashFreeze, 0);
+        
         player.SetDashVelocity(Horizontal, Vertical, playerDashData.ActiveDashDistance, playerDashData.ActiveDashTime);
 
     }
@@ -53,6 +52,9 @@ public class PlayerDashState : PlayerBaseState
     }
 
     public void Dash(float _DashTimeFrames, float _DashTimeDistance, float _decelerationTime) {
+
+        
+
         isDashing = true;
         playerPosition = player.transform.position;
         hitDash = player.RayCastDash(Horizontal, Vertical);
@@ -65,19 +67,27 @@ public class PlayerDashState : PlayerBaseState
         if (realDashDistance > _DashTimeDistance) {
             Debug.Log("DASH 1: " + Horizontal + "  -  " + Vertical);
             //Debug.Log("DASH 1: " + Mathf.Sign(Horizontal) * 1 + "  ---  " + Mathf.Sign(Vertical) * 1);
-            player.dashDirection = new Vector3((Horizontal < 0.9f ? 0 : (_DashTimeDistance * Mathf.Sign(Horizontal) * 1)) + playerPosition.x, playerPosition.y, (Vertical < 0.9f ? 0 : (_DashTimeDistance * Mathf.Sign(Vertical) * 1)) + playerPosition.z);
+            player.dashDirection = new Vector3((Horizontal < 0.99f ? 0 : (_DashTimeDistance * Mathf.Sign(Horizontal) * 1)) + playerPosition.x, playerPosition.y, (Vertical < 0.9f ? 0 : (_DashTimeDistance * Mathf.Sign(Vertical) * 1)) + playerPosition.z);
 
             // (Mathf.Pow(boss.MoveSpeed, 2) / (2 * bounceData.Deceleration)) QUIII usare questa
 
             if (realDashDistance > _DashTimeDistance) {
-                player.dashDirection = new Vector3((_DashTimeDistance * Horizontal) + playerPosition.x, playerPosition.y, (_DashTimeDistance * Vertical) + playerPosition.z);
 
-                player.transform.DOMove(player.dashDirection, _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
+                player.dashDirection = new Vector3((Horizontal >= 0.0001f || Horizontal <= -0.0001 ? (_DashTimeDistance * Mathf.Sign(Horizontal) * 1) : 0) + playerPosition.x, playerPosition.y, (Vertical >= 0.0001f || Vertical <= -0.0001f ? (_DashTimeDistance * Mathf.Sign(Vertical) * 1) : 0) + playerPosition.z);
+
+                if (Horizontal >= 0.0001f || Horizontal <= -0.0001 || Vertical >= 0.0001f || Vertical <= -0.0001) {
+                    player.DoFreeze(playerDashData.PreDashFreeze, 0);
+                    player.transform.DOMove(player.dashDirection, _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
+                    Debug.Log("dashDirection in x : " + _DashTimeDistance * Mathf.Sign(Horizontal));
+                }
+                else {
+                    animator.SetTrigger(IDLE);
+                }
             }
 
             else {
                 Debug.Log("DASH 2");
-                player.dashDirection = new Vector3(((realDashDistance - (player.skin + (player.skin / 2))) * Horizontal) + playerPosition.x, playerPosition.y, ((realDashDistance - 0.75f) * Vertical) + playerPosition.z);
+                player.dashDirection = new Vector3((Horizontal <= 0.99f ? 0 : (_DashTimeDistance * Mathf.Sign(Horizontal) * 1)) + playerPosition.x, playerPosition.y, (Vertical <= 0.99f ? 0 : (_DashTimeDistance * Mathf.Sign(Vertical) * 1)) + playerPosition.z);
                 player.transform.DOMove(player.dashDirection, _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
             }
         }

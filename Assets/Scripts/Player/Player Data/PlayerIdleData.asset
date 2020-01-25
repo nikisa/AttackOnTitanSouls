@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isHookTest: 0
   maxSpeed: 18
-  framesZeroToMax: 3
+  framesZeroToMax: 0
   framesMaxToZero: 6
   resumeControl: 0

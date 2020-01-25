@@ -26,6 +26,9 @@ public class PlayerResumeDashState : PlayerBaseState
 
     public override void Tick() {
         //Deceleration();
+
+        Debug.Log("SPEED: " + player.dashMovementSpeed);
+
         if (Time.time - timeStart > player.playerDashData.ResumePlayerInput) {
             animator.SetTrigger(DASH_FRAME_PERFECT);
         }

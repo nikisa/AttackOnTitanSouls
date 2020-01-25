@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
     public float horizontalDash;
     [HideInInspector]
     public float verticalDash;
+    
 
     //Private
     Camera camera;
@@ -205,7 +206,6 @@ public class PlayerController : MonoBehaviour
 
         dashMovementSpeed -= dashDecelerationVelocity * Time.deltaTime;
         dashMovementSpeed = Mathf.Clamp(dashMovementSpeed, 0, dashDecelerationVelocity);
-        Debug.Log(dashMovementSpeed);
 
         transform.Translate((dashMovementSpeed*Time.deltaTime) * direction);
 
@@ -216,25 +216,33 @@ public class PlayerController : MonoBehaviour
         dashMovementSpeed = dashVelocity;
     }
 
+    public float SetCorrectAccelerationOnResumeControl(float startVelocity) {
+        return startVelocity;
+    }
+
 
     public void ReadInputKeyboard(DataInput dataInput , float _acceleration , float _maxSpeed) {
 
-    movementVelocity = Vector3.zero;
-    // Set vertical movement
-    if (dataInput.Vertical != 0f) {
-        forwardVelocity += _acceleration * Time.deltaTime;
-        forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
-        movementVelocity += Vector3.forward * dataInput.Vertical * forwardVelocity;
-    }
-
-    // Set horizontal movement
-    if (dataInput.Horizontal != 0f) {
-        forwardVelocity += _acceleration * Time.deltaTime;
-        forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
-        movementVelocity += Vector3.right * dataInput.Horizontal * forwardVelocity;
-    }
+        if (true) {
+            movementVelocity = Vector3.zero;
+        }
         
-    newInput = true;
+
+        // Set vertical movement
+        if (dataInput.Vertical != 0f) {
+            forwardVelocity += _acceleration * Time.deltaTime;
+            forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
+            movementVelocity += Vector3.forward * dataInput.Vertical * forwardVelocity;
+        }
+
+        // Set horizontal movement
+        if (dataInput.Horizontal != 0f) {
+            forwardVelocity += _acceleration * Time.deltaTime;
+            forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
+            movementVelocity += Vector3.right * dataInput.Horizontal * forwardVelocity;
+        }
+        
+        newInput = true;
     
 }
 

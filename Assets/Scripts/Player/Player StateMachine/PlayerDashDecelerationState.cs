@@ -18,6 +18,8 @@ public class PlayerDashDecelerationState : PlayerBaseState
 
     public override void Enter() {
 
+        Debug.Log("DECEL DASH");
+
         HorizontalDash = player.horizontalDash;
         VerticalDash = player.verticalDash;
 
@@ -31,11 +33,17 @@ public class PlayerDashDecelerationState : PlayerBaseState
         player.DashDeceleration(HorizontalDash , VerticalDash , playerDashData.DashDecelerationTime , playerDashData.ActiveDashDistance , playerDashData.ActiveDashTime);
 
         if (player.dashMovementSpeed <= (playerDashData.ResumePlayerInput * playerIdleData.maxSpeed)) {
-            Horizontal = player.dataInput.Horizontal;
-            Vertical = player.dataInput.Vertical;
+
+            Horizontal = player.horizontalDash;
+            Vertical = player.verticalDash;
+
             if (Vertical != 0 || Horizontal != 0) {
+                Debug.Log(player.dashMovementSpeed);
                 animator.SetTrigger(IDLE);
             }
+
+            Debug.Log("SPEED: " + player.dashMovementSpeed);
+            
         }
     }
 

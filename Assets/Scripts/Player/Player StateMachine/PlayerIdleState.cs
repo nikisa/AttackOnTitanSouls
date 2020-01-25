@@ -41,6 +41,8 @@ public class PlayerIdleState : PlayerBaseState {
 
     public override void Tick() {
 
+        Debug.Log("SPEED: " + player.dashMovementSpeed);
+
         player.CheckInput();
 
         player.PlayerInclination();
