@@ -8,7 +8,7 @@ public class PlayerDashState : PlayerBaseState
 
     //Inspector
     public PlayerDashData playerDashData;
-
+    public Ease ease;
     // Private
     bool isDashing;
     RaycastHit hitDash;
@@ -24,6 +24,10 @@ public class PlayerDashState : PlayerBaseState
 
 
     public override void Enter() {
+
+
+        //////player.forwardVelocity = 0;
+        ///
         player.playerDashData = playerDashData;
 
         isDashing = false;
@@ -74,7 +78,7 @@ public class PlayerDashState : PlayerBaseState
 
                 if (Horizontal >= 0.0001f || Horizontal <= -0.0001 || Vertical >= 0.0001f || Vertical <= -0.0001) {
                     player.DoFreeze(playerDashData.PreDashFreeze, 0);
-                    player.transform.DOMove(player.dashDirection, _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
+                    player.transform.DOMove(player.dashDirection, _DashTimeFrames).SetEase(ease).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
                     Debug.Log("dashDirection in x : " + _DashTimeDistance * Mathf.Sign(Horizontal));
                 }
                 else {
@@ -85,7 +89,7 @@ public class PlayerDashState : PlayerBaseState
             else {
                 Debug.Log("DASH 2");
                 player.dashDirection = new Vector3((Horizontal <= 0.99f ? 0 : (_DashTimeDistance * Mathf.Sign(Horizontal) * 1)) + playerPosition.x, playerPosition.y, (Vertical <= 0.99f ? 0 : (_DashTimeDistance * Mathf.Sign(Vertical) * 1)) + playerPosition.z);
-                player.transform.DOMove(player.dashDirection, _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
+                player.transform.DOMove(player.dashDirection, _DashTimeFrames).SetEase(ease).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
             }
         }
     }

@@ -15,7 +15,7 @@ public class PlayerDashDecelerationState : PlayerBaseState
     float VerticalDash;
     float Horizontal;
     float Vertical;
-
+    bool IsTimerSet;
     public override void Enter() {
 
         Debug.Log("DECEL DASH");
@@ -34,6 +34,12 @@ public class PlayerDashDecelerationState : PlayerBaseState
 
         if (player.dashMovementSpeed <= (playerDashData.ResumePlayerInput * playerIdleData.maxSpeed)) {
 
+            if (!IsTimerSet) // da sitemare
+            {
+                
+                PlayerController.TimerEvent();
+                IsTimerSet = true;
+            }
             Horizontal = player.dataInput.Horizontal; /*player.horizontalDash;*/
             Vertical = player.dataInput.Vertical; /*player.verticalDash;*/
 
@@ -42,7 +48,7 @@ public class PlayerDashDecelerationState : PlayerBaseState
                 animator.SetTrigger(IDLE);
             }
 
-            Debug.Log("SPEED: " + player.dashMovementSpeed);
+
             
         }
     }

@@ -12,15 +12,18 @@ public class PlayerController : MonoBehaviour
     public delegate void GameEvent();
     public static GameEvent DeathEvent;
     public static GameEvent VictoryEvent;
+    public static GameEvent TimerEvent;
 
     private void OnEnable() {
         DeathEvent += PlayerDeath;
         VictoryEvent += Victory;
+        TimerEvent += StartTimerDash;
     }
 
     private void OnDisable() {
         DeathEvent -= PlayerDeath;
         VictoryEvent -= Victory;
+        TimerEvent -= StartTimerDash;
     }
 
     //Inspector
@@ -57,15 +60,17 @@ public class PlayerController : MonoBehaviour
     public float horizontalDash;
     [HideInInspector]
     public float verticalDash;
-    
+    [HideInInspector]
+    public float timerDash;
 
     //Private
     Camera camera;
     Vector3 movementVelocity = Vector3.zero;
-    float forwardVelocity;
+    public float forwardVelocity;
     float timeStart;
     float dashDecelerationVelocity;
     float dashDeceleration;
+    
     //sghigna
     float minVelocity;
 
@@ -74,7 +79,7 @@ public class PlayerController : MonoBehaviour
     }
 
     protected virtual void Start() {
-
+        canDash = true;
         camera = Camera.main;
         
         foreach (var item in animator.GetBehaviours<BaseState>()) {
@@ -210,11 +215,14 @@ public class PlayerController : MonoBehaviour
 
         Vector3 direction = new Vector3(_horizontal , 0 , _vertical);
         dashDecelerationVelocity = _dashDistance / _dashTime;
-        dashDecelerationVelocity /=  _decelerationTime;
+        //dashDecelerationVelocity /=  _decelerationTime; 
+        dashDeceleration = dashDecelerationVelocity / _decelerationTime;
 
-        dashMovementSpeed -= dashDecelerationVelocity * Time.deltaTime;
+        dashMovementSpeed -= dashDeceleration * Time.deltaTime;
         dashMovementSpeed = Mathf.Clamp(dashMovementSpeed, 0, dashDecelerationVelocity);
 
+
+        Debug.Log(dashMovementSpeed);
         transform.Translate((dashMovementSpeed*Time.deltaTime) * direction);
 
     }
@@ -309,7 +317,10 @@ public class PlayerController : MonoBehaviour
         body.rotation = moveRotation * rotationTransform.rotation;
     }
 
-
+    public void StartTimerDash()
+    {
+        timerDash = Time.time;
+    }
     public void PlayerDeath() {
         SceneManager.LoadScene(2);
     }

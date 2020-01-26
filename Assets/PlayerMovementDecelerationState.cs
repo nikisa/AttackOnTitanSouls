@@ -25,7 +25,7 @@ public class PlayerMovementDecelerationState : PlayerBaseState
 
     public override void Tick() {
 
-        Debug.Log(player.newInput);
+
 
         player.Deceleration(decelRatePerSec);
 

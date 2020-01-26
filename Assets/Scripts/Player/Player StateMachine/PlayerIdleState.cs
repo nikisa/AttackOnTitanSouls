@@ -32,7 +32,7 @@ public class PlayerIdleState : PlayerBaseState {
         playerDashData = player.playerDashData;
 
         player.layerMask = 1 << 10 /*| 1<<12*/;
-        timer = Time.time;
+        //timer = Time.time;
 
         accelRatePerSec = playerIdleData.maxSpeed / (playerIdleData.framesZeroToMax / 60);
         decelRatePerSec = -playerIdleData.maxSpeed / (playerIdleData.framesMaxToZero / 60);
@@ -57,12 +57,12 @@ public class PlayerIdleState : PlayerBaseState {
             animator.SetTrigger(MOVEMENT_DECELERATION);
         }
 
-        if (Time.time - timer > playerDashData.EnableDashAt) {
+        if (Time.time - player.timerDash > playerDashData.EnableDashAt) {
             player.canDash = true;
         }
-        else {
-            player.canDash = false;
-        }
+        //else {
+        //    player.canDash = false;
+        //}
 
         dataInput = player.dataInput;
 
