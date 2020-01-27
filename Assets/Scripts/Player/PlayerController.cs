@@ -62,6 +62,8 @@ public class PlayerController : MonoBehaviour
     public float verticalDash;
     [HideInInspector]
     public float timerDash;
+    [HideInInspector]
+    public int Lifes;
 
     //Private
     Camera camera;
@@ -222,7 +224,7 @@ public class PlayerController : MonoBehaviour
         dashMovementSpeed = Mathf.Clamp(dashMovementSpeed, 0, dashDecelerationVelocity);
 
 
-        Debug.Log(dashMovementSpeed);
+
         transform.Translate((dashMovementSpeed*Time.deltaTime) * direction);
 
     }

@@ -65,18 +65,33 @@ public class PlayerDashState : PlayerBaseState
         //    animator.SetTrigger(IDLE);
         //}
 
-        if (realDashDistance > _DashTimeDistance) {
-            Debug.Log("DASH 1: " + Horizontal + "  -  " + Vertical);
-            //Debug.Log("DASH 1: " + Mathf.Sign(Horizontal) * 1 + "  ---  " + Mathf.Sign(Vertical) * 1);
-            player.dashDirection = new Vector3((Horizontal < 0.99f ? 0 : (_DashTimeDistance * Mathf.Sign(Horizontal) * 1)) + playerPosition.x, playerPosition.y, (Vertical < 0.9f ? 0 : (_DashTimeDistance * Mathf.Sign(Vertical) * 1)) + playerPosition.z);
 
             // (Mathf.Pow(boss.MoveSpeed, 2) / (2 * bounceData.Deceleration)) QUIII usare questa
 
             if (realDashDistance > _DashTimeDistance) {
 
-                player.dashDirection = new Vector3((Horizontal >= 0.0001f || Horizontal <= -0.0001 ? (_DashTimeDistance * Mathf.Sign(Horizontal) * 1) : 0) + playerPosition.x, playerPosition.y, (Vertical >= 0.0001f || Vertical <= -0.0001f ? (_DashTimeDistance * Mathf.Sign(Vertical) * 1) : 0) + playerPosition.z);
-
-                if (Horizontal >= 0.0001f || Horizontal <= -0.0001 || Vertical >= 0.0001f || Vertical <= -0.0001) {
+            // player.dashDirection = new Vector3((Horizontal >= 0.0001f || Horizontal <= -0.0001 ? (_DashTimeDistance * Mathf.Sign(Horizontal) * 1) : 0) + playerPosition.x, playerPosition.y, (Vertical >= 0.0001f || Vertical <= -0.0001f ? ((_DashTimeDistance * Mathf.Sign(Vertical) * 1) + playerPosition.z) : 0 + playerPosition.z));
+            if (Horizontal > 0 && Vertical > 0)
+            {
+                player.dashDirection = new Vector3(_DashTimeDistance * Mathf.Cos(Mathf.Atan(Vertical /Horizontal)) + playerPosition.x, playerPosition.y, _DashTimeDistance * Mathf.Sin( Mathf.Atan(Vertical /Horizontal)) + playerPosition.z);
+                Debug.Log(Vertical + "vertical");
+                Debug.Log(Horizontal + "horizontal");
+            }
+            else if (Horizontal < 0 && Vertical < 0)
+            {
+                player.dashDirection = new Vector3(playerPosition.x - _DashTimeDistance * Mathf.Cos(Mathf.Atan(Vertical / Horizontal))  , playerPosition.y, playerPosition.z -_DashTimeDistance * Mathf.Sin(Mathf.Atan(Vertical / Horizontal))  );
+            }
+            else
+            {
+                Debug.Log( Vertical+"vertical");
+                Debug.Log(Horizontal + "horizontal");
+                Debug.Log(_DashTimeDistance + "distanza");
+                player.dashDirection = new Vector3(playerPosition.x + _DashTimeDistance * Horizontal , playerPosition.y , playerPosition.z + _DashTimeDistance * Vertical);
+                
+            }
+            //player.dashDirection = new Vector3(_DashTimeDistance * Mathf.Cos(Mathf.Atan(Mathf.Sign(Vertical) / Mathf.Sign(Horizontal))) + playerPosition.x, playerPosition.y , _DashTimeDistance * Mathf.Sin(Mathf.Atan(Mathf.Sign(Vertical) / Mathf.Sign(Horizontal))) + playerPosition.z);
+            //player.dashDirection = Vector3.ClampMagnitude(player.dashDirection, 1);
+            if (Horizontal >= 0.0001f || Horizontal <= -0.0001 || Vertical >= 0.0001f || Vertical <= -0.0001) {
                     player.DoFreeze(playerDashData.PreDashFreeze, 0);
                     player.transform.DOMove(player.dashDirection, _DashTimeFrames).SetEase(ease).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
                     Debug.Log("dashDirection in x : " + _DashTimeDistance * Mathf.Sign(Horizontal));
@@ -93,4 +108,6 @@ public class PlayerDashState : PlayerBaseState
             }
         }
     }
-}
+
+
+
