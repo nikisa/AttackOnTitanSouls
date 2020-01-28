@@ -34,11 +34,12 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public CharacterController controller;
     public Transform rotationTransform;
-    public Transform body;
+    public GameObject body;
     public float movimentRatio;
     public float DPS;
     public BossOrbitManager bossOrbitManager;
     public TargetType playerTarget;
+    public UiManager uiManager;
 
     //Public
     [HideInInspector]
@@ -66,6 +67,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public float timerDash;
     [HideInInspector]
+    public bool IsImmortal;
     public int Lifes;
 
     //Private
@@ -84,6 +86,7 @@ public class PlayerController : MonoBehaviour
     }
 
     protected virtual void Start() {
+      
         canDash = true;
         camera = Camera.main;
         
@@ -152,7 +155,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("HookPoint")) {
-            PlayerController.DeathEvent();
+            if (!IsImmortal)
+            {
+                PlayerController.DmgEvent();
+            }
+            
         }
     }
 
@@ -217,13 +224,17 @@ public class PlayerController : MonoBehaviour
     }
     public void TakeDmg()
     {
+        Lifes--;
+        uiManager.LifeUpdate(Lifes);
+        
         if (Lifes == 0)
         {
             PlayerDeath();
         }
         else
         {
-            Lifes--;
+            Debug.Log("vitaa");  
+            
             StartCoroutine(InvicibleSecond(2f));
         }
     }
@@ -331,7 +342,7 @@ public class PlayerController : MonoBehaviour
         // Ruoto il personaggio in funzione della del suo movimento
         Vector3 rotationAxis = Quaternion.AngleAxis(90, Vector3.up) * movementVelocity;
         Quaternion moveRotation = Quaternion.AngleAxis(movementVelocity.magnitude * movimentRatio, rotationAxis);
-        body.rotation = moveRotation * rotationTransform.rotation;
+        body.transform.rotation = moveRotation * rotationTransform.rotation;
     }
 
     public void StartTimerDash()
@@ -340,6 +351,7 @@ public class PlayerController : MonoBehaviour
         timerDash = Time.time;
     }
     public void PlayerDeath() {
+        Debug.Log("MORTO");
         SceneManager.LoadScene(2);
     }
 
@@ -354,8 +366,22 @@ public class PlayerController : MonoBehaviour
     }
     public IEnumerator InvicibleSecond(float _sec)
     {
-        yield return new WaitForSeconds(_sec);
-
+        IsImmortal = true;
+        // yield return new WaitForSeconds(_sec);
+       
+        body.SetActive(false);
+        yield return new WaitForSeconds(_sec / 6);
+        body.SetActive(true);
+        yield return new WaitForSeconds(_sec / 6);
+        body.SetActive(false);
+        yield return new WaitForSeconds(_sec / 6);
+        body.SetActive(true);
+        yield return new WaitForSeconds(_sec / 6);
+        body.SetActive(false);
+        yield return new WaitForSeconds(_sec / 6);
+        body.SetActive(true);
+        yield return new WaitForSeconds(_sec / 6);
+        IsImmortal = false;
     }
 
 }

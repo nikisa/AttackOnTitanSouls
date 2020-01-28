@@ -89,7 +89,11 @@ public class FirstBossMoveToState : FirstBossState
             boss.Move();
 
             if (layerResult == layerPlayer) {
-                PlayerController.DeathEvent();
+                if (!boss.Player.IsImmortal)
+                {
+                    PlayerController.DmgEvent();
+                }
+                
             }
         }
     }

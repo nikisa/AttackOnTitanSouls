@@ -10,7 +10,7 @@ public class BossController : MonoBehaviour
     public BossView View;
     public PlayerController Player;
     public GameObject Graphics;
-
+   
     //Public
     [HideInInspector]
     public float MoveSpeed;
