@@ -74,8 +74,8 @@ public class PlayerDashState : PlayerBaseState
             if (Horizontal > 0 && Vertical > 0)
             {
                 player.dashDirection = new Vector3(_DashTimeDistance * Mathf.Cos(Mathf.Atan(Vertical /Horizontal)) + playerPosition.x, playerPosition.y, _DashTimeDistance * Mathf.Sin( Mathf.Atan(Vertical /Horizontal)) + playerPosition.z);
-                Debug.Log(Vertical + "vertical");
-                Debug.Log(Horizontal + "horizontal");
+          
+ 
             }
             else if (Horizontal < 0 && Vertical < 0)
             {
@@ -83,9 +83,8 @@ public class PlayerDashState : PlayerBaseState
             }
             else
             {
-                Debug.Log( Vertical+"vertical");
-                Debug.Log(Horizontal + "horizontal");
-                Debug.Log(_DashTimeDistance + "distanza");
+
+          
                 player.dashDirection = new Vector3(playerPosition.x + _DashTimeDistance * Horizontal , playerPosition.y , playerPosition.z + _DashTimeDistance * Vertical);
                 
             }

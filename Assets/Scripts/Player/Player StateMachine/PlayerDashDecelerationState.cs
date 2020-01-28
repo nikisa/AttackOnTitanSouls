@@ -17,7 +17,7 @@ public class PlayerDashDecelerationState : PlayerBaseState
     float Vertical;
     bool IsTimerSet;
     public override void Enter() {
-
+        IsTimerSet = false;
         Debug.Log("DECEL DASH");
 
         HorizontalDash = player.horizontalDash;

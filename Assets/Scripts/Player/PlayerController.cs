@@ -321,6 +321,7 @@ public class PlayerController : MonoBehaviour
 
     public void StartTimerDash()
     {
+        Debug.Log("TIMER");
         timerDash = Time.time;
     }
     public void PlayerDeath() {
