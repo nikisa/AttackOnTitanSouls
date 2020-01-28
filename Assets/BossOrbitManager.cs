@@ -48,7 +48,6 @@ public class BossOrbitManager : MonoBehaviour
 
     public void RotationMove(float _maxSpeed, float _timeAcceleration, HookPointController _centerPoint) {
         _maxSpeed /= 60;
-
         if (_maxSpeed >= 0) {
             timeAcceleration = _maxSpeed / _timeAcceleration;
             _centerPoint.MoveSpeed += timeAcceleration * Time.deltaTime;
@@ -101,8 +100,10 @@ public class BossOrbitManager : MonoBehaviour
         Debug.Log("SETMASKS!");
         for (int i = 0; i < _orbitManagerList.Count; i++) {
             for (int y = 0; y < _orbitManagerList[i].orbitData.Count; y++) {
-                this.OrbitList[orbitCount].transform.SetParent(_orbitManagerList[i].CenterRotation.transform);
-                orbitCount++;
+                if (OrbitList.Count > orbitCount) {
+                    this.OrbitList[orbitCount].transform.SetParent(_orbitManagerList[i].CenterRotation.transform);
+                    orbitCount++;
+                }
             }
         }
     }
@@ -129,7 +130,6 @@ public class BossOrbitManager : MonoBehaviour
                     if (_hasDeltaRadius) {
                         MoveMasks(_index, _movementTime);
                     }
-
                 });//EndPoints OnComplete
             });//InitialPoints OnComplete
         }
@@ -148,13 +148,8 @@ public class BossOrbitManager : MonoBehaviour
     public void SetMasks(int _index, float _time) {
         OrbitList[_index].transform.DORotate(InitialPoints[_index].transform.eulerAngles, _time);
         OrbitList[_index].transform.DOMove(InitialPoints[_index].transform.position, _time);
-
     }
-        public void SetMasks(int _index) {
-            OrbitList[_index].transform.position = InitialPoints[_index].transform.position;
-            OrbitList[_index].transform.eulerAngles = InitialPoints[_index].transform.eulerAngles;
 
-        }
 
         public void MoveMasks(int _index, float _time) {
             OrbitList[_index].transform.DORotate(EndPoints[_index].transform.eulerAngles, _time);

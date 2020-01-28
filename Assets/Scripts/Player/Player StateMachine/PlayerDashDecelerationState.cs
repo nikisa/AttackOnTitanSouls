@@ -11,30 +11,49 @@ public class PlayerDashDecelerationState : PlayerBaseState
     float InitialVelocity;
     float DashTimeFrames;
     float timeDeceleration;
-
+    float HorizontalDash;
+    float VerticalDash;
+    float Horizontal;
+    float Vertical;
+    bool IsTimerSet;
     public override void Enter() {
-        DashTimeFrames = playerDashData.DashTimeFrames;
-        playerDashData = player.playerDashData;
+        IsTimerSet = false;
+        Debug.Log("DECEL DASH");
+
+        HorizontalDash = player.horizontalDash;
+        VerticalDash = player.verticalDash;
+
         playerIdleData = player.playerIdleData;
-        InitialVelocity = playerDashData.DashDistance / DashTimeFrames;
-        timeDeceleration = InitialVelocity / DashTimeFrames;
+        playerDashData = player.playerDashData;
+
     }
 
     public override void Tick() {
-        Deceleration();
+
+        player.DashDeceleration(HorizontalDash , VerticalDash , playerDashData.DashDecelerationTime , playerDashData.ActiveDashDistance , playerDashData.ActiveDashTime);
+
+        if (player.dashMovementSpeed <= (playerDashData.ResumePlayerInput * playerIdleData.maxSpeed)) {
+
+            if (!IsTimerSet) // da sitemare
+            {
+                
+                PlayerController.TimerEvent();
+                IsTimerSet = true;
+            }
+            Horizontal = player.dataInput.Horizontal; /*player.horizontalDash;*/
+            Vertical = player.dataInput.Vertical; /*player.verticalDash;*/
+
+            if (Vertical != 0 || Horizontal != 0) {
+                Debug.Log(player.dashMovementSpeed + " --player.dashMovementSpeed-- ");
+                animator.SetTrigger(IDLE);
+            }
+
+
+            
+        }
     }
 
     public override void Exit() {
         
     }
-
-    void Deceleration() {
-        
-        InitialVelocity -= timeDeceleration * Time.deltaTime;
-        if (InitialVelocity <= playerIdleData.maxSpeed) {
-
-            animator.SetTrigger(DASH_RESUME);
-        }
-    }
-
 }

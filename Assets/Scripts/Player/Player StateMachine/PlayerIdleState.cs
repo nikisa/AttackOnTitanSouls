@@ -9,9 +9,13 @@ public class PlayerIdleState : PlayerBaseState {
     //Inspector
     public PlayerIdleData playerIdleData;
 
+    //Public 
+    [HideInInspector]
+    public PlayerDashData playerDashData;
+
 
     // Private
-    bool canDash = true;    
+    //bool canDash = true;    
     float startDash;
     float startTime;
     float boostTime;
@@ -24,8 +28,11 @@ public class PlayerIdleState : PlayerBaseState {
 
 
     public override void Enter() {
+
+        playerDashData = player.playerDashData;
+
         player.layerMask = 1 << 10 /*| 1<<12*/;
-        timer = Time.time;
+        //timer = Time.time;
 
         accelRatePerSec = playerIdleData.maxSpeed / (playerIdleData.framesZeroToMax / 60);
         decelRatePerSec = -playerIdleData.maxSpeed / (playerIdleData.framesMaxToZero / 60);
@@ -34,48 +41,47 @@ public class PlayerIdleState : PlayerBaseState {
 
     public override void Tick() {
 
+        Debug.Log(player.newInput);
+
+        Debug.Log("SPEED: " + player.dashMovementSpeed);
+
+        //player.CheckInput();
+
         player.PlayerInclination();
 
-        if (Time.time < timer + playerIdleData.resumeControl) {
-            canDash = false;
-        }
-        else {
-            canDash = true;
-        }
-
-        dataInput = player.dataInput;
-
-        SetAnimationParameter();
-        if (dataInput.Dash && canDash)
-        {
-            startDash = Time.time;
-            canDash = false;
-            animator.SetTrigger(DASH);
-        }
-
-        if (forwardVelocity == playerIdleData.maxSpeed) {
-            canDash = true;
-        }
-
-        if (dataInput.Vertical != 0 || dataInput.Horizontal != 0) {
-            //player.ReadInputGamepad(dataInput , accelRatePerSec);
-            player.ReadInputKeyboard(dataInput , accelRatePerSec , playerIdleData.maxSpeed);
-        }
-
         if (player.newInput) {
+            
             player.Movement();
         }
         else {
-            player.Deceleration(decelRatePerSec);
+            animator.SetTrigger(MOVEMENT_DECELERATION);
         }
 
-        player.newInput = false;
+        if (Time.time - player.timerDash > playerDashData.EnableDashAt) {
+            player.canDash = true;
+        }
+        //else {
+        //    player.canDash = false;
+        //}
+
+        dataInput = player.dataInput;
+
+        if (dataInput.Dash && player.canDash /*&& ((dataInput.Horizontal == 1 || dataInput.Horizontal == -1) || (dataInput.Vertical == 1 || dataInput.Vertical == -1))*/ )
+        {
+            startDash = Time.time;
+            player.canDash = false;
+            player.horizontalDash = player.dataInput.Horizontal;
+            player.verticalDash = player.dataInput.Vertical;
+            animator.SetTrigger(DASH);
+        }
+
+        //if (dataInput.Vertical != 0 || dataInput.Horizontal != 0) {
+            //player.ReadInputGamepad(dataInput , accelRatePerSec);
+            player.ReadInputKeyboard(dataInput , accelRatePerSec , playerIdleData.maxSpeed);
+        //}
+
     }
-    public void SetAnimationParameter()
-    {
-        animator.SetFloat("Horizontal", dataInput.Horizontal);
-        animator.SetFloat("Vertical", dataInput.Vertical);
-    }
+    
 
     public override void Exit() {
         

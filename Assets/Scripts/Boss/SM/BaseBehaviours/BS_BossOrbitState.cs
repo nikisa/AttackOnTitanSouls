@@ -19,14 +19,16 @@ public class BS_BossOrbitState : FirstBossState
 
     // Se bossOrbitManager.SetMasksRotation(OrbitManagerList) è presente , le funzioni sotto non vengono chiamate [SET PARENT]
     public override void Enter() {
+        index = 0;
         ClearOrbitManagerDataList();
         FillOrbitManagerDataList();
+        SetOrbitData();
+        UpdateOrbitData();
         bossOrbitManager.SetMasksRotation(OrbitManagerList);
+        
         bossOrbitManager.countMasksArrived = 0;
         orientation = 360;
         ResetPosition();
-        SetOrbitData();
-        UpdateOrbitData();
         SetUpPositionPoints();
         orbitTimeStart = Time.time;
     }
@@ -35,8 +37,9 @@ public class BS_BossOrbitState : FirstBossState
     public override void Tick() {
         Debug.Log(bossOrbitManager.countMasksArrived);
 
+        OrbitTick();
         if (bossOrbitManager.countMasksArrived >= bossOrbitManager.HookPointList.Count) {
-            OrbitTick();
+            
         }
     }
 
@@ -46,18 +49,19 @@ public class BS_BossOrbitState : FirstBossState
 
 
     public void OrbitTick() {
+        Debug.Log("count " + OrbitManagerList.Count);
         for (int i = 0; i < OrbitManagerList.Count; i++) {
-            Debug.Log("PROBLEMA: " + OrbitManagerList[i].CenterRotation);
             bossOrbitManager.RotationMove(OrbitManagerList[i].AngularMaxSpeed, OrbitManagerList[i].AngularAccelerationTime, OrbitManagerList[i].CenterRotation);
         }
     }
 
     public void SetUpPositionPoints() {
+        
         for (int i = 0; i < bossOrbitManager.OrbitManagerDataList.Count; i++) {
             for (int y = 0; y < bossOrbitManager.OrbitManagerDataList[i].orbitData.Count; y++) {
                 bossOrbitManager.SetObjectsPosition(bossOrbitManager.OrbitManagerDataList[i].orbitData[y].SetupRadius, bossOrbitManager.OrbitManagerDataList[i].orbitData[y].FinalRadius, index, positionPointTime, orientation, bossOrbitManager.OrbitManagerDataList[i].orbitData[y].TravelTime, bossOrbitManager.OrbitManagerDataList[i].orbitData[y].HasDeltaRadius, bossOrbitManager.OrbitDataList[i].isSetup);
                 index++;
-                orientation -= 360 / bossOrbitManager.EndPoints.Count;
+                orientation -= 360 / bossOrbitManager.HookPointList.Count;
             }
         }
         index = 0;
@@ -71,10 +75,8 @@ public class BS_BossOrbitState : FirstBossState
     }
 
     public void SetOrbitData() {
-        int count = 1;
         for (int i = 0; i < OrbitManagerList.Count; i++) {
             for (int y = 0; y < OrbitManagerList[i].orbitData.Count; y++) {
-                count++;
                 bossOrbitManager.FillOrbitData(OrbitManagerList[i].orbitData[y]);
             }
         }

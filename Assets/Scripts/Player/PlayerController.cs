@@ -12,15 +12,21 @@ public class PlayerController : MonoBehaviour
     public delegate void GameEvent();
     public static GameEvent DeathEvent;
     public static GameEvent VictoryEvent;
+    public static GameEvent TimerEvent;
+    public static GameEvent DmgEvent;
 
     private void OnEnable() {
         DeathEvent += PlayerDeath;
         VictoryEvent += Victory;
+        TimerEvent += StartTimerDash;
+        DmgEvent += TakeDmg;
     }
 
     private void OnDisable() {
         DeathEvent -= PlayerDeath;
         VictoryEvent -= Victory;
+        TimerEvent -= StartTimerDash;
+        DmgEvent -= TakeDmg;
     }
 
     //Inspector
@@ -36,6 +42,8 @@ public class PlayerController : MonoBehaviour
 
     //Public
     [HideInInspector]
+    public bool canDash;
+    [HideInInspector]
     public bool newInput;
     [HideInInspector]
     public PlayerDashData playerDashData;
@@ -49,18 +57,34 @@ public class PlayerController : MonoBehaviour
     public int layerMask;
     [HideInInspector]
     public float skin = .95f;
+    [HideInInspector]
+    public float dashMovementSpeed;
+    [HideInInspector]
+    public float horizontalDash;
+    [HideInInspector]
+    public float verticalDash;
+    [HideInInspector]
+    public float timerDash;
+    [HideInInspector]
+    public int Lifes;
 
     //Private
     Camera camera;
     Vector3 movementVelocity = Vector3.zero;
-    float forwardVelocity;
+    public float forwardVelocity;
     float timeStart;
+    float dashDecelerationVelocity;
+    float dashDeceleration;
+    
+    //sghigna
+    float minVelocity;
 
     protected virtual void Awake() {
         playerTarget.instance = this.gameObject;
     }
 
     protected virtual void Start() {
+        canDash = true;
         camera = Camera.main;
         
         foreach (var item in animator.GetBehaviours<BaseState>()) {
@@ -71,6 +95,8 @@ public class PlayerController : MonoBehaviour
     private void Update() 
     {
         CheckInput();
+        SetAnimationParameter();
+        InputDetection();
     }
 
     void CalculateOrientationFromMouse()
@@ -87,6 +113,10 @@ public class PlayerController : MonoBehaviour
         if (direction.sqrMagnitude > 0.001f) dataInput.currentOrientation = Quaternion.LookRotation(direction.normalized);
     }
 
+    public void SetAnimationParameter() {
+        animator.SetFloat("Horizontal", dataInput.Horizontal);
+        animator.SetFloat("Vertical", dataInput.Vertical);
+    }
 
     public void CheckInput() {
         dataInput.Horizontal = Input.GetAxis("Horizontal");
@@ -168,7 +198,6 @@ public class PlayerController : MonoBehaviour
 
     public void Deceleration(float _deceleration) {
         forwardVelocity = 0;
-
         if (movementVelocity.x < _deceleration * Time.deltaTime)
             movementVelocity.x = movementVelocity.x - _deceleration * Time.deltaTime;
         else if (movementVelocity.x > -_deceleration * Time.deltaTime)
@@ -183,29 +212,82 @@ public class PlayerController : MonoBehaviour
             else {
                 movementVelocity.z = 0;
             }
-            Movement();
+        Movement();
+        
     }
+    public void TakeDmg()
+    {
+        if (Lifes == 0)
+        {
+            PlayerDeath();
+        }
+        else
+        {
+            Lifes--;
+            StartCoroutine(InvicibleSecond(2f));
+        }
+    }
+
+    public void DashDeceleration(float _horizontal , float _vertical ,float _decelerationTime , float _dashDistance , float _dashTime) {
+
+        Vector3 direction = new Vector3(_horizontal , 0 , _vertical);
+        dashDecelerationVelocity = _dashDistance / _dashTime;
+        //dashDecelerationVelocity /=  _decelerationTime; 
+        dashDeceleration = dashDecelerationVelocity / _decelerationTime;
+
+        dashMovementSpeed -= dashDeceleration * Time.deltaTime;
+        dashMovementSpeed = Mathf.Clamp(dashMovementSpeed, 0, dashDecelerationVelocity);
+
+
+
+        transform.Translate((dashMovementSpeed*Time.deltaTime) * direction);
+
+    }
+
+    public void SetDashVelocity(float _horizontal , float _vertical , float _dashDistance, float _dashTime) {
+        float dashVelocity = _dashDistance / _dashTime;
+        dashMovementSpeed = dashVelocity;
+    }
+
+    public float SetCorrectAccelerationOnResumeControl(float startVelocity) {
+        return startVelocity;
+    }
+
 
     public void ReadInputKeyboard(DataInput dataInput , float _acceleration , float _maxSpeed) {
-
-    movementVelocity = Vector3.zero;
-    // Set vertical movement
-    if (dataInput.Vertical != 0f) {
-        forwardVelocity += _acceleration * Time.deltaTime;
-        forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
-        movementVelocity += Vector3.forward * dataInput.Vertical * forwardVelocity;
-    }
-
-    // Set horizontal movement
-    if (dataInput.Horizontal != 0f) {
-        forwardVelocity += _acceleration * Time.deltaTime;
-        forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
-        movementVelocity += Vector3.right * dataInput.Horizontal * forwardVelocity;
-    }
+        movementVelocity = Vector3.zero;
+       
+        // Set vertical movement
+        if (dataInput.Vertical != 0f) {
+            forwardVelocity += _acceleration * Time.deltaTime;
+            forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
+            movementVelocity += Vector3.forward * dataInput.Vertical * forwardVelocity;
+        }
         
-    newInput = true;
-    
-}
+
+        // Set horizontal movement
+        if (dataInput.Horizontal != 0f) {
+            forwardVelocity += _acceleration * Time.deltaTime;
+            forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
+            movementVelocity += Vector3.right * dataInput.Horizontal * forwardVelocity;
+        }
+
+    }
+
+    public void InputDetection() {
+        if (dataInput.Vertical != 0f || dataInput.Horizontal != 0f) {
+            newInput = true;
+        }
+        else if(dataInput.Vertical != 1f || dataInput.Horizontal != 1f) {
+            newInput = false;
+        }
+
+
+        //if ((dataInput.Horizontal < 0.9f || dataInput.Horizontal > -0.9f) && (dataInput.Vertical < 0.9f || dataInput.Vertical > -0.9f)) {
+        //    newInput = false;
+        //}
+
+    }
 
     public void ReadInputGamepad(DataInput dataInput, float _acceleration , float _maxSpeed) {
 
@@ -227,17 +309,14 @@ public class PlayerController : MonoBehaviour
         newInput = true;
     }
 
-    public void timeFreeze(float _timeFreeze)
+    public void timeFreeze(float _timeScale)
     {
-        if (Time.time - timeStart < _timeFreeze)
-        {
-            Time.timeScale = 1;
-        }
+        Time.timeScale = _timeScale;
     }
     public RaycastHit RayCastDash(float _horizontal , float _vertical)
     {
         RaycastHit hitDash;
-        Physics.Raycast(transform.position, new Vector3(_horizontal, 0, _vertical), out hitDash, playerDashData.DashDistance * 2);
+        Physics.Raycast(transform.position, new Vector3(_horizontal, 0, _vertical), out hitDash, playerDashData.ActiveDashDistance * 2);
         return hitDash;
     }
     public void Dash(float _dashTimeFrames)  // on complete sulla funzione ?
@@ -255,9 +334,13 @@ public class PlayerController : MonoBehaviour
         body.rotation = moveRotation * rotationTransform.rotation;
     }
 
-
+    public void StartTimerDash()
+    {
+        Debug.Log("TIMER");
+        timerDash = Time.time;
+    }
     public void PlayerDeath() {
-        //SceneManager.LoadScene(2);
+        SceneManager.LoadScene(2);
     }
 
     public void Victory() {
@@ -268,6 +351,11 @@ public class PlayerController : MonoBehaviour
     public void RopeLengthConstraint(Vector3 nodePosition) {
         Vector3 constraint = new Vector3(nodePosition.x, nodePosition.y, transform.position.z);
         transform.Translate(constraint * Time.deltaTime);
+    }
+    public IEnumerator InvicibleSecond(float _sec)
+    {
+        yield return new WaitForSeconds(_sec);
+
     }
 
 }
@@ -290,6 +378,7 @@ public struct DataInput
         HorizontalLook = 0;
         VerticalLook = 0;
     }
+ 
 
 
     

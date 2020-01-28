@@ -17,13 +17,13 @@ public class PlayerDashFramePerfectState : PlayerBaseState {
     float timeDeceleration;
 
     public override void Enter() {
-        playerDashData = player.playerDashData;
-        startTime = Time.time;
+        //playerDashData = player.playerDashData;
+        //startTime = Time.time;
 
-        DashTimeFrames = playerDashData.DashTimeFrames;
-        playerDashData = player.playerDashData;
-        playerIdleData = player.playerIdleData;
-        timeDeceleration = InitialVelocity / DashTimeFrames;
+        ////DashTimeFrames = playerDashData.DashTimeFrames;
+        //playerDashData = player.playerDashData;
+        //playerIdleData = player.playerIdleData;
+        //timeDeceleration = InitialVelocity / DashTimeFrames;
 
     }
     public override void Tick() {

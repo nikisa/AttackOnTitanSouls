@@ -3,75 +3,110 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class PlayerDashState : PlayerBaseState {
+public class PlayerDashState : PlayerBaseState
+{
 
     //Inspector
     public PlayerDashData playerDashData;
-
+    public Ease ease;
     // Private
+    bool isDashing;
     RaycastHit hitDash;
     float realDashDistance;
     DataInput dataInput;
-    Vector3 position;
+    Vector3 playerPosition;
     Transform transform;
     float Horizontal;
     float Vertical;
     float _timeFreeze;
-    
+    float _timeScale;
+
+
 
     public override void Enter() {
-       
+
+
+        //////player.forwardVelocity = 0;
+        ///
         player.playerDashData = playerDashData;
-        player.DoFreeze(playerDashData.TimeFreeze , playerDashData.SetTimeScale);
-        Dash(playerDashData.DashTimeFrames , playerDashData.ResumeControl , player.dataInput);
-        Debug.Log("Dash enter");
-        _timeFreeze = playerDashData.TimeFreeze;
+
+        isDashing = false;
+
+        Horizontal = player.horizontalDash;
+        Vertical = player.verticalDash;
+
+        
+        player.SetDashVelocity(Horizontal, Vertical, playerDashData.ActiveDashDistance, playerDashData.ActiveDashTime);
+
     }
 
     public override void Tick() {
-        player.timeFreeze(_timeFreeze);
+
+        //if (Time.time - freezeTimeStart > playerDashData.PreDashFreeze) {
+        //    player.timeFreeze(1);
+
+        if (!isDashing) {
+            Dash(playerDashData.ActiveDashTime, playerDashData.ActiveDashDistance, playerDashData.DashDecelerationTime);
+        }
+        //}
     }
 
     public override void Exit() {
-        
+
     }
 
-    public void Dash(float _DashTimeFrames, float _ResumeControl, DataInput _dataInput) {
-
-        position = player.transform.position;
-        transform = player.transform;
-
-        Horizontal = player.dataInput.Horizontal;
-        Vertical = player.dataInput.Vertical;
-
-        _DashTimeFrames = _DashTimeFrames / 60;
-        _ResumeControl = playerDashData.ResumeControl / 60;
-
-        hitDash= player.RayCastDash(Horizontal, Vertical);
+    public void Dash(float _DashTimeFrames, float _DashTimeDistance, float _decelerationTime) {
+        isDashing = true;
+        playerPosition = player.transform.position;
+        hitDash = player.RayCastDash(Horizontal, Vertical);
         realDashDistance = Vector3.Distance(hitDash.point, player.transform.position);
+        realDashDistance = realDashDistance + Mathf.Pow(player.dashMovementSpeed, 2) / (2 * (player.dashMovementSpeed / _decelerationTime)); // questa formula è sbagliata fa 1000/1000 e non aggiunge nulla
+        //if (Horizontal == 0 && Vertical == 0) {
+        //    animator.SetTrigger(IDLE);
+        //}
 
-        
-        if (realDashDistance > playerDashData.DashDistance)
-        {
-            player.dashDirection = new Vector3((playerDashData.DashDistance * Horizontal) + position.x, position.y, (playerDashData.DashDistance * Vertical) + position.z);
-            transform.DOMove(player.dashDirection, _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_RESUME); });
-        }
 
-        else {
-            if (Horizontal != 0 && Vertical != 0) {
-                animator.SetTrigger(IDLE);
+            // (Mathf.Pow(boss.MoveSpeed, 2) / (2 * bounceData.Deceleration)) QUIII usare questa
+
+            if (realDashDistance > _DashTimeDistance) {
+
+            // player.dashDirection = new Vector3((Horizontal >= 0.0001f || Horizontal <= -0.0001 ? (_DashTimeDistance * Mathf.Sign(Horizontal) * 1) : 0) + playerPosition.x, playerPosition.y, (Vertical >= 0.0001f || Vertical <= -0.0001f ? ((_DashTimeDistance * Mathf.Sign(Vertical) * 1) + playerPosition.z) : 0 + playerPosition.z));
+            if (Horizontal > 0 && Vertical > 0)
+            {
+                player.dashDirection = new Vector3(_DashTimeDistance * Mathf.Cos(Mathf.Atan(Vertical /Horizontal)) + playerPosition.x, playerPosition.y, _DashTimeDistance * Mathf.Sin( Mathf.Atan(Vertical /Horizontal)) + playerPosition.z);
+          
+ 
             }
+            else if (Horizontal < 0 && Vertical < 0)
+            {
+                player.dashDirection = new Vector3(playerPosition.x - _DashTimeDistance * Mathf.Cos(Mathf.Atan(Vertical / Horizontal))  , playerPosition.y, playerPosition.z -_DashTimeDistance * Mathf.Sin(Mathf.Atan(Vertical / Horizontal))  );
+            }
+            else
+            {
+
+          
+                player.dashDirection = new Vector3(playerPosition.x + _DashTimeDistance * Horizontal , playerPosition.y , playerPosition.z + _DashTimeDistance * Vertical);
+                
+            }
+            //player.dashDirection = new Vector3(_DashTimeDistance * Mathf.Cos(Mathf.Atan(Mathf.Sign(Vertical) / Mathf.Sign(Horizontal))) + playerPosition.x, playerPosition.y , _DashTimeDistance * Mathf.Sin(Mathf.Atan(Mathf.Sign(Vertical) / Mathf.Sign(Horizontal))) + playerPosition.z);
+            //player.dashDirection = Vector3.ClampMagnitude(player.dashDirection, 1);
+            if (Horizontal >= 0.0001f || Horizontal <= -0.0001 || Vertical >= 0.0001f || Vertical <= -0.0001) {
+                    player.DoFreeze(playerDashData.PreDashFreeze, 0);
+                    player.transform.DOMove(player.dashDirection, _DashTimeFrames).SetEase(ease).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
+                    Debug.Log("dashDirection in x : " + _DashTimeDistance * Mathf.Sign(Horizontal));
+                }
+                else {
+                    animator.SetTrigger(IDLE);
+                }
+            }
+
             else {
-                player.dashDirection = new Vector3(((realDashDistance - (player.skin+(player.skin/2))) * Horizontal) + position.x, position.y, ((realDashDistance - 0.75f) * Vertical) + position.z);
-                transform.DOMove(player.dashDirection, _DashTimeFrames).OnComplete(() => { animator.SetTrigger(DASH_RESUME); });
+                Debug.Log("DASH 2");
+                player.dashDirection = new Vector3((Horizontal <= 0.99f ? 0 : (_DashTimeDistance * Mathf.Sign(Horizontal) * 1)) + playerPosition.x, playerPosition.y, (Vertical <= 0.99f ? 0 : (_DashTimeDistance * Mathf.Sign(Vertical) * 1)) + playerPosition.z);
+                player.transform.DOMove(player.dashDirection, _DashTimeFrames).SetEase(ease).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
             }
-
-            
-
-        } // da togliere la skin+(skin/2) al posto di 0.75f
-
-        player.InitialDashVelocity = playerDashData.DashDistance / (_DashTimeFrames / Time.deltaTime);
-        animator.SetTrigger(DASH_RESUME);
-
+        }
     }
-}
+
+
+
