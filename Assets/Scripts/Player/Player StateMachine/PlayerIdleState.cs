@@ -50,10 +50,10 @@ public class PlayerIdleState : PlayerBaseState {
         player.PlayerInclination();
 
         if (player.newInput) {
-            
             player.Movement();
         }
         else {
+            player.forwardVelocity = 0;
             animator.SetTrigger(MOVEMENT_DECELERATION);
         }
 
@@ -75,11 +75,10 @@ public class PlayerIdleState : PlayerBaseState {
             animator.SetTrigger(DASH);
         }
 
-        //if (dataInput.Vertical != 0 || dataInput.Horizontal != 0) {
-            //player.ReadInputGamepad(dataInput , accelRatePerSec);
-            player.ReadInputKeyboard(dataInput , accelRatePerSec , playerIdleData.maxSpeed);
-        //}
-
+        if (((dataInput.Vertical >= player.DeadZoneValue) || (dataInput.Vertical <= -player.DeadZoneValue)) || ((dataInput.Horizontal >= player.DeadZoneValue) || (dataInput.Horizontal <= -player.DeadZoneValue))) {
+            player.ReadInputGamepad(dataInput, accelRatePerSec , playerIdleData.maxSpeed);
+            player.ReadInputKeyboard(dataInput, accelRatePerSec, playerIdleData.maxSpeed);
+        }
     }
     
 
