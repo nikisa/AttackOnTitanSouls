@@ -39,12 +39,12 @@ public class PlayerController : MonoBehaviour
     public float DPS;
     public BossOrbitManager bossOrbitManager;
     public TargetType playerTarget;
-<<<<<<< HEAD
+
     public UiManager uiManager;
-=======
+
     [Range(0,1)]
     public float DeadZoneValue;
->>>>>>> e458cab03ab1d947fcf464295ad62309f16be9f0
+
 
     //Public
     [HideInInspector]
