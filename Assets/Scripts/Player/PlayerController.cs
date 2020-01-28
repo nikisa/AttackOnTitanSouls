@@ -13,17 +13,20 @@ public class PlayerController : MonoBehaviour
     public static GameEvent DeathEvent;
     public static GameEvent VictoryEvent;
     public static GameEvent TimerEvent;
+    public static GameEvent DmgEvent;
 
     private void OnEnable() {
         DeathEvent += PlayerDeath;
         VictoryEvent += Victory;
         TimerEvent += StartTimerDash;
+        DmgEvent += TakeDmg;
     }
 
     private void OnDisable() {
         DeathEvent -= PlayerDeath;
         VictoryEvent -= Victory;
         TimerEvent -= StartTimerDash;
+        DmgEvent -= TakeDmg;
     }
 
     //Inspector
@@ -212,6 +215,18 @@ public class PlayerController : MonoBehaviour
         Movement();
         
     }
+    public void TakeDmg()
+    {
+        if (Lifes == 0)
+        {
+            PlayerDeath();
+        }
+        else
+        {
+            Lifes--;
+            StartCoroutine(InvicibleSecond(2f));
+        }
+    }
 
     public void DashDeceleration(float _horizontal , float _vertical ,float _decelerationTime , float _dashDistance , float _dashTime) {
 
@@ -337,6 +352,11 @@ public class PlayerController : MonoBehaviour
         Vector3 constraint = new Vector3(nodePosition.x, nodePosition.y, transform.position.z);
         transform.Translate(constraint * Time.deltaTime);
     }
+    public IEnumerator InvicibleSecond(float _sec)
+    {
+        yield return new WaitForSeconds(_sec);
+
+    }
 
 }
 
@@ -358,6 +378,7 @@ public struct DataInput
         HorizontalLook = 0;
         VerticalLook = 0;
     }
+ 
 
 
     
