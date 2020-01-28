@@ -84,7 +84,6 @@ public class PlayerDashState : PlayerBaseState
             else
             {
 
-          
                 player.dashDirection = new Vector3(playerPosition.x + _DashTimeDistance * Horizontal , playerPosition.y , playerPosition.z + _DashTimeDistance * Vertical);
                 
             }

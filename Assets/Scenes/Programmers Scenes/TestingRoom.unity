@@ -448,6 +448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1063701537581086274, guid: 030473f00ebc52d4a88b141d27ac83c5,
         type: 3}
+<<<<<<< HEAD
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 813606353}
@@ -461,6 +462,11 @@ PrefabInstance:
       propertyPath: body
       value: 
       objectReference: {fileID: 1642403901}
+=======
+      propertyPath: DeadZoneValue
+      value: 0.25
+      objectReference: {fileID: 0}
+>>>>>>> e458cab03ab1d947fcf464295ad62309f16be9f0
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 030473f00ebc52d4a88b141d27ac83c5, type: 3}
 --- !u!1 &130719588

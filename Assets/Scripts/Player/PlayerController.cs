@@ -39,7 +39,12 @@ public class PlayerController : MonoBehaviour
     public float DPS;
     public BossOrbitManager bossOrbitManager;
     public TargetType playerTarget;
+<<<<<<< HEAD
     public UiManager uiManager;
+=======
+    [Range(0,1)]
+    public float DeadZoneValue;
+>>>>>>> e458cab03ab1d947fcf464295ad62309f16be9f0
 
     //Public
     [HideInInspector]
@@ -69,11 +74,13 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool IsImmortal;
     public int Lifes;
+    [HideInInspector]
+    public float forwardVelocity;
 
     //Private
     Camera camera;
     Vector3 movementVelocity = Vector3.zero;
-    public float forwardVelocity;
+    
     float timeStart;
     float dashDecelerationVelocity;
     float dashDeceleration;
@@ -122,10 +129,23 @@ public class PlayerController : MonoBehaviour
     }
 
     public void CheckInput() {
-        dataInput.Horizontal = Input.GetAxis("Horizontal");
-        dataInput.Vertical = Input.GetAxis("Vertical");
-        dataInput.HorizontalLook = Input.GetAxis("HorizontalLook");
-        dataInput.VerticalLook = Input.GetAxis("VerticalLook");
+        float horizontalMovement = Input.GetAxis("Horizontal");
+        float verticalMovement = Input.GetAxis("Vertical");
+
+        if (Mathf.Pow(horizontalMovement, 2) + Mathf.Pow(verticalMovement, 2) >= Mathf.Pow(DeadZoneValue, 2)) {
+            Debug.Log("HERE");
+            dataInput.Horizontal = Input.GetAxis("Horizontal");
+            dataInput.Vertical = Input.GetAxis("Vertical");
+            dataInput.HorizontalLook = Input.GetAxis("HorizontalLook");
+            dataInput.VerticalLook = Input.GetAxis("VerticalLook");
+        }
+        else {
+            dataInput.Horizontal = 0;
+            dataInput.Vertical = 0;
+            dataInput.HorizontalLook = 0;
+            dataInput.VerticalLook = 0;
+        }
+
         dataInput.Dash = Input.GetButtonDown("Dash");
 
         Vector3 lookVector = Vector3.right * dataInput.HorizontalLook + Vector3.forward * dataInput.VerticalLook;
@@ -204,7 +224,9 @@ public class PlayerController : MonoBehaviour
 
 
     public void Deceleration(float _deceleration) {
-        forwardVelocity = 0;
+
+        Debug.Log(" MOVEMENT VELOCITY:  " + movementVelocity.x);
+
         if (movementVelocity.x < _deceleration * Time.deltaTime)
             movementVelocity.x = movementVelocity.x - _deceleration * Time.deltaTime;
         else if (movementVelocity.x > -_deceleration * Time.deltaTime)
@@ -275,32 +297,15 @@ public class PlayerController : MonoBehaviour
             movementVelocity += Vector3.forward * dataInput.Vertical * forwardVelocity;
         }
         
-
         // Set horizontal movement
         if (dataInput.Horizontal != 0f) {
             forwardVelocity += _acceleration * Time.deltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
             movementVelocity += Vector3.right * dataInput.Horizontal * forwardVelocity;
         }
-
     }
 
-    public void InputDetection() {
-        if (dataInput.Vertical != 0f || dataInput.Horizontal != 0f) {
-            newInput = true;
-        }
-        else if(dataInput.Vertical != 1f || dataInput.Horizontal != 1f) {
-            newInput = false;
-        }
-
-
-        //if ((dataInput.Horizontal < 0.9f || dataInput.Horizontal > -0.9f) && (dataInput.Vertical < 0.9f || dataInput.Vertical > -0.9f)) {
-        //    newInput = false;
-        //}
-
-    }
-
-    public void ReadInputGamepad(DataInput dataInput, float _acceleration , float _maxSpeed) {
+    public void ReadInputGamepad(DataInput dataInput, float _acceleration, float _maxSpeed) {
 
         movementVelocity = Vector3.zero;
 
@@ -319,6 +324,17 @@ public class PlayerController : MonoBehaviour
         }
         newInput = true;
     }
+
+    public void InputDetection() {
+        if (dataInput.Vertical != 0f || dataInput.Horizontal != 0f) {
+            newInput = true;
+        }
+        else if(dataInput.Vertical != 1f || dataInput.Horizontal != 1f) {
+            newInput = false;
+        }
+    }
+
+    
 
     public void timeFreeze(float _timeScale)
     {
