@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f448e5d3da51d2743a53a7f4e64be525, type: 3}
-  m_Name: PlayerDashData
+  m_Script: {fileID: 11500000, guid: c5c80ca171136c24ba4cb364c1883eab, type: 3}
+  m_Name: BounceData 1
   m_EditorClassIdentifier: 
-  PreDashFreeze: 0.033
-  ActiveDashDistance: 3.5
-  ActiveDashTime: 0.05
-  DashDecelerationTime: 0.1
-  ResumePlayerInput: 0.25
-  EnableDashAt: 1
+  Time: 0
+  OrbitTag: 0
+  impactFreeze: 0
+  shakeMagnitude: 0
+  kinetikEnergyLoss: 0
+  WaitOnStart: 0
+  Deceleration: 10
+  BounceAngle: 45
