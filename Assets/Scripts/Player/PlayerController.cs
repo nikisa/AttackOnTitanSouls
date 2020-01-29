@@ -122,12 +122,12 @@ public class PlayerController : MonoBehaviour
     }
 
     public void SetAnimationParameter() {
-        animator.SetFloat("Horizontal", dataInput.Horizontal);
-        animator.SetFloat("Vertical", dataInput.Vertical);
+        animator.SetFloat("Horizontal", (Input.GetAxis("Horizontal")) * Mathf.Cos(GetLeftAnalogAngle()));
+        animator.SetFloat("Vertical", Input.GetAxis("Vertical") * Mathf.Sin(GetLeftAnalogAngle()));
     }
 
     public float GetLeftAnalogAngle() {
-        return (Vector2.SignedAngle(new Vector2(1, 0), new Vector2(dataInput.Horizontal, dataInput.Vertical)) * Mathf.Deg2Rad);
+        return (Vector2.SignedAngle(new Vector2(1, 0), new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"))) * Mathf.Deg2Rad);
     }
 
     public void CheckInput() {
@@ -144,6 +144,10 @@ public class PlayerController : MonoBehaviour
         else {
             dataInput.Horizontal = 0;
             dataInput.Vertical = 0;
+            //MOMENTANEO
+            animator.SetFloat("Horizontal", 0);
+            animator.SetFloat("Vertical", 0);
+            //MOMENTANEO
             dataInput.HorizontalLook = 0;
             dataInput.VerticalLook = 0;
         }
@@ -160,7 +164,6 @@ public class PlayerController : MonoBehaviour
         {
             dataInput.currentOrientation = Quaternion.LookRotation(lookVector.normalized);
         }
-
     }
 
     public void DoFreeze(float _timeFreeze, float _rallenty) {
@@ -300,7 +303,6 @@ public class PlayerController : MonoBehaviour
         //if (dataInput.Horizontal != 0f) {
             forwardVelocity += _acceleration * Time.deltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
-            Debug.Log("COS: " + forwardVelocity * Mathf.Cos(GetLeftAnalogAngle()));
             movementVelocity += Vector3.right * (forwardVelocity * Mathf.Cos(GetLeftAnalogAngle()));
         //}
     }

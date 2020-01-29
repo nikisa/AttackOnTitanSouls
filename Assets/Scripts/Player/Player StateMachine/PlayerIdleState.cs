@@ -71,7 +71,7 @@ public class PlayerIdleState : PlayerBaseState {
             animator.SetTrigger(DASH);
         }
 
-        if (((dataInput.Vertical >= player.DeadZoneValue) || (dataInput.Vertical <= -player.DeadZoneValue)) || ((dataInput.Horizontal >= player.DeadZoneValue) || (dataInput.Horizontal <= -player.DeadZoneValue))) {
+        if (Mathf.Pow(dataInput.Horizontal, 2) + Mathf.Pow(dataInput.Vertical, 2) >= Mathf.Pow(player.DeadZoneValue, 2)) {
             //player.ReadInputGamepad(dataInput, accelRatePerSec , playerIdleData.maxSpeed);
             player.ReadInputKeyboard(dataInput, accelRatePerSec, playerIdleData.maxSpeed);
         }
