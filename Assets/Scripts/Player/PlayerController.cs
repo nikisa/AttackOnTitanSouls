@@ -39,9 +39,7 @@ public class PlayerController : MonoBehaviour
     public float DPS;
     public BossOrbitManager bossOrbitManager;
     public TargetType playerTarget;
-
     public UiManager uiManager;
-
     [Range(0,1)]
     public float DeadZoneValue;
 
@@ -128,6 +126,10 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Vertical", dataInput.Vertical);
     }
 
+    public float GetLeftAnalogAngle() {
+        return (Vector2.SignedAngle(new Vector2(1, 0), new Vector2(dataInput.Horizontal, dataInput.Vertical)) * Mathf.Deg2Rad);
+    }
+
     public void CheckInput() {
         float horizontalMovement = Input.GetAxis("Horizontal");
         float verticalMovement = Input.GetAxis("Vertical");
@@ -179,7 +181,6 @@ public class PlayerController : MonoBehaviour
             {
                 PlayerController.DmgEvent();
             }
-            
         }
     }
 
@@ -271,8 +272,6 @@ public class PlayerController : MonoBehaviour
         dashMovementSpeed -= dashDeceleration * Time.deltaTime;
         dashMovementSpeed = Mathf.Clamp(dashMovementSpeed, 0, dashDecelerationVelocity);
 
-
-
         transform.Translate((dashMovementSpeed*Time.deltaTime) * direction);
 
     }
@@ -291,18 +290,19 @@ public class PlayerController : MonoBehaviour
         movementVelocity = Vector3.zero;
        
         // Set vertical movement
-        if (dataInput.Vertical != 0f) {
+        //if (dataInput.Vertical != 0f) {
             forwardVelocity += _acceleration * Time.deltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
-            movementVelocity += Vector3.forward * dataInput.Vertical * forwardVelocity;
-        }
+            movementVelocity += Vector3.forward  * (forwardVelocity * Mathf.Sin(GetLeftAnalogAngle()));
+        //}
         
         // Set horizontal movement
-        if (dataInput.Horizontal != 0f) {
+        //if (dataInput.Horizontal != 0f) {
             forwardVelocity += _acceleration * Time.deltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
-            movementVelocity += Vector3.right * dataInput.Horizontal * forwardVelocity;
-        }
+            Debug.Log("COS: " + forwardVelocity * Mathf.Cos(GetLeftAnalogAngle()));
+            movementVelocity += Vector3.right * (forwardVelocity * Mathf.Cos(GetLeftAnalogAngle()));
+        //}
     }
 
     public void ReadInputGamepad(DataInput dataInput, float _acceleration, float _maxSpeed) {
@@ -313,14 +313,14 @@ public class PlayerController : MonoBehaviour
         if (dataInput.Vertical != 0f) {
             forwardVelocity += _acceleration * Time.deltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
-            movementVelocity += Vector3.forward * dataInput.Vertical * forwardVelocity;
+            movementVelocity += Vector3.forward /* * dataInput.Vertical*/ * (forwardVelocity * Mathf.Sin(GetLeftAnalogAngle()));
         }
 
         // Set horizontal movement gamepad
         if (dataInput.Horizontal != 0f) {
             forwardVelocity += _acceleration * Time.deltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
-            movementVelocity += Vector3.right * dataInput.Horizontal * forwardVelocity;
+            movementVelocity += Vector3.right /** dataInput.Horizontal*/ * (forwardVelocity * Mathf.Cos(GetLeftAnalogAngle()));
         }
         newInput = true;
     }
@@ -329,7 +329,7 @@ public class PlayerController : MonoBehaviour
         if (dataInput.Vertical != 0f || dataInput.Horizontal != 0f) {
             newInput = true;
         }
-        else if(dataInput.Vertical != 1f || dataInput.Horizontal != 1f) {
+        else if((dataInput.Vertical < DeadZoneValue || dataInput.Vertical > -DeadZoneValue) || (dataInput.Horizontal < DeadZoneValue || dataInput.Horizontal > -DeadZoneValue)) {
             newInput = false;
         }
     }

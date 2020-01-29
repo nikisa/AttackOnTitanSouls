@@ -41,10 +41,6 @@ public class PlayerIdleState : PlayerBaseState {
 
     public override void Tick() {
 
-
-
-
-
         //player.CheckInput();
 
         player.PlayerInclination();
@@ -76,7 +72,7 @@ public class PlayerIdleState : PlayerBaseState {
         }
 
         if (((dataInput.Vertical >= player.DeadZoneValue) || (dataInput.Vertical <= -player.DeadZoneValue)) || ((dataInput.Horizontal >= player.DeadZoneValue) || (dataInput.Horizontal <= -player.DeadZoneValue))) {
-            player.ReadInputGamepad(dataInput, accelRatePerSec , playerIdleData.maxSpeed);
+            //player.ReadInputGamepad(dataInput, accelRatePerSec , playerIdleData.maxSpeed);
             player.ReadInputKeyboard(dataInput, accelRatePerSec, playerIdleData.maxSpeed);
         }
     }

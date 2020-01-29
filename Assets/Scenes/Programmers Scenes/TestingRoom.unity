@@ -819,6 +819,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scene
       objectReference: {fileID: 0}
+    - target: {fileID: 1063701537024294209, guid: 030473f00ebc52d4a88b141d27ac83c5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 3617058642362122950, guid: 030473f00ebc52d4a88b141d27ac83c5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -889,6 +894,11 @@ PrefabInstance:
       propertyPath: body
       value: 
       objectReference: {fileID: 1391660754}
+    - target: {fileID: 1063701537581086274, guid: 030473f00ebc52d4a88b141d27ac83c5,
+        type: 3}
+      propertyPath: DeadZoneValue
+      value: 0.258
+      objectReference: {fileID: 0}
     - target: {fileID: 1144106476064809444, guid: 030473f00ebc52d4a88b141d27ac83c5,
         type: 3}
       propertyPath: m_Layer
@@ -905,11 +915,6 @@ PrefabInstance:
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1144106477143013828, guid: 030473f00ebc52d4a88b141d27ac83c5,
-        type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 1063701537024294209, guid: 030473f00ebc52d4a88b141d27ac83c5,
         type: 3}
       propertyPath: m_Layer
       value: 11
