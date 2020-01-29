@@ -199,7 +199,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e9267dea08a8ac84c93674195bcdb5be, type: 2}
+  - {fileID: 2100000, guid: 64d2c5153323ef84796dc7e6b072295f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -284,7 +284,22 @@ MonoBehaviour:
   body: {fileID: 7531129434892081474}
   movimentRatio: 0.5
   DPS: 60
+  bossOrbitManager: {fileID: 0}
+  playerTarget: {fileID: 0}
+  canDash: 0
+  newInput: 0
   playerDashData: {fileID: 0}
+  playerIdleData: {fileID: 0}
+  dashDirection: {x: 0, y: 0, z: 0}
+  InitialDashVelocity: 0
+  layerMask: 0
+  skin: 0.95
+  dashMovementSpeed: 0
+  horizontalDash: 0
+  verticalDash: 0
+  timerDash: 0
+  Lifes: 0
+  forwardVelocity: 0
 --- !u!95 &7531129435490816588
 Animator:
   serializedVersion: 3
