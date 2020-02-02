@@ -71,13 +71,16 @@ public class PlayerController : MonoBehaviour
     public float timerDash;
     [HideInInspector]
     public bool IsImmortal;
-    public int Lifes;
     [HideInInspector]
+    public bool ImmortalTutorial;
+    public int Lifes;
+    //[HideInInspector]
     public float forwardVelocity;
 
     //Private
     Camera camera;
-    Vector3 movementVelocity = Vector3.zero;
+    [HideInInspector]
+    public Vector3 movementVelocity = Vector3.zero;
     
     float timeStart;
     float dashDecelerationVelocity;
@@ -135,13 +138,14 @@ public class PlayerController : MonoBehaviour
         float verticalMovement = Input.GetAxis("Vertical");
 
         if (Mathf.Pow(horizontalMovement, 2) + Mathf.Pow(verticalMovement, 2) >= Mathf.Pow(DeadZoneValue, 2)) {
-            Debug.Log("HERE");
+
             dataInput.Horizontal = Input.GetAxis("Horizontal");
             dataInput.Vertical = Input.GetAxis("Vertical");
             dataInput.HorizontalLook = Input.GetAxis("HorizontalLook");
             dataInput.VerticalLook = Input.GetAxis("VerticalLook");
         }
         else {
+            Debug.Log("FERMO");
             dataInput.Horizontal = 0;
             dataInput.Vertical = 0;
             //MOMENTANEO
@@ -229,7 +233,7 @@ public class PlayerController : MonoBehaviour
 
     public void Deceleration(float _deceleration) {
 
-        Debug.Log(" MOVEMENT VELOCITY:  " + movementVelocity.x);
+
 
         if (movementVelocity.x < _deceleration * Time.deltaTime)
             movementVelocity.x = movementVelocity.x - _deceleration * Time.deltaTime;
@@ -324,14 +328,16 @@ public class PlayerController : MonoBehaviour
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
             movementVelocity += Vector3.right /** dataInput.Horizontal*/ * (forwardVelocity * Mathf.Cos(GetLeftAnalogAngle()));
         }
-        newInput = true;
+        //newInput = true;
     }
 
     public void InputDetection() {
         if (dataInput.Vertical != 0f || dataInput.Horizontal != 0f) {
             newInput = true;
+            Debug.Log("ERRRORE");
         }
         else if((dataInput.Vertical < DeadZoneValue || dataInput.Vertical > -DeadZoneValue) || (dataInput.Horizontal < DeadZoneValue || dataInput.Horizontal > -DeadZoneValue)) {
+            
             newInput = false;
         }
     }
@@ -359,6 +365,7 @@ public class PlayerController : MonoBehaviour
 
         // Ruoto il personaggio in funzione della del suo movimento
         Vector3 rotationAxis = Quaternion.AngleAxis(90, Vector3.up) * movementVelocity;
+
         Quaternion moveRotation = Quaternion.AngleAxis(movementVelocity.magnitude * movimentRatio, rotationAxis);
         body.transform.rotation = moveRotation * rotationTransform.rotation;
     }

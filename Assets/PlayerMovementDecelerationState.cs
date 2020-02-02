@@ -27,7 +27,7 @@ public class PlayerMovementDecelerationState : PlayerBaseState
 
         player.Deceleration(decelRatePerSec);
 
-        if (player.newInput /*|| player.movementSpeed == 0*/) {
+        if (player.newInput || player.movementVelocity == Vector3.zero) {
             animator.SetTrigger(IDLE);
         }
 

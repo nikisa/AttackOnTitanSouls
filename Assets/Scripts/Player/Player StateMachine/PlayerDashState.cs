@@ -25,6 +25,7 @@ public class PlayerDashState : PlayerBaseState
 
     public override void Enter() {
 
+        player.ImmortalTutorial = true;             // rende immortale il player per il dash per il tutorial
 
         //////player.forwardVelocity = 0;
         ///
@@ -52,7 +53,7 @@ public class PlayerDashState : PlayerBaseState
     }
 
     public override void Exit() {
-
+        player.ImmortalTutorial = false;
     }
 
     public void Dash(float _DashTimeFrames, float _DashTimeDistance, float _decelerationTime) {

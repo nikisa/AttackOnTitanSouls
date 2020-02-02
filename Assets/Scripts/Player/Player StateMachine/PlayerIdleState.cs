@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class PlayerIdleState : PlayerBaseState {
+public class PlayerIdleState : PlayerBaseState
+{
 
     //Inspector
     public PlayerIdleData playerIdleData;
@@ -27,7 +29,8 @@ public class PlayerIdleState : PlayerBaseState {
     DataInput dataInput;
 
 
-    public override void Enter() {
+    public override void Enter()
+    {
 
         playerDashData = player.playerDashData;
 
@@ -39,21 +42,25 @@ public class PlayerIdleState : PlayerBaseState {
         forwardVelocity = 0f;
     }
 
-    public override void Tick() {
+    public override void Tick()
+    {
 
         //player.CheckInput();
 
         player.PlayerInclination();
 
-        if (player.newInput) {
+        if (player.newInput)
+        {
             player.Movement();
         }
-        else {
-            player.forwardVelocity = 0;
+        else if(player.movementVelocity != Vector3.zero)
+        {
+           // player.forwardVelocity = 0;
             animator.SetTrigger(MOVEMENT_DECELERATION);
         }
 
-        if (Time.time - player.timerDash > playerDashData.EnableDashAt) {
+        if (Time.time - player.timerDash > playerDashData.EnableDashAt)
+        {
             player.canDash = true;
         }
         //else {
@@ -71,15 +78,16 @@ public class PlayerIdleState : PlayerBaseState {
             animator.SetTrigger(DASH);
         }
 
-        if (Mathf.Pow(dataInput.Horizontal, 2) + Mathf.Pow(dataInput.Vertical, 2) >= Mathf.Pow(player.DeadZoneValue, 2)) {
+        if (Mathf.Pow(dataInput.Horizontal, 2) + Mathf.Pow(dataInput.Vertical, 2) >= Mathf.Pow(player.DeadZoneValue, 2))
+        {
             //player.ReadInputGamepad(dataInput, accelRatePerSec , playerIdleData.maxSpeed);
             player.ReadInputKeyboard(dataInput, accelRatePerSec, playerIdleData.maxSpeed);
         }
     }
-    
 
-    public override void Exit() {
-        
+
+    public override void Exit()
+    {
+
     }
 }
-
