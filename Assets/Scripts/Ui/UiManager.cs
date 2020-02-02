@@ -126,7 +126,7 @@ public class UiManager : MonoBehaviour
     public void PlayMenu()
     {
         Debug.Log("HEYYYYYYYYYY");
-        SceneManager.LoadScene(6);
+        SceneManager.LoadScene(0);
         Time.timeScale = 1;
         init();
         animator.SetTrigger("SplashArt");

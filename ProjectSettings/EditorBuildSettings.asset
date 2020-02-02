@@ -5,12 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ScenesThatWillBeRemoved/Start.unity
     guid: 0569b57292a484d4992a40167c3659b5
   - enabled: 0
     path: Assets/Scenes/Programmers Scenes/TestingRoom.unity
     guid: 079f831e2502bba4d8b821487df400f8
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: ab622c383c5b4d348ac75a3b09796e02
   - enabled: 1
     path: Assets/Scenes/Designers/First Boss Arena.unity
     guid: b63e60b4fc2c50c4fac5093de9b3286c
@@ -26,7 +29,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutorial Room.unity
     guid: e1dc1fe866b3602428c7af87bb0c1724
-  - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: ab622c383c5b4d348ac75a3b09796e02
   m_configObjects: {}
