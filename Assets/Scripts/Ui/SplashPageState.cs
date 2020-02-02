@@ -6,6 +6,7 @@ public class SplashPageState : UiBaseState
 {
     public override void Enter()
     {
+        Time.timeScale = 1;
         uiManager.ChangeMenu(UiManager.MenuType.SplashPage);
     }
     public override void Tick()

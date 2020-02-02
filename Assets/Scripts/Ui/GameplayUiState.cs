@@ -6,6 +6,7 @@ public class GameplayUiState : UiBaseState
 {
     public override void Enter()
     {
+        Time.timeScale = 1;
         uiManager.ChangeMenu(UiManager.MenuType.Gameplay);
     }
     public override void Tick()
@@ -13,7 +14,7 @@ public class GameplayUiState : UiBaseState
         if (Input.GetButtonDown("Pause"))
         {
             animator.SetTrigger("Pause");
-          //  Time.timeScale = 0;
+            
         }    
     }
     public override void Exit()
