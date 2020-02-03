@@ -136,31 +136,32 @@ public class PlayerController : MonoBehaviour
     public void CheckInput() {
         float horizontalMovement = Input.GetAxis("Horizontal");
         float verticalMovement = Input.GetAxis("Vertical");
+        float horizontalRotation = Input.GetAxis("HorizontalLook");
+        float verticalRotation = Input.GetAxis("VerticalLook");
+
+        if (Mathf.Pow(horizontalRotation, 2) + Mathf.Pow(verticalRotation, 2) >= Mathf.Pow(DeadZoneValue, 2)) {
+            dataInput.HorizontalLook = Input.GetAxis("HorizontalLook");
+            dataInput.VerticalLook = Input.GetAxis("VerticalLook");
+        }
 
         if (Mathf.Pow(horizontalMovement, 2) + Mathf.Pow(verticalMovement, 2) >= Mathf.Pow(DeadZoneValue, 2)) {
 
             dataInput.Horizontal = Input.GetAxis("Horizontal");
             dataInput.Vertical = Input.GetAxis("Vertical");
-            dataInput.HorizontalLook = Input.GetAxis("HorizontalLook");
-            dataInput.VerticalLook = Input.GetAxis("VerticalLook");
+            
         }
         else {
             Debug.Log("FERMO");
             dataInput.Horizontal = 0;
             dataInput.Vertical = 0;
-            //MOMENTANEO
-            animator.SetFloat("Horizontal", 0);
-            animator.SetFloat("Vertical", 0);
-            //MOMENTANEO
-            dataInput.HorizontalLook = 0;
-            dataInput.VerticalLook = 0;
         }
+
 
         dataInput.Dash = Input.GetButtonDown("Dash");
 
         Vector3 lookVector = Vector3.right * dataInput.HorizontalLook + Vector3.forward * dataInput.VerticalLook;
 
-        if (lookVector.sqrMagnitude < 0.0001f && Input.GetJoystickNames().Length<=0)
+        if (lookVector.sqrMagnitude < 0.0001f && Input.GetJoystickNames().Length <= 0)
         {
             CalculateOrientationFromMouse();
         }
