@@ -35,8 +35,6 @@ public class BS_BossOrbitState : FirstBossState
 
 
     public override void Tick() {
-        Debug.Log(bossOrbitManager.countMasksArrived);
-
         OrbitTick();
         if (bossOrbitManager.countMasksArrived >= bossOrbitManager.HookPointList.Count) {
             
@@ -49,7 +47,6 @@ public class BS_BossOrbitState : FirstBossState
 
 
     public void OrbitTick() {
-        Debug.Log("count " + OrbitManagerList.Count);
         for (int i = 0; i < OrbitManagerList.Count; i++) {
             bossOrbitManager.RotationMove(OrbitManagerList[i].AngularMaxSpeed, OrbitManagerList[i].AngularAccelerationTime, OrbitManagerList[i].CenterRotation);
         }

@@ -41,7 +41,6 @@ public class FirstBossChaseState : FirstBossState
         ResetTimer(chaseData);
         boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
-        Debug.Log(bossOrbitManager.HookPointList.Count);
         animator.SetBool("ChaseOrbit", false);
     }
 

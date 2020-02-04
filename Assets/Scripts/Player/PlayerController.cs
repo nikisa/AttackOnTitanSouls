@@ -151,7 +151,6 @@ public class PlayerController : MonoBehaviour
             
         }
         else {
-            Debug.Log("FERMO");
             dataInput.Horizontal = 0;
             dataInput.Vertical = 0;
         }
@@ -263,9 +262,7 @@ public class PlayerController : MonoBehaviour
             PlayerDeath();
         }
         else
-        {
-            Debug.Log("vitaa");  
-            
+        {            
             StartCoroutine(InvicibleSecond(2f));
         }
     }
@@ -333,12 +330,10 @@ public class PlayerController : MonoBehaviour
     }
 
     public void InputDetection() {
-        if (dataInput.Vertical != 0f || dataInput.Horizontal != 0f) {
+        if ((dataInput.Vertical > DeadZoneValue || dataInput.Vertical < -DeadZoneValue) || (dataInput.Horizontal > DeadZoneValue || dataInput.Horizontal < -DeadZoneValue)) {
             newInput = true;
-            Debug.Log("ERRRORE");
         }
         else if((dataInput.Vertical < DeadZoneValue || dataInput.Vertical > -DeadZoneValue) || (dataInput.Horizontal < DeadZoneValue || dataInput.Horizontal > -DeadZoneValue)) {
-            
             newInput = false;
         }
     }

@@ -12,6 +12,7 @@ public class GrappleManager : MonoBehaviour
     public HookPoint hookPoint;
     public PlayerController Player;
     public GameObject CrossHair;
+    public Animator animator;
 
     public int MassPointNumber = 32;
     public float MassPointLength = 0.25f;
@@ -31,97 +32,97 @@ public class GrappleManager : MonoBehaviour
         HookPosition = hook.transform.localPosition;
         HookScale = hook.transform.localScale;
         HookRotation = hook.transform.localRotation;
-    }
 
-    private void LateUpdate() {
-
-        if (debugMode) {
-            if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown("ShootPS4") || Input.GetButtonDown("ShootXBOX")) {
-                HookShooting();
-                if (!hook.shooted)
-                    InstantiateRope();
-            }
-            if (hook.shooted) {
-                if (Input.GetKeyDown(KeyCode.Z))
-                    UpdatePoints();
-                if (Input.GetKeyDown(KeyCode.X))
-                    UpdateHook();
-                if (Input.GetKeyDown(KeyCode.C))
-                    UpdateLinks();
-            }
-        }
-        else {
-            if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown("ShootPS4") || Input.GetButtonDown("ShootXBOX")) {
-                HookShooting();
-                if (!hook.shooted)
-                    InstantiateRope();
-            }
-            if (hook.shooted) {
-
-                
-
-                if (!Input.GetKeyDown(KeyCode.Mouse1)) {
-                    UpdatePoints();
-                    UpdateHook();
-                    UpdateLinks();
-                }
-                if ((Input.GetKey(KeyCode.Mouse1) && !Input.GetKeyUp(KeyCode.Mouse1)) || (Input.GetButton("ShootPS4") && !Input.GetButtonUp("ShootPS4")) || (Input.GetButton("ShootXBOX") && !Input.GetButtonUp("ShootXBOX"))) {
-                    RewindPoints();
-                }
-
-                if (Input.GetButtonDown("UnhookPS4") || Input.GetButtonDown("UnhookXBOX"))
-                {
-                    while (hook.shooted)
-                    {
-                        RewindPoints();
-                    }
-                }
-
-            }
-
-            if (hook.shooted && !hook.isHooked) {
-                hit = hook.RaycastCollsion();
-
-                if (hit.transform != null && hit.transform.GetComponent<HookPoint>()) {
-                    hookPoint = hit.transform.GetComponent<HookPoint>();
-                    hook.isHooked = true;
-
-                }
-                else {
-                    //UpdateHook();
-                    
-                    //Debug.Log("Missing Target");
-                    
-
-                }
-            }
-
-            if (hook.shooted && hook.ropeFinished && !hook.isHooked) {
-                //hook.hitDistance = 0;
-            }
-            else {
-                hook.hitDistance = 1;
-            }
-
-
-            if (hook.isHooked) {
-                if (!hookPoint.isHooked) {
-                    
-                    hook.transform.position = hit.transform.position;
-                    hook.Inertia = Vector3.zero;
-                    hook.hitDistance = 0;  
-                }
-                hookPoint.isHooked = true;
-
-            }
-            else {
-                hookPoint.isHooked = false;
-                hook.hitDistance = 1;
-            }
-            
-
+        foreach (var item in animator.GetBehaviours<GrappleBaseState>()) {
+            item.SetContext(this, animator, this, hook);
         }
     }
+
+    //private void LateUpdate() {
+
+    //    if (debugMode) {
+    //        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown("ShootPS4") || Input.GetButtonDown("ShootXBOX")) {
+    //            HookShooting();
+    //            if (!hook.shooted)
+    //                InstantiateRope();
+    //        }
+    //        if (hook.shooted) {
+    //            if (Input.GetKeyDown(KeyCode.Z))
+    //                UpdatePoints();
+    //            if (Input.GetKeyDown(KeyCode.X))
+    //                UpdateHook();
+    //            if (Input.GetKeyDown(KeyCode.C))
+    //                UpdateLinks();
+    //        }
+    //    }
+    //    else {
+    //        if (Input.GetKeyDown(KeyCode.Mouse0) /*|| Input.GetButtonDown("ShootPS4")*/ || Input.GetButtonDown("ShootXBOX")) {
+    //            HookShooting();
+    //            if (!hook.shooted)
+    //                InstantiateRope();
+    //        }
+    //        if (hook.shooted) {
+    //            if (!Input.GetKeyDown(KeyCode.Mouse1) || !Input.GetButtonDown("ShootXBOX")) {
+    //                UpdatePoints(); //PROBLEM HERE
+    //                UpdateHook();
+    //                UpdateLinks();
+    //            }
+    //            if ((Input.GetKey(KeyCode.Mouse1) && !Input.GetKeyUp(KeyCode.Mouse1)) /* || (Input.GetButton("ShootPS4") && !Input.GetButtonUp("ShootPS4"))*/ || (Input.GetButton("ShootXBOX") && !Input.GetButtonUp("ShootXBOX"))) {
+    //                RewindPoints();
+    //            }
+
+    //            if (Input.GetButtonDown("UnhookPS4") || Input.GetButtonDown("UnhookXBOX"))
+    //            {
+    //                while (hook.shooted)
+    //                {
+    //                    RewindPoints();
+    //                }
+    //            }
+
+    //        }
+
+    //        if (hook.shooted && !hook.isHooked) {
+    //            hit = hook.RaycastCollsion();
+
+    //            if (hit.transform != null && hit.transform.GetComponent<HookPoint>()) {
+    //                hookPoint = hit.transform.GetComponent<HookPoint>();
+    //                hook.isHooked = true;
+    //            }
+    //            else {
+    //                //UpdateHook();
+                    
+    //                //Debug.Log("Missing Target");
+                    
+
+    //            }
+    //        }
+
+    //        if (hook.shooted && hook.ropeFinished && !hook.isHooked) {
+    //            //hook.hitDistance = 0;
+    //        }
+    //        else {
+    //            hook.hitDistance = 1;
+    //        }
+
+
+    //        if (hook.isHooked) {
+    //            if (!hookPoint.isHooked) {
+                    
+    //                hook.transform.position = hit.transform.position;
+    //                hook.Inertia = Vector3.zero;
+    //                hook.hitDistance = 0;  
+    //            }
+    //            hookPoint.isHooked = true;
+
+    //        }
+    //        else {
+    //            if (hookPoint != null) {
+    //                hookPoint.isHooked = false;
+    //            }
+    //            hook.hitDistance = 1;
+    //        }
+    //    }
+    //}
 
 
     public void InstantiateRope() {
@@ -183,7 +184,7 @@ public class GrappleManager : MonoBehaviour
         Vector3 direction = Vector3.zero;
         Vector3 movement = Vector3.zero;
 
-        RopeNode massPoint = RopeNodes[RopeNodes.Count - 1] as RopeNode;
+        RopeNode massPoint = RopeNodes[RopeNodes.Count - 1] as RopeNode; //Problem here
         RopeNode nextMassPoint;
         
         massPoint.OldPos = massPoint.transform.position;
