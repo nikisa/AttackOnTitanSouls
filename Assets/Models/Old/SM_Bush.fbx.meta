@@ -1,26 +1,26 @@
 fileFormatVersion: 2
-guid: babcd14ea862edd419f290320f447c5a
+guid: 25ecc2dfc1df5ca469521e7b600a3582
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: SM_frond_02_LP3
+    100002: SM_Frond
     100004: SM_Leaves
     400000: //RootNode
-    400002: SM_frond_02_LP3
+    400002: SM_Frond
     400004: SM_Leaves
-    2100000: lambert26
+    2100000: lambert3
     2100002: lambert4
-    2100004: lambert19
-    2300000: SM_frond_02_LP3
+    2100004: lambert2
+    2300000: SM_Frond
     2300002: SM_Leaves
-    3300000: SM_frond_02_LP3
+    3300000: SM_Frond
     3300002: SM_Leaves
     4300000: SM_Leaves
-    4300002: SM_frond_02_LP3
+    4300002: SM_Frond
   externalObjects: {}
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
