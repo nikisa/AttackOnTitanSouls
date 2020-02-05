@@ -75,6 +75,7 @@ public class FirstBossChaseState : FirstBossState
         // MaxSpeed / (MaxSpeed / AccelerationTime) = 1/DD
         // DD = 1/AccelerationTime
 
+        boss.MoveSpeed = (chaseData.MaxSpeed / chaseData.TimeAcceleration * Time.deltaTime);
         chaseData.DynamicDrag = (chaseData.MaxSpeed - boss.MoveSpeed) / chaseData.MaxSpeed;
         boss.vectorAngle = Target.transform.position - boss.transform.position;
         boss.OldPos = boss.transform.position;

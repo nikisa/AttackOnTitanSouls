@@ -90,7 +90,7 @@ public class HookPoint : HookPointManager , IGrappable , IKiller
                 }
 
                 BreakPointsCount++;
-                currentLife = BreakPoints[BreakPointsCount].lifeMax;
+                currentLife = BreakPoints[BreakPointsCount].lifeMax; //ERRORE DOVUTO ALL'AGGIORNAMENTO DI BREAKPOINTS COUNT DOPO AVER ELIMINATO L'ULTIMA VITA DELLA MASCHERA
                 GameObject mask = Instantiate(graphics[BreakPointsCount].gameObject , transform.position - new Vector3(0, 1.375f, 0), transform.rotation);
                 mask.transform.SetParent(transform);
                 ParticleSystem particle = Instantiate(particles[BreakPointsCount-1] as ParticleSystem, transform.position, Quaternion.identity);
