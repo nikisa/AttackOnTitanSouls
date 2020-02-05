@@ -14,12 +14,14 @@ public class PlayerController : MonoBehaviour
     public static GameEvent VictoryEvent;
     public static GameEvent TimerEvent;
     public static GameEvent DmgEvent;
+    public static GameEvent DisableInputEvent;
 
     private void OnEnable() {
         DeathEvent += PlayerDeath;
         VictoryEvent += Victory;
         TimerEvent += StartTimerDash;
         DmgEvent += TakeDmg;
+        DisableInputEvent += DisableInputCall;
     }
 
     private void OnDisable() {
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
         VictoryEvent -= Victory;
         TimerEvent -= StartTimerDash;
         DmgEvent -= TakeDmg;
+        DisableInputEvent -= DisableInputCall;
     }
 
     //Inspector
@@ -40,6 +43,7 @@ public class PlayerController : MonoBehaviour
     public BossOrbitManager bossOrbitManager;
     public TargetType playerTarget;
     public UiManager uiManager;
+    public float TimeInputDisable;
     [Range(0,1)]
     public float DeadZoneValue;
 
@@ -76,7 +80,8 @@ public class PlayerController : MonoBehaviour
     public int Lifes;
     //[HideInInspector]
     public float forwardVelocity;
-
+    [HideInInspector]
+    public bool InputDisable;
     //Private
     Camera camera;
     [HideInInspector]
@@ -105,9 +110,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update() 
     {
-        CheckInput();
-        SetAnimationParameter();
-        InputDetection();
+        if (!InputDisable) // momentaneo da sistemare
+        {
+            CheckInput();
+            SetAnimationParameter();
+            InputDetection();
+        }
+      
     }
 
     void CalculateOrientationFromMouse()
@@ -266,7 +275,16 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(InvicibleSecond(2f));
         }
     }
-
+    public void DisableInputCall()
+    {
+        StartCoroutine(InputDisableCourutine());
+    }
+    public IEnumerator InputDisableCourutine()
+    {
+        InputDisable = true;
+        yield return new WaitForSeconds(TimeInputDisable);
+        InputDisable = false;
+    }
     public void DashDeceleration(float _horizontal , float _vertical ,float _decelerationTime , float _dashDistance , float _dashTime) {
 
         Vector3 direction = new Vector3(_horizontal , 0 , _vertical);
@@ -364,6 +382,11 @@ public class PlayerController : MonoBehaviour
 
         Quaternion moveRotation = Quaternion.AngleAxis(movementVelocity.magnitude * movimentRatio, rotationAxis);
         body.transform.rotation = moveRotation * rotationTransform.rotation;
+    }
+    public void StopPlayer()
+    {
+        forwardVelocity = 0;
+        movementVelocity = Vector3.zero;
     }
 
     public void StartTimerDash()
