@@ -1,42 +1,17 @@
 fileFormatVersion: 2
-guid: 67766c75e11114f49876ff6b5831b133
+guid: b1059cca4dba07b42897ae89ed7f271c
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: SM_Baffi_LP
-    100004: SM_Body_LP
-    100006: SM_Cap_LP
-    100008: SM_Ears_LP
-    100010: SM_Eyes_LP
     400000: //RootNode
-    400002: SM_Baffi_LP
-    400004: SM_Body_LP
-    400006: SM_Cap_LP
-    400008: SM_Ears_LP
-    400010: SM_Eyes_LP
-    2100000: lambert2
+    2100000: lambert1
     2300000: //RootNode
-    2300002: SM_Baffi_LP
-    2300004: SM_Body_LP
-    2300006: SM_Cap_LP
-    2300008: SM_Ears_LP
-    2300010: SM_Eyes_LP
     3300000: //RootNode
-    3300002: SM_Baffi_LP
-    3300004: SM_Body_LP
-    3300006: SM_Cap_LP
-    3300008: SM_Ears_LP
-    3300010: SM_Eyes_LP
-    4300000: SM_FaceStatue_LP
-    4300002: SM_Eyes_LP
-    4300004: SM_Body_LP
-    4300006: SM_Baffi_LP
-    4300008: SM_Cap_LP
-    4300010: SM_Ears_LP
+    4300000: SM_FaceStatue3
   externalObjects: {}
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
