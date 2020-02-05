@@ -10,6 +10,7 @@ public class BossController : MonoBehaviour
     public BossView View;
     public PlayerController Player;
     public GameObject Graphics;
+    public Collider bossCollider;
    
     //Public
     [HideInInspector]

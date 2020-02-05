@@ -13,42 +13,27 @@ public class FirstBossBounceState : FirstBossState
     float distance;
     float freezeTimeStart;
     float waitOnStartTimeStart;
-    Vector3 angle;
     Vector3 hitNormal;
     Vector3 stopPoint;
     Vector3 middlePoint;
     int HookPointLayerMask;
+    Vector3 hitObjectPosition;
+    Vector3 direction;
 
     public override void Enter() {
 
-        HookPointLayerMask = 1 << 10 | 1 << 11;
-
-        //freezeTimeStart = Time.time;
-        //hitNormal = boss.hitObject.normal;
-        //angle = Quaternion.AngleAxis(180 - bounceData.BounceAngle, Vector3.up) * hitNormal;
-        //distance = (Mathf.Pow(boss.MoveSpeed, 2) / (2 * bounceData.Deceleration))/10;
-        //stopPoint = angle * distance;
-        //Instantiate(Objecttt , stopPoint , Quaternion.identity);
-        //Debug.LogFormat("Velocità: {0} , Distance: {1} , StopPoint: {2}" , boss.MoveSpeed , distance ,stopPoint);
+        freezeTimeStart = Time.time;
+        hitObjectPosition = boss.hitObject.collider.ClosestPoint(boss.transform.position);
+        direction = boss.transform.position - hitObjectPosition;
+        direction = Quaternion.Euler(0, bounceData.BounceAngle , 0) * direction;
+        Debug.DrawRay(boss.transform.position, direction * 10, Color.red, 10);
+        distance = (Mathf.Pow(boss.MoveSpeed, 2) / (2 * bounceData.Deceleration)) / 10;
+        stopPoint = (boss.transform.position + (direction * distance));
+        Instantiate(Objecttt, stopPoint, Quaternion.identity);
+        Debug.LogFormat("Velocità: {0} , Distance: {1} , StopPoint: {2}", boss.MoveSpeed, distance, stopPoint);
     }
 
     public override void Tick() {
-        int iteration = 10;
-        float skin = 4.2f;
-        
-
-        int interpolation = iteration;//(int)(MoveSpeed / 1f);
-
-        for (int i = 0; i < interpolation; i++) {
-
-            float time = Time.deltaTime / interpolation;
-            RaycastHit[] hits = Physics.SphereCastAll(boss.transform.position + Vector3.up * 1.1f, skin, boss.MoveSpeed * Vector3.forward, (boss.MoveSpeed * time), HookPointLayerMask);
-
-            if (hits != null || hits.Length != 0) {
-                boss.hitObject = hits[0];
-                Debug.LogFormat("Hit point:{0} ---- Object Hit:{1} ---- Object Transform:{2}", boss.hitObject.point, boss.hitObject.transform.gameObject.name, boss.hitObject.transform.position);
-            }
-        }
     }
 
     public override void Exit() {
