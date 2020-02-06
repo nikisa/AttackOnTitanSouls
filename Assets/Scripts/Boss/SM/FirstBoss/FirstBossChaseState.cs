@@ -8,6 +8,10 @@ public class FirstBossChaseState : FirstBossState
     public ChaseData chaseData;
 
     //Private 
+    int iterations;
+    int layerResult;
+    int layerWall;
+    int layerPlayer;
     float maxSpeed;
     float startY;
     float timeStartAcceleration;
@@ -19,6 +23,10 @@ public class FirstBossChaseState : FirstBossState
 
     public override void Enter()
     {
+        iterations = 30;
+        layerWall = 10;
+        layerPlayer = 11;
+
         Target = chaseData.Target.instance;
         OrbitTag(chaseData);
         AccelerationEnter();
@@ -74,13 +82,28 @@ public class FirstBossChaseState : FirstBossState
         // Acceleration = MaxSpeed / AccelerationTime
         // MaxSpeed / (MaxSpeed / AccelerationTime) = 1/DD
         // DD = 1/AccelerationTime
-
-        boss.MoveSpeed = (chaseData.MaxSpeed / chaseData.TimeAcceleration * Time.deltaTime);
+        boss.VelocityVector = boss.OldPos - boss.transform.position;
+        //boss.MoveSpeed = (chaseData.MaxSpeed / chaseData.TimeAcceleration * Time.deltaTime);
         chaseData.DynamicDrag = (chaseData.MaxSpeed - boss.MoveSpeed) / chaseData.MaxSpeed;
         boss.vectorAngle = Target.transform.position - boss.transform.position;
         boss.OldPos = boss.transform.position;
         boss.transform.position = boss.transform.position + boss.Inertia + boss.MoveSpeed * boss.vectorAngle.normalized * Time.deltaTime;
         boss.Inertia = (boss.transform.position - boss.OldPos) * (chaseData.DynamicDrag);
+
+
+
+        layerResult = boss.MovingDetectCollision(iterations);
+
+        if (layerResult == layerWall) {
+            animator.SetInteger("Layer", layerResult);
+        }
+        else {
+            if (layerResult == layerPlayer) {
+                if (!boss.Player.IsImmortal) {
+                    PlayerController.DmgEvent();
+                }
+            }
+        }
     }
 
     //Does an acceleration when starts chasing the target

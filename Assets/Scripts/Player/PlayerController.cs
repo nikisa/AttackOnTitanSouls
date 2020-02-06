@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     //Inspector
     public DataInput dataInput;
     public Animator animator;
+    public Animator graphicAnimator;
     public CharacterController controller;
     public Transform rotationTransform;
     public GameObject body;
@@ -103,8 +104,8 @@ public class PlayerController : MonoBehaviour
         canDash = true;
         camera = Camera.main;
         
-        foreach (var item in animator.GetBehaviours<BaseState>()) {
-            item.SetContext(this, animator);
+        foreach (var item in animator.GetBehaviours<PlayerBaseState>()) {
+            item.SetContext(this, animator,  graphicAnimator);
         }
     }
 
@@ -134,8 +135,8 @@ public class PlayerController : MonoBehaviour
     }
 
     public void SetAnimationParameter() {
-        animator.SetFloat("Horizontal", (Input.GetAxis("Horizontal")) * Mathf.Cos(GetLeftAnalogAngle()));
-        animator.SetFloat("Vertical", Input.GetAxis("Vertical") * Mathf.Sin(GetLeftAnalogAngle()));
+        graphicAnimator.SetFloat("Horizontal", (Input.GetAxis("Horizontal")) * Mathf.Cos(GetLeftAnalogAngle()));
+        graphicAnimator.SetFloat("Vertical", Input.GetAxis("Vertical") * Mathf.Sin(GetLeftAnalogAngle()));
     }
 
     public float GetLeftAnalogAngle() {
@@ -241,8 +242,6 @@ public class PlayerController : MonoBehaviour
 
 
     public void Deceleration(float _deceleration) {
-
-
 
         if (movementVelocity.x < _deceleration * Time.deltaTime)
             movementVelocity.x = movementVelocity.x - _deceleration * Time.deltaTime;

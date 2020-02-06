@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c80ca171136c24ba4cb364c1883eab, type: 3}
   m_Name: BounceData 1
   m_EditorClassIdentifier: 
-  Time: 0
+  Time: 10.492921
   OrbitTag: 0
   impactFreeze: 0
   shakeMagnitude: 0
   kinetikEnergyLoss: 0
   WaitOnStart: 0
-  Deceleration: 10
+  Deceleration: 1
   BounceAngle: 45

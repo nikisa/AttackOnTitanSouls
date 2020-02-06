@@ -7,9 +7,14 @@ public class FirstBossBounceState : FirstBossState
 
     //Inspector
     public BounceData bounceData;
-    public GameObject Objecttt; 
+    public GameObject Objecttt;
 
     //Private
+    int layerResult;
+    int iterations;
+    int layerWall;
+    int layerPlayer;
+
     float distance;
     float freezeTimeStart;
     float waitOnStartTimeStart;
@@ -25,11 +30,16 @@ public class FirstBossBounceState : FirstBossState
     Vector3 directionAB;
     float vectorAH;
     float vectorAB;
-
     [Range(0, 1)]
     public float lerpValue;
 
     public override void Enter() {
+
+        iterations = 30;
+        layerWall = 10;
+        layerPlayer = 11;
+        lerpValue = 0;
+
 
         freezeTimeStart = Time.time;
         speed = boss.MoveSpeed - bounceData.kinetikEnergyLoss * boss.MoveSpeed;
@@ -37,12 +47,14 @@ public class FirstBossBounceState : FirstBossState
         direction = boss.transform.position - hitObjectPosition;
         angle = Vector3.SignedAngle(boss.VelocityVector , direction , Vector3.up);
         direction = Quaternion.Euler(0, angle , 0) * direction;
+        boss.VelocityVector = direction;
         Debug.DrawRay(boss.transform.position, boss.VelocityVector * 10, Color.red, 10);
         Debug.DrawRay(boss.transform.position, direction * 10, Color.red, 10);
         distance = (Mathf.Pow(speed, 2) / (2 * bounceData.Deceleration));
         stopPoint = (boss.transform.position + (direction * distance));
-        boss.BouncePointC.transform.position = stopPoint;
 
+
+        boss.BouncePointC.transform.position = stopPoint;
         pointA = boss.transform.position;
         pointH = (boss.transform.position + (direction * (distance / 2)));
         vectorAH = Vector3.Distance(boss.transform.position, pointH);
@@ -52,17 +64,33 @@ public class FirstBossBounceState : FirstBossState
         pointB = ((boss.transform.position + (directionAB.normalized * vectorAB)));
         boss.BouncePointB.transform.position = pointB;
 
-        
     }
 
     public override void Tick() {
+        //speed -= bounceData.Deceleration * Time.deltaTime;
+        //lerpValue +=  Mathf.Abs(speed)/1000 * Time.deltaTime;
         lerpValue += Time.deltaTime;
-        boss.transform.position = Vector3.Lerp(Vector3.Lerp(pointA, boss.BouncePointB.transform.position, lerpValue), Vector3.Lerp(pointA, boss.BouncePointC.transform.position, lerpValue), lerpValue);
 
+        boss.transform.position = Vector3.Lerp(Vector3.Lerp(pointA, boss.BouncePointB.transform.position, lerpValue), Vector3.Lerp(pointA, boss.BouncePointC.transform.position, lerpValue), lerpValue);
+        Timer(bounceData);
+
+
+        layerResult = boss.MovingDetectCollision(iterations);
+
+        if (layerResult == layerWall) {
+            animator.SetInteger("Layer", layerResult);
+        }
+        else {
+            if (layerResult == layerPlayer) {
+                if (!boss.Player.IsImmortal) {
+                    PlayerController.DmgEvent();
+                }
+            }
+        }
     }
 
     public override void Exit() {
-        
+        ResetTimer(bounceData);
     }
 }
 

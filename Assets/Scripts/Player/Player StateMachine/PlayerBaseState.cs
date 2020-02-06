@@ -6,6 +6,7 @@ public class PlayerBaseState : BaseState {
 
     protected BossController boss;
     protected PlayerController player;
+    protected Animator graphicAnimation;
 
 
     //SateMachine Parameters
@@ -18,9 +19,9 @@ public class PlayerBaseState : BaseState {
     protected const string DASH_FRAME_PERFECT = "DashFramePerfect";
 
 
-    public override void SetContext(object context, Animator animator) { //Togliere bossOrbitManager dal Player
-        base.SetContext(context, animator);
+    public void SetContext(object context, Animator animator , Animator graphicAnimation) {
         player = context as PlayerController;
+        this.graphicAnimation = graphicAnimation;
     }
 
     protected void TriggerExitState() {
