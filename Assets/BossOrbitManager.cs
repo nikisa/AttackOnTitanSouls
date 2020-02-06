@@ -97,7 +97,6 @@ public class BossOrbitManager : MonoBehaviour
     //Riempie i CenterRotation basandosi sui OrbitDataManager
     public void SetMasksRotation(List<OrbitManagerData> _orbitManagerList) {
         int orbitCount = 0;
-        Debug.Log("SETMASKS!");
         for (int i = 0; i < _orbitManagerList.Count; i++) {
             for (int y = 0; y < _orbitManagerList[i].orbitData.Count; y++) {
                 if (OrbitList.Count > orbitCount) {

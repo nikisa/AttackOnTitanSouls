@@ -6,6 +6,9 @@ public class FirstBossController : BossController
 {
     //Inspector
     public BossOrbitManager bossOrbitManager;
+    public GameObject BouncePointC;
+    public GameObject BouncePointB;
+    
 
     //Public
     [HideInInspector]
@@ -14,6 +17,8 @@ public class FirstBossController : BossController
     public Vector3 OldPos;
     [HideInInspector]
     public Vector3 Inertia;
+    [HideInInspector]
+    public Vector3 VelocityVector;
 
     //[HideInInspector]
     public int loops;

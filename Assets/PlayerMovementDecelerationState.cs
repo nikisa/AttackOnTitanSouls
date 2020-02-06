@@ -25,12 +25,9 @@ public class PlayerMovementDecelerationState : PlayerBaseState
 
     public override void Tick() {
 
-
-
         player.Deceleration(decelRatePerSec);
 
-
-        if (player.newInput /*|| player.movementSpeed == 0*/) {
+        if (player.newInput || player.movementVelocity == Vector3.zero) {
             animator.SetTrigger(IDLE);
         }
 

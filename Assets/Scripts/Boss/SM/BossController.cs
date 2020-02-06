@@ -10,7 +10,8 @@ public class BossController : MonoBehaviour
     public BossView View;
     public PlayerController Player;
     public GameObject Graphics;
-
+    public Collider bossCollider;
+   
     //Public
     [HideInInspector]
     public float MoveSpeed;
@@ -108,7 +109,7 @@ public class BossController : MonoBehaviour
             {
                 result = hits[0].collider.gameObject.layer;
                 hitObject = hits[0];
-                Debug.LogFormat("Hit point:{0} ---- Object Hit:{1} ---- Object Transform:{2}", hitObject.point, hitObject.transform.gameObject.name, hitObject.transform.position);
+                //Debug.LogFormat("Hit point:{0} ---- Object Hit:{1} ---- Object Transform:{2}", hitObject.point, hitObject.transform.gameObject.name, hitObject.transform.position);
             }
         }
         return result;

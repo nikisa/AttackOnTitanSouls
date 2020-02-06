@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class PlayerIdleState : PlayerBaseState {
+public class PlayerIdleState : PlayerBaseState
+{
 
     //Inspector
     public PlayerIdleData playerIdleData;
@@ -27,7 +29,8 @@ public class PlayerIdleState : PlayerBaseState {
     DataInput dataInput;
 
 
-    public override void Enter() {
+    public override void Enter()
+    {
 
         playerDashData = player.playerDashData;
 
@@ -39,52 +42,56 @@ public class PlayerIdleState : PlayerBaseState {
         forwardVelocity = 0f;
     }
 
-    public override void Tick() {
+    public override void Tick()
+    {
 
-        Debug.Log(player.newInput);
+        if (!player.InputDisable)
+        {
 
-        Debug.Log("SPEED: " + player.dashMovementSpeed);
+            player.PlayerInclination();
 
+            if (player.newInput)
+            {
+                player.Movement();
+            }
+            else if (player.movementVelocity != Vector3.zero)
+            {
+                // player.forwardVelocity = 0;
+                animator.SetTrigger(MOVEMENT_DECELERATION);
+            }
+
+            if (Time.time - player.timerDash > playerDashData.EnableDashAt)
+            {
+                player.canDash = true;
+            }
+            //else {
+            //    player.canDash = false;
+            //}
+
+            dataInput = player.dataInput;
+
+            if (dataInput.Dash && player.canDash /*&& ((dataInput.Horizontal == 1 || dataInput.Horizontal == -1) || (dataInput.Vertical == 1 || dataInput.Vertical == -1))*/ )
+            {
+                startDash = Time.time;
+                player.canDash = false;
+                player.horizontalDash = player.dataInput.Horizontal;
+                player.verticalDash = player.dataInput.Vertical;
+                animator.SetTrigger(DASH);
+            }
+
+            if (Mathf.Pow(dataInput.Horizontal, 2) + Mathf.Pow(dataInput.Vertical, 2) >= Mathf.Pow(player.DeadZoneValue, 2))
+            {
+                //player.ReadInputGamepad(dataInput, accelRatePerSec , playerIdleData.maxSpeed);
+                player.ReadInputKeyboard(dataInput, accelRatePerSec, playerIdleData.maxSpeed);
+            }
+        }
         //player.CheckInput();
 
-        player.PlayerInclination();
-
-        if (player.newInput) {
-            
-            player.Movement();
-        }
-        else {
-            animator.SetTrigger(MOVEMENT_DECELERATION);
-        }
-
-        if (Time.time - player.timerDash > playerDashData.EnableDashAt) {
-            player.canDash = true;
-        }
-        //else {
-        //    player.canDash = false;
-        //}
-
-        dataInput = player.dataInput;
-
-        if (dataInput.Dash && player.canDash /*&& ((dataInput.Horizontal == 1 || dataInput.Horizontal == -1) || (dataInput.Vertical == 1 || dataInput.Vertical == -1))*/ )
-        {
-            startDash = Time.time;
-            player.canDash = false;
-            player.horizontalDash = player.dataInput.Horizontal;
-            player.verticalDash = player.dataInput.Vertical;
-            animator.SetTrigger(DASH);
-        }
-
-        //if (dataInput.Vertical != 0 || dataInput.Horizontal != 0) {
-            //player.ReadInputGamepad(dataInput , accelRatePerSec);
-            player.ReadInputKeyboard(dataInput , accelRatePerSec , playerIdleData.maxSpeed);
-        //}
-
     }
-    
 
-    public override void Exit() {
-        
+
+    public override void Exit()
+    {
+
     }
 }
-

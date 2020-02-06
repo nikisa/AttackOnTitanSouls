@@ -14,12 +14,14 @@ public class PlayerController : MonoBehaviour
     public static GameEvent VictoryEvent;
     public static GameEvent TimerEvent;
     public static GameEvent DmgEvent;
+    public static GameEvent DisableInputEvent;
 
     private void OnEnable() {
         DeathEvent += PlayerDeath;
         VictoryEvent += Victory;
         TimerEvent += StartTimerDash;
         DmgEvent += TakeDmg;
+        DisableInputEvent += DisableInputCall;
     }
 
     private void OnDisable() {
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
         VictoryEvent -= Victory;
         TimerEvent -= StartTimerDash;
         DmgEvent -= TakeDmg;
+        DisableInputEvent -= DisableInputCall;
     }
 
     //Inspector
@@ -34,11 +37,16 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public CharacterController controller;
     public Transform rotationTransform;
-    public Transform body;
+    public GameObject body;
     public float movimentRatio;
     public float DPS;
     public BossOrbitManager bossOrbitManager;
     public TargetType playerTarget;
+    public UiManager uiManager;
+    public float TimeInputDisable;
+    [Range(0,1)]
+    public float DeadZoneValue;
+
 
     //Public
     [HideInInspector]
@@ -66,12 +74,19 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public float timerDash;
     [HideInInspector]
+    public bool IsImmortal;
+    [HideInInspector]
+    public bool ImmortalTutorial;
     public int Lifes;
-
+    //[HideInInspector]
+    public float forwardVelocity;
+    [HideInInspector]
+    public bool InputDisable;
     //Private
     Camera camera;
-    Vector3 movementVelocity = Vector3.zero;
-    public float forwardVelocity;
+    [HideInInspector]
+    public Vector3 movementVelocity = Vector3.zero;
+    
     float timeStart;
     float dashDecelerationVelocity;
     float dashDeceleration;
@@ -84,6 +99,7 @@ public class PlayerController : MonoBehaviour
     }
 
     protected virtual void Start() {
+      
         canDash = true;
         camera = Camera.main;
         
@@ -94,9 +110,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update() 
     {
-        CheckInput();
-        SetAnimationParameter();
-        InputDetection();
+        if (!InputDisable) // momentaneo da sistemare
+        {
+            CheckInput();
+            SetAnimationParameter();
+            InputDetection();
+        }
+      
     }
 
     void CalculateOrientationFromMouse()
@@ -114,20 +134,42 @@ public class PlayerController : MonoBehaviour
     }
 
     public void SetAnimationParameter() {
-        animator.SetFloat("Horizontal", dataInput.Horizontal);
-        animator.SetFloat("Vertical", dataInput.Vertical);
+        animator.SetFloat("Horizontal", (Input.GetAxis("Horizontal")) * Mathf.Cos(GetLeftAnalogAngle()));
+        animator.SetFloat("Vertical", Input.GetAxis("Vertical") * Mathf.Sin(GetLeftAnalogAngle()));
+    }
+
+    public float GetLeftAnalogAngle() {
+        return (Vector2.SignedAngle(new Vector2(1, 0), new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"))) * Mathf.Deg2Rad);
     }
 
     public void CheckInput() {
-        dataInput.Horizontal = Input.GetAxis("Horizontal");
-        dataInput.Vertical = Input.GetAxis("Vertical");
-        dataInput.HorizontalLook = Input.GetAxis("HorizontalLook");
-        dataInput.VerticalLook = Input.GetAxis("VerticalLook");
+        float horizontalMovement = Input.GetAxis("Horizontal");
+        float verticalMovement = Input.GetAxis("Vertical");
+        float horizontalRotation = Input.GetAxis("HorizontalLook");
+        float verticalRotation = Input.GetAxis("VerticalLook");
+
+        if (Mathf.Pow(horizontalRotation, 2) + Mathf.Pow(verticalRotation, 2) >= Mathf.Pow(DeadZoneValue, 2)) {
+            dataInput.HorizontalLook = Input.GetAxis("HorizontalLook");
+            dataInput.VerticalLook = Input.GetAxis("VerticalLook");
+        }
+
+        if (Mathf.Pow(horizontalMovement, 2) + Mathf.Pow(verticalMovement, 2) >= Mathf.Pow(DeadZoneValue, 2)) {
+
+            dataInput.Horizontal = Input.GetAxis("Horizontal");
+            dataInput.Vertical = Input.GetAxis("Vertical");
+            
+        }
+        else {
+            dataInput.Horizontal = 0;
+            dataInput.Vertical = 0;
+        }
+
+
         dataInput.Dash = Input.GetButtonDown("Dash");
 
         Vector3 lookVector = Vector3.right * dataInput.HorizontalLook + Vector3.forward * dataInput.VerticalLook;
 
-        if (lookVector.sqrMagnitude < 0.0001f && Input.GetJoystickNames().Length<=0)
+        if (lookVector.sqrMagnitude < 0.0001f && Input.GetJoystickNames().Length <= 0)
         {
             CalculateOrientationFromMouse();
         }
@@ -135,7 +177,6 @@ public class PlayerController : MonoBehaviour
         {
             dataInput.currentOrientation = Quaternion.LookRotation(lookVector.normalized);
         }
-
     }
 
     public void DoFreeze(float _timeFreeze, float _rallenty) {
@@ -152,7 +193,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("HookPoint")) {
-            PlayerController.DeathEvent();
+            if (!IsImmortal)
+            {
+                PlayerController.DmgEvent();
+            }
         }
     }
 
@@ -197,7 +241,9 @@ public class PlayerController : MonoBehaviour
 
 
     public void Deceleration(float _deceleration) {
-        forwardVelocity = 0;
+
+
+
         if (movementVelocity.x < _deceleration * Time.deltaTime)
             movementVelocity.x = movementVelocity.x - _deceleration * Time.deltaTime;
         else if (movementVelocity.x > -_deceleration * Time.deltaTime)
@@ -217,17 +263,28 @@ public class PlayerController : MonoBehaviour
     }
     public void TakeDmg()
     {
+        Lifes--;
+        uiManager.LifeUpdate(Lifes);
+        
         if (Lifes == 0)
         {
             PlayerDeath();
         }
         else
-        {
-            Lifes--;
+        {            
             StartCoroutine(InvicibleSecond(2f));
         }
     }
-
+    public void DisableInputCall()
+    {
+        StartCoroutine(InputDisableCourutine());
+    }
+    public IEnumerator InputDisableCourutine()
+    {
+        InputDisable = true;
+        yield return new WaitForSeconds(TimeInputDisable);
+        InputDisable = false;
+    }
     public void DashDeceleration(float _horizontal , float _vertical ,float _decelerationTime , float _dashDistance , float _dashTime) {
 
         Vector3 direction = new Vector3(_horizontal , 0 , _vertical);
@@ -237,8 +294,6 @@ public class PlayerController : MonoBehaviour
 
         dashMovementSpeed -= dashDeceleration * Time.deltaTime;
         dashMovementSpeed = Mathf.Clamp(dashMovementSpeed, 0, dashDecelerationVelocity);
-
-
 
         transform.Translate((dashMovementSpeed*Time.deltaTime) * direction);
 
@@ -258,38 +313,21 @@ public class PlayerController : MonoBehaviour
         movementVelocity = Vector3.zero;
        
         // Set vertical movement
-        if (dataInput.Vertical != 0f) {
+        //if (dataInput.Vertical != 0f) {
             forwardVelocity += _acceleration * Time.deltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
-            movementVelocity += Vector3.forward * dataInput.Vertical * forwardVelocity;
-        }
-        
-
-        // Set horizontal movement
-        if (dataInput.Horizontal != 0f) {
-            forwardVelocity += _acceleration * Time.deltaTime;
-            forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
-            movementVelocity += Vector3.right * dataInput.Horizontal * forwardVelocity;
-        }
-
-    }
-
-    public void InputDetection() {
-        if (dataInput.Vertical != 0f || dataInput.Horizontal != 0f) {
-            newInput = true;
-        }
-        else if(dataInput.Vertical != 1f || dataInput.Horizontal != 1f) {
-            newInput = false;
-        }
-
-
-        //if ((dataInput.Horizontal < 0.9f || dataInput.Horizontal > -0.9f) && (dataInput.Vertical < 0.9f || dataInput.Vertical > -0.9f)) {
-        //    newInput = false;
+            movementVelocity += Vector3.forward  * (forwardVelocity * Mathf.Sin(GetLeftAnalogAngle()));
         //}
-
+        
+        // Set horizontal movement
+        //if (dataInput.Horizontal != 0f) {
+            forwardVelocity += _acceleration * Time.deltaTime;
+            forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
+            movementVelocity += Vector3.right * (forwardVelocity * Mathf.Cos(GetLeftAnalogAngle()));
+        //}
     }
 
-    public void ReadInputGamepad(DataInput dataInput, float _acceleration , float _maxSpeed) {
+    public void ReadInputGamepad(DataInput dataInput, float _acceleration, float _maxSpeed) {
 
         movementVelocity = Vector3.zero;
 
@@ -297,17 +335,28 @@ public class PlayerController : MonoBehaviour
         if (dataInput.Vertical != 0f) {
             forwardVelocity += _acceleration * Time.deltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
-            movementVelocity += Vector3.forward * dataInput.Vertical * forwardVelocity;
+            movementVelocity += Vector3.forward /* * dataInput.Vertical*/ * (forwardVelocity * Mathf.Sin(GetLeftAnalogAngle()));
         }
 
         // Set horizontal movement gamepad
         if (dataInput.Horizontal != 0f) {
             forwardVelocity += _acceleration * Time.deltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
-            movementVelocity += Vector3.right * dataInput.Horizontal * forwardVelocity;
+            movementVelocity += Vector3.right /** dataInput.Horizontal*/ * (forwardVelocity * Mathf.Cos(GetLeftAnalogAngle()));
         }
-        newInput = true;
+        //newInput = true;
     }
+
+    public void InputDetection() {
+        if ((dataInput.Vertical > DeadZoneValue || dataInput.Vertical < -DeadZoneValue) || (dataInput.Horizontal > DeadZoneValue || dataInput.Horizontal < -DeadZoneValue)) {
+            newInput = true;
+        }
+        else if((dataInput.Vertical < DeadZoneValue || dataInput.Vertical > -DeadZoneValue) || (dataInput.Horizontal < DeadZoneValue || dataInput.Horizontal > -DeadZoneValue)) {
+            newInput = false;
+        }
+    }
+
+    
 
     public void timeFreeze(float _timeScale)
     {
@@ -330,8 +379,14 @@ public class PlayerController : MonoBehaviour
 
         // Ruoto il personaggio in funzione della del suo movimento
         Vector3 rotationAxis = Quaternion.AngleAxis(90, Vector3.up) * movementVelocity;
+
         Quaternion moveRotation = Quaternion.AngleAxis(movementVelocity.magnitude * movimentRatio, rotationAxis);
-        body.rotation = moveRotation * rotationTransform.rotation;
+        body.transform.rotation = moveRotation * rotationTransform.rotation;
+    }
+    public void StopPlayer()
+    {
+        forwardVelocity = 0;
+        movementVelocity = Vector3.zero;
     }
 
     public void StartTimerDash()
@@ -340,6 +395,7 @@ public class PlayerController : MonoBehaviour
         timerDash = Time.time;
     }
     public void PlayerDeath() {
+        Debug.Log("MORTO");
         SceneManager.LoadScene(2);
     }
 
@@ -354,8 +410,22 @@ public class PlayerController : MonoBehaviour
     }
     public IEnumerator InvicibleSecond(float _sec)
     {
-        yield return new WaitForSeconds(_sec);
-
+        IsImmortal = true;
+        // yield return new WaitForSeconds(_sec);
+       
+        body.SetActive(false);
+        yield return new WaitForSeconds(_sec / 6);
+        body.SetActive(true);
+        yield return new WaitForSeconds(_sec / 6);
+        body.SetActive(false);
+        yield return new WaitForSeconds(_sec / 6);
+        body.SetActive(true);
+        yield return new WaitForSeconds(_sec / 6);
+        body.SetActive(false);
+        yield return new WaitForSeconds(_sec / 6);
+        body.SetActive(true);
+        yield return new WaitForSeconds(_sec / 6);
+        IsImmortal = false;
     }
 
 }
