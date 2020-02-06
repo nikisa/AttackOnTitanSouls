@@ -63,6 +63,7 @@ public class FirstBossMoveToState : FirstBossState
     public void ChargeAttack()
     { 
         targetPosition = new Vector3(Target.transform.position.x, startY, Target.transform.position.z);
+        boss.VelocityVector = boss.transform.position - targetPosition;
         boss.RotateTarget(targetPosition);
     }
 

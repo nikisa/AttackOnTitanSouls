@@ -13,27 +13,52 @@ public class FirstBossBounceState : FirstBossState
     float distance;
     float freezeTimeStart;
     float waitOnStartTimeStart;
-    Vector3 hitNormal;
+    float angle;
+    float speed;
     Vector3 stopPoint;
-    Vector3 middlePoint;
-    int HookPointLayerMask;
     Vector3 hitObjectPosition;
     Vector3 direction;
+
+    Vector3 pointA;
+    Vector3 pointH;
+    Vector3 pointB;
+    Vector3 directionAB;
+    float vectorAH;
+    float vectorAB;
+
+    [Range(0, 1)]
+    public float lerpValue;
 
     public override void Enter() {
 
         freezeTimeStart = Time.time;
+        speed = boss.MoveSpeed - bounceData.kinetikEnergyLoss * boss.MoveSpeed;
         hitObjectPosition = boss.hitObject.collider.ClosestPoint(boss.transform.position);
         direction = boss.transform.position - hitObjectPosition;
-        direction = Quaternion.Euler(0, bounceData.BounceAngle , 0) * direction;
+        angle = Vector3.SignedAngle(boss.VelocityVector , direction , Vector3.up);
+        direction = Quaternion.Euler(0, angle , 0) * direction;
+        Debug.DrawRay(boss.transform.position, boss.VelocityVector * 10, Color.red, 10);
         Debug.DrawRay(boss.transform.position, direction * 10, Color.red, 10);
-        distance = (Mathf.Pow(boss.MoveSpeed, 2) / (2 * bounceData.Deceleration)) / 10;
+        distance = (Mathf.Pow(speed, 2) / (2 * bounceData.Deceleration));
         stopPoint = (boss.transform.position + (direction * distance));
-        Instantiate(Objecttt, stopPoint, Quaternion.identity);
-        Debug.LogFormat("Velocità: {0} , Distance: {1} , StopPoint: {2}", boss.MoveSpeed, distance, stopPoint);
+        boss.BouncePointC.transform.position = stopPoint;
+
+        pointA = boss.transform.position;
+        pointH = (boss.transform.position + (direction * (distance / 2)));
+        vectorAH = Vector3.Distance(boss.transform.position, pointH);
+        vectorAB = (vectorAH / Mathf.Sin((90 - bounceData.BounceAngle) * Mathf.Deg2Rad));
+        directionAB = pointH - boss.transform.position;
+        directionAB =  Quaternion.Euler(0, bounceData.BounceAngle ,0) * directionAB;
+        pointB = ((boss.transform.position + (directionAB.normalized * vectorAB)));
+        boss.BouncePointB.transform.position = pointB;
+
+        
     }
 
     public override void Tick() {
+        lerpValue += Time.deltaTime;
+        boss.transform.position = Vector3.Lerp(Vector3.Lerp(pointA, boss.BouncePointB.transform.position, lerpValue), Vector3.Lerp(pointA, boss.BouncePointC.transform.position, lerpValue), lerpValue);
+
     }
 
     public override void Exit() {
