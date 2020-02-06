@@ -91,7 +91,6 @@ public class FirstBossChaseState : FirstBossState
         boss.Inertia = (boss.transform.position - boss.OldPos) * (chaseData.DynamicDrag);
 
 
-
         layerResult = boss.MovingDetectCollision(iterations);
 
         if (layerResult == layerWall) {

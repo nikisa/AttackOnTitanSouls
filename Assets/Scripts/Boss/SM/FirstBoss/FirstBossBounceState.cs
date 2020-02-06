@@ -40,14 +40,13 @@ public class FirstBossBounceState : FirstBossState
         layerPlayer = 11;
         lerpValue = 0;
 
-
         freezeTimeStart = Time.time;
         speed = boss.MoveSpeed - bounceData.kinetikEnergyLoss * boss.MoveSpeed;
         hitObjectPosition = boss.hitObject.collider.ClosestPoint(boss.transform.position);
         direction = boss.transform.position - hitObjectPosition;
         angle = Vector3.SignedAngle(boss.VelocityVector , direction , Vector3.up);
         direction = Quaternion.Euler(0, angle , 0) * direction;
-        boss.VelocityVector = direction;
+        //boss.VelocityVector = direction;
         Debug.DrawRay(boss.transform.position, boss.VelocityVector * 10, Color.red, 10);
         Debug.DrawRay(boss.transform.position, direction * 10, Color.red, 10);
         distance = (Mathf.Pow(speed, 2) / (2 * bounceData.Deceleration));

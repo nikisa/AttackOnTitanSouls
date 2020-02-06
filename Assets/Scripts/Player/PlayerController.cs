@@ -158,7 +158,6 @@ public class PlayerController : MonoBehaviour
 
             dataInput.Horizontal = Input.GetAxis("Horizontal");
             dataInput.Vertical = Input.GetAxis("Vertical");
-            
         }
         else {
             dataInput.Horizontal = 0;

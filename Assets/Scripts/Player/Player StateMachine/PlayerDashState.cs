@@ -47,6 +47,7 @@ public class PlayerDashState : PlayerBaseState
         //    player.timeFreeze(1);
 
         if (!isDashing) {
+            setDashAnimation();
             Dash(playerDashData.ActiveDashTime, playerDashData.ActiveDashDistance, playerDashData.DashDecelerationTime);
         }
         //}
@@ -106,6 +107,12 @@ public class PlayerDashState : PlayerBaseState
                 player.transform.DOMove(player.dashDirection, _DashTimeFrames).SetEase(ease).OnComplete(() => { animator.SetTrigger(DASH_DECELERATION); });
             }
         }
+
+        void setDashAnimation() {
+            player.graphicAnimator.SetFloat("Horizontal", 2);
+            player.graphicAnimator.SetFloat("Vertical", 2);
+        }
+
     }
 
 
