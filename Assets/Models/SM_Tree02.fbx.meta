@@ -69,7 +69,7 @@ ModelImporter:
     4300020: SM_Foliage_SM_Foliage
   externalObjects: {}
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
