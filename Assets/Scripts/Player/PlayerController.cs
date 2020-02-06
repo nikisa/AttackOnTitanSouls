@@ -114,7 +114,6 @@ public class PlayerController : MonoBehaviour
         if (!InputDisable) // momentaneo da sistemare
         {
             CheckInput();
-            SetAnimationParameter();
             InputDetection();
         }
       

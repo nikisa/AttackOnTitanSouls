@@ -21,6 +21,7 @@ public class PlayerBaseState : BaseState {
 
     public void SetContext(object context, Animator animator , Animator graphicAnimation) {
         player = context as PlayerController;
+        this.animator = animator;
         this.graphicAnimation = graphicAnimation;
     }
 

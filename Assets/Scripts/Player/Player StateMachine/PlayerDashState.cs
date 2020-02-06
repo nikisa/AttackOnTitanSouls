@@ -109,8 +109,8 @@ public class PlayerDashState : PlayerBaseState
         }
 
         void setDashAnimation() {
-            player.graphicAnimator.SetFloat("Horizontal", 2);
-            player.graphicAnimator.SetFloat("Vertical", 2);
+            player.graphicAnimator.SetFloat("Horizontal", Mathf.Ceil(Horizontal * 4));
+            player.graphicAnimator.SetFloat("Vertical", Mathf.Ceil(Vertical * 4));
         }
 
     }
