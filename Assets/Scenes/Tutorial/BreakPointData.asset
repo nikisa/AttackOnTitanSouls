@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BreakPointData
   m_EditorClassIdentifier: 
   lifeMax: 500
-  InitialElasticK: 500
-  FinalElasticK: 500
+  InitialElasticK: 100
+  FinalElasticK: 100
   RestoreLifeRatio: 0
