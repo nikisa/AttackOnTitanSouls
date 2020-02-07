@@ -28,10 +28,14 @@ public class BossController : MonoBehaviour
 
     //Private
     int HookPointLayerMask;
+    float bossY;
     Vector3 targetDirection;
     Quaternion bossRotation;
     
     protected virtual void Start() {
+
+        bossY = transform.position.y;
+
         HookPointLayerMask = 1 << 10 | 1 << 11;
         foreach (var item in animator.GetBehaviours<BossBaseState>()) {
             item.SetContext(this, animator);
@@ -39,6 +43,9 @@ public class BossController : MonoBehaviour
         skin = 4.2f;
     }
 
+    private void Update() {
+        transform.position = new Vector3(transform.position.x , bossY , transform.position.z);
+    }
 
     // Boss Movement   
     public void Move()

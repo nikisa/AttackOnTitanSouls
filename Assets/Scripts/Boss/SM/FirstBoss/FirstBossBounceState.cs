@@ -14,6 +14,8 @@ public class FirstBossBounceState : FirstBossState
     int iterations;
     int layerWall;
     int layerPlayer;
+    float timeStartMoveTo;
+    float reinitSphereCastTimer;
 
     float distance;
     float freezeTimeStart;
@@ -23,6 +25,7 @@ public class FirstBossBounceState : FirstBossState
     Vector3 stopPoint;
     Vector3 hitObjectPosition;
     Vector3 direction;
+    Vector3 oldPos;
 
     Vector3 pointA;
     Vector3 pointH;
@@ -35,10 +38,12 @@ public class FirstBossBounceState : FirstBossState
 
     public override void Enter() {
 
-        iterations = 30;
+        iterations = 100;
         layerWall = 10;
         layerPlayer = 11;
         lerpValue = 0;
+        timeStartMoveTo = Time.time;
+        reinitSphereCastTimer = 0.7f;
 
         bounceEnter();
 
@@ -49,14 +54,12 @@ public class FirstBossBounceState : FirstBossState
         //lerpValue +=  Mathf.Abs(speed)/1000 * Time.deltaTime;
 
         lerpValue += Time.deltaTime;
+        boss.transform.position = Vector3.Lerp(Vector3.Lerp(pointA, boss.BouncePointB.transform.position, lerpValue), Vector3.Lerp(pointA, boss.BouncePointC.transform.position, lerpValue), lerpValue);
 
-        //if (boss.MovingDetectCollision(iterations) != layerWall) {
-            boss.transform.position = Vector3.Lerp(Vector3.Lerp(pointA, boss.BouncePointB.transform.position, lerpValue), Vector3.Lerp(pointA, boss.BouncePointC.transform.position, lerpValue), lerpValue);
-        //}
-       
         Timer(bounceData);
 
         bounceDetectCollsion();
+
 
     }
 
@@ -69,14 +72,21 @@ public class FirstBossBounceState : FirstBossState
 
         freezeTimeStart = Time.time;
         speed = boss.MoveSpeed - bounceData.kinetikEnergyLoss * boss.MoveSpeed;
-        hitObjectPosition = boss.hitObject.collider.ClosestPoint(boss.transform.position);
+        hitObjectPosition = boss.hitObject.collider.ClosestPointOnBounds(boss.transform.position);
         direction = boss.transform.position - hitObjectPosition;
         angle = Vector3.SignedAngle(boss.VelocityVector, direction, Vector3.up);
         direction = Quaternion.Euler(0, angle, 0) * direction;
+        //boss.VelocityVector = oldPos - boss.transform.position;
         boss.VelocityVector = direction;
         Debug.DrawRay(boss.transform.position, boss.VelocityVector * 10, Color.red, 10);
         Debug.DrawRay(boss.transform.position, direction * 10, Color.red, 10);
-        distance = (Mathf.Pow(speed, 2) / (2 * bounceData.Deceleration));
+        if (bounceData.kinetikEnergyLoss > 0.8) {
+            distance = (Mathf.Pow(speed, 2) / (2 * bounceData.Deceleration));
+        }
+        else {
+            distance = Mathf.Sqrt((Mathf.Pow(speed, 2) / (2 * bounceData.Deceleration))) / 2;
+        }
+        
         stopPoint = (boss.transform.position + (direction * distance));
 
 
@@ -94,10 +104,13 @@ public class FirstBossBounceState : FirstBossState
     void bounceDetectCollsion() {
         layerResult = boss.MovingDetectCollision(iterations);
 
-        if (layerResult == layerWall) {
+        if (layerResult == layerWall && Time.time - timeStartMoveTo > reinitSphereCastTimer) {
             animator.SetInteger("Layer", layerResult);
         }
         else {
+
+            oldPos = boss.transform.position;
+
             if (layerResult == layerPlayer) {
                 if (!boss.Player.IsImmortal) {
                     PlayerController.DmgEvent();
