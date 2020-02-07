@@ -27,6 +27,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Designers/3D.unity
     guid: 48b23a1accf64a74a82c1918a65edb5b
   - enabled: 1
-    path: Assets/Scenes/Tutorial Room.unity
+    path: Assets/Scenes/Old_Tutorial Room.unity
     guid: e1dc1fe866b3602428c7af87bb0c1724
   m_configObjects: {}
