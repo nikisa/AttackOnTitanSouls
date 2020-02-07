@@ -40,13 +40,40 @@ public class FirstBossBounceState : FirstBossState
         layerPlayer = 11;
         lerpValue = 0;
 
+        bounceEnter();
+
+    }
+
+    public override void Tick() {
+        //speed -= bounceData.Deceleration * Time.deltaTime;
+        //lerpValue +=  Mathf.Abs(speed)/1000 * Time.deltaTime;
+
+        lerpValue += Time.deltaTime;
+
+        //if (boss.MovingDetectCollision(iterations) != layerWall) {
+            boss.transform.position = Vector3.Lerp(Vector3.Lerp(pointA, boss.BouncePointB.transform.position, lerpValue), Vector3.Lerp(pointA, boss.BouncePointC.transform.position, lerpValue), lerpValue);
+        //}
+       
+        Timer(bounceData);
+
+        bounceDetectCollsion();
+
+    }
+
+    public override void Exit() {
+        ResetTimer(bounceData);
+    }
+
+    void bounceEnter() {
+        
+
         freezeTimeStart = Time.time;
         speed = boss.MoveSpeed - bounceData.kinetikEnergyLoss * boss.MoveSpeed;
         hitObjectPosition = boss.hitObject.collider.ClosestPoint(boss.transform.position);
         direction = boss.transform.position - hitObjectPosition;
-        angle = Vector3.SignedAngle(boss.VelocityVector , direction , Vector3.up);
-        direction = Quaternion.Euler(0, angle , 0) * direction;
-        //boss.VelocityVector = direction;
+        angle = Vector3.SignedAngle(boss.VelocityVector, direction, Vector3.up);
+        direction = Quaternion.Euler(0, angle, 0) * direction;
+        boss.VelocityVector = direction;
         Debug.DrawRay(boss.transform.position, boss.VelocityVector * 10, Color.red, 10);
         Debug.DrawRay(boss.transform.position, direction * 10, Color.red, 10);
         distance = (Mathf.Pow(speed, 2) / (2 * bounceData.Deceleration));
@@ -59,21 +86,12 @@ public class FirstBossBounceState : FirstBossState
         vectorAH = Vector3.Distance(boss.transform.position, pointH);
         vectorAB = (vectorAH / Mathf.Sin((90 - bounceData.BounceAngle) * Mathf.Deg2Rad));
         directionAB = pointH - boss.transform.position;
-        directionAB =  Quaternion.Euler(0, bounceData.BounceAngle ,0) * directionAB;
+        directionAB = Quaternion.Euler(0, bounceData.BounceAngle, 0) * directionAB;
         pointB = ((boss.transform.position + (directionAB.normalized * vectorAB)));
         boss.BouncePointB.transform.position = pointB;
-
     }
 
-    public override void Tick() {
-        //speed -= bounceData.Deceleration * Time.deltaTime;
-        //lerpValue +=  Mathf.Abs(speed)/1000 * Time.deltaTime;
-        lerpValue += Time.deltaTime;
-
-        boss.transform.position = Vector3.Lerp(Vector3.Lerp(pointA, boss.BouncePointB.transform.position, lerpValue), Vector3.Lerp(pointA, boss.BouncePointC.transform.position, lerpValue), lerpValue);
-        Timer(bounceData);
-
-
+    void bounceDetectCollsion() {
         layerResult = boss.MovingDetectCollision(iterations);
 
         if (layerResult == layerWall) {
@@ -88,9 +106,6 @@ public class FirstBossBounceState : FirstBossState
         }
     }
 
-    public override void Exit() {
-        ResetTimer(bounceData);
-    }
 }
 
 

@@ -90,7 +90,7 @@ public class BossController : MonoBehaviour
     public int MovingDetectCollision(int _iteration)
     {
         int result = 0;
-        float skin = 4.2f;
+        float skin = 5.2f;
 
         int interpolation = _iteration;//(int)(MoveSpeed / 1f);
 
