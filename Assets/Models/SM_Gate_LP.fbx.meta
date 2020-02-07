@@ -5,13 +5,17 @@ ModelImporter:
   fileIDToRecycleName:
     100000: //RootNode
     100002: SM_Gate_LP
+    100004: SM_Arc_LP
     400000: //RootNode
     400002: SM_Gate_LP
+    400004: SM_Arc_LP
     2100000: lambert1
     2300000: //RootNode
     2300002: SM_Gate_LP
+    2300004: SM_Arc_LP
     3300000: //RootNode
     3300002: SM_Gate_LP
+    3300004: SM_Arc_LP
     4300000: pCube13
     4300002: SM_Arc_LP
     4300004: SM_Gate_LP
@@ -55,7 +59,7 @@ ModelImporter:
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
