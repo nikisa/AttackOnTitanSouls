@@ -58,7 +58,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: joystick button 4
+    positiveButton: 
     altNegativeButton: 
     altPositiveButton: joystick button 0
     gravity: 3
@@ -138,7 +138,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: mouse 1
+    positiveButton: joystick button 4
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
@@ -147,7 +147,11 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
+<<<<<<< HEAD
     axis: 5
+=======
+    axis: 9
+>>>>>>> 24b0a587b9f0a0efeefa641b33c965933588d0d7
     joyNum: 0
   - serializedVersion: 3
     m_Name: Mouse ScrollWheel
