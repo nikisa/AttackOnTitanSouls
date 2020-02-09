@@ -86,16 +86,16 @@ public class HookPoint : HookPointManager , IGrappable , IKiller
                     transform.GetChild(0).gameObject.transform.position = hook.transform.position;
                 }
                 else {
-                    //Destroy(transform.GetChild(0).gameObject);
+                    Destroy(transform.GetChild(0).gameObject);
                 }
 
                 BreakPointsCount++;
                 currentLife = BreakPoints[BreakPointsCount].lifeMax; //ERRORE DOVUTO ALL'AGGIORNAMENTO DI BREAKPOINTS COUNT DOPO AVER ELIMINATO L'ULTIMA VITA DELLA MASCHERA
                 GameObject mask = Instantiate(graphics[BreakPointsCount].gameObject , transform.position - new Vector3(0, 1.375f, 0), transform.rotation);
                 mask.transform.SetParent(transform);
-                ParticleSystem particle = Instantiate(particles[BreakPointsCount-1] as ParticleSystem, transform.position, Quaternion.identity);
+                //ParticleSystem particle = Instantiate(particles[BreakPointsCount-1] as ParticleSystem, transform.position, Quaternion.identity);
                 if (BreakPointsCount == 2) {
-                    particle = Instantiate(particles[BreakPointsCount] as ParticleSystem, transform.position, Quaternion.identity);
+                    //particle = Instantiate(particles[BreakPointsCount] as ParticleSystem, transform.position, Quaternion.identity);
                 }
             }
 
@@ -104,9 +104,6 @@ public class HookPoint : HookPointManager , IGrappable , IKiller
                 //Instantiate(graphics[0], hook.transform.position /*- new Vector3(0, 1.375f, 0)*/, transform.rotation);
             }
 
-            isHooked = false;
-            hook.isHooked = false;
-            hook.hitDistance = 1;
 
             if (BreakPointsCount == graphics.Length && currentLife < 0) {
                 int index;
@@ -126,6 +123,10 @@ public class HookPoint : HookPointManager , IGrappable , IKiller
                 bossOrbitManager.InitialPoints.Remove(bossOrbitManager.InitialPoints[index]);
                 Destroy(bossOrbitManager.EndPoints[index]);
                 bossOrbitManager.EndPoints.Remove(bossOrbitManager.EndPoints[index]);
+
+                isHooked = false;
+                hook.isHooked = false;
+                hook.hitDistance = 1;
 
             }
 
