@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb3acde00be496e4bb3e0d304fc22b6d, type: 3}
-  m_Name: PlayerIdleData
+  m_Script: {fileID: 11500000, guid: d148cdeed6aa2af41ad59f19f1e293e8, type: 3}
+  m_Name: LW_Chase
   m_EditorClassIdentifier: 
-  isHookTest: 0
-  maxSpeed: 18
-  framesZeroToMax: 6
-  framesMaxToZero: 60
-  resumeControl: 0
+  Time: 0
+  OrbitTag: 0
+  Target: {fileID: 11400000, guid: 320bf9f104a0b814481ec323e5fa955a, type: 2}
+  TimeAcceleration: 75
+  MaxSpeed: 30
+  DynamicDrag: 0.9864543

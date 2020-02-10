@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb3acde00be496e4bb3e0d304fc22b6d, type: 3}
-  m_Name: PlayerIdleData
+  m_Script: {fileID: 11500000, guid: e8954b5d4aef23f4296944bdcaee63d5, type: 3}
+  m_Name: LW_GraphAnt
   m_EditorClassIdentifier: 
-  isHookTest: 0
-  maxSpeed: 18
-  framesZeroToMax: 6
-  framesMaxToZero: 60
-  resumeControl: 0
+  Time: 0
+  OrbitTag: 0
+  AnticipationMat: {fileID: 2100000, guid: e9267dea08a8ac84c93674195bcdb5be, type: 2}
+  NormalMat: {fileID: 2100000, guid: 6c5c3e7f6657bca4cac7d63a3a011140, type: 2}

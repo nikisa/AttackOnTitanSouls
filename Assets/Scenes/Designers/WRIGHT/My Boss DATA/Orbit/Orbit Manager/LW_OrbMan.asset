@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8ff377a095d8e7489234f0c610ed5a7, type: 3}
-  m_Name: AWAKE_Orbit00
+  m_Name: LW_OrbMan
   m_EditorClassIdentifier: 
-  AngularAccelerationTime: 1
-  AngularMaxSpeed: -560
-  AngularDecelerationTime: 3
+  AngularAccelerationTime: 2
+  AngularMaxSpeed: 60
+  AngularDecelerationTime: 0
   orbitData:
   - {fileID: 11400000, guid: 6742dd07c37ba4c49828658c40cb5d4a, type: 2}
   - {fileID: 11400000, guid: 6742dd07c37ba4c49828658c40cb5d4a, type: 2}
