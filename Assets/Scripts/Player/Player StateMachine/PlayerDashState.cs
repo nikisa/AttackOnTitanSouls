@@ -24,6 +24,7 @@ public class PlayerDashState : PlayerBaseState
 
 
     public override void Enter() {
+        player.movementVelocity = Vector3.zero;
 
         player.ImmortalTutorial = true;             // rende immortale il player per il dash per il tutorial
 
