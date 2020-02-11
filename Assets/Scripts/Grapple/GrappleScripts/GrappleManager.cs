@@ -67,7 +67,7 @@ public class GrappleManager : MonoBehaviour
                     UpdateHook();
                     UpdateLinks();
                 }
-                if ((Input.GetKey(KeyCode.Mouse1) /* || (Input.GetButton("ShootPS4") && !Input.GetButtonUp("ShootPS4"))*/ || (Input.GetButton("Rewind")))) {
+                if ((Input.GetKey(KeyCode.Mouse1) /* || (Input.GetButton("ShootPS4") && !Input.GetButtonUp("ShootPS4"))*/ || (Input.GetAxis("Rewind") > 0))) {
                     RewindPoints();
                 }
 
