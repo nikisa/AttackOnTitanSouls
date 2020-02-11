@@ -113,8 +113,11 @@ public class PlayerController : MonoBehaviour
     {
         if (!InputDisable) // momentaneo da sistemare
         {
+            
             CheckInput();
             InputDetection();
+            UpdateOriantation();
+            SetAnimationParameter();
         }
       
     }
@@ -134,8 +137,8 @@ public class PlayerController : MonoBehaviour
     }
 
     public void SetAnimationParameter() {
-        graphicAnimator.SetFloat("Horizontal", (Input.GetAxis("Horizontal")) * Mathf.Cos(GetLeftAnalogAngle()));
-        graphicAnimator.SetFloat("Vertical", Input.GetAxis("Vertical") * Mathf.Sin(GetLeftAnalogAngle()));
+        graphicAnimator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
+        graphicAnimator.SetFloat("Vertical", Input.GetAxis("Vertical"));
     }
 
     public float GetLeftAnalogAngle() {
@@ -168,6 +171,7 @@ public class PlayerController : MonoBehaviour
 
         Vector3 lookVector = Vector3.right * dataInput.HorizontalLook + Vector3.forward * dataInput.VerticalLook;
 
+       CalculateOrientationFromMouse();
         if (lookVector.sqrMagnitude < 0.0001f && Input.GetJoystickNames().Length <= 0)
         {
             CalculateOrientationFromMouse();
@@ -372,13 +376,17 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerInclination() {
 
-        rotationTransform.localRotation = dataInput.currentOrientation;
-
+        
         // Ruoto il personaggio in funzione della del suo movimento
         Vector3 rotationAxis = Quaternion.AngleAxis(90, Vector3.up) * movementVelocity;
 
         Quaternion moveRotation = Quaternion.AngleAxis(movementVelocity.magnitude * movimentRatio, rotationAxis);
         body.transform.rotation = moveRotation * rotationTransform.rotation;
+    }
+    public void UpdateOriantation()
+    {
+        rotationTransform.localRotation = dataInput.currentOrientation;
+
     }
     public void StopPlayer()
     {

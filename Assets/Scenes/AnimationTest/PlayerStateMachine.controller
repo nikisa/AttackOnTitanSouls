@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bcc1af27bd4f7d439506a154cbd4e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerIdleData: {fileID: 11400000, guid: d36e252b1560cbf49959eb1e43323fe4, type: 2}
+  playerIdleData: {fileID: 11400000, guid: add8cb54b9eeb6241a506c4b45a4a475, type: 2}
   playerDashData: {fileID: 11400000, guid: abb3cc7c45d1a774aa65855581100875, type: 2}
 --- !u!114 &114373957565802642
 MonoBehaviour:
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14cc820721dd0fb4fa76db8d08360d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerIdleData: {fileID: 11400000, guid: d36e252b1560cbf49959eb1e43323fe4, type: 2}
+  playerIdleData: {fileID: 11400000, guid: add8cb54b9eeb6241a506c4b45a4a475, type: 2}
   playerDashData: {fileID: 0}
 --- !u!114 &114979405422827150
 MonoBehaviour:
@@ -896,7 +896,7 @@ AnimatorStateMachine:
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 408, y: -312, z: 0}
-  m_EntryPosition: {x: 408, y: -24, z: 0}
+  m_EntryPosition: {x: 396, y: -24, z: 0}
   m_ExitPosition: {x: 408, y: -276, z: 0}
   m_ParentStateMachinePosition: {x: 384, y: 252, z: 0}
   m_DefaultState: {fileID: 1102666493404120504}

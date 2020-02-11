@@ -43,7 +43,7 @@ public class PlayerDashDecelerationState : PlayerBaseState
             Horizontal = player.dataInput.Horizontal; /*player.horizontalDash;*/
             Vertical = player.dataInput.Vertical; /*player.verticalDash;*/
 
-            if (Vertical != 0 || Horizontal != 0) {
+            if (Vertical != 0 || Horizontal != 0 || player.dashMovementSpeed == 0) {
                 Debug.Log(player.dashMovementSpeed + " --player.dashMovementSpeed-- ");
                 animator.SetTrigger(IDLE);
             }

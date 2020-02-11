@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PreDashFreeze: 0.033
   ActiveDashDistance: 4.5
-  ActiveDashTime: 0.05
-  DashDecelerationTime: 0.1
+  ActiveDashTime: 0.5
+  DashDecelerationTime: 3
   ResumePlayerInput: 0.25
   EnableDashAt: 0.36
