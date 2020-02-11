@@ -16,9 +16,9 @@ MonoBehaviour:
   AngularMaxSpeed: -560
   AngularDecelerationTime: 3
   orbitData:
-  - {fileID: 11400000, guid: c108dc1acbff77b42accbdb9d0a41c66, type: 2}
-  - {fileID: 11400000, guid: c108dc1acbff77b42accbdb9d0a41c66, type: 2}
-  - {fileID: 11400000, guid: c108dc1acbff77b42accbdb9d0a41c66, type: 2}
-  - {fileID: 11400000, guid: c108dc1acbff77b42accbdb9d0a41c66, type: 2}
-  - {fileID: 11400000, guid: c108dc1acbff77b42accbdb9d0a41c66, type: 2}
+  - {fileID: 11400000, guid: 6742dd07c37ba4c49828658c40cb5d4a, type: 2}
+  - {fileID: 11400000, guid: 6742dd07c37ba4c49828658c40cb5d4a, type: 2}
+  - {fileID: 11400000, guid: 6742dd07c37ba4c49828658c40cb5d4a, type: 2}
+  - {fileID: 11400000, guid: 6742dd07c37ba4c49828658c40cb5d4a, type: 2}
+  - {fileID: 11400000, guid: 6742dd07c37ba4c49828658c40cb5d4a, type: 2}
   CenterRotation: {fileID: 0}

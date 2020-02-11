@@ -11,9 +11,18 @@ public class FirstBossRecoveryState : FirstBossState
 
     //Private
     float timeStartRecovery;
+    int iterations;
+    int layerResult;
+    int layerWall;
+    int layerPlayer;
 
     public override void Enter()
     {
+
+        iterations = 1;
+        layerWall = 10;
+        layerPlayer = 11;
+
         RecoveryInfoEnter();
     }
     public override void Tick()
@@ -21,6 +30,7 @@ public class FirstBossRecoveryState : FirstBossState
         Timer(recoveryData);
         //RecoveryInfoTick();
         DecelerationTick();
+        detectCollsion();
     }
     public override void Exit()
     {
@@ -45,6 +55,17 @@ public class FirstBossRecoveryState : FirstBossState
     //Does a deceleration when finishing the movement
     public void DecelerationTick() {
         boss.Deceleration(decelerationData.TimeDeceleration, decelerationData.LowSpeed , boss.MaxSpeed);
+    }
+
+    void detectCollsion() {
+        layerResult = boss.MovingDetectCollision(iterations);
+        animator.SetInteger("Layer", 0);
+
+        if (layerResult == layerPlayer) {
+            if (!boss.Player.IsImmortal) {
+            PlayerController.DmgEvent();
+            }
+        }
     }
 
 }

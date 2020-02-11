@@ -53,6 +53,7 @@ public class PlayerIdleState : PlayerBaseState
             if (player.newInput)
             {
                 player.Movement();
+                player.SetAnimationParameter();
             }
             else if (player.movementVelocity != Vector3.zero)
             {

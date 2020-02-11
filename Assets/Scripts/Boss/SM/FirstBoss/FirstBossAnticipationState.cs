@@ -9,9 +9,18 @@ public class FirstBossAnticipationState : FirstBossState
 
     //Private
     float timeStartAnticipation;
- 
+    int iterations;
+    int layerResult;
+    int layerWall;
+    int layerPlayer;
+
     public override void Enter()
     {
+        animator.SetInteger("Layer", 0);
+        iterations = 1;
+        layerWall = 10;
+        layerPlayer = 11;
+
         OrbitTag(anticipationData);
         //Se Tag = 0 non reinizializza loops
         if (boss.IsPrevStateReinitialize) {
@@ -26,7 +35,8 @@ public class FirstBossAnticipationState : FirstBossState
     {
         Timer(anticipationData);
         //RotationAccelerationTick();
-       // AnticipationTick();
+        // AnticipationTick();
+        detectCollsion();
 
     }
     public override void Exit()
@@ -61,5 +71,16 @@ public class FirstBossAnticipationState : FirstBossState
         boss.IsPrevStateReinitialize = false;
         animator.SetBool("Anticipation", false);
     }
-    
+
+    void detectCollsion() {
+        layerResult = boss.MovingDetectCollision(iterations);
+        
+
+        if (layerResult == layerPlayer) {
+            if (!boss.Player.IsImmortal) {
+                PlayerController.DmgEvent();
+            }
+        }
+    }
+
 }

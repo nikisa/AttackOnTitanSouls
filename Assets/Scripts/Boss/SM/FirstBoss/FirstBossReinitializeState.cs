@@ -12,8 +12,4 @@ public class FirstBossReinitializeState : FirstBossState
         animator.SetTrigger(END_STATE_TRIGGER);
     }
 
-
-    
-    
-
 }

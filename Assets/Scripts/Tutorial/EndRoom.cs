@@ -38,7 +38,6 @@ public class EndRoom : MonoBehaviour
                 cameraManager.SetActiveNormalCamera(NextCamera);
                 player.transform.position = new Vector3(x, y, z);
                 cameraManager.SetParetCamera(NextCamera);
-
                 // Debug.Log(RespawnPoint.position);   
             }
         }
