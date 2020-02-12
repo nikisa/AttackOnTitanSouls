@@ -36,7 +36,6 @@ public class PlayerDashDecelerationState : PlayerBaseState
 
             if (!IsTimerSet) // da sitemare
             {
-                
                 PlayerController.TimerEvent();
                 IsTimerSet = true;
             }
@@ -46,10 +45,7 @@ public class PlayerDashDecelerationState : PlayerBaseState
             if (Vertical != 0 || Horizontal != 0 || player.dashMovementSpeed == 0) {
                 Debug.Log(player.dashMovementSpeed + " --player.dashMovementSpeed-- ");
                 animator.SetTrigger(IDLE);
-            }
-
-
-            
+            } 
         }
     }
 

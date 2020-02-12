@@ -82,13 +82,29 @@ public class FirstBossChaseState : FirstBossState
         // Acceleration = MaxSpeed / AccelerationTime
         // MaxSpeed / (MaxSpeed / AccelerationTime) = 1/DD
         // DD = 1/AccelerationTime
-        boss.VelocityVector = boss.OldPos - boss.transform.position;
+
+        //boss.AccelerationVector = boss.OldPos - boss.transform.position;
         //boss.MoveSpeed = (chaseData.MaxSpeed / chaseData.TimeAcceleration * Time.deltaTime);
-        chaseData.DynamicDrag = (chaseData.MaxSpeed - boss.MoveSpeed) / chaseData.MaxSpeed;
-        boss.vectorAngle = Target.transform.position - boss.transform.position;
-        boss.OldPos = boss.transform.position;
-        boss.transform.position = boss.transform.position + boss.Inertia + boss.MoveSpeed * boss.vectorAngle.normalized * Time.deltaTime;
-        boss.Inertia = (boss.transform.position - boss.OldPos) * (chaseData.DynamicDrag);
+        //chaseData.DynamicDrag = (chaseData.MaxSpeed - boss.MoveSpeed) / chaseData.MaxSpeed;
+        //boss.vectorAngle = Target.transform.position - boss.transform.position;
+        //boss.OldPos = boss.transform.position;
+        //boss.transform.position = boss.transform.position + boss.Inertia + boss.MoveSpeed * boss.vectorAngle.normalized * Time.deltaTime;
+        //boss.Inertia = (boss.transform.position - boss.OldPos) * (chaseData.DynamicDrag);
+
+        boss.AccelerationVector = new Vector3(Mathf.Cos(boss.vectorAngle) * chaseData.MaxSpeed / chaseData.TimeAcceleration, boss.AccelerationVector.y , Mathf.Sin(boss.vectorAngle) * chaseData.MaxSpeed / chaseData.TimeAcceleration);
+        boss.MaxSpeedVector = new Vector3(Mathf.Cos(boss.vectorAngle) * chaseData.MaxSpeed, boss.AccelerationVector.y, Mathf.Sin(boss.vectorAngle) * chaseData.MaxSpeed);
+
+        if ((boss.VelocityVector * Time.deltaTime + 0.5f * boss.AccelerationVector * Mathf.Pow(Time.deltaTime, 2)).magnitude <= (boss.MaxSpeedVector * Time.deltaTime).magnitude) {
+
+        }
+
+
+        boss.transform.position += boss.VelocityVector * Time.deltaTime + 0.5f * boss.AccelerationVector * Mathf.Pow(Time.deltaTime , 2);
+        boss.VelocityVector += boss.AccelerationVector * Time.deltaTime;
+
+        
+
+        
 
 
         layerResult = boss.MovingDetectCollision(iterations);

@@ -53,7 +53,7 @@ public class FirstBossBounceState : FirstBossState
         //speed -= bounceData.Deceleration * Time.deltaTime;
         //lerpValue +=  Mathf.Abs(speed)/1000 * Time.deltaTime;+
 
-        Debug.DrawRay(boss.transform.position + new Vector3(0, 6, 0), boss.VelocityVector * 10, Color.blue, .1f);
+        Debug.DrawRay(boss.transform.position + new Vector3(0, 6, 0), boss.AccelerationVector * 10, Color.blue, .1f);
 
         lerpValue += Time.deltaTime;
             boss.transform.position = Vector3.Lerp(Vector3.Lerp(pointA, boss.BouncePointB.transform.position, lerpValue), Vector3.Lerp(pointA, boss.BouncePointC.transform.position, lerpValue), lerpValue);
@@ -77,11 +77,11 @@ public class FirstBossBounceState : FirstBossState
         speed = boss.MoveSpeed - bounceData.kinetikEnergyLoss * boss.MoveSpeed;
         hitObjectPosition = boss.hitObject.collider.ClosestPointOnBounds(boss.transform.position);
         direction = boss.transform.position - hitObjectPosition;
-        angle = Vector3.SignedAngle(boss.VelocityVector, direction, Vector3.up);
+        angle = Vector3.SignedAngle(boss.AccelerationVector, direction, Vector3.up);
         direction = Quaternion.Euler(0, angle, 0) * -direction;
-        boss.VelocityVector = boss.transform.position - oldPos;
+        boss.AccelerationVector = boss.transform.position - oldPos;
         //boss.VelocityVector = direction;
-        Debug.DrawRay(boss.transform.position, boss.VelocityVector * 10, Color.red, 3);
+        Debug.DrawRay(boss.transform.position, boss.AccelerationVector * 10, Color.red, 3);
         Debug.DrawRay(boss.transform.position, direction * 10, Color.red, 3);
         if (bounceData.kinetikEnergyLoss > 0.8) {
             distance = (Mathf.Pow(speed, 2) / (2 * bounceData.Deceleration));

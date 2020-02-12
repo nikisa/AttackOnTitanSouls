@@ -42,7 +42,7 @@ public class FirstBossMoveToState : FirstBossState
     }
     public override void Tick()
     {
-        Debug.DrawRay(boss.transform.position + new Vector3(0, 6, 0), boss.VelocityVector * 10, Color.blue, .1f);
+        Debug.DrawRay(boss.transform.position + new Vector3(0, 6, 0), boss.AccelerationVector * 10, Color.blue, .1f);
         Timer(moveToData);
         MoveToTick();
         AccelerationTick();
@@ -64,7 +64,7 @@ public class FirstBossMoveToState : FirstBossState
     public void ChargeAttack()
     { 
         targetPosition = new Vector3(Target.transform.position.x, startY, Target.transform.position.z);
-        boss.VelocityVector = targetPosition - boss.transform.position;
+        boss.AccelerationVector = targetPosition - boss.transform.position;
         boss.RotateTarget(targetPosition);
     }
 
