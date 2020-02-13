@@ -159,6 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114084794568258678
 MonoBehaviour:
@@ -661,6 +662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114425133929176812
 MonoBehaviour:
@@ -785,6 +787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114492777022787142
 MonoBehaviour:
@@ -942,6 +945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 1
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114627314252465794
 MonoBehaviour:
@@ -1055,6 +1059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114707431100679766
 MonoBehaviour:
@@ -1068,6 +1073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114716115484391826
 MonoBehaviour:
@@ -1094,6 +1100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114743565478917866
 MonoBehaviour:
@@ -1195,6 +1202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114855040947668688
 MonoBehaviour:
@@ -1246,6 +1254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114908700531493184
 MonoBehaviour:
@@ -1287,6 +1296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114928458612268202
 MonoBehaviour:
@@ -3925,7 +3935,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: Timer
-    m_EventTreshold: 10
+    m_EventTreshold: 60
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102166547867695698}
   m_Solo: 0
@@ -4891,10 +4901,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: Timer
-    m_EventTreshold: 0
-  - m_ConditionMode: 6
-    m_ConditionEvent: Layer
-    m_EventTreshold: 10
+    m_EventTreshold: 60
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102740173792559248}
   m_Solo: 0

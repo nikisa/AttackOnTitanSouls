@@ -5,6 +5,7 @@ using UnityEngine;
 public class FirstBossChaseState : FirstBossState
 {
     //Inspector
+    public bool Debugging;
     public ChaseData chaseData;
 
     //Private 
@@ -18,6 +19,7 @@ public class FirstBossChaseState : FirstBossState
     float timeStartChase;
     float AngularSpeed;
     float deltaAngle;
+    Vector3 targetDir;
     GameObject Target;
 
 
@@ -91,21 +93,28 @@ public class FirstBossChaseState : FirstBossState
         //boss.transform.position = boss.transform.position + boss.Inertia + boss.MoveSpeed * boss.vectorAngle.normalized * Time.deltaTime;
         //boss.Inertia = (boss.transform.position - boss.OldPos) * (chaseData.DynamicDrag);
 
-        boss.AccelerationVector = new Vector3(Mathf.Cos(boss.vectorAngle) * chaseData.MaxSpeed / chaseData.TimeAcceleration, boss.AccelerationVector.y , Mathf.Sin(boss.vectorAngle) * chaseData.MaxSpeed / chaseData.TimeAcceleration);
-        boss.MaxSpeedVector = new Vector3(Mathf.Cos(boss.vectorAngle) * chaseData.MaxSpeed, boss.AccelerationVector.y, Mathf.Sin(boss.vectorAngle) * chaseData.MaxSpeed);
+        targetDir = Target.transform.position - boss.transform.position;
+        boss.vectorAngle = Vector3.SignedAngle(Vector3.forward, targetDir, Vector3.up) * Mathf.Deg2Rad;
+        boss.AccelerationModule = chaseData.MaxSpeed / chaseData.TimeAcceleration;
+        boss.AccelerationVector = new Vector3(Mathf.Sin(boss.vectorAngle) * boss.AccelerationModule, 0, Mathf.Cos(boss.vectorAngle) * boss.AccelerationModule);
+        //boss.MaxSpeedVector = new Vector3(Mathf.Cos(boss.vectorAngle) * chaseData.MaxSpeed, boss.AccelerationVector.y, Mathf.Sin(boss.vectorAngle) * chaseData.MaxSpeed);
+        boss.Drag = boss.AccelerationModule / chaseData.MaxSpeed * Time.deltaTime;
+        //boss.OldPos = boss.transform.position;
+        boss.transform.localPosition += boss.VelocityVector * Time.deltaTime + 0.5f * boss.AccelerationVector * Mathf.Pow(Time.deltaTime, 2);
+        boss.VelocityVector += boss.AccelerationVector * Time.deltaTime;
+        boss.VelocityVector -= boss.VelocityVector * boss.Drag;
 
-        if ((boss.VelocityVector * Time.deltaTime + 0.5f * boss.AccelerationVector * Mathf.Pow(Time.deltaTime, 2)).magnitude <= (boss.MaxSpeedVector * Time.deltaTime).magnitude) {
-
+        if (Debugging) {
+            Debug.DrawLine(boss.transform.position, boss.transform.position + boss.AccelerationVector, Color.red, .02f);
+            Debug.DrawLine(boss.transform.position, boss.transform.position + boss.VelocityVector, Color.blue, .02f);
+            //Debug.DrawLine(transform.position, Player.transform.position, Color.green, .02f);
+            //Debug.DrawLine(boss.transform.position, boss.MaxSpeedVector, Color.green, .5f);
         }
 
 
-        boss.transform.position += boss.VelocityVector * Time.deltaTime + 0.5f * boss.AccelerationVector * Mathf.Pow(Time.deltaTime , 2);
-        boss.VelocityVector += boss.AccelerationVector * Time.deltaTime;
+        //if ((boss.VelocityVector * Time.deltaTime + 0.5f * boss.AccelerationVector * Mathf.Pow(Time.deltaTime, 2)).magnitude <= (boss.MaxSpeedVector * Time.deltaTime).magnitude) {
 
-        
-
-        
-
+        //}
 
         layerResult = boss.MovingDetectCollision(iterations);
 
