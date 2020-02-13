@@ -6,7 +6,7 @@ public class RolledUpState : GrappleBaseState
 {
 
     public override void Enter() {
-        
+        grappleManager.IsSet = false;
     }
 
     public override void Tick() {
