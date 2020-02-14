@@ -55,6 +55,7 @@ public class FirstBossState : BaseState
     }
     public void ResetTimer(BaseData _baseData)
     {
+     
         _baseData.Time = 0;
         animator.SetFloat(TIMER, _baseData.Time);
     }

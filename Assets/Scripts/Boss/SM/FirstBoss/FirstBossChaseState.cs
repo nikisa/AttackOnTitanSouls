@@ -25,6 +25,7 @@ public class FirstBossChaseState : FirstBossState
 
     public override void Enter()
     {
+        Debug.Log(chaseData.Time + "Timer");
         iterations = 30;
         layerWall = 10;
         layerPlayer = 11;
