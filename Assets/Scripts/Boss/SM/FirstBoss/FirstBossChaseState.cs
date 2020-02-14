@@ -12,6 +12,7 @@ public class FirstBossChaseState : FirstBossState
     int iterations;
     int layerResult;
     int layerWall;
+    int layerCollision;
     int layerPlayer;
     float maxSpeed;
     float startY;
@@ -105,6 +106,7 @@ public class FirstBossChaseState : FirstBossState
         boss.VelocityVector += boss.AccelerationVector * Time.deltaTime;
         boss.VelocityVector -= boss.VelocityVector * boss.Drag;
 
+
         if (Debugging) {
             Debug.DrawLine(boss.transform.position, boss.transform.position + boss.AccelerationVector, Color.red, .02f);
             Debug.DrawLine(boss.transform.position, boss.transform.position + boss.VelocityVector, Color.blue, .02f);
@@ -116,11 +118,14 @@ public class FirstBossChaseState : FirstBossState
         //if ((boss.VelocityVector * Time.deltaTime + 0.5f * boss.AccelerationVector * Mathf.Pow(Time.deltaTime, 2)).magnitude <= (boss.MaxSpeedVector * Time.deltaTime).magnitude) {
 
         //}
-
+        
+        float MoveSpeed = (chaseData.MaxSpeed / chaseData.TimeAcceleration) * Time.deltaTime;
+        Vector3 nextPosition = boss.transform.position + boss.VelocityVector.normalized / MoveSpeed;
         layerResult = boss.MovingDetectPlayer(iterations);
+        layerCollision = boss.MovingDetectCollision(iterations, nextPosition, boss.MoveSpeed);
 
-        if (layerResult == layerWall) {
-            animator.SetInteger("Layer", layerResult);
+        if (layerCollision == layerWall) {
+            animator.SetInteger("Layer", layerCollision);
         }
         else {
             if (layerResult == layerPlayer) {
