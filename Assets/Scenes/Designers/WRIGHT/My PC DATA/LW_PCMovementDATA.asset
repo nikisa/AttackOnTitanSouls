@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isHookTest: 0
   maxSpeed: 18
-  TimeAcceleration: 0
-  TimeDeceleration: 3
+  TimeAcceleration: 0.066
+  TimeDeceleration: 0.1
