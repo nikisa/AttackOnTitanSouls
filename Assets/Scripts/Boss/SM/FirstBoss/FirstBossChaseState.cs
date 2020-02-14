@@ -117,7 +117,7 @@ public class FirstBossChaseState : FirstBossState
 
         //}
 
-        layerResult = boss.MovingDetectCollision(iterations);
+        layerResult = boss.MovingDetectPlayer(iterations);
 
         if (layerResult == layerWall) {
             animator.SetInteger("Layer", layerResult);

@@ -105,7 +105,7 @@ public class FirstBossBounceState : FirstBossState
     }
 
     void bounceDetectCollsion() {
-        layerResult = boss.MovingDetectCollision(iterations);
+        layerResult = boss.MovingDetectPlayer(iterations);
 
         if (layerResult == layerWall && Time.time - timeStartMoveTo > reinitSphereCastTimer) {
             animator.SetInteger("Layer", layerResult);

@@ -73,7 +73,7 @@ public class FirstBossAnticipationState : FirstBossState
     }
 
     void detectCollsion() {
-        layerResult = boss.MovingDetectCollision(iterations);
+        layerResult = boss.MovingDetectPlayer(iterations);
         
 
         if (layerResult == layerPlayer) {

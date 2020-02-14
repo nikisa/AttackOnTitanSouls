@@ -18,11 +18,14 @@ public class FirstBossMoveToState : FirstBossState
     float timeMoveTo;
     int iterations;
     int layerResult;
+    int layerCollision;
 
     int layerWall;
     int layerPlayer;
     float reinitSphereCastTimer;
 
+
+    
 
     public override void Enter()
     {
@@ -80,11 +83,15 @@ public class FirstBossMoveToState : FirstBossState
 
     public void MoveToTick() {
 
-        layerResult = boss.MovingDetectCollision(iterations);
+        layerResult = boss.MovingDetectPlayer(iterations);
 
-        if (layerResult == layerWall && Time.time - timeStartMoveTo > reinitSphereCastTimer)
+
+        Vector3 nextPosition = boss.transform.position + (boss.MoveSpeed * Time.deltaTime) * boss.transform.forward;
+        layerCollision = boss.MovingDetectCollision(iterations, nextPosition, boss.MoveSpeed);
+
+        if (layerCollision == layerWall)
         {
-            animator.SetInteger("Layer", layerResult);
+            animator.SetInteger("Layer", layerCollision);
         }
         else {
 

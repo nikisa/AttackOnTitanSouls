@@ -36,7 +36,7 @@ public class FirtsBossDecelerationState : FirstBossState
 
     public void CollisionTick()
     {
-        if (boss.MovingDetectCollision(iterations) == wallLayer)
+        if (boss.MovingDetectPlayer(iterations) == wallLayer)
         {
             animator.SetTrigger("Collision");
         }
