@@ -25,6 +25,7 @@ public class FirstBossPreFightState : FirstBossState
         {
             animator.SetTrigger(END_STATE_TRIGGER);
         }
+        SetCycleTimer();
     }
 
     public override void Exit() {

@@ -47,6 +47,7 @@ public class FirstBossChaseState : FirstBossState
         ChaseTick();
         //boss.Move();
         SetSpeed();
+        SetCycleTimer();
     }
 
     public override void Exit()
@@ -55,6 +56,7 @@ public class FirstBossChaseState : FirstBossState
         boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
         animator.SetBool("ChaseOrbit", false);
+       
     }
 
     public void AccelerationEnter()

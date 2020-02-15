@@ -28,7 +28,7 @@ public class BossController : MonoBehaviour
     [HideInInspector]
     public GameObject Target;
     [HideInInspector]
-    //public float CycleTimer;
+    public float CycleTimer;
 
     //Private
     int HookPointLayerMask;

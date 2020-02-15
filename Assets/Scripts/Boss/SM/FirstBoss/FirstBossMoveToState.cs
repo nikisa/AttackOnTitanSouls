@@ -51,6 +51,7 @@ public class FirstBossMoveToState : FirstBossState
         MoveToTick();
         AccelerationTick();
         SetSpeed();
+        SetCycleTimer();
     }
 
 

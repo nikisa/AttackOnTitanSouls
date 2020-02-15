@@ -31,6 +31,7 @@ public class FirstBossRecoveryState : FirstBossState
         //RecoveryInfoTick();
       //  DecelerationTick();
         detectCollsion();
+        SetCycleTimer();
     }
     public override void Exit()
     {

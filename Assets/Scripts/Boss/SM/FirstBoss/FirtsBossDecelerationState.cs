@@ -25,6 +25,7 @@ public class FirtsBossDecelerationState : FirstBossState
         // SetSpeed();
         setChaseRadius();
         NewDeceleration();
+        SetCycleTimer();
     }
     //public void DecelerationTick()
     //{

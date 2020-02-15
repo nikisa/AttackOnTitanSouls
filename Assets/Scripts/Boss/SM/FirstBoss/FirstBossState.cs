@@ -59,5 +59,16 @@ public class FirstBossState : BaseState
         _baseData.Time = 0;
         animator.SetFloat(TIMER, _baseData.Time);
     }
+    public void SetCycleTimer()
+    {
+        boss.CycleTimer += Time.deltaTime;
+        animator.SetFloat("CycleTimer", boss.CycleTimer);
+    }
+    public void ResetCycleTimer()
+    {
+
+        boss.CycleTimer = 0;
+        animator.SetFloat("CycleTimer", boss.CycleTimer);
+    }
 
 }
