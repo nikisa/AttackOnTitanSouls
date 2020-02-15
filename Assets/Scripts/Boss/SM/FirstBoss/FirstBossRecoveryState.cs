@@ -29,7 +29,7 @@ public class FirstBossRecoveryState : FirstBossState
     {
         Timer(recoveryData);
         //RecoveryInfoTick();
-        DecelerationTick();
+      //  DecelerationTick();
         detectCollsion();
     }
     public override void Exit()
@@ -53,9 +53,9 @@ public class FirstBossRecoveryState : FirstBossState
     //}
 
     //Does a deceleration when finishing the movement
-    public void DecelerationTick() {
-        boss.Deceleration(decelerationData.TimeDeceleration, decelerationData.LowSpeed , boss.MaxSpeed);
-    }
+    //public void DecelerationTick() {
+    //    boss.Deceleration(decelerationData.TimeDeceleration, decelerationData.LowSpeed , boss.MaxSpeed);
+    //}
 
     void detectCollsion() {
         layerResult = boss.MovingDetectPlayer(iterations);

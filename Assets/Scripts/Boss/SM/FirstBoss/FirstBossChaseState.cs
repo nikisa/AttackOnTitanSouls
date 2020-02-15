@@ -32,6 +32,7 @@ public class FirstBossChaseState : FirstBossState
         layerPlayer = 11;
 
         Target = chaseData.Target.instance;
+        boss.Target = Target;
         OrbitTag(chaseData);
         AccelerationEnter();
         ChaseEnter();

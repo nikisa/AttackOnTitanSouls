@@ -35,10 +35,10 @@ public class GrappleManager : MonoBehaviour
         HookScale = hook.transform.localScale;
         HookRotation = hook.transform.localRotation;
 
-        foreach (var item in animator.GetBehaviours<GrappleBaseState>())
-        {
-            item.SetContext(this, animator, this, hook);
-        }
+        //foreach (var item in animator.GetBehaviours<GrappleBaseState>())
+        //{
+        //    item.SetContext(this, animator, this, hook);
+        //}
     }
 
     private void LateUpdate()

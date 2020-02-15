@@ -24,7 +24,9 @@ public class BossController : MonoBehaviour
     [HideInInspector]
     public float skin;
     [HideInInspector]
-    public RaycastHit hitObject;  
+    public RaycastHit hitObject;
+    [HideInInspector]
+    public GameObject Target;
 
     //Private
     int HookPointLayerMask;
@@ -132,7 +134,7 @@ public class BossController : MonoBehaviour
             //CONTROLLARE CHE IL BOSS SI GIRI IN TEMPO
             RaycastHit[] hits = Physics.SphereCastAll(_nextPosition + Vector3.up * 1.1f, skin, Vector3.forward , _distance * time, HookPointLayerMask);
             Debug.DrawRay(_nextPosition + Vector3.up * 1.1f, transform.forward , Color.red , 0.05f);
-            Debug.Log(_nextPosition);
+
 
 
             if (hits == null || hits.Length == 0) {

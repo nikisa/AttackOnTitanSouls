@@ -38,6 +38,7 @@ public class FirstBossMoveToState : FirstBossState
         reinitSphereCastTimer = 0.05f;
 
         Target = moveToData.Target.instance;
+        boss.Target = Target;
         OrbitTag(moveToData);
         MoveToEnter();
         AccelerationEnter();
