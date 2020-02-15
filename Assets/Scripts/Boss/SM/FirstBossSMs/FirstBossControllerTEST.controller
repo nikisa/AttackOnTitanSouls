@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decelerationData: {fileID: 0}
+  Debugging: 0
 --- !u!114 &114027004295080920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -698,6 +699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decelerationData: {fileID: 11400000, guid: 2ba66c16932cd834c9f7c6b4e9d283bd, type: 2}
+  Debugging: 0
 --- !u!114 &114429568007257006
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -821,6 +823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decelerationData: {fileID: 0}
+  Debugging: 0
 --- !u!114 &114499261225716054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1359,6 +1362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decelerationData: {fileID: 11400000, guid: 2ba66c16932cd834c9f7c6b4e9d283bd, type: 2}
+  Debugging: 0
 --- !u!114 &114987180111801974
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -8357,7 +8361,7 @@ AnimatorStateMachine:
     m_Position: {x: -228, y: 864, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102107109851424314}
-    m_Position: {x: -504, y: 552, z: 0}
+    m_Position: {x: -528, y: 516, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102603361573027344}
     m_Position: {x: 96, y: 672, z: 0}

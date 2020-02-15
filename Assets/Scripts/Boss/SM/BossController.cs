@@ -27,6 +27,8 @@ public class BossController : MonoBehaviour
     public RaycastHit hitObject;
     [HideInInspector]
     public GameObject Target;
+    [HideInInspector]
+    //public float CycleTimer;
 
     //Private
     int HookPointLayerMask;
