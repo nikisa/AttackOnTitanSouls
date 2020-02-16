@@ -508,6 +508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveToData: {fileID: 11400000, guid: 23056390124cd9445a876429d133e66e, type: 2}
+  Debugging: 0
 --- !u!114 &114320492952186574
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -546,6 +547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveToData: {fileID: 11400000, guid: a711c38d733fc594195d726c41790340, type: 2}
+  Debugging: 0
 --- !u!114 &114338676144843490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -610,6 +612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveToData: {fileID: 11400000, guid: 18c3c622ba592e04eae2ab640b311e03, type: 2}
+  Debugging: 0
 --- !u!114 &114405254606361130
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -806,6 +809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveToData: {fileID: 0}
+  Debugging: 0
 --- !u!114 &114496282029536216
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1017,6 +1021,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveToData: {fileID: 11400000, guid: ab99160f1d0298b4693536e47f8bff72, type: 2}
+  Debugging: 0
 --- !u!114 &114698640154293080
 MonoBehaviour:
   m_ObjectHideFlags: 1

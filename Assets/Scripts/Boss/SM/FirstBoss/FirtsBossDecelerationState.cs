@@ -39,7 +39,9 @@ public class FirtsBossDecelerationState : FirstBossState
 
     public void CollisionTick()
     {
-        if (boss.MovingDetectPlayer(iterations) == wallLayer)
+
+        Vector3 nextPosition = boss.transform.position + (boss.MoveSpeed * Time.deltaTime) * boss.transform.forward;
+        if (boss.MovingDetectCollision(iterations , nextPosition , boss.MoveSpeed) == wallLayer)
         {
             animator.SetTrigger("Collision");
         }
@@ -68,6 +70,7 @@ public class FirtsBossDecelerationState : FirstBossState
     public void NewDeceleration()
     {
         boss.DeceleratioModule = decelerationData.Deceleration;
+
         if (boss.VelocityVector.magnitude > boss.DeceleratioModule * Time.deltaTime)
         {
             boss.vectorAngle = Vector3.SignedAngle(Vector3.forward, boss.VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
@@ -77,9 +80,8 @@ public class FirtsBossDecelerationState : FirstBossState
         }
         else 
         {
- 
             boss.VelocityVector = Vector3.zero;
-      
+            animator.SetTrigger(END_STATE_TRIGGER);
         }
 
 

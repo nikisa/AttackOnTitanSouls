@@ -57,6 +57,10 @@ public class BossController : MonoBehaviour
         transform.Translate( Vector3.forward * MoveSpeed * Time.deltaTime);
     }
 
+    public void NewMove() {
+
+    } 
+
     public void NegativeMove() {
         transform.Translate(Vector3.back * MoveSpeed * Time.deltaTime);
     }
