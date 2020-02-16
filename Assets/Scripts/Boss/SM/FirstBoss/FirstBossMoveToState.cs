@@ -85,7 +85,6 @@ public class FirstBossMoveToState : FirstBossState
 
         layerResult = boss.MovingDetectPlayer(iterations);
 
-
         Vector3 nextPosition = boss.transform.position + (boss.MoveSpeed * Time.deltaTime) * boss.transform.forward;
         layerCollision = boss.MovingDetectCollision(iterations, nextPosition, boss.MoveSpeed);
 

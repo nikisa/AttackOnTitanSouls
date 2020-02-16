@@ -7,7 +7,6 @@ public class FirstBossBounceState : FirstBossState
 
     //Inspector
     public BounceData bounceData;
-    public GameObject Objecttt;
 
     //Private
     int layerResult;
@@ -37,7 +36,7 @@ public class FirstBossBounceState : FirstBossState
     public float lerpValue;
 
     public override void Enter() {
-
+        layerResult = 0;
         iterations = 100;
         layerWall = 10;
         layerPlayer = 11;
@@ -67,6 +66,8 @@ public class FirstBossBounceState : FirstBossState
     }
 
     public override void Exit() {
+
+        
         ResetTimer(bounceData);
     }
 
@@ -102,13 +103,19 @@ public class FirstBossBounceState : FirstBossState
         directionAB = Quaternion.Euler(0, bounceData.BounceAngle, 0) * directionAB;
         pointB = ((boss.transform.position + (directionAB.normalized * vectorAB)));
         boss.BouncePointB.transform.position = pointB;
+
     }
 
     void bounceDetectCollsion() {
-        layerResult = boss.MovingDetectPlayer(iterations);
 
-        if (layerResult == layerWall && Time.time - timeStartMoveTo > reinitSphereCastTimer) {
+        Vector3 direction = pointB - boss.transform.position;
+        Vector3 nextPosition = boss.transform.position + direction * speed;
+        layerResult = boss.MovingDetectCollision(iterations , nextPosition , speed);
+
+        if (layerResult == layerWall) {
+            Debug.Log("RE-BOUNCING");
             animator.SetInteger("Layer", layerResult);
+            layerResult = 0;
         }
         else {
 
@@ -120,6 +127,8 @@ public class FirstBossBounceState : FirstBossState
                 }
             }
         }
+
+        
     }
 
 }

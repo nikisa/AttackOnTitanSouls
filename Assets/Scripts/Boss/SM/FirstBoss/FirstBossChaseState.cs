@@ -26,7 +26,6 @@ public class FirstBossChaseState : FirstBossState
 
     public override void Enter()
     {
-        Debug.Log(chaseData.Time + "Timer");
         iterations = 30;
         layerWall = 10;
         layerPlayer = 11;
@@ -126,6 +125,7 @@ public class FirstBossChaseState : FirstBossState
 
         if (layerCollision == layerWall) {
             animator.SetInteger("Layer", layerCollision);
+            Debug.Log("BOUNCING");
         }
         else {
             if (layerResult == layerPlayer) {
