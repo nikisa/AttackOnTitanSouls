@@ -36,7 +36,7 @@ public class FirstBossBounceState : FirstBossState
     public float lerpValue;
 
     public override void Enter() {
-        layerResult = 0;
+        
         iterations = 100;
         layerWall = 10;
         layerPlayer = 11;
@@ -67,7 +67,8 @@ public class FirstBossBounceState : FirstBossState
 
     public override void Exit() {
 
-        
+        layerResult = 0;
+        animator.SetInteger("Layer", layerResult);
         ResetTimer(bounceData);
     }
 
@@ -108,14 +109,16 @@ public class FirstBossBounceState : FirstBossState
 
     void bounceDetectCollsion() {
 
-        Vector3 direction = pointB - boss.transform.position;
-        Vector3 nextPosition = boss.transform.position + direction * speed;
+        Vector3 direction = boss.BouncePointC.transform.position - boss.transform.position;
+        Debug.DrawRay(boss.transform.position, direction , Color.green);
+        Vector3 nextPosition = boss.transform.position + direction.normalized * (speed * Time.deltaTime);
+        Debug.Log("Next Position: " + nextPosition);
+
         layerResult = boss.MovingDetectCollision(iterations , nextPosition , speed);
 
         if (layerResult == layerWall) {
             Debug.Log("RE-BOUNCING");
             animator.SetInteger("Layer", layerResult);
-            layerResult = 0;
         }
         else {
 

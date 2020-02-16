@@ -55,7 +55,10 @@ public class FirstBossChaseState : FirstBossState
         boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
         animator.SetBool("ChaseOrbit", false);
-       
+
+        layerResult = 0;
+        animator.SetInteger("Layer", layerResult);
+
     }
 
     public void AccelerationEnter()
@@ -154,4 +157,6 @@ public class FirstBossChaseState : FirstBossState
     public void SetSpeed() {
         animator.SetFloat("Speed" , boss.MoveSpeed);
     }
+
+    
 }
