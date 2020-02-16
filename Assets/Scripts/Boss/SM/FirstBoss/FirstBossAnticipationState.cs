@@ -16,6 +16,7 @@ public class FirstBossAnticipationState : FirstBossState
 
     public override void Enter()
     {
+        ResetCycleTimer();
         animator.SetInteger("Layer", 0);
         iterations = 1;
         layerWall = 10;

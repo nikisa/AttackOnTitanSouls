@@ -27,6 +27,10 @@ public class FirstBossController : BossController
     public Vector3 MaxSpeedVector;
     [HideInInspector]
     public float Drag;
+    [HideInInspector]
+    public float DeceleratioModule;
+    [HideInInspector]
+    public Vector3 DecelerationVector;
 
     //[HideInInspector]
     public int loops;

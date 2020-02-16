@@ -31,6 +31,7 @@ public class FirstBossChaseState : FirstBossState
         layerPlayer = 11;
 
         Target = chaseData.Target.instance;
+        boss.Target = Target;
         OrbitTag(chaseData);
         AccelerationEnter();
         ChaseEnter();
@@ -45,6 +46,7 @@ public class FirstBossChaseState : FirstBossState
         ChaseTick();
         //boss.Move();
         SetSpeed();
+        SetCycleTimer();
     }
 
     public override void Exit()
@@ -53,6 +55,7 @@ public class FirstBossChaseState : FirstBossState
         boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
         animator.SetBool("ChaseOrbit", false);
+       
     }
 
     public void AccelerationEnter()

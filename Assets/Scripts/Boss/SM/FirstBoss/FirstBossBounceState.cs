@@ -51,7 +51,7 @@ public class FirstBossBounceState : FirstBossState
     public override void Tick() {
         //speed -= bounceData.Deceleration * Time.deltaTime;
         //lerpValue +=  Mathf.Abs(speed)/1000 * Time.deltaTime;+
-
+        SetCycleTimer();
         Debug.DrawRay(boss.transform.position + new Vector3(0, 6, 0), boss.AccelerationVector * 10, Color.blue, .1f);
 
         lerpValue += Time.deltaTime;
