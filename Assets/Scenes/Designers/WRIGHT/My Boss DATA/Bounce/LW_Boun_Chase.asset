@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5c80ca171136c24ba4cb364c1883eab, type: 3}
-  m_Name: BounceData 1
+  m_Name: LW_Boun_Chase
   m_EditorClassIdentifier: 
-  Time: 0
+  Time: 0.0168493
   OrbitTag: 0
-  impactFreeze: 0
-  shakeMagnitude: 0
-  kinetikEnergyLoss: 1
+  impactFreeze: 0.04
+  shakeMagnitude: 5
+  kinetikEnergyLoss: 0.05
   WaitOnStart: 0
-  Deceleration: 1
-  BounceAngle: -45
+  Deceleration: 5
+  BounceAngle: 45

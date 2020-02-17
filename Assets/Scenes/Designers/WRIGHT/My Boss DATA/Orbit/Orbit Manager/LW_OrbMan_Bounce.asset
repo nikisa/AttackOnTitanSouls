@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ff377a095d8e7489234f0c610ed5a7, type: 3}
   m_Name: LW_OrbMan_Bounce
   m_EditorClassIdentifier: 
-  AngularAccelerationTime: 0.033
+  AngularAccelerationTime: 0.15
   AngularMaxSpeed: -360
   AngularDecelerationTime: 1
   orbitData:

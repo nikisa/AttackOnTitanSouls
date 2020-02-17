@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSetup: 0
   SetupRadius: 2
-  HasDeltaRadius: 1
+  HasDeltaRadius: 0
   FinalRadius: 4.5
   TravelTime: 1
   OrbitMoveToEase: 1
