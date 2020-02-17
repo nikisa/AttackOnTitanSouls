@@ -93,12 +93,17 @@ public class PlayerController : MonoBehaviour
     float timeStart;
     float dashDecelerationVelocity;
     float dashDeceleration;
-    
+    #region testing
+
+    CharacterController character; 
+    #endregion
+
     //sghigna
     float minVelocity;
 
     protected virtual void Awake() {
         playerTarget.instance = this.gameObject;
+        character = GetComponent<CharacterController>();
     }
 
     protected virtual void Start() {
@@ -223,10 +228,10 @@ public class PlayerController : MonoBehaviour
             if (hits == null || hits.Length == 0) {
                 transform.Translate(movementVelocity * time);
                 animator.SetBool("isColliding", false);
-
             }
             else {
 
+                character.Move(movementVelocity * time);
                 //NELLO SLOPE NON VA BENE PERCHé CAMBIANDO LA MOVEMENT VELOCITY LO SPHERECAST NON HITTA PIù IL MURO
 
                 //pushable
@@ -237,19 +242,19 @@ public class PlayerController : MonoBehaviour
                     //    }
 
                     //slope
-                    if (hits.Length >= 1) {
+                    //if (hits.Length >= 1) {
 
-                        animator.SetBool("isColliding", true);
-                        animator.ResetTrigger("Dash");
+                    //    animator.SetBool("isColliding", true);
+                    //    animator.ResetTrigger("Dash");
 
-                        var normal = Quaternion.AngleAxis(90, Vector3.up) * hits[0].normal;
-                        Debug.DrawRay(hits[0].point, normal * 4, Color.red, 2);
+                    //    var normal = Quaternion.AngleAxis(90, Vector3.up) * hits[0].normal;
+                    //    Debug.DrawRay(hits[0].point, normal * 4, Color.red, 2);
 
-                        movementVelocity = normal * Vector3.Dot(movementVelocity, normal);
-                        movementVelocity.y = 0;
+                    //    movementVelocity = normal * Vector3.Dot(movementVelocity, normal);
+                    //    movementVelocity.y = 0;
 
-                        transform.Translate(movementVelocity * time);
-                    }
+                    //    transform.Translate(movementVelocity * time);
+                    //}
                 }
             }
         }
