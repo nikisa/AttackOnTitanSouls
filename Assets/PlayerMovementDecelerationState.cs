@@ -19,12 +19,12 @@ public class PlayerMovementDecelerationState : PlayerBaseState
         playerIdleData = player.playerIdleData;
         playerDashData = player.playerDashData;
 
-        decelRatePerSec = -playerIdleData.maxSpeed / (playerIdleData.framesMaxToZero / 60);
+        decelRatePerSec = -playerIdleData.maxSpeed / (playerIdleData.TimeDeceleration);
 
     }
 
     public override void Tick() {
-
+        player.PlayerInclination();
         player.Deceleration(decelRatePerSec);
 
         if (player.newInput || player.movementVelocity == Vector3.zero) {

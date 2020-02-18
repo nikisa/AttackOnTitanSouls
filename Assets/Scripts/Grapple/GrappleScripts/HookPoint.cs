@@ -67,13 +67,13 @@ public class HookPoint : HookPointManager , IGrappable , IKiller
         currentElasticK = Mathf.Lerp(breakPointData.FinalElasticK, breakPointData.InitialElasticK, lifeRatio);
 
         direction = (hook.transform.position - HookPointPivot.position).normalized;
-        movement = direction * springVector / 60;
+        movement = direction * springVector * Time.fixedDeltaTime;
         transform.position -= movement;
         hook.transform.position = transform.position;
         OldPos = transform.position;
         
         if (springVector >= Inertia.magnitude && distance > .2f) {
-            currentLife -= player.DPS / 60;
+            currentLife -= player.DPS * Time.fixedDeltaTime;
             //Debug.Log(currentLife);
         }
 

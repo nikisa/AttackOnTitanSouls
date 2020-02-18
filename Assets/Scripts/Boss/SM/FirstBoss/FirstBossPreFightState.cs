@@ -21,6 +21,11 @@ public class FirstBossPreFightState : FirstBossState
 
             animator.SetTrigger(END_STATE_TRIGGER);
         }
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            animator.SetTrigger(END_STATE_TRIGGER);
+        }
+        SetCycleTimer();
     }
 
     public override void Exit() {

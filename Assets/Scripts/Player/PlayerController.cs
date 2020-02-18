@@ -87,16 +87,23 @@ public class PlayerController : MonoBehaviour
     Camera camera;
     [HideInInspector]
     public Vector3 movementVelocity = Vector3.zero;
-    
+    [HideInInspector]
+    public Vector3 movementDirection = Vector3.zero;
+
     float timeStart;
     float dashDecelerationVelocity;
     float dashDeceleration;
-    
+    #region testing
+
+    CharacterController character; 
+    #endregion
+
     //sghigna
     float minVelocity;
 
     protected virtual void Awake() {
         playerTarget.instance = this.gameObject;
+        character = GetComponent<CharacterController>();
     }
 
     protected virtual void Start() {
@@ -113,8 +120,11 @@ public class PlayerController : MonoBehaviour
     {
         if (!InputDisable) // momentaneo da sistemare
         {
+            
             CheckInput();
             InputDetection();
+            UpdateOriantation();
+            SetAnimationParameter();
         }
       
     }
@@ -134,8 +144,8 @@ public class PlayerController : MonoBehaviour
     }
 
     public void SetAnimationParameter() {
-        graphicAnimator.SetFloat("Horizontal", (Input.GetAxis("Horizontal")) * Mathf.Cos(GetLeftAnalogAngle()));
-        graphicAnimator.SetFloat("Vertical", Input.GetAxis("Vertical") * Mathf.Sin(GetLeftAnalogAngle()));
+        graphicAnimator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
+        graphicAnimator.SetFloat("Vertical", Input.GetAxis("Vertical"));
     }
 
     public float GetLeftAnalogAngle() {
@@ -168,6 +178,7 @@ public class PlayerController : MonoBehaviour
 
         Vector3 lookVector = Vector3.right * dataInput.HorizontalLook + Vector3.forward * dataInput.VerticalLook;
 
+       CalculateOrientationFromMouse();
         if (lookVector.sqrMagnitude < 0.0001f && Input.GetJoystickNames().Length <= 0)
         {
             CalculateOrientationFromMouse();
@@ -211,28 +222,39 @@ public class PlayerController : MonoBehaviour
 
             float time = Time.deltaTime / interpolation;
 
-            RaycastHit[] hits = Physics.SphereCastAll(transform.position + Vector3.up * 1.5f, skin, movementVelocity, (movementVelocity * time).magnitude, layerMask);
+            RaycastHit[] hits = Physics.SphereCastAll(transform.position + Vector3.up * 1.5f, skin, movementDirection, (movementDirection * time).magnitude, layerMask);
+
 
             if (hits == null || hits.Length == 0) {
                 transform.Translate(movementVelocity * time);
+                animator.SetBool("isColliding", false);
             }
             else {
+
+                character.Move(movementVelocity * time);
+                //NELLO SLOPE NON VA BENE PERCHé CAMBIANDO LA MOVEMENT VELOCITY LO SPHERECAST NON HITTA PIù IL MURO
+
                 //pushable
                 foreach (var hit in hits) {
-                    if (hit.transform.gameObject.CompareTag("Pushable")) {
-                        var rb = hit.transform.GetComponent<Rigidbody>();
-                        rb.AddForceAtPosition(movementVelocity, hit.point, ForceMode.Acceleration);
-                    }
+                    //    if (hit.transform.gameObject.CompareTag("Pushable")) {
+                    //        var rb = hit.transform.GetComponent<Rigidbody>();
+                    //        rb.AddForceAtPosition(movementVelocity, hit.point, ForceMode.Acceleration);
+                    //    }
+
                     //slope
-                    if (hits.Length == 1) {
-                        var normal = Quaternion.AngleAxis(90, Vector3.up) * hits[0].normal;
-                        Debug.DrawRay(hits[0].point, normal * 4, Color.red, 2);
+                    //if (hits.Length >= 1) {
 
-                        movementVelocity = normal * Vector3.Dot(movementVelocity, normal);
-                        movementVelocity.y = 0;
+                    //    animator.SetBool("isColliding", true);
+                    //    animator.ResetTrigger("Dash");
 
-                        transform.Translate(movementVelocity * time);
-                    }
+                    //    var normal = Quaternion.AngleAxis(90, Vector3.up) * hits[0].normal;
+                    //    Debug.DrawRay(hits[0].point, normal * 4, Color.red, 2);
+
+                    //    movementVelocity = normal * Vector3.Dot(movementVelocity, normal);
+                    //    movementVelocity.y = 0;
+
+                    //    transform.Translate(movementVelocity * time);
+                    //}
                 }
             }
         }
@@ -255,6 +277,8 @@ public class PlayerController : MonoBehaviour
             else {
                 movementVelocity.z = 0;
             }
+
+        movementDirection = movementVelocity;
         Movement();
         
     }
@@ -284,16 +308,21 @@ public class PlayerController : MonoBehaviour
     }
     public void DashDeceleration(float _horizontal , float _vertical ,float _decelerationTime , float _dashDistance , float _dashTime) {
 
-        Vector3 direction = new Vector3(_horizontal , 0 , _vertical);
-        dashDecelerationVelocity = _dashDistance / _dashTime;
-        //dashDecelerationVelocity /=  _decelerationTime; 
-        dashDeceleration = dashDecelerationVelocity / _decelerationTime;
+        Vector3 direction = new Vector3(_horizontal, 0, _vertical);
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position + Vector3.up * 1.75f, skin * 1.5f , dashMovementSpeed * direction , (dashDecelerationVelocity * Time.deltaTime) , layerMask);
 
-        dashMovementSpeed -= dashDeceleration * Time.deltaTime;
-        dashMovementSpeed = Mathf.Clamp(dashMovementSpeed, 0, dashDecelerationVelocity);
-
-        transform.Translate((dashMovementSpeed*Time.deltaTime) * direction);
-
+        if (hits == null || hits.Length == 0) {
+            
+            dashDecelerationVelocity = _dashDistance / _dashTime;
+            //dashDecelerationVelocity /=  _decelerationTime; 
+            dashDeceleration = dashDecelerationVelocity / _decelerationTime;
+            dashMovementSpeed -= dashDeceleration * Time.deltaTime;
+            dashMovementSpeed = Mathf.Clamp(dashMovementSpeed, 0, dashDecelerationVelocity);
+            transform.Translate((dashMovementSpeed * Time.deltaTime) * direction);
+        }
+        else {
+            dashMovementSpeed = 0;
+        }
     }
 
     public void SetDashVelocity(float _horizontal , float _vertical , float _dashDistance, float _dashTime) {
@@ -314,6 +343,7 @@ public class PlayerController : MonoBehaviour
             forwardVelocity += _acceleration * Time.deltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
             movementVelocity += Vector3.forward  * (forwardVelocity * Mathf.Sin(GetLeftAnalogAngle()));
+            movementDirection = movementVelocity;
         //}
         
         // Set horizontal movement
@@ -321,6 +351,7 @@ public class PlayerController : MonoBehaviour
             forwardVelocity += _acceleration * Time.deltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
             movementVelocity += Vector3.right * (forwardVelocity * Mathf.Cos(GetLeftAnalogAngle()));
+            movementDirection = movementVelocity;
         //}
     }
 
@@ -372,13 +403,17 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerInclination() {
 
-        rotationTransform.localRotation = dataInput.currentOrientation;
-
+        
         // Ruoto il personaggio in funzione della del suo movimento
         Vector3 rotationAxis = Quaternion.AngleAxis(90, Vector3.up) * movementVelocity;
 
         Quaternion moveRotation = Quaternion.AngleAxis(movementVelocity.magnitude * movimentRatio, rotationAxis);
         body.transform.rotation = moveRotation * rotationTransform.rotation;
+    }
+    public void UpdateOriantation()
+    {
+        rotationTransform.localRotation = dataInput.currentOrientation;
+
     }
     public void StopPlayer()
     {

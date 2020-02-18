@@ -17,10 +17,18 @@ public class ShootedState : GrappleBaseState
 
         if (grappleManager.hook.shooted && !grappleManager.hook.isHooked) {
             hit = grappleManager.hook.RaycastCollsion();
+           
+
+            //HookPoint hookPoint = hit.transform.GetComponent<HookPoint>();
 
             if (hit.transform != null && hit.transform.GetComponent<HookPoint>()) {
                 grappleManager.hookPoint = hit.transform.GetComponent<HookPoint>();
+               
                 grappleManager.hook.isHooked = true;
+                SetHit();
+                Debug.Log(hitTransform + "QUIIIIII");
+                animator.SetTrigger("Hooked");
+                return;
             }
             else {
                 //UpdateHook();
@@ -34,6 +42,17 @@ public class ShootedState : GrappleBaseState
         }
         else if (!grappleManager.hook.isHooked && grappleManager.hook.ropeFinished) {
             animator.SetTrigger("Rewind");
+
+        }
+        
+    }
+    public void SetHit()
+    {
+        if (!grappleManager.IsSet)
+        {
+            //Debug.Log("UNOOO");
+            hitTransform = grappleManager.hookPoint.GetComponent<Collider>().ClosestPoint(grappleManager.hook.transform.position);
+            grappleManager.IsSet = true;
         }
     }
 }

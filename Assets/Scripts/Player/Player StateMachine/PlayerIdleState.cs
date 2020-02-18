@@ -23,7 +23,7 @@ public class PlayerIdleState : PlayerBaseState
     float boostTime;
     float timer;
     float accelRatePerSec;
-    float decelRatePerSec;
+
     float forwardVelocity;
     Vector3 movementVelocity = Vector3.zero;
     DataInput dataInput;
@@ -37,8 +37,8 @@ public class PlayerIdleState : PlayerBaseState
         player.layerMask = 1 << 10 /*| 1<<12*/;
         //timer = Time.time;
 
-        accelRatePerSec = playerIdleData.maxSpeed / (playerIdleData.framesZeroToMax / 60);
-        decelRatePerSec = -playerIdleData.maxSpeed / (playerIdleData.framesMaxToZero / 60);
+        accelRatePerSec = playerIdleData.maxSpeed / (playerIdleData.TimeAcceleration);
+       
         forwardVelocity = 0f;
     }
 
@@ -48,12 +48,12 @@ public class PlayerIdleState : PlayerBaseState
         if (!player.InputDisable)
         {
 
-            player.PlayerInclination();
+           player.PlayerInclination();
 
             if (player.newInput)
             {
                 player.Movement();
-                player.SetAnimationParameter();
+               // player.SetAnimationParameter();
             }
             else if (player.movementVelocity != Vector3.zero)
             {

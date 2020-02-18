@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dc24604c90bf4a4fbecf065a41f4986, type: 3}
   m_Name: LW_MoTo_Bounce
   m_EditorClassIdentifier: 
-  Time: 1
-  OrbitTag: 4
+  Time: 0
+  OrbitTag: 5
   Target: {fileID: 11400000, guid: 320bf9f104a0b814481ec323e5fa955a, type: 2}
   MaxSpeed: 50
   TimeAcceleration: 0.2

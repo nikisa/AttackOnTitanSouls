@@ -5,7 +5,7 @@ using UnityEngine;
 public class DecelerationData : BaseData
 {
     [Tooltip("Decreasing rate of entry speed, in m/sec^2.")]
-    public float TimeDeceleration;
+    public float Deceleration;
     [Tooltip("Minimum reachable speed, in m/sec. Use negative value to reverse vector")]
     public float LowSpeed;
 

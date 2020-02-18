@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LW_Ant_Charge
   m_EditorClassIdentifier: 
   Time: 0
-  OrbitTag: 5
+  OrbitTag: 3
   Loops: 3
   InfinteLoops: 0
   loops: 0

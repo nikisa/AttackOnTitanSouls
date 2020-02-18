@@ -50,14 +50,14 @@ public class BossOrbitManager : MonoBehaviour
         _maxSpeed /= 60;
         if (_maxSpeed >= 0) {
             timeAcceleration = _maxSpeed / _timeAcceleration;
-            _centerPoint.MoveSpeed += timeAcceleration * Time.deltaTime;
+            _centerPoint.MoveSpeed += timeAcceleration * Time.fixedDeltaTime;
             _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed);
             _centerPoint.transform.Rotate(Vector3.up * _centerPoint.MoveSpeed);
         }
         else {
             _maxSpeed = Mathf.Abs(_maxSpeed);
             timeAcceleration = _maxSpeed / _timeAcceleration;
-            _centerPoint.MoveSpeed += timeAcceleration * Time.deltaTime;
+            _centerPoint.MoveSpeed += timeAcceleration * Time.fixedDeltaTime;
             _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed);
             _centerPoint.transform.Rotate(Vector3.down * _centerPoint.MoveSpeed);
         }
@@ -71,14 +71,14 @@ public class BossOrbitManager : MonoBehaviour
         if (_maxSpeed > 0) {
             _centerPoint.transform.Rotate(Vector3.up * _centerPoint.MoveSpeed);
             _timeDeceleration = _maxSpeed / _timeDeceleration;
-            _centerPoint.MoveSpeed -= _timeDeceleration * Time.deltaTime;
+            _centerPoint.MoveSpeed -= _timeDeceleration * Time.fixedDeltaTime;
             _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed); //Se vogliono che rimanga fermo --> 0 anziche Mathf.Abs(_lowSpeed)
         }
         else {
             _maxSpeed = Mathf.Abs(_maxSpeed);
             _centerPoint.transform.Rotate(Vector3.down * _centerPoint.MoveSpeed);
             _timeDeceleration = _maxSpeed / _timeDeceleration;
-            _centerPoint.MoveSpeed -= _timeDeceleration * Time.deltaTime;
+            _centerPoint.MoveSpeed -= _timeDeceleration * Time.fixedDeltaTime;
             _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed); //Se vogliono che rimanga fermo --> 0 anziche Mathf.Abs(_lowSpeed)
         }
     }

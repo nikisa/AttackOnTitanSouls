@@ -16,6 +16,7 @@ public class FirstBossAnticipationState : FirstBossState
 
     public override void Enter()
     {
+        ResetCycleTimer();
         animator.SetInteger("Layer", 0);
         iterations = 1;
         layerWall = 10;
@@ -73,7 +74,7 @@ public class FirstBossAnticipationState : FirstBossState
     }
 
     void detectCollsion() {
-        layerResult = boss.MovingDetectCollision(iterations);
+        layerResult = boss.MovingDetectPlayer(iterations);
         
 
         if (layerResult == layerPlayer) {

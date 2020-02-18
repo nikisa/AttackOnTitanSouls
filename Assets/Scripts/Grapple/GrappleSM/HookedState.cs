@@ -7,12 +7,13 @@ public class HookedState : GrappleBaseState
     public override void Enter() {
 
     }
-
+               
     public override void Tick() {
         if (grappleManager.hook.isHooked) {
             if (!grappleManager.hookPoint.isHooked) {
-
-                grappleManager.hook.transform.position = hit.transform.position;
+                Debug.Log(hitTransform);
+                grappleManager.hook.transform.position = hitTransform;
+            
                 grappleManager.hook.Inertia = Vector3.zero;
                 grappleManager.hook.hitDistance = 0;
             }

@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decelerationData: {fileID: 0}
+  Debugging: 0
 --- !u!114 &114027004295080920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -159,6 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114084794568258678
 MonoBehaviour:
@@ -230,6 +232,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1384be33ca8ec00469d13cbd22631057, type: 2}
   - {fileID: 11400000, guid: 43f58affc77ffd54ab90daa0a8fc2996, type: 2}
   - {fileID: 11400000, guid: de49ce6514628884683e78c9d3c0c0ab, type: 2}
+  DataToResetTime: []
 --- !u!114 &114127558870921976
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -260,6 +263,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1384be33ca8ec00469d13cbd22631057, type: 2}
   - {fileID: 11400000, guid: 43f58affc77ffd54ab90daa0a8fc2996, type: 2}
   - {fileID: 11400000, guid: de49ce6514628884683e78c9d3c0c0ab, type: 2}
+  DataToResetTime: []
 --- !u!114 &114161595626621606
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -377,6 +381,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1384be33ca8ec00469d13cbd22631057, type: 2}
   - {fileID: 11400000, guid: 43f58affc77ffd54ab90daa0a8fc2996, type: 2}
   - {fileID: 11400000, guid: de49ce6514628884683e78c9d3c0c0ab, type: 2}
+  DataToResetTime: []
 --- !u!114 &114230818322616962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -421,6 +426,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1384be33ca8ec00469d13cbd22631057, type: 2}
   - {fileID: 11400000, guid: 43f58affc77ffd54ab90daa0a8fc2996, type: 2}
   - {fileID: 11400000, guid: de49ce6514628884683e78c9d3c0c0ab, type: 2}
+  DataToResetTime: []
 --- !u!114 &114273344101170740
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -502,6 +508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveToData: {fileID: 11400000, guid: 23056390124cd9445a876429d133e66e, type: 2}
+  Debugging: 0
 --- !u!114 &114320492952186574
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -540,6 +547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveToData: {fileID: 11400000, guid: a711c38d733fc594195d726c41790340, type: 2}
+  Debugging: 0
 --- !u!114 &114338676144843490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -604,6 +612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveToData: {fileID: 11400000, guid: a711c38d733fc594195d726c41790340, type: 2}
+  Debugging: 0
 --- !u!114 &114405360573994510
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -636,6 +645,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1384be33ca8ec00469d13cbd22631057, type: 2}
   - {fileID: 11400000, guid: 43f58affc77ffd54ab90daa0a8fc2996, type: 2}
   - {fileID: 11400000, guid: de49ce6514628884683e78c9d3c0c0ab, type: 2}
+  DataToResetTime: []
 --- !u!114 &114412621170879674
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -661,6 +671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114425133929176812
 MonoBehaviour:
@@ -675,8 +686,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceData: {fileID: 11400000, guid: 917ffca391a6303429a195439ab95929, type: 2}
-  Objecttt: {fileID: 1447383133011938020, guid: 14a4ca9c72e5a7241b601715f6a096ad,
-    type: 3}
   lerpValue: 0
 --- !u!114 &114428689756292790
 MonoBehaviour:
@@ -691,6 +700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decelerationData: {fileID: 11400000, guid: 2ba66c16932cd834c9f7c6b4e9d283bd, type: 2}
+  Debugging: 0
 --- !u!114 &114429568007257006
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -735,6 +745,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1384be33ca8ec00469d13cbd22631057, type: 2}
   - {fileID: 11400000, guid: 43f58affc77ffd54ab90daa0a8fc2996, type: 2}
   - {fileID: 11400000, guid: de49ce6514628884683e78c9d3c0c0ab, type: 2}
+  DataToResetTime: []
 --- !u!114 &114474041820767534
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -785,6 +796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114492777022787142
 MonoBehaviour:
@@ -799,6 +811,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveToData: {fileID: 0}
+  Debugging: 0
 --- !u!114 &114496282029536216
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -812,6 +825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decelerationData: {fileID: 0}
+  Debugging: 0
 --- !u!114 &114499261225716054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -942,6 +956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114627314252465794
 MonoBehaviour:
@@ -981,8 +996,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceData: {fileID: 11400000, guid: 917ffca391a6303429a195439ab95929, type: 2}
-  Objecttt: {fileID: 1447383133011938020, guid: 14a4ca9c72e5a7241b601715f6a096ad,
-    type: 3}
   lerpValue: 0
 --- !u!114 &114678069979620022
 MonoBehaviour:
@@ -1010,6 +1023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveToData: {fileID: 11400000, guid: a711c38d733fc594195d726c41790340, type: 2}
+  Debugging: 0
 --- !u!114 &114694977564600006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1023,8 +1037,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceData: {fileID: 11400000, guid: 7b01a94caa4604f4498b14d971cd756c, type: 2}
-  Objecttt: {fileID: 1447383133011938020, guid: 14a4ca9c72e5a7241b601715f6a096ad,
-    type: 3}
   lerpValue: 0
 --- !u!114 &114698640154293080
 MonoBehaviour:
@@ -1055,6 +1067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114707431100679766
 MonoBehaviour:
@@ -1068,6 +1081,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114716115484391826
 MonoBehaviour:
@@ -1094,6 +1108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114743565478917866
 MonoBehaviour:
@@ -1139,6 +1154,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1384be33ca8ec00469d13cbd22631057, type: 2}
   - {fileID: 11400000, guid: 43f58affc77ffd54ab90daa0a8fc2996, type: 2}
   - {fileID: 11400000, guid: de49ce6514628884683e78c9d3c0c0ab, type: 2}
+  DataToResetTime: []
 --- !u!114 &114789337768174462
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1183,6 +1199,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1384be33ca8ec00469d13cbd22631057, type: 2}
   - {fileID: 11400000, guid: 43f58affc77ffd54ab90daa0a8fc2996, type: 2}
   - {fileID: 11400000, guid: de49ce6514628884683e78c9d3c0c0ab, type: 2}
+  DataToResetTime: []
 --- !u!114 &114845157620926238
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1195,6 +1212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114855040947668688
 MonoBehaviour:
@@ -1246,6 +1264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114908700531493184
 MonoBehaviour:
@@ -1287,6 +1306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f9240d3845c040a06f1c948e2b8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Debugging: 0
   chaseData: {fileID: 11400000, guid: 7c6cf1227e6f16a4291632b267470a5c, type: 2}
 --- !u!114 &114928458612268202
 MonoBehaviour:
@@ -1325,8 +1345,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceData: {fileID: 11400000, guid: 7b01a94caa4604f4498b14d971cd756c, type: 2}
-  Objecttt: {fileID: 1447383133011938020, guid: 14a4ca9c72e5a7241b601715f6a096ad,
-    type: 3}
   lerpValue: 0
 --- !u!114 &114940378021355962
 MonoBehaviour:
@@ -1341,6 +1359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decelerationData: {fileID: 11400000, guid: 2ba66c16932cd834c9f7c6b4e9d283bd, type: 2}
+  Debugging: 0
 --- !u!114 &114987180111801974
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1358,6 +1377,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1384be33ca8ec00469d13cbd22631057, type: 2}
   - {fileID: 11400000, guid: 43f58affc77ffd54ab90daa0a8fc2996, type: 2}
   - {fileID: 11400000, guid: de49ce6514628884683e78c9d3c0c0ab, type: 2}
+  DataToResetTime: []
 --- !u!1101 &1101001186096373908
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -3578,7 +3598,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: Timer
-    m_EventTreshold: 2
+    m_EventTreshold: 0.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102564491906595244}
   m_Solo: 0
@@ -3925,7 +3945,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: Timer
-    m_EventTreshold: 10
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102166547867695698}
   m_Solo: 0
@@ -4612,6 +4632,31 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1101 &1101761155500802542
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Collision
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 1102013345570206678}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &1101763381928115830
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -4889,9 +4934,6 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
-    m_ConditionEvent: Timer
-    m_EventTreshold: 0
   - m_ConditionMode: 6
     m_ConditionEvent: Layer
     m_EventTreshold: 10
@@ -7204,6 +7246,7 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101661206441717304}
+  - {fileID: 1101761155500802542}
   m_StateMachineBehaviours:
   - {fileID: 114940378021355962}
   m_Position: {x: 50, y: 50, z: 0}
@@ -8299,19 +8342,19 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102676235507628762}
-    m_Position: {x: 540, y: 1188, z: 0}
+    m_Position: {x: 684, y: 1380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102782839653918892}
-    m_Position: {x: 540, y: 1092, z: 0}
+    m_Position: {x: 684, y: 1284, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102387878523954488}
-    m_Position: {x: 972, y: 1500, z: 0}
+    m_Position: {x: 1116, y: 1692, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102899059966913264}
     m_Position: {x: -228, y: 156, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102026479635901504}
-    m_Position: {x: 24, y: 1260, z: 0}
+    m_Position: {x: 168, y: 1452, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102027206773164946}
     m_Position: {x: -228, y: 264, z: 0}
@@ -8320,13 +8363,13 @@ AnimatorStateMachine:
     m_Position: {x: 36, y: -72, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102074195771615254}
-    m_Position: {x: 24, y: 1128, z: 0}
+    m_Position: {x: 168, y: 1320, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102979159556916932}
-    m_Position: {x: 540, y: 1500, z: 0}
+    m_Position: {x: 684, y: 1692, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102081150675859306}
-    m_Position: {x: 264, y: 1188, z: 0}
+    m_Position: {x: 408, y: 1380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102188006524880960}
     m_Position: {x: -228, y: 360, z: 0}
@@ -8341,7 +8384,7 @@ AnimatorStateMachine:
     m_Position: {x: -228, y: 864, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102107109851424314}
-    m_Position: {x: -504, y: 552, z: 0}
+    m_Position: {x: -528, y: 516, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102603361573027344}
     m_Position: {x: 96, y: 672, z: 0}
@@ -8386,7 +8429,7 @@ AnimatorStateMachine:
     m_Position: {x: -228, y: 756, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102271287060645680}
-    m_Position: {x: 0, y: 0, z: 0}
+    m_Position: {x: 36, y: 24, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102740173792559248}
     m_Position: {x: -228, y: 660, z: 0}
@@ -8398,17 +8441,17 @@ AnimatorStateMachine:
     m_Position: {x: 600, y: 624, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102841408661173768}
-    m_Position: {x: 0, y: 0, z: 0}
+    m_Position: {x: 36, y: -24, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102578987326975252}
     m_Position: {x: 696, y: 228, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107498074539320226}
-    m_Position: {x: 540, y: 1368, z: 0}
+    m_Position: {x: 684, y: 1560, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107836416657474686}
-    m_Position: {x: 972, y: 1188, z: 0}
+    m_Position: {x: 1116, y: 1380, z: 0}
   m_AnyStateTransitions:
   - {fileID: 1101089381493898754}
   m_EntryTransitions: []

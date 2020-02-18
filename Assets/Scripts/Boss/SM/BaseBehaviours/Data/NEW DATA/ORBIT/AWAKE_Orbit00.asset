@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AWAKE_Orbit00
   m_EditorClassIdentifier: 
   AngularAccelerationTime: 1
-  AngularMaxSpeed: -560
+  AngularMaxSpeed: -360
   AngularDecelerationTime: 3
   orbitData:
   - {fileID: 11400000, guid: 6742dd07c37ba4c49828658c40cb5d4a, type: 2}
