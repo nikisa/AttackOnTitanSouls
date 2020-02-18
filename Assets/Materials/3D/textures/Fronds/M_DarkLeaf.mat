@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_DarkLeaf
-  m_Shader: {fileID: 4800000, guid: 87354ad8589177545b883bfabc5f96e7, type: 3}
+  m_Shader: {fileID: 4800000, guid: bfde213157d97fb4597f1a03e210e478, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -21,15 +21,20 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_E742CF1B:
+    - Texture2D_854794CF:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_AE51855D:
         m_Texture: {fileID: 2800000, guid: 0888c6499c4d6cf48a6815c9e66f8101, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - Texture2D_D2EBBCC1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_3BBA507A: 1
-    - Vector1_49477456: 0.5
-    - Vector1_9000999C: 100
-    - Vector1_DC04DFF9: 0.04
-    - Vector1_FC137BE2: 0.808
+    - Vector1_429C626F: 0.107
+    - Vector1_8A64EE94: 0.15
     m_Colors:
-    - Color_7C51B7EE: {r: 1, g: 1, b: 1, a: 0}
+    - Vector2_E4FCE26D: {r: 6, g: 0, b: 0, a: 0}
