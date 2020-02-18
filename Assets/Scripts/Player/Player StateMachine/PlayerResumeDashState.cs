@@ -8,7 +8,7 @@ public class PlayerResumeDashState : PlayerBaseState
     //Private
     float timeStart;
 
-    PlayerIdleData playerIdleData;
+    PlayerMovementData playerMovementData;
     PlayerDashData playerDashData;
     float DashTimeFrames;
     float timeDeceleration;

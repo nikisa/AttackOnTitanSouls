@@ -6,7 +6,7 @@ public class PlayerDashDecelerationState : PlayerBaseState
 {
 
     //Private
-    PlayerIdleData playerIdleData;
+    PlayerMovementData playerMovementData;
     PlayerDashData playerDashData;
     float InitialVelocity;
     float DashTimeFrames;
@@ -23,7 +23,7 @@ public class PlayerDashDecelerationState : PlayerBaseState
         HorizontalDash = player.horizontalDash;
         VerticalDash = player.verticalDash;
 
-        playerIdleData = player.playerIdleData;
+        playerMovementData = player.playerMovementData;
         playerDashData = player.playerDashData;
 
     }
@@ -32,7 +32,7 @@ public class PlayerDashDecelerationState : PlayerBaseState
 
         player.DashDeceleration(HorizontalDash , VerticalDash , playerDashData.DashDecelerationTime , playerDashData.ActiveDashDistance , playerDashData.ActiveDashTime);
 
-        if (player.dashMovementSpeed <= (playerDashData.ResumePlayerInput * playerIdleData.maxSpeed)) {
+        if (player.dashMovementSpeed <= (playerDashData.ResumePlayerInput * playerMovementData.maxSpeed)) {
 
             if (!IsTimerSet) // da sitemare
             {

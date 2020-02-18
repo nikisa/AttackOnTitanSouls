@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public PlayerDashData playerDashData;
     [HideInInspector]
-    public PlayerIdleData playerIdleData;
+    public PlayerMovementData playerMovementData;
     [HideInInspector]
     public Vector3 dashDirection;
     [HideInInspector]
@@ -83,7 +83,23 @@ public class PlayerController : MonoBehaviour
     public float forwardVelocity;
     [HideInInspector]
     public bool InputDisable;
+    
     //Private
+    Vector3 targetDirection;
+    Quaternion bossRotation;
+    Vector3 targetDir;
+    public float vectorAngle;
+    public Vector3 OldPos;
+    public Vector3 Inertia;
+    public float AccelerationModule;
+    public Vector3 AccelerationVector;
+    public Vector3 VelocityVector;
+    public Vector3 MaxSpeedVector;
+    public float Drag;
+    public float DeceleratioModule;
+    public Vector3 DecelerationVector;
+
+
     Camera camera;
     [HideInInspector]
     public Vector3 movementVelocity = Vector3.zero;
@@ -232,7 +248,6 @@ public class PlayerController : MonoBehaviour
             else {
 
                 character.Move(movementVelocity * time);
-                //NELLO SLOPE NON VA BENE PERCHé CAMBIANDO LA MOVEMENT VELOCITY LO SPHERECAST NON HITTA PIù IL MURO
 
                 //pushable
                 foreach (var hit in hits) {
@@ -258,6 +273,26 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void newMovement(float _maxSpeed , float _timeAcceleration) {
+        targetDir = new Vector3(dataInput.Horizontal,0,dataInput.Vertical);
+        vectorAngle = Vector3.SignedAngle(Vector3.forward, targetDir, Vector3.up) * Mathf.Deg2Rad;
+        AccelerationModule = _maxSpeed / _timeAcceleration;
+        Drag = AccelerationModule / _maxSpeed * Time.fixedDeltaTime;
+        VelocityVector -= VelocityVector * Drag;
+        AccelerationVector = new Vector3(Mathf.Sin(vectorAngle) * AccelerationModule, 0, Mathf.Cos(vectorAngle) * AccelerationModule);
+        transform.localPosition += VelocityVector * Time.fixedDeltaTime + 0.5f * AccelerationVector * Mathf.Pow(Time.fixedDeltaTime, 2);
+        VelocityVector += AccelerationVector * Time.fixedDeltaTime;
+    }
+
+    
+
+    public void newDeceleration() {
+        vectorAngle = Vector3.SignedAngle(Vector3.forward, VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
+        DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * DeceleratioModule, 0, Mathf.Cos(vectorAngle) * DeceleratioModule);
+        VelocityVector -= DecelerationVector * Time.fixedDeltaTime;
+        transform.localPosition += VelocityVector * Time.fixedDeltaTime;
     }
 
 
