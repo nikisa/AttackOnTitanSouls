@@ -71,7 +71,7 @@ public class FirtsBossDecelerationState : FirstBossState
     {
         boss.DeceleratioModule = decelerationData.Deceleration;
 
-        if (boss.VelocityVector.magnitude > boss.DeceleratioModule * Time.deltaTime)
+        if (boss.VelocityVector.magnitude > boss.DeceleratioModule * Time.fixedDeltaTime)
         {
             boss.vectorAngle = Vector3.SignedAngle(Vector3.forward, boss.VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
             boss.DecelerationVector = new Vector3(Mathf.Sin(boss.vectorAngle) * boss.DeceleratioModule, 0, Mathf.Cos(boss.vectorAngle) * boss.DeceleratioModule);

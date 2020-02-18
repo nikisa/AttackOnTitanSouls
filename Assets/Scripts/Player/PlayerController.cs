@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     public TargetType playerTarget;
     public UiManager uiManager;
     public float TimeInputDisable;
-    [Range(0,1)]
+    [Range(0, 1)]
     public float DeadZoneValue;
 
 
@@ -59,6 +59,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public PlayerMovementData playerMovementData;
     [HideInInspector]
+    public PlayerDecelInTimeData playerDecelInTimeData;
+    [HideInInspector]
     public Vector3 dashDirection;
     [HideInInspector]
     public float InitialDashVelocity;
@@ -67,7 +69,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public float skin = .95f;
     [HideInInspector]
-    public float dashMovementSpeed;
+    public float dashVelocityModule;
     [HideInInspector]
     public float horizontalDash;
     [HideInInspector]
@@ -83,11 +85,12 @@ public class PlayerController : MonoBehaviour
     public float forwardVelocity;
     [HideInInspector]
     public bool InputDisable;
-    
+    [HideInInspector]
+    public Vector3 targetDir;
+
     //Private
     Vector3 targetDirection;
     Quaternion bossRotation;
-    Vector3 targetDir;
     public float vectorAngle;
     public Vector3 OldPos;
     public Vector3 Inertia;
@@ -96,7 +99,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 VelocityVector;
     public Vector3 MaxSpeedVector;
     public float Drag;
-    public float DeceleratioModule;
+    public float DecelerationModule;
     public Vector3 DecelerationVector;
 
 
@@ -279,20 +282,40 @@ public class PlayerController : MonoBehaviour
         targetDir = new Vector3(dataInput.Horizontal,0,dataInput.Vertical);
         vectorAngle = Vector3.SignedAngle(Vector3.forward, targetDir, Vector3.up) * Mathf.Deg2Rad;
         AccelerationModule = _maxSpeed / _timeAcceleration;
-        Drag = AccelerationModule / _maxSpeed * Time.fixedDeltaTime;
+        Drag = AccelerationModule / _maxSpeed * Time.deltaTime;
         VelocityVector -= VelocityVector * Drag;
         AccelerationVector = new Vector3(Mathf.Sin(vectorAngle) * AccelerationModule, 0, Mathf.Cos(vectorAngle) * AccelerationModule);
-        transform.localPosition += VelocityVector * Time.fixedDeltaTime + 0.5f * AccelerationVector * Mathf.Pow(Time.fixedDeltaTime, 2);
-        VelocityVector += AccelerationVector * Time.fixedDeltaTime;
+        transform.localPosition += VelocityVector * Time.deltaTime + 0.5f * AccelerationVector * Mathf.Pow(Time.deltaTime, 2);
+        VelocityVector += AccelerationVector * Time.deltaTime;
     }
 
-    
 
     public void newDeceleration() {
         vectorAngle = Vector3.SignedAngle(Vector3.forward, VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
-        DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * DeceleratioModule, 0, Mathf.Cos(vectorAngle) * DeceleratioModule);
-        VelocityVector -= DecelerationVector * Time.fixedDeltaTime;
-        transform.localPosition += VelocityVector * Time.fixedDeltaTime;
+        DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
+        VelocityVector -= DecelerationVector * Time.deltaTime;
+        transform.localPosition += VelocityVector * Time.deltaTime;
+    }
+
+    public void newDash(float _dashVelocityModule , Vector3 _targetDir) {
+
+        vectorAngle = Vector3.SignedAngle(Vector3.forward, _targetDir, Vector3.up) * Mathf.Deg2Rad;
+        VelocityVector =  new Vector3(Mathf.Sin(vectorAngle) * (_dashVelocityModule) , 0 , Mathf.Cos(vectorAngle) * (_dashVelocityModule));
+        transform.localPosition += VelocityVector * Time.deltaTime;
+
+        Debug.Log("(DASH) VelocityVector: " + VelocityVector.normalized);
+    }
+
+    public void newDashDeceleration() {
+
+        Debug.Log("(DASH DECEL) VelocityVector: " + VelocityVector.magnitude);
+
+        vectorAngle = Vector3.SignedAngle(Vector3.forward, VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
+        DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
+        VelocityVector -= DecelerationVector * Time.deltaTime;
+        transform.localPosition += VelocityVector * Time.deltaTime;
+
+        Debug.Log("(DASH DECEL) DecelerationVector: " + DecelerationVector.magnitude * Time.deltaTime);
     }
 
 
@@ -344,26 +367,30 @@ public class PlayerController : MonoBehaviour
     public void DashDeceleration(float _horizontal , float _vertical ,float _decelerationTime , float _dashDistance , float _dashTime) {
 
         Vector3 direction = new Vector3(_horizontal, 0, _vertical);
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position + Vector3.up * 1.75f, skin * 1.5f , dashMovementSpeed * direction , (dashDecelerationVelocity * Time.deltaTime) , layerMask);
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position + Vector3.up * 1.75f, skin * 1.5f , dashVelocityModule * direction , (dashDecelerationVelocity * Time.deltaTime) , layerMask);
 
         if (hits == null || hits.Length == 0) {
             
             dashDecelerationVelocity = _dashDistance / _dashTime;
             //dashDecelerationVelocity /=  _decelerationTime; 
             dashDeceleration = dashDecelerationVelocity / _decelerationTime;
-            dashMovementSpeed -= dashDeceleration * Time.deltaTime;
-            dashMovementSpeed = Mathf.Clamp(dashMovementSpeed, 0, dashDecelerationVelocity);
-            transform.Translate((dashMovementSpeed * Time.deltaTime) * direction);
+            dashVelocityModule -= dashDeceleration * Time.fixedDeltaTime;
+            dashVelocityModule = Mathf.Clamp(dashVelocityModule, 0, dashDecelerationVelocity);
+            transform.Translate((dashVelocityModule * Time.fixedDeltaTime) * direction);
         }
         else {
-            dashMovementSpeed = 0;
+            dashVelocityModule = 0;
         }
     }
 
-    public void SetDashVelocity(float _horizontal , float _vertical , float _dashDistance, float _dashTime) {
+
+
+    public void SetDashVelocity(float _dashDistance, float _dashTime) {
         float dashVelocity = _dashDistance / _dashTime;
-        dashMovementSpeed = dashVelocity;
+        dashVelocityModule = dashVelocity;
     }
+
+
 
     public float SetCorrectAccelerationOnResumeControl(float startVelocity) {
         return startVelocity;
@@ -375,7 +402,7 @@ public class PlayerController : MonoBehaviour
        
         // Set vertical movement
         //if (dataInput.Vertical != 0f) {
-            forwardVelocity += _acceleration * Time.deltaTime;
+            forwardVelocity += _acceleration * Time.fixedDeltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
             movementVelocity += Vector3.forward  * (forwardVelocity * Mathf.Sin(GetLeftAnalogAngle()));
             movementDirection = movementVelocity;
@@ -383,7 +410,7 @@ public class PlayerController : MonoBehaviour
         
         // Set horizontal movement
         //if (dataInput.Horizontal != 0f) {
-            forwardVelocity += _acceleration * Time.deltaTime;
+            forwardVelocity += _acceleration * Time.fixedDeltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
             movementVelocity += Vector3.right * (forwardVelocity * Mathf.Cos(GetLeftAnalogAngle()));
             movementDirection = movementVelocity;
@@ -396,14 +423,14 @@ public class PlayerController : MonoBehaviour
 
         // Set vertical movement gamepad
         if (dataInput.Vertical != 0f) {
-            forwardVelocity += _acceleration * Time.deltaTime;
+            forwardVelocity += _acceleration * Time.fixedDeltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
             movementVelocity += Vector3.forward /* * dataInput.Vertical*/ * (forwardVelocity * Mathf.Sin(GetLeftAnalogAngle()));
         }
 
         // Set horizontal movement gamepad
         if (dataInput.Horizontal != 0f) {
-            forwardVelocity += _acceleration * Time.deltaTime;
+            forwardVelocity += _acceleration * Time.fixedDeltaTime;
             forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
             movementVelocity += Vector3.right /** dataInput.Horizontal*/ * (forwardVelocity * Mathf.Cos(GetLeftAnalogAngle()));
         }

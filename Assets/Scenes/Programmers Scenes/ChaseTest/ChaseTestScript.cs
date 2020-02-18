@@ -48,10 +48,10 @@ public class ChaseTestScript : MonoBehaviour
         AccelerationModule = MaxSpeed / TimeAcceleration;
         AccelerationVector = new Vector3(Mathf.Sin(vectorAngle) * AccelerationModule, 0, Mathf.Cos(vectorAngle) * AccelerationModule);
         //boss.MaxSpeedVector = new Vector3(Mathf.Cos(boss.vectorAngle) * chaseData.MaxSpeed, boss.AccelerationVector.y, Mathf.Sin(boss.vectorAngle) * chaseData.MaxSpeed);
-        Drag = AccelerationModule / MaxSpeed * Time.deltaTime;
+        Drag = AccelerationModule / MaxSpeed * Time.fixedDeltaTime;
         OldPos = transform.position;
-        transform.localPosition += VelocityVector * Time.deltaTime + 0.5f * AccelerationVector * Mathf.Pow(Time.deltaTime, 2);
-        VelocityVector += AccelerationVector * Time.deltaTime;
+        transform.localPosition += VelocityVector * Time.fixedDeltaTime + 0.5f * AccelerationVector * Mathf.Pow(Time.deltaTime, 2);
+        VelocityVector += AccelerationVector * Time.fixedDeltaTime;
         VelocityVector -= VelocityVector * Drag;
 
         Debug.DrawLine(transform.position, transform.position + AccelerationVector, Color.red, .02f);

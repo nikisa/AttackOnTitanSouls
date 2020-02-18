@@ -51,28 +51,28 @@ public class PlayerMovementState : PlayerBaseState
            player.PlayerInclination();
 
 
-            player.newMovement(playerMovementData.maxSpeed , playerMovementData.AccelerationTime);
-
-            if (Mathf.Pow(dataInput.Horizontal, 2) + Mathf.Pow(dataInput.Vertical, 2) < Mathf.Pow(player.DeadZoneValue, 2)) { //Usare newInput anziché riscrivere la DeadZone nella condizione
+            if (Mathf.Pow(dataInput.Horizontal, 2) + Mathf.Pow(dataInput.Vertical, 2) > Mathf.Pow(player.DeadZoneValue, 2)) { //Usare newInput anziché riscrivere la DeadZone nella condizione
+                player.newMovement(playerMovementData.maxSpeed, playerMovementData.AccelerationTime);
+            }
+            else {
                 animator.SetTrigger(MOVEMENT_DECELERATION);
             }
+
 
             if (Time.time - player.timerDash > playerDashData.EnableDashAt)
             {
                 player.canDash = true;
             }
-            //else {
-            //    player.canDash = false;
-            //}
+
 
             dataInput = player.dataInput;
 
-            if (dataInput.Dash && player.canDash /*&& ((dataInput.Horizontal == 1 || dataInput.Horizontal == -1) || (dataInput.Vertical == 1 || dataInput.Vertical == -1))*/ )
+            if (dataInput.Dash && player.canDash)
             {
                 startDash = Time.time;
                 player.canDash = false;
-                player.horizontalDash = player.dataInput.Horizontal;
-                player.verticalDash = player.dataInput.Vertical;
+                //player.horizontalDash = player.dataInput.Horizontal;
+                //player.verticalDash = player.dataInput.Vertical;
                 animator.SetTrigger(DASH);
             }
 

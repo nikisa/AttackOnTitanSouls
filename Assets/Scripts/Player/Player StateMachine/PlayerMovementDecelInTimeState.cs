@@ -15,13 +15,13 @@ public class PlayerMovementDecelInTimeState : PlayerBaseState
     public override void Enter() {
 
         playerMovementData = player.playerMovementData;
-        player.DeceleratioModule = (playerMovementData.maxSpeed) / (playerDecelInTimeData.DecelerationTime);
+        player.DecelerationModule = (playerMovementData.maxSpeed) / (playerDecelInTimeData.DecelerationTime);
         
     }
 
     public override void Tick() {
 
-        if (player.VelocityVector.magnitude > player.DeceleratioModule * Time.fixedDeltaTime) {
+        if (player.VelocityVector.magnitude > player.DecelerationModule * Time.deltaTime) {
             player.newDeceleration();
         }
         else {
