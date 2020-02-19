@@ -18,8 +18,18 @@ public class FirstBossState : BaseState
     protected const string END_STATE_TRIGGER = "EndState";
     protected const string TIMER = "Timer";
 
+    float timer = 0;
+
+    public override void Tick()
+    {
+        timer += Time.deltaTime;
+        animator.SetFloat(TIMER, timer);
+    }
 
     public override void Enter() {
+
+        animator.SetFloat(TIMER, timer=0);
+
         BossOrbitManager.ChangedStateEvent();
     }
 
@@ -50,14 +60,17 @@ public class FirstBossState : BaseState
     }
     public void Timer(BaseData _baseData)
     {
+        /*
         _baseData.Time += Time.deltaTime;
         animator.SetFloat(TIMER, _baseData.Time);
+        */
     }
     public void ResetTimer(BaseData _baseData)
     {
-     
+        /*
         _baseData.Time = 0;
         animator.SetFloat(TIMER, _baseData.Time);
+        */
     }
     public void SetCycleTimer()
     {

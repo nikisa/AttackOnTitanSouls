@@ -124,9 +124,26 @@ public class BossController : MonoBehaviour
         return result;
     }
 
-    public int MovingDetectCollision(int _iteration , Vector3 _nextPosition , float _distance) {
-        int result = 0;
+    public int MovingDetectCollision(int _iteration , Vector3 _nextPosition , float _distance) 
+    {
         float skin = 5.2f;
+
+        Vector3 direction = _nextPosition - this.transform.position;
+
+        RaycastHit[] hits = Physics.SphereCastAll(this.transform.position,skin, direction.normalized,direction.magnitude, HookPointLayerMask);
+
+        if (hits == null || hits.Length == 0)
+        {
+            return 0;
+        }
+        else
+        {
+            this.hitObject = hits[0];
+            return hits[0].collider.gameObject.layer;
+        }
+
+        /*
+        int result = 0;
 
         int interpolation = _iteration;//(int)(MoveSpeed / 1f);
 
@@ -153,9 +170,10 @@ public class BossController : MonoBehaviour
             }
         }
         return result;
+        */
     }
 
-    
+
 
     //SetTarget with enum could be useful in future
     #region

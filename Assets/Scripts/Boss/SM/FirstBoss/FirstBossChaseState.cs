@@ -26,6 +26,8 @@ public class FirstBossChaseState : FirstBossState
 
     public override void Enter()
     {
+        base.Enter();
+
         iterations = 30;
         layerWall = 10;
         layerPlayer = 11;
@@ -39,10 +41,11 @@ public class FirstBossChaseState : FirstBossState
 
     public override void Tick()
     {
-        base.Enter();
+        base.Tick();
+
         setChaseRadius();
         Timer(chaseData);
-        AccelerationTick();
+        //AccelerationTick();
         ChaseTick();
         //boss.Move();
         SetSpeed();
@@ -64,6 +67,7 @@ public class FirstBossChaseState : FirstBossState
     public void AccelerationEnter()
     {
         timeStartAcceleration = Time.time;
+        boss.VelocityVector = Vector3.zero;
     }
 
     public void ChaseEnter()
@@ -104,10 +108,20 @@ public class FirstBossChaseState : FirstBossState
         boss.vectorAngle = Vector3.SignedAngle(Vector3.forward, targetDir, Vector3.up) * Mathf.Deg2Rad;
         boss.AccelerationModule = chaseData.MaxSpeed / chaseData.TimeAcceleration;
         boss.AccelerationVector = new Vector3(Mathf.Sin(boss.vectorAngle) * boss.AccelerationModule, 0, Mathf.Cos(boss.vectorAngle) * boss.AccelerationModule);
+
+        Vector3 acc = targetDir;
+        acc.y = 0;
+        boss.AccelerationVector = acc.normalized * boss.AccelerationModule;
+
+
+        Debug.LogFormat("{0} = {1}",boss.AccelerationVector, acc.normalized * boss.AccelerationModule);
+        
         //boss.MaxSpeedVector = new Vector3(Mathf.Cos(boss.vectorAngle) * chaseData.MaxSpeed, boss.AccelerationVector.y, Mathf.Sin(boss.vectorAngle) * chaseData.MaxSpeed);
         boss.Drag = boss.AccelerationModule / chaseData.MaxSpeed * Time.deltaTime;
+
         //boss.OldPos = boss.transform.position;
-        boss.transform.localPosition += boss.VelocityVector * Time.deltaTime + 0.5f * boss.AccelerationVector * Mathf.Pow(Time.deltaTime, 2);
+        Vector3 move = boss.VelocityVector * Time.deltaTime + 0.5f * boss.AccelerationVector * Mathf.Pow(Time.deltaTime, 2);
+        Vector3 nextPosition = boss.transform.position+ move;
         boss.VelocityVector += boss.AccelerationVector * Time.deltaTime;
         boss.VelocityVector -= boss.VelocityVector * boss.Drag;
 
@@ -128,15 +142,22 @@ public class FirstBossChaseState : FirstBossState
         //MoveSpeed += boss.VelocityVector.magnitude;
 
         /*boss.transform.position + boss.VelocityVector.normalized / MoveSpeed*/
-        Vector3 nextPosition = boss.transform.localPosition + (boss.VelocityVector * Time.deltaTime + 0.5f * boss.AccelerationVector * Mathf.Pow(Time.deltaTime, 2));
-        layerResult = boss.MovingDetectPlayer(iterations);
+        //Vector3 nextPosition = boss.transform.position + boss.VelocityVector.normalized / MoveSpeed;
+        //layerResult = boss.MovingDetectPlayer(iterations);
+
+        boss.GetComponent<CharacterController>().Move(move + Vector3.down * 10);
+
         layerCollision = boss.MovingDetectCollision(iterations, nextPosition, boss.MoveSpeed);
 
-        if (layerCollision == layerWall) {
+        if (layerCollision == layerWall && boss.VelocityVector.magnitude>5) {
             animator.SetInteger("Layer", layerCollision);
             Debug.Log("BOUNCING");
         }
         else {
+
+            //boss.transform.position = nextPosition;
+
+
             if (layerResult == layerPlayer) {
                 if (!boss.Player.IsImmortal) {
                     PlayerController.DmgEvent();
