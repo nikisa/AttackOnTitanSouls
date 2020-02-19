@@ -123,9 +123,12 @@ public class FirstBossChaseState : FirstBossState
         //if ((boss.VelocityVector * Time.deltaTime + 0.5f * boss.AccelerationVector * Mathf.Pow(Time.deltaTime, 2)).magnitude <= (boss.MaxSpeedVector * Time.deltaTime).magnitude) {
 
         //}
-        
-        float MoveSpeed = (chaseData.MaxSpeed / chaseData.TimeAcceleration) * Time.deltaTime;
-        Vector3 nextPosition = boss.transform.position + boss.VelocityVector.normalized / MoveSpeed;
+
+        //float MoveSpeed = ((chaseData.MaxSpeed / chaseData.TimeAcceleration) * Time.deltaTime);
+        //MoveSpeed += boss.VelocityVector.magnitude;
+
+        /*boss.transform.position + boss.VelocityVector.normalized / MoveSpeed*/
+        Vector3 nextPosition = boss.transform.localPosition + (boss.VelocityVector * Time.deltaTime + 0.5f * boss.AccelerationVector * Mathf.Pow(Time.deltaTime, 2));
         layerResult = boss.MovingDetectPlayer(iterations);
         layerCollision = boss.MovingDetectCollision(iterations, nextPosition, boss.MoveSpeed);
 

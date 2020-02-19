@@ -66,8 +66,8 @@ public class PlayerDashDecelerationState : PlayerBaseState
         }
 
 
-        if (player.dashVelocityModule < (player.DecelerationModule * Time.deltaTime)) {
-            player.VelocityVector = Vector3.zero;
+        if (player.dashVelocityModule < (player.DecelerationModule * Time.deltaTime) && Mathf.Pow(Input.GetAxis("Horizontal"), 2) + Mathf.Pow(Input.GetAxis("Vertical"), 2) < Mathf.Pow(player.DeadZoneValue, 2)) {
+            //player.VelocityVector = Vector3.zero;
             animator.SetTrigger(IDLE);
 
         }

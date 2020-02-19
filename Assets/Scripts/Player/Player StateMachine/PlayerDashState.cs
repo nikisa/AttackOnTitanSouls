@@ -16,7 +16,7 @@ public class PlayerDashState : PlayerBaseState
 
         Debug.Log("(DASH) TARGET DIR: " + player.targetDir);
 
-        player.targetDir = new Vector3(player.dataInput.Horizontal, 0, player.dataInput.Vertical);
+        player.targetDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         timeStart = Time.time;
 
         player.SetDashVelocity(playerDashData.ActiveDashDistance, playerDashData.ActiveDashTime);

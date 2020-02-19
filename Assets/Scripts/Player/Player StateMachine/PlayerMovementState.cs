@@ -51,7 +51,7 @@ public class PlayerMovementState : PlayerBaseState
            player.PlayerInclination();
 
 
-            if (Mathf.Pow(dataInput.Horizontal, 2) + Mathf.Pow(dataInput.Vertical, 2) > Mathf.Pow(player.DeadZoneValue, 2)) { //Usare newInput anziché riscrivere la DeadZone nella condizione
+            if (Mathf.Pow(Input.GetAxis("Horizontal"), 2) + Mathf.Pow(Input.GetAxis("Vertical"), 2) >= Mathf.Pow(player.DeadZoneValue, 2)) { //Usare newInput anziché riscrivere la DeadZone nella condizione
                 player.newMovement(playerMovementData.maxSpeed, playerMovementData.AccelerationTime);
             }
             else {
@@ -67,7 +67,7 @@ public class PlayerMovementState : PlayerBaseState
 
             dataInput = player.dataInput;
 
-            if (dataInput.Dash && player.canDash)
+            if (Input.GetButtonDown("Dash") && player.canDash)
             {
                 startDash = Time.time;
                 player.canDash = false;
