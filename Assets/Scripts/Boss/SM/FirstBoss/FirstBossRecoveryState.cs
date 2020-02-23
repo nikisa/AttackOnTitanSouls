@@ -19,6 +19,8 @@ public class FirstBossRecoveryState : FirstBossState
     public override void Enter()
     {
 
+        base.Enter();
+
         iterations = 1;
         layerWall = 10;
         layerPlayer = 11;
@@ -27,9 +29,10 @@ public class FirstBossRecoveryState : FirstBossState
     }
     public override void Tick()
     {
-        Timer(recoveryData);
-        //RecoveryInfoTick();
-      //  DecelerationTick();
+        base.Tick();
+
+       //RecoveryInfoTick();
+       //DecelerationTick();
         detectCollsion();
         SetCycleTimer();
     }
@@ -38,7 +41,6 @@ public class FirstBossRecoveryState : FirstBossState
         animator.SetBool("RecoveryOrbit", false);
         CheckVulnerability();
         boss.IsPrevStateReinitialize = false;
-        ResetTimer(recoveryData);
     }
 
     public void RecoveryInfoEnter() {

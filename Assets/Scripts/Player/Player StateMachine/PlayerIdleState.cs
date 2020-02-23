@@ -9,7 +9,7 @@ public class PlayerIdleState : PlayerBaseState
     DataInput dataInput;
 
     public override void Enter() {
-        player.VelocityVector = Vector3.zero;
+        //player.MovementReset();
     }
 
     public override void Tick() {

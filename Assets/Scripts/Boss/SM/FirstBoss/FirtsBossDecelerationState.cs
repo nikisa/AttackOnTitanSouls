@@ -16,7 +16,6 @@ public class FirtsBossDecelerationState : FirstBossState
     {
         wallLayer = 10;
         iterations = 30;
-        DecelerationEnter();
     }
     public override void Tick()
     {
@@ -51,10 +50,6 @@ public class FirtsBossDecelerationState : FirstBossState
         }
     }
 
-    public void DecelerationEnter()
-    {
-        moveToData = boss.GetMoveToData();
-    }
 
     public override void Exit()
     {
@@ -69,12 +64,12 @@ public class FirtsBossDecelerationState : FirstBossState
     }
     public void NewDeceleration()
     {
-        boss.DeceleratioModule = decelerationData.Deceleration;
+        boss.DecelerationModule = decelerationData.Deceleration;
 
-        if (boss.VelocityVector.magnitude > boss.DeceleratioModule * Time.fixedDeltaTime)
+        if (boss.VelocityVector.magnitude > boss.DecelerationModule * Time.fixedDeltaTime)
         {
             boss.vectorAngle = Vector3.SignedAngle(Vector3.forward, boss.VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
-            boss.DecelerationVector = new Vector3(Mathf.Sin(boss.vectorAngle) * boss.DeceleratioModule, 0, Mathf.Cos(boss.vectorAngle) * boss.DeceleratioModule);
+            boss.DecelerationVector = new Vector3(Mathf.Sin(boss.vectorAngle) * boss.DecelerationModule, 0, Mathf.Cos(boss.vectorAngle) * boss.DecelerationModule);
             boss.VelocityVector -= boss.DecelerationVector * Time.deltaTime;
             boss.transform.localPosition += boss.VelocityVector * Time.deltaTime;
         }
@@ -83,8 +78,6 @@ public class FirtsBossDecelerationState : FirstBossState
             boss.VelocityVector = Vector3.zero;
             animator.SetTrigger(END_STATE_TRIGGER);
         }
-
-
 
 
         if (Debugging)

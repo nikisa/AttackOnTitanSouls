@@ -6,15 +6,17 @@ using DG.Tweening;
 using UnityEngine.SceneManagement;
 
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MovementBase
 {
     //Events
+    #region Events
     public delegate void GameEvent();
     public static GameEvent DeathEvent;
     public static GameEvent VictoryEvent;
     public static GameEvent TimerEvent;
     public static GameEvent DmgEvent;
     public static GameEvent DisableInputEvent;
+    
 
     private void OnEnable() {
         DeathEvent += PlayerDeath;
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
         DmgEvent -= TakeDmg;
         DisableInputEvent -= DisableInputCall;
     }
+    #endregion
 
     //Inspector
     public DataInput dataInput;
@@ -85,33 +88,15 @@ public class PlayerController : MonoBehaviour
     public float forwardVelocity;
     [HideInInspector]
     public bool InputDisable;
-    [HideInInspector]
-    public Vector3 targetDir;
+    
 
     //Private
-    Vector3 targetDirection;
-    Quaternion bossRotation;
-    public float vectorAngle;
-    public Vector3 OldPos;
-    public Vector3 Inertia;
-    public float AccelerationModule;
-    public Vector3 AccelerationVector;
-    public Vector3 VelocityVector;
-    public Vector3 MaxSpeedVector;
-    public float Drag;
-    public float DecelerationModule;
-    public Vector3 DecelerationVector;
-
-
     Camera camera;
-    [HideInInspector]
-    public Vector3 movementVelocity = Vector3.zero;
-    [HideInInspector]
-    public Vector3 movementDirection = Vector3.zero;
-
+    Vector3 move;
     float timeStart;
     float dashDecelerationVelocity;
     float dashDeceleration;
+    float vectorAngle;
     #region testing
 
     CharacterController character; 
@@ -139,7 +124,6 @@ public class PlayerController : MonoBehaviour
     {
         if (!InputDisable) // momentaneo da sistemare
         {
-            
             CheckInput();
             InputDetection();
             UpdateOriantation();
@@ -167,9 +151,6 @@ public class PlayerController : MonoBehaviour
         graphicAnimator.SetFloat("Vertical", Input.GetAxis("Vertical"));
     }
 
-    public float GetLeftAnalogAngle() {
-        return (Vector2.SignedAngle(new Vector2(1, 0), new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"))) * Mathf.Deg2Rad);
-    }
 
     public void CheckInput() {
         float horizontalMovement = Input.GetAxis("Horizontal");
@@ -229,117 +210,33 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    public void Movement() {
-
-        if (movementVelocity.sqrMagnitude < 0.001) return;
-
-        int interpolation = (int)(movementVelocity.magnitude / 1f) + 1;
-
-        for (int i = 0; i < interpolation; i++) {
-            if (movementVelocity.sqrMagnitude < 0.001) return;
-
-            float time = Time.deltaTime / interpolation;
-
-            RaycastHit[] hits = Physics.SphereCastAll(transform.position + Vector3.up * 1.5f, skin, movementDirection, (movementDirection * time).magnitude, layerMask);
-
-
-            if (hits == null || hits.Length == 0) {
-                transform.Translate(movementVelocity * time);
-                animator.SetBool("isColliding", false);
-            }
-            else {
-
-                character.Move(movementVelocity * time);
-
-                //pushable
-                foreach (var hit in hits) {
-                    //    if (hit.transform.gameObject.CompareTag("Pushable")) {
-                    //        var rb = hit.transform.GetComponent<Rigidbody>();
-                    //        rb.AddForceAtPosition(movementVelocity, hit.point, ForceMode.Acceleration);
-                    //    }
-
-                    //slope
-                    //if (hits.Length >= 1) {
-
-                    //    animator.SetBool("isColliding", true);
-                    //    animator.ResetTrigger("Dash");
-
-                    //    var normal = Quaternion.AngleAxis(90, Vector3.up) * hits[0].normal;
-                    //    Debug.DrawRay(hits[0].point, normal * 4, Color.red, 2);
-
-                    //    movementVelocity = normal * Vector3.Dot(movementVelocity, normal);
-                    //    movementVelocity.y = 0;
-
-                    //    transform.Translate(movementVelocity * time);
-                    //}
-                }
-            }
-        }
-    }
-
-    public void newMovement(float _maxSpeed , float _timeAcceleration) {
-        targetDir = new Vector3(dataInput.Horizontal,0,dataInput.Vertical);
-        vectorAngle = Vector3.SignedAngle(Vector3.forward, targetDir, Vector3.up) * Mathf.Deg2Rad;
-        AccelerationModule = _maxSpeed / _timeAcceleration;
-        Drag = AccelerationModule / _maxSpeed * Time.deltaTime;
-        VelocityVector -= VelocityVector * Drag;
-        AccelerationVector = new Vector3(Mathf.Sin(vectorAngle) * AccelerationModule, 0, Mathf.Cos(vectorAngle) * AccelerationModule);
-        transform.localPosition += VelocityVector * Time.deltaTime + 0.5f * AccelerationVector * Mathf.Pow(Time.deltaTime, 2);
-        VelocityVector += AccelerationVector * Time.deltaTime;
-    }
-
-
-    public void newDeceleration() {
+    public void Deceleration() {
         vectorAngle = Vector3.SignedAngle(Vector3.forward, VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
-        DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
+        //Vector3 decelerationVectorTemp = targetDir;
+        DecelerationVector = /*decelerationVectorTemp.normalized * DecelerationModule;*/ new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
         VelocityVector -= DecelerationVector * Time.deltaTime;
-        transform.localPosition += VelocityVector * Time.deltaTime;
+        move = VelocityVector * Time.deltaTime;
+        character.Move(move + Vector3.down * gravity);
     }
 
-    public void newDash(float _dashVelocityModule , Vector3 _targetDir) {
-
-        vectorAngle = Vector3.SignedAngle(Vector3.forward, _targetDir, Vector3.up) * Mathf.Deg2Rad;
-        VelocityVector =  new Vector3(Mathf.Sin(vectorAngle) * (_dashVelocityModule) , 0 , Mathf.Cos(vectorAngle) * (_dashVelocityModule));
-        transform.localPosition += VelocityVector * Time.deltaTime;
-
-        Debug.Log("(DASH) VelocityVector: " + VelocityVector.normalized);
+    public void Dash(float _dashVelocityModule , Vector3 _targetDir) {
+        targetDir = _targetDir;
+        Vector3 dashVectorTemp = targetDir;
+        VelocityVector = dashVectorTemp.normalized * _dashVelocityModule;
+        move = VelocityVector * Time.deltaTime;
+        character.Move(move + Vector3.down * gravity);
     }
 
-    public void newDashDeceleration() {
-
-        Debug.Log("(DASH DECEL) VelocityVector: " + VelocityVector.magnitude);
-
+    public void DashDeceleration() {
         vectorAngle = Vector3.SignedAngle(Vector3.forward, VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
-        DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
+        //Vector3 decelerationVectorTemp = targetDir;
+        DecelerationVector = /*decelerationVectorTemp.normalized * DecelerationModule;*/ new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
+
         VelocityVector -= DecelerationVector * Time.deltaTime;
-        transform.localPosition += VelocityVector * Time.deltaTime;
-
-        Debug.Log("(DASH DECEL) DecelerationVector: " + DecelerationVector.magnitude * Time.deltaTime);
+        move = VelocityVector * Time.deltaTime;
+        character.Move(move + Vector3.down * gravity);
     }
 
-
-    public void Deceleration(float _deceleration) {
-
-        if (movementVelocity.x < _deceleration * Time.deltaTime)
-            movementVelocity.x = movementVelocity.x - _deceleration * Time.deltaTime;
-        else if (movementVelocity.x > -_deceleration * Time.deltaTime)
-            movementVelocity.x = movementVelocity.x + _deceleration * Time.deltaTime;
-        else {
-            movementVelocity.x = 0;
-        }
-            if (movementVelocity.z < _deceleration * Time.deltaTime)
-                movementVelocity.z = movementVelocity.z - _deceleration * Time.deltaTime;
-            else if (movementVelocity.z > -_deceleration * Time.deltaTime)
-                movementVelocity.z = movementVelocity.z + _deceleration * Time.deltaTime;
-            else {
-                movementVelocity.z = 0;
-            }
-
-        movementDirection = movementVelocity;
-        Movement();
-        
-    }
     public void TakeDmg()
     {
         Lifes--;
@@ -354,36 +251,21 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(InvicibleSecond(2f));
         }
     }
+
+
     public void DisableInputCall()
     {
         StartCoroutine(InputDisableCourutine());
     }
+
+
     public IEnumerator InputDisableCourutine()
     {
         InputDisable = true;
         yield return new WaitForSeconds(TimeInputDisable);
         InputDisable = false;
     }
-    public void DashDeceleration(float _horizontal , float _vertical ,float _decelerationTime , float _dashDistance , float _dashTime) {
-
-        Vector3 direction = new Vector3(_horizontal, 0, _vertical);
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position + Vector3.up * 1.75f, skin * 1.5f , dashVelocityModule * direction , (dashDecelerationVelocity * Time.deltaTime) , layerMask);
-
-        if (hits == null || hits.Length == 0) {
-            
-            dashDecelerationVelocity = _dashDistance / _dashTime;
-            //dashDecelerationVelocity /=  _decelerationTime; 
-            dashDeceleration = dashDecelerationVelocity / _decelerationTime;
-            dashVelocityModule -= dashDeceleration * Time.fixedDeltaTime;
-            dashVelocityModule = Mathf.Clamp(dashVelocityModule, 0, dashDecelerationVelocity);
-            transform.Translate((dashVelocityModule * Time.fixedDeltaTime) * direction);
-        }
-        else {
-            dashVelocityModule = 0;
-        }
-    }
-
-
+    
 
     public void SetDashVelocity(float _dashDistance, float _dashTime) {
         float dashVelocity = _dashDistance / _dashTime;
@@ -391,52 +273,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
-    public float SetCorrectAccelerationOnResumeControl(float startVelocity) {
-        return startVelocity;
-    }
-
-
-    public void ReadInputKeyboard(DataInput dataInput , float _acceleration , float _maxSpeed) {
-        movementVelocity = Vector3.zero;
-       
-        // Set vertical movement
-        //if (dataInput.Vertical != 0f) {
-            forwardVelocity += _acceleration * Time.fixedDeltaTime;
-            forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
-            movementVelocity += Vector3.forward  * (forwardVelocity * Mathf.Sin(GetLeftAnalogAngle()));
-            movementDirection = movementVelocity;
-        //}
-        
-        // Set horizontal movement
-        //if (dataInput.Horizontal != 0f) {
-            forwardVelocity += _acceleration * Time.fixedDeltaTime;
-            forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
-            movementVelocity += Vector3.right * (forwardVelocity * Mathf.Cos(GetLeftAnalogAngle()));
-            movementDirection = movementVelocity;
-        //}
-    }
-
-    public void ReadInputGamepad(DataInput dataInput, float _acceleration, float _maxSpeed) {
-
-        movementVelocity = Vector3.zero;
-
-        // Set vertical movement gamepad
-        if (dataInput.Vertical != 0f) {
-            forwardVelocity += _acceleration * Time.fixedDeltaTime;
-            forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
-            movementVelocity += Vector3.forward /* * dataInput.Vertical*/ * (forwardVelocity * Mathf.Sin(GetLeftAnalogAngle()));
-        }
-
-        // Set horizontal movement gamepad
-        if (dataInput.Horizontal != 0f) {
-            forwardVelocity += _acceleration * Time.fixedDeltaTime;
-            forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
-            movementVelocity += Vector3.right /** dataInput.Horizontal*/ * (forwardVelocity * Mathf.Cos(GetLeftAnalogAngle()));
-        }
-        //newInput = true;
-    }
-
+    // DA SISTEMARE
     public void InputDetection() {
         if ((dataInput.Vertical > DeadZoneValue || dataInput.Vertical < -DeadZoneValue) || (dataInput.Horizontal > DeadZoneValue || dataInput.Horizontal < -DeadZoneValue)) {
             newInput = true;
@@ -446,41 +283,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
-
-    public void timeFreeze(float _timeScale)
-    {
-        Time.timeScale = _timeScale;
-    }
-    public RaycastHit RayCastDash(float _horizontal , float _vertical)
-    {
-        RaycastHit hitDash;
-        Physics.Raycast(transform.position, new Vector3(_horizontal, 0, _vertical), out hitDash, playerDashData.ActiveDashDistance * 2);
-        return hitDash;
-    }
-    public void Dash(float _dashTimeFrames)  // on complete sulla funzione ?
-    {
-        transform.DOMove(dashDirection, _dashTimeFrames);
-    }
 
     public void PlayerInclination() {
-
-        
         // Ruoto il personaggio in funzione della del suo movimento
-        Vector3 rotationAxis = Quaternion.AngleAxis(90, Vector3.up) * movementVelocity;
-
-        Quaternion moveRotation = Quaternion.AngleAxis(movementVelocity.magnitude * movimentRatio, rotationAxis);
+        Vector3 rotationAxis = Quaternion.AngleAxis(90, Vector3.up) * VelocityVector;
+        Quaternion moveRotation = Quaternion.AngleAxis(VelocityVector.magnitude * movimentRatio, rotationAxis);
         body.transform.rotation = moveRotation * rotationTransform.rotation;
     }
+
     public void UpdateOriantation()
     {
         rotationTransform.localRotation = dataInput.currentOrientation;
-
     }
+
+
     public void StopPlayer()
     {
         forwardVelocity = 0;
-        movementVelocity = Vector3.zero;
+        VelocityVector = Vector3.zero;
     }
 
     public void StartTimerDash()
@@ -488,6 +308,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("TIMER");
         timerDash = Time.time;
     }
+
     public void PlayerDeath() {
         Debug.Log("MORTO");
         SceneManager.LoadScene(2);
@@ -497,11 +318,7 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene(3);
     }
 
-    //?Test player rope length constraint?
-    public void RopeLengthConstraint(Vector3 nodePosition) {
-        Vector3 constraint = new Vector3(nodePosition.x, nodePosition.y, transform.position.z);
-        transform.Translate(constraint * Time.deltaTime);
-    }
+    
     public IEnumerator InvicibleSecond(float _sec)
     {
         IsImmortal = true;
@@ -542,10 +359,122 @@ public struct DataInput
         HorizontalLook = 0;
         VerticalLook = 0;
     }
- 
 
 
-    
-   
+    #region OLD FUNCTIONS
+
+    //public RaycastHit RayCastDash(float _horizontal, float _vertical) {
+    //    RaycastHit hitDash;
+    //    Physics.Raycast(transform.position, new Vector3(_horizontal, 0, _vertical), out hitDash, playerDashData.ActiveDashDistance * 2);
+    //    return hitDash;
+    //}
+
+    //public void ReadInputKeyboard(DataInput dataInput, float _acceleration, float _maxSpeed) {
+    //    movementVelocity = Vector3.zero;
+
+    //    // Set vertical movement
+    //    //if (dataInput.Vertical != 0f) {
+    //    forwardVelocity += _acceleration * Time.fixedDeltaTime;
+    //    forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
+    //    movementVelocity += Vector3.forward * (forwardVelocity * Mathf.Sin(GetLeftAnalogAngle()));
+    //    movementDirection = movementVelocity;
+    //    //}
+
+    //    // Set horizontal movement
+    //    //if (dataInput.Horizontal != 0f) {
+    //    forwardVelocity += _acceleration * Time.fixedDeltaTime;
+    //    forwardVelocity = Mathf.Clamp(forwardVelocity, 0, _maxSpeed);
+    //    movementVelocity += Vector3.right * (forwardVelocity * Mathf.Cos(GetLeftAnalogAngle()));
+    //    movementDirection = movementVelocity;
+    //    //}
+    //}
+
+
+    //public void DashDeceleration(float _horizontal, float _vertical, float _decelerationTime, float _dashDistance, float _dashTime) {
+
+    //    Vector3 direction = new Vector3(_horizontal, 0, _vertical);
+    //    RaycastHit[] hits = Physics.SphereCastAll(transform.position + Vector3.up * 1.75f, skin * 1.5f, dashVelocityModule * direction, (dashDecelerationVelocity * Time.deltaTime), layerMask);
+
+    //    if (hits == null || hits.Length == 0) {
+
+    //        dashDecelerationVelocity = _dashDistance / _dashTime;
+    //        dashDeceleration = dashDecelerationVelocity / _decelerationTime;
+    //        dashVelocityModule -= dashDeceleration * Time.fixedDeltaTime;
+    //        dashVelocityModule = Mathf.Clamp(dashVelocityModule, 0, dashDecelerationVelocity);
+    //        transform.Translate((dashVelocityModule * Time.fixedDeltaTime) * direction);
+    //    }
+    //    else {
+    //        dashVelocityModule = 0;
+    //    }
+    //}
+
+
+    //public void Deceleration(float _deceleration) {
+
+    //    if (movementVelocity.x < _deceleration * Time.deltaTime)
+    //        movementVelocity.x = movementVelocity.x - _deceleration * Time.deltaTime;
+    //    else if (movementVelocity.x > -_deceleration * Time.deltaTime)
+    //        movementVelocity.x = movementVelocity.x + _deceleration * Time.deltaTime;
+    //    else {
+    //        movementVelocity.x = 0;
+    //    }
+    //    if (movementVelocity.z < _deceleration * Time.deltaTime)
+    //        movementVelocity.z = movementVelocity.z - _deceleration * Time.deltaTime;
+    //    else if (movementVelocity.z > -_deceleration * Time.deltaTime)
+    //        movementVelocity.z = movementVelocity.z + _deceleration * Time.deltaTime;
+    //    else {
+    //        movementVelocity.z = 0;
+    //    }
+
+    //    movementDirection = movementVelocity;
+    //    Movement();
+
+    //}
+
+    //public void Movement() {
+
+    //    if (movementVelocity.sqrMagnitude < 0.001) return;
+
+    //    int interpolation = (int)(movementVelocity.magnitude / 1f) + 1;
+
+    //    for (int i = 0; i < interpolation; i++) {
+    //        if (movementVelocity.sqrMagnitude < 0.001) return;
+
+    //        float time = Time.deltaTime / interpolation;
+
+    //        RaycastHit[] hits = Physics.SphereCastAll(transform.position + Vector3.up * 1.5f, skin, movementDirection, (movementDirection * time).magnitude, layerMask);
+
+
+    //        if (hits == null || hits.Length == 0) {
+    //            transform.Translate(movementVelocity * time);
+    //            animator.SetBool("isColliding", false);
+    //        }
+    //        else {
+
+    //            character.Move(movementVelocity * time);
+
+    //            #region Slope made by code
+    //            //slope
+    //            //if (hits.Length >= 1) {
+
+    //            //    animator.SetBool("isColliding", true);
+    //            //    animator.ResetTrigger("Dash");
+
+    //            //    var normal = Quaternion.AngleAxis(90, Vector3.up) * hits[0].normal;
+    //            //    Debug.DrawRay(hits[0].point, normal * 4, Color.red, 2);
+
+    //            //    movementVelocity = normal * Vector3.Dot(movementVelocity, normal);
+    //            //    movementVelocity.y = 0;
+
+    //            //    transform.Translate(movementVelocity * time);
+    //            //}
+    //            #endregion
+
+    //        }
+    //    }
+    //}
+
+    #endregion
+
 }
 

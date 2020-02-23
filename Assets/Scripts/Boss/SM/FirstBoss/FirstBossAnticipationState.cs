@@ -16,6 +16,9 @@ public class FirstBossAnticipationState : FirstBossState
 
     public override void Enter()
     {
+
+        base.Enter();
+
         ResetCycleTimer();
         animator.SetInteger("Layer", 0);
         iterations = 1;
@@ -34,7 +37,9 @@ public class FirstBossAnticipationState : FirstBossState
 
     public override void Tick()
     {
-        Timer(anticipationData);
+        base.Tick();
+
+        //Timer(anticipationData);
         //RotationAccelerationTick();
         // AnticipationTick();
         detectCollsion();
@@ -68,7 +73,6 @@ public class FirstBossAnticipationState : FirstBossState
 
     public void AnticipationExit()
     {
-        ResetTimer(anticipationData);
         boss.IsPrevStateReinitialize = false;
         animator.SetBool("Anticipation", false);
     }

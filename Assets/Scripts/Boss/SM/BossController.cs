@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BossController : MonoBehaviour
+public class BossController : MovementBase
 {
     //Inspector
     public Animator animator;
     public BossView View;
     public PlayerController Player;
     public GameObject Graphics;
-    public Collider bossCollider;
    
     //Public
     [HideInInspector]
@@ -29,6 +28,8 @@ public class BossController : MonoBehaviour
     public GameObject Target;
     [HideInInspector]
     public float CycleTimer;
+
+    
 
     //Private
     int HookPointLayerMask;
@@ -118,7 +119,6 @@ public class BossController : MonoBehaviour
             else {
                 result = hits[0].collider.gameObject.layer;
                 hitObject = hits[0];
-                //Debug.LogFormat("Hit point:{0} ---- Object Hit:{1} ---- Object Transform:{2}", hitObject.point, hitObject.transform.gameObject.name, hitObject.transform.position);
             }
         }
         return result;
@@ -141,63 +141,6 @@ public class BossController : MonoBehaviour
             this.hitObject = hits[0];
             return hits[0].collider.gameObject.layer;
         }
-
-        /*
-        int result = 0;
-
-        int interpolation = _iteration;//(int)(MoveSpeed / 1f);
-
-        for (int i = 0; i < interpolation; i++) {
-            if (Mathf.Sqrt(MoveSpeed) < 0.001) result = 0;
-
-            float time = Time.deltaTime / interpolation;
-
-            //CONTROLLARE CHE IL BOSS SI GIRI IN TEMPO
-            RaycastHit[] hits = Physics.SphereCastAll(_nextPosition + Vector3.up * 1.1f, skin, Vector3.forward , _distance * time, HookPointLayerMask);
-
-            Debug.DrawRay(_nextPosition + Vector3.up * 1.1f, transform.forward , Color.red , 0.05f);
-
-
-
-            if (hits == null || hits.Length == 0) {
-                return result = 0;
-            }
-            else {
-                result = hits[0].collider.gameObject.layer;
-
-                hitObject = hits[0];
-                //Debug.LogFormat("Hit point:{0} ---- Object Hit:{1} ---- Object Transform:{2}", hitObject.point, hitObject.transform.gameObject.name, hitObject.transform.position);
-            }
-        }
-        return result;
-        */
     }
-
-
-
-    //SetTarget with enum could be useful in future
-    #region
-    //public GameObject SetTarget(BossController.Targets _enumTarget)
-    //{
-    //    GameObject result = null;
-    //    switch (_enumTarget)
-    //    {
-    //        case BossController.Targets.Player:
-    //            result = FindObjectOfType<PlayerController>().gameObject;
-    //            break;
-    //    }
-    //    return result;
-    //}
-    #endregion
-
-    public MoveToData GetMoveToData()
-    {
-        return moveToData;
-    }
-
-    public enum Targets
-    {
-        Player,
-    };
 
 }

@@ -17,42 +17,31 @@ public class PlayerMovementState : PlayerBaseState
 
 
     // Private
-    //bool canDash = true;    
     float startDash;
-    float startTime;
-    float boostTime;
-    float timer;
-    float accelRatePerSec;
-
-    float forwardVelocity;
-    Vector3 movementVelocity = Vector3.zero;
     DataInput dataInput;
 
 
     public override void Enter()
     {
-
         playerDashData = player.playerDashData;
-
         player.layerMask = 1 << 10 /*| 1<<12*/;
-        //timer = Time.time;
+        player.AccelerationModule = playerMovementData.maxSpeed / playerMovementData.AccelerationTime;
 
-        accelRatePerSec = playerMovementData.maxSpeed / (playerMovementData.AccelerationTime);
-       
-        forwardVelocity = 0f;
+        Debug.LogFormat("VelocityVector: {0}  and  Magnitude: {1} " , player.VelocityVector, player.VelocityVector.magnitude);
+
     }
 
     public override void Tick()
     {
+        
 
         if (!player.InputDisable)
         {
-
            player.PlayerInclination();
 
-
             if (Mathf.Pow(Input.GetAxis("Horizontal"), 2) + Mathf.Pow(Input.GetAxis("Vertical"), 2) >= Mathf.Pow(player.DeadZoneValue, 2)) { //Usare newInput anziché riscrivere la DeadZone nella condizione
-                player.newMovement(playerMovementData.maxSpeed, playerMovementData.AccelerationTime);
+                player.targetDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+                player.Movement(player.targetDir , playerMovementData.maxSpeed , player.AccelerationModule);
             }
             else {
                 animator.SetTrigger(MOVEMENT_DECELERATION);
@@ -71,19 +60,9 @@ public class PlayerMovementState : PlayerBaseState
             {
                 startDash = Time.time;
                 player.canDash = false;
-                //player.horizontalDash = player.dataInput.Horizontal;
-                //player.verticalDash = player.dataInput.Vertical;
                 animator.SetTrigger(DASH);
-            }
-
-            if (Mathf.Pow(dataInput.Horizontal, 2) + Mathf.Pow(dataInput.Vertical, 2) >= Mathf.Pow(player.DeadZoneValue, 2))
-            {
-                //player.ReadInputGamepad(dataInput, accelRatePerSec , playerIdleData.maxSpeed);
-                player.ReadInputKeyboard(dataInput, accelRatePerSec, playerMovementData.maxSpeed);
-            }
+            }    
         }
-        //player.CheckInput();
-
     }
 
 

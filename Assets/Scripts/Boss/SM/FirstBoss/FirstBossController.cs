@@ -13,24 +13,7 @@ public class FirstBossController : BossController
     //Public
     [HideInInspector]
     public float vectorAngle;
-    [HideInInspector]
-    public Vector3 OldPos;
-    [HideInInspector]
-    public Vector3 Inertia;
-    [HideInInspector]
-    public float AccelerationModule;
-    [HideInInspector]
-    public Vector3 AccelerationVector;
-    [HideInInspector]
-    public Vector3 VelocityVector;
-    [HideInInspector]
-    public Vector3 MaxSpeedVector;
-    [HideInInspector]
-    public float Drag;
-    [HideInInspector]
-    public float DeceleratioModule;
-    [HideInInspector]
-    public Vector3 DecelerationVector;
+    
 
     //[HideInInspector]
     public int loops;

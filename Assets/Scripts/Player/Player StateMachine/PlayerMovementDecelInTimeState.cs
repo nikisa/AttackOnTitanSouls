@@ -16,24 +16,26 @@ public class PlayerMovementDecelInTimeState : PlayerBaseState
 
         playerMovementData = player.playerMovementData;
         player.DecelerationModule = (playerMovementData.maxSpeed) / (playerDecelInTimeData.DecelerationTime);
-        
     }
 
     public override void Tick() {
 
         if (player.VelocityVector.magnitude > player.DecelerationModule * Time.deltaTime) {
-            player.newDeceleration();
+            player.Deceleration();
         }
         else {
             player.VelocityVector = Vector3.zero;
             animator.SetTrigger(IDLE);
         }
 
-        if (player.newInput) {
+        if (Mathf.Pow(Input.GetAxis("Horizontal"), 2) + Mathf.Pow(Input.GetAxis("Vertical"), 2) > Mathf.Pow(player.DeadZoneValue, 2)) {
             animator.SetTrigger(MOVEMENT);
         }
 
+    }
 
+    public override void Exit() {
+        player.VelocityVector = Vector3.zero;
     }
 
 }

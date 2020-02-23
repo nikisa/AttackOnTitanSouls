@@ -20,36 +20,18 @@ public class PlayerDashDecelerationState : PlayerBaseState
     
 
     public override void Enter() {
-
-        
-
         IsTimerSet = false;
-        Debug.Log("DECEL DASH");
-
-        //HorizontalDash = player.horizontalDash;
-        //VerticalDash = player.verticalDash;
 
         playerDashData = player.playerDashData;
         playerMovementData = player.playerMovementData;
-        //playerDecelInTimeData = player.playerDecelInTimeData;
 
-
-        //___________NEW___________
         player.DecelerationModule = player.dashVelocityModule / playerDashData.DashDecelerationTime;
-        //___________NEW___________
         Debug.Log("(DASH DECEL) dashVelocityModule: " + player.dashVelocityModule);
         Debug.Log("(DASH DECEL) DecelerationModule: " + playerDashData.DashDecelerationTime);
-
-
     }
 
     public override void Tick() {
-
-        //player.DashDeceleration(HorizontalDash , VerticalDash , playerDashData.DashDecelerationTime , playerDashData.ActiveDashDistance , playerDashData.ActiveDashTime);
-
         player.dashVelocityModule = player.VelocityVector.magnitude;
-        
-
 
         if (player.dashVelocityModule <= (playerDashData.ResumePlayerInput * playerMovementData.maxSpeed)) {
 
@@ -59,41 +41,27 @@ public class PlayerDashDecelerationState : PlayerBaseState
                 IsTimerSet = true;
             }
 
-
-            if (player.newInput) {
+            if (Mathf.Pow(Input.GetAxis("Horizontal"), 2) + Mathf.Pow(Input.GetAxis("Vertical"), 2) > Mathf.Pow(player.DeadZoneValue, 2)) {
                 animator.SetTrigger(MOVEMENT);
             }
         }
 
-
-        if (player.dashVelocityModule < (player.DecelerationModule * Time.deltaTime) && Mathf.Pow(Input.GetAxis("Horizontal"), 2) + Mathf.Pow(Input.GetAxis("Vertical"), 2) < Mathf.Pow(player.DeadZoneValue, 2)) {
-            //player.VelocityVector = Vector3.zero;
+        if (player.dashVelocityModule < (player.DecelerationModule * Time.deltaTime) && Mathf.Pow(Input.GetAxis("Horizontal"), 2) + Mathf.Pow(Input.GetAxis("Vertical"), 2) < Mathf.Pow(player.DeadZoneValue, 2)) { //settare il controllo della deadzone in una booleana
             animator.SetTrigger(IDLE);
-
         }
-
-
-
-        player.newDashDeceleration();
-
-        //if (player.dashMovementSpeed <= (playerDashData.ResumePlayerInput * playerMovementData.maxSpeed)) {
-
-        //    if (!IsTimerSet) // da sitemare
-        //    {
-        //        PlayerController.TimerEvent();
-        //        IsTimerSet = true;
-        //    }
-        //    Horizontal = player.dataInput.Horizontal; /*player.horizontalDash;*/
-        //    Vertical = player.dataInput.Vertical; /*player.verticalDash;*/
-
-        //    if (Vertical != 0 || Horizontal != 0 || player.dashMovementSpeed == 0) {
-        //        Debug.Log(player.dashMovementSpeed + " --player.dashMovementSpeed-- ");
-        //        animator.SetTrigger(IDLE);
-        //    } 
-        //}
+        player.DashDeceleration();
     }
+
 
     public override void Exit() {
-        
+        //player.move = Vector3.zero;
+        //player.nextPosition = Vector3.zero;
+        player.AccelerationVector = Vector3.zero;
+        player.VelocityVector = Vector3.zero;
+        //player.DecelerationVector = Vector3.zero;
+        //player.Drag = 0;
+        //player.AccelerationModule = 0;
+        //player.DecelerationModule = 0;
     }
+
 }

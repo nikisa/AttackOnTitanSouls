@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58adf1035768dce48b6e3ad7013fb68a, type: 3}
   m_Name: PlayerMovementDecelInTimeData
   m_EditorClassIdentifier: 
-  DecelerationTime: 0.1
+  DecelerationTime: 1

@@ -66,7 +66,6 @@ public class BossOrbitManager : MonoBehaviour
     public void OrbitDeceleration(float _maxSpeed, float _timeDeceleration, HookPointController _centerPoint) {
 
         _maxSpeed /= 60;
-        Debug.Log("mAXsPEED: " + _maxSpeed);
 
         if (_maxSpeed > 0) {
             _centerPoint.transform.Rotate(Vector3.up * _centerPoint.MoveSpeed);

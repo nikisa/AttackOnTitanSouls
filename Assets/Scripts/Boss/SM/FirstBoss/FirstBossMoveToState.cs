@@ -20,35 +20,28 @@ public class FirstBossMoveToState : FirstBossState
     float timeMoveTo;
     int iterations;
     int layerResult;
-    int layerCollision;
 
     int layerWall;
     int layerPlayer;
-    float reinitSphereCastTimer;
+    float accelerationModule;
     Vector3 targetDir;
 
 
-    
-
     public override void Enter()
     {
-
         base.Enter();
 
         iterations = 30;
         layerWall = 10;
         layerPlayer = 11;
-        reinitSphereCastTimer = 0.05f;
-
         
         Target = moveToData.Target.instance;
         boss.Target = Target;
+        accelerationModule = moveToData.MaxSpeed / moveToData.TimeAcceleration;
+
+        boss.MovementReset();
         OrbitTag(moveToData);
         MoveToEnter();
-        targetDir = targetPosition - boss.transform.position;
-        AccelerationEnter();
-
-
 
     }
     public override void Tick()
@@ -76,11 +69,13 @@ public class FirstBossMoveToState : FirstBossState
     public void ChargeAttack()
     { 
         targetPosition = new Vector3(Target.transform.position.x, startY, Target.transform.position.z);
+        targetDir = targetPosition - boss.transform.position;
         boss.AccelerationVector = targetPosition - boss.transform.position;
         boss.RotateTarget(targetPosition);
     }
 
     public void MoveToEnter() {
+
         boss.moveToData = moveToData;
         boss.MaxSpeed = moveToData.MaxSpeed;
         boss.MoveSpeed += moveToData.AddToVelocity;
@@ -92,43 +87,19 @@ public class FirstBossMoveToState : FirstBossState
 
     public void MoveToTick() {
 
-        layerResult = boss.MovingDetectPlayer(iterations);
+        //layerResult = boss.MovingDetectPlayer(iterations);
 
-        Vector3 nextPosition = boss.transform.position + (boss.MoveSpeed * Time.deltaTime) * boss.transform.forward;
-        layerCollision = boss.MovingDetectCollision(iterations, nextPosition, boss.MoveSpeed);
+        layerResult = boss.MovingDetectCollision(iterations , boss.nextPosition , boss.VelocityVector.magnitude);
+        Debug.Log("TargetDir: " + targetDir);
 
-        if (layerCollision == layerWall)
+
+        if (layerResult == layerWall && boss.VelocityVector.magnitude > 20)
         {
-            animator.SetInteger("Layer", layerCollision);
+            animator.SetInteger("Layer", layerResult);
         }
         else {
 
-            boss.Move();
-
-            //__________________________
-
-            
-                //boss.vectorAngle = Vector3.SignedAngle(Vector3.forward, targetDir, Vector3.up) * Mathf.Deg2Rad;
-                //boss.AccelerationModule = moveToData.MaxSpeed / moveToData.TimeAcceleration;
-                //boss.AccelerationVector = new Vector3(Mathf.Sin(boss.vectorAngle) * boss.AccelerationModule, 0, Mathf.Cos(boss.vectorAngle) * boss.AccelerationModule);
-                ////boss.MaxSpeedVector = new Vector3(Mathf.Cos(boss.vectorAngle) * chaseData.MaxSpeed, boss.AccelerationVector.y, Mathf.Sin(boss.vectorAngle) * chaseData.MaxSpeed);
-                //boss.Drag = boss.AccelerationModule / moveToData.MaxSpeed * Time.deltaTime;
-                ////boss.OldPos = boss.transform.position;
-                //boss.transform.localPosition += boss.VelocityVector * Time.deltaTime + 0.5f * boss.AccelerationVector * Mathf.Pow(Time.deltaTime, 2);
-                //boss.VelocityVector += boss.AccelerationVector * Time.deltaTime;
-                //boss.VelocityVector -= boss.VelocityVector * boss.Drag;
-
-
-                //if (Debugging) {
-                //    Debug.DrawLine(boss.transform.position, boss.transform.position + boss.AccelerationVector, Color.red, .02f);
-                //    Debug.DrawLine(boss.transform.position, boss.transform.position + boss.VelocityVector, Color.blue, .02f);
-                //    //Debug.DrawLine(transform.position, Player.transform.position, Color.green, .02f);
-                //Debug.DrawLine(boss.transform.position, boss.MaxSpeedVector, Color.green, .5f);
-            //}
-
-
-
-            //__________________________
+            boss.Movement(targetDir , moveToData.MaxSpeed , accelerationModule);
 
             if (layerResult == layerPlayer) {
                 if (!boss.Player.IsImmortal)
@@ -140,9 +111,6 @@ public class FirstBossMoveToState : FirstBossState
         }
     }
 
-    public void AccelerationEnter() {
-        timeStartAcceleration = Time.time;
-    }
 
     public void AccelerationTick() {
         boss.Acceleration(moveToData.TimeAcceleration, moveToData.MaxSpeed);

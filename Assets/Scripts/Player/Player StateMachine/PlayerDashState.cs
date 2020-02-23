@@ -13,9 +13,6 @@ public class PlayerDashState : PlayerBaseState
 
     public override void Enter() {
 
-
-        Debug.Log("(DASH) TARGET DIR: " + player.targetDir);
-
         player.targetDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         timeStart = Time.time;
 
@@ -26,7 +23,7 @@ public class PlayerDashState : PlayerBaseState
     public override void Tick() {
 
         if (Time.time - timeStart <  playerDashData.ActiveDashTime) {
-            player.newDash(player.dashVelocityModule , player.targetDir);
+            player.Dash(player.dashVelocityModule , player.targetDir);
         }
         else {
             animator.SetTrigger(DASH_DECELERATION);

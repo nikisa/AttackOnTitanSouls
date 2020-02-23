@@ -24,7 +24,6 @@ public class OldPlayerDashState : PlayerBaseState
 
 
     public override void Enter() {
-        player.movementVelocity = Vector3.zero;
         player.ImmortalTutorial = true;// rende immortale il player per il dash per il tutorial
         player.playerDashData = playerDashData;
         isDashing = false;
@@ -32,9 +31,9 @@ public class OldPlayerDashState : PlayerBaseState
         Vertical = player.verticalDash;
         //(player.SetDashVelocity(Horizontal, Vertical, playerDashData.ActiveDashDistance, playerDashData.ActiveDashTime);
 
-        hitDash = player.RayCastDash(Horizontal, Vertical);
-        realDashDistance = Vector3.Distance(hitDash.collider.ClosestPointOnBounds(player.transform.position), player.transform.position);
-        realDashDistance /= 2.2f;
+        //hitDash = player.RayCastDash(Horizontal, Vertical);
+        //realDashDistance = Vector3.Distance(hitDash.collider.ClosestPointOnBounds(player.transform.position), player.transform.position);
+        //realDashDistance /= 2.2f;
 
     }
 
