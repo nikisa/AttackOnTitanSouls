@@ -29,11 +29,8 @@ public class FirstBossRecoveryState : FirstBossState
     }
     public override void Tick()
     {
-        base.Tick();
-
-       //RecoveryInfoTick();
-       //DecelerationTick();
         detectCollsion();
+        base.Tick();    
         SetCycleTimer();
     }
     public override void Exit()
@@ -48,20 +45,8 @@ public class FirstBossRecoveryState : FirstBossState
         OrbitTag(recoveryData);
     }
    
-    //public void RecoveryInfoTick() {
-    //    //Ends state when the timer has finished
-    //    if ((Time.time - timeStartRecovery) > recoveryData.Time) {
-    //        animator.SetTrigger(END_STATE_TRIGGER);
-    //    }
-    //}
-
-    //Does a deceleration when finishing the movement
-    //public void DecelerationTick() {
-    //    boss.Deceleration(decelerationData.TimeDeceleration, decelerationData.LowSpeed , boss.MaxSpeed);
-    //}
-
     void detectCollsion() {
-        layerResult = boss.MovingDetectPlayer(iterations);
+        layerResult = boss.MovingDetectCollision(iterations, boss.nextPosition, boss.VelocityVector.magnitude);
         animator.SetInteger("Layer", 0);
 
         if (layerResult == layerPlayer) {

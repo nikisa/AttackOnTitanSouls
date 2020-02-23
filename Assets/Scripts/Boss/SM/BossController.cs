@@ -58,8 +58,6 @@ public class BossController : MovementBase
         transform.Translate( Vector3.forward * MoveSpeed * Time.deltaTime);
     }
 
-
-
     public void NegativeMove() {
         transform.Translate(Vector3.back * MoveSpeed * Time.deltaTime);
     }

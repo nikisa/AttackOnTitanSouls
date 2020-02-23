@@ -90,8 +90,14 @@ public class FirstBossMoveToState : FirstBossState
         //layerResult = boss.MovingDetectPlayer(iterations);
 
         layerResult = boss.MovingDetectCollision(iterations , boss.nextPosition , boss.VelocityVector.magnitude);
-        Debug.Log("TargetDir: " + targetDir);
+        Debug.Log("layer: " + layerResult);
 
+        if (layerResult == layerPlayer) {
+            if (!boss.Player.IsImmortal) {
+                PlayerController.DmgEvent();
+            }
+
+        }
 
         if (layerResult == layerWall && boss.VelocityVector.magnitude > 20)
         {
@@ -100,14 +106,6 @@ public class FirstBossMoveToState : FirstBossState
         else {
 
             boss.Movement(targetDir , moveToData.MaxSpeed , accelerationModule);
-
-            if (layerResult == layerPlayer) {
-                if (!boss.Player.IsImmortal)
-                {
-                    PlayerController.DmgEvent();
-                }
-                
-            }
         }
     }
 
