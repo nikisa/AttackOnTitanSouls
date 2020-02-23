@@ -52,7 +52,6 @@ public class FirstBossChaseState : FirstBossState
 
     public override void Exit()
     {
-        ResetTimer(chaseData);
         boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
         animator.SetBool("ChaseOrbit", false);
@@ -78,7 +77,7 @@ public class FirstBossChaseState : FirstBossState
     //Chase the target
     public void ChaseTick()
     {
-        layerCollision = boss.MovingDetectCollision(iterations, boss.nextPosition, boss.VelocityVector.magnitude);
+        layerCollision = boss.DetectCollision(boss.nextPosition);
         targetDir = Target.transform.position - boss.transform.position;
 
         if (layerCollision == layerWall && boss.VelocityVector.magnitude > 5) {
@@ -96,11 +95,6 @@ public class FirstBossChaseState : FirstBossState
         }
     }
 
-    //Does an acceleration when starts chasing the target
-    public void AccelerationTick()
-    {
-        boss.Acceleration(chaseData.TimeAcceleration, chaseData.MaxSpeed);         
-    }
 
     public void setChaseRadius() {
         float distance = (Target.transform.position - boss.transform.position).magnitude;

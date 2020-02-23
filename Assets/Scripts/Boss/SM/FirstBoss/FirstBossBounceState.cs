@@ -54,21 +54,14 @@ public class FirstBossBounceState : FirstBossState
 
         base.Tick();
 
-        //speed -= bounceData.Deceleration * Time.deltaTime;
-        //lerpValue +=  Mathf.Abs(speed)/1000 * Time.deltaTime;+
         SetCycleTimer();
+
         Debug.DrawRay(boss.transform.position + new Vector3(0, 6, 0), boss.AccelerationVector * 10, Color.blue, .1f);
 
         lerpValue += Time.deltaTime;
 
-
         Vector3 targetPoint= Vector3.Lerp(Vector3.Lerp(pointA, boss.BouncePointB.transform.position, lerpValue), Vector3.Lerp(pointA, boss.BouncePointC.transform.position, lerpValue), lerpValue);
-        
-
-        Timer(bounceData);
-
         BounceDetectCollsion(targetPoint);
-
 
     }
 
@@ -76,7 +69,6 @@ public class FirstBossBounceState : FirstBossState
 
         layerResult = 0;
         animator.SetInteger("Layer", layerResult);
-        ResetTimer(bounceData);
     }
 
     void BounceEnter() {
@@ -88,8 +80,7 @@ public class FirstBossBounceState : FirstBossState
         direction = boss.transform.position - hitObjectPosition;
         angle = Vector3.SignedAngle(boss.AccelerationVector, direction, Vector3.up);
         direction = Quaternion.Euler(0, angle, 0) * -direction;
-        boss.AccelerationVector = Vector3.zero;//  boss.transform.position - oldPos;
-        //boss.VelocityVector = direction;
+        boss.AccelerationVector = Vector3.zero;
         Debug.DrawRay(boss.transform.position, boss.AccelerationVector * 10, Color.red, 3);
         Debug.DrawRay(boss.transform.position, direction * 10, Color.red, 3);
         if (bounceData.kinetikEnergyLoss > 0.8) {
@@ -115,33 +106,22 @@ public class FirstBossBounceState : FirstBossState
     }
 
     void BounceDetectCollsion(Vector3 targetPoint) {
-    /*
-        Vector3 direction = boss.BouncePointC.transform.position - boss.transform.position;
-        Debug.DrawRay(boss.transform.position, direction , Color.green);
-        Vector3 nextPosition = boss.transform.position + direction.normalized * (speed * Time.deltaTime);
-        Debug.Log("Next Position: " + nextPosition);
-        */
-        layerResult = boss.MovingDetectCollision(iterations , targetPoint , speed);
+  
+        layerResult = boss.DetectCollision(targetPoint);
 
-        boss.GetComponent<CharacterController>().Move((targetPoint-boss.transform.position) + Vector3.down * 10);
+        boss.CharacterController.Move((targetPoint-boss.transform.position) + Vector3.down * 10);
 
         if (layerResult == layerWall) {
             Debug.Log("RE-BOUNCING");
             animator.SetInteger("Layer", layerResult);
         }
         else {
-            //boss.transform.position = targetPoint;
-
-            //oldPos = boss.transform.position;
-
             if (layerResult == layerPlayer) {
                 if (!boss.Player.IsImmortal) {
                     PlayerController.DmgEvent();
                 }
             }
         }
-
-        
     }
 
 }

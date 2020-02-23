@@ -46,10 +46,10 @@ public class FirstBossMoveToState : FirstBossState
     }
     public override void Tick()
     {
+        base.Tick();
+
         Debug.DrawRay(boss.transform.position + new Vector3(0, 6, 0), boss.AccelerationVector * 10, Color.blue, .1f);
-        Timer(moveToData);
         MoveToTick();
-        AccelerationTick();
         SetSpeed();
         SetCycleTimer();
     }
@@ -57,7 +57,6 @@ public class FirstBossMoveToState : FirstBossState
 
     public override void Exit()
     {
-        ResetTimer(moveToData);
         boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
         animator.SetBool("MoveToOrbit", false);
@@ -89,7 +88,7 @@ public class FirstBossMoveToState : FirstBossState
 
         //layerResult = boss.MovingDetectPlayer(iterations);
 
-        layerResult = boss.MovingDetectCollision(iterations , boss.nextPosition , boss.VelocityVector.magnitude);
+        layerResult = boss.DetectCollision(boss.nextPosition);
         Debug.Log("layer: " + layerResult);
 
         if (layerResult == layerPlayer) {
@@ -107,11 +106,6 @@ public class FirstBossMoveToState : FirstBossState
 
             boss.Movement(targetDir , moveToData.MaxSpeed , accelerationModule);
         }
-    }
-
-
-    public void AccelerationTick() {
-        boss.Acceleration(moveToData.TimeAcceleration, moveToData.MaxSpeed);
     }
 
     //Set speed parameter in the animator

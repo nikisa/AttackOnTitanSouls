@@ -9,11 +9,11 @@ public class PlayerIdleState : PlayerBaseState
     DataInput dataInput;
 
     public override void Enter() {
-        //player.MovementReset();
+        player.MovementReset();
     }
 
     public override void Tick() {
-        if (Mathf.Pow(Input.GetAxis("Horizontal"), 2) + Mathf.Pow(Input.GetAxis("Vertical"), 2) >= Mathf.Pow(player.DeadZoneValue, 2)) {
+        if (player.checkDeadZone()) {
             animator.SetTrigger(MOVEMENT);
         }
     }

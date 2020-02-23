@@ -39,12 +39,10 @@ public class PlayerController : MovementBase
     public DataInput dataInput;
     public Animator animator;
     public Animator graphicAnimator;
-    public CharacterController controller;
     public Transform rotationTransform;
     public GameObject body;
-    public float movimentRatio;
+    public float movementRatio;
     public float DPS;
-    public BossOrbitManager bossOrbitManager;
     public TargetType playerTarget;
     public UiManager uiManager;
     public float TimeInputDisable;
@@ -55,8 +53,6 @@ public class PlayerController : MovementBase
     //Public
     [HideInInspector]
     public bool canDash;
-    [HideInInspector]
-    public bool newInput;
     [HideInInspector]
     public PlayerDashData playerDashData;
     [HideInInspector]
@@ -83,6 +79,7 @@ public class PlayerController : MovementBase
     public bool IsImmortal;
     [HideInInspector]
     public bool ImmortalTutorial;
+
     public int Lifes;
     //[HideInInspector]
     public float forwardVelocity;
@@ -93,21 +90,11 @@ public class PlayerController : MovementBase
     //Private
     Camera camera;
     Vector3 move;
-    float timeStart;
-    float dashDecelerationVelocity;
-    float dashDeceleration;
     float vectorAngle;
-    #region testing
 
-    CharacterController character; 
-    #endregion
-
-    //sghigna
-    float minVelocity;
 
     protected virtual void Awake() {
         playerTarget.instance = this.gameObject;
-        character = GetComponent<CharacterController>();
     }
 
     protected virtual void Start() {
@@ -125,7 +112,6 @@ public class PlayerController : MovementBase
         if (!InputDisable) // momentaneo da sistemare
         {
             CheckInput();
-            InputDetection();
             UpdateOriantation();
             SetAnimationParameter();
         }
@@ -210,31 +196,22 @@ public class PlayerController : MovementBase
         }
     }
 
-    public void Deceleration() {
-        vectorAngle = Vector3.SignedAngle(Vector3.forward, VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
-        //Vector3 decelerationVectorTemp = targetDir;
-        DecelerationVector = /*decelerationVectorTemp.normalized * DecelerationModule;*/ new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
-        VelocityVector -= DecelerationVector * Time.deltaTime;
-        move = VelocityVector * Time.deltaTime;
-        character.Move(move + Vector3.down * gravity);
-    }
-
     public void Dash(float _dashVelocityModule , Vector3 _targetDir) {
         targetDir = _targetDir;
         Vector3 dashVectorTemp = targetDir;
         VelocityVector = dashVectorTemp.normalized * _dashVelocityModule;
         move = VelocityVector * Time.deltaTime;
-        character.Move(move + Vector3.down * gravity);
+        CharacterController.Move(move + Vector3.down * gravity);
     }
 
+    //Here and not in BaseMovement because it could change over time
     public void DashDeceleration() {
-        vectorAngle = Vector3.SignedAngle(Vector3.forward, VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
-        //Vector3 decelerationVectorTemp = targetDir;
-        DecelerationVector = /*decelerationVectorTemp.normalized * DecelerationModule;*/ new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
+        float vectorAngle = Vector3.SignedAngle(Vector3.forward, VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
+        DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
 
         VelocityVector -= DecelerationVector * Time.deltaTime;
         move = VelocityVector * Time.deltaTime;
-        character.Move(move + Vector3.down * gravity);
+        CharacterController.Move(move + Vector3.down * gravity);
     }
 
     public void TakeDmg()
@@ -274,12 +251,12 @@ public class PlayerController : MovementBase
 
 
     // DA SISTEMARE
-    public void InputDetection() {
-        if ((dataInput.Vertical > DeadZoneValue || dataInput.Vertical < -DeadZoneValue) || (dataInput.Horizontal > DeadZoneValue || dataInput.Horizontal < -DeadZoneValue)) {
-            newInput = true;
+    public bool checkDeadZone() {
+        if (Mathf.Pow(Input.GetAxis("Horizontal"), 2) + Mathf.Pow(Input.GetAxis("Vertical"), 2) >= Mathf.Pow(DeadZoneValue, 2)) {
+            return true;
         }
-        else if((dataInput.Vertical < DeadZoneValue || dataInput.Vertical > -DeadZoneValue) || (dataInput.Horizontal < DeadZoneValue || dataInput.Horizontal > -DeadZoneValue)) {
-            newInput = false;
+        else {
+            return false;
         }
     }
 
@@ -287,7 +264,7 @@ public class PlayerController : MovementBase
     public void PlayerInclination() {
         // Ruoto il personaggio in funzione della del suo movimento
         Vector3 rotationAxis = Quaternion.AngleAxis(90, Vector3.up) * VelocityVector;
-        Quaternion moveRotation = Quaternion.AngleAxis(VelocityVector.magnitude * movimentRatio, rotationAxis);
+        Quaternion moveRotation = Quaternion.AngleAxis(VelocityVector.magnitude * movementRatio, rotationAxis);
         body.transform.rotation = moveRotation * rotationTransform.rotation;
     }
 

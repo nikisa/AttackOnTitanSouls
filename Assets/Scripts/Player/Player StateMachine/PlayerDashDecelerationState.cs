@@ -9,15 +9,7 @@ public class PlayerDashDecelerationState : PlayerBaseState
     PlayerDashData playerDashData;
     PlayerDecelInTimeData playerDecelInTimeData;
     PlayerMovementData playerMovementData;
-    float InitialVelocity;
-    float DashTimeFrames;
-    float timeDeceleration;
-    float HorizontalDash;
-    float VerticalDash;
-    float Horizontal;
-    float Vertical;
     bool IsTimerSet;
-    
 
     public override void Enter() {
         IsTimerSet = false;
@@ -41,12 +33,12 @@ public class PlayerDashDecelerationState : PlayerBaseState
                 IsTimerSet = true;
             }
 
-            if (Mathf.Pow(Input.GetAxis("Horizontal"), 2) + Mathf.Pow(Input.GetAxis("Vertical"), 2) > Mathf.Pow(player.DeadZoneValue, 2)) {
+            if (player.checkDeadZone()) {
                 animator.SetTrigger(MOVEMENT);
             }
         }
 
-        if (player.dashVelocityModule < (player.DecelerationModule * Time.deltaTime) && Mathf.Pow(Input.GetAxis("Horizontal"), 2) + Mathf.Pow(Input.GetAxis("Vertical"), 2) < Mathf.Pow(player.DeadZoneValue, 2)) { //settare il controllo della deadzone in una booleana
+        if (player.dashVelocityModule < (player.DecelerationModule * Time.deltaTime) && !player.checkDeadZone()) {
             animator.SetTrigger(IDLE);
         }
         player.DashDeceleration();

@@ -55,9 +55,23 @@ public class MovementBase : MonoBehaviour
         nextPosition = transform.position + move;
         VelocityVector += AccelerationVector * Time.deltaTime;
         VelocityVector -= VelocityVector * Drag;
-
         CharacterController.Move(move + Vector3.down * gravity);
 
+    }
+
+    public void Deceleration() {
+        //Vector3 decelerationVectorTemp = targetDir;
+        //DecelerationVector = decelerationVectorTemp.normalized * DecelerationModule;
+        //VelocityVector -= DecelerationVector * Time.deltaTime;
+        //move = VelocityVector * Time.deltaTime;
+        //CharacterController.Move(move + Vector3.down * gravity);
+
+        float vectorAngle = Vector3.SignedAngle(Vector3.forward, VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
+        DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
+
+        VelocityVector -= DecelerationVector * Time.deltaTime;
+        move = VelocityVector * Time.deltaTime;
+        CharacterController.Move(move + Vector3.down * gravity);
     }
 
     public void MovementReset() {

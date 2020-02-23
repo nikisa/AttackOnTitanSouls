@@ -39,7 +39,7 @@ public class PlayerMovementState : PlayerBaseState
         {
            player.PlayerInclination();
 
-            if (Mathf.Pow(Input.GetAxis("Horizontal"), 2) + Mathf.Pow(Input.GetAxis("Vertical"), 2) >= Mathf.Pow(player.DeadZoneValue, 2)) { //Usare newInput anziché riscrivere la DeadZone nella condizione
+            if (player.checkDeadZone()) { //Usare newInput anziché riscrivere la DeadZone nella condizione
                 player.targetDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
                 player.Movement(player.targetDir , playerMovementData.maxSpeed , player.AccelerationModule);
             }

@@ -28,7 +28,7 @@ public class PlayerMovementDecelInTimeState : PlayerBaseState
             animator.SetTrigger(IDLE);
         }
 
-        if (Mathf.Pow(Input.GetAxis("Horizontal"), 2) + Mathf.Pow(Input.GetAxis("Vertical"), 2) > Mathf.Pow(player.DeadZoneValue, 2)) {
+        if (player.checkDeadZone()) {
             animator.SetTrigger(MOVEMENT);
         }
 

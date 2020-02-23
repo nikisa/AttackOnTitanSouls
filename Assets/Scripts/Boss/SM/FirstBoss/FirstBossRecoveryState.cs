@@ -46,7 +46,7 @@ public class FirstBossRecoveryState : FirstBossState
     }
    
     void detectCollsion() {
-        layerResult = boss.MovingDetectCollision(iterations, boss.nextPosition, boss.VelocityVector.magnitude);
+        layerResult = boss.DetectCollision(boss.nextPosition);
         animator.SetInteger("Layer", 0);
 
         if (layerResult == layerPlayer) {
