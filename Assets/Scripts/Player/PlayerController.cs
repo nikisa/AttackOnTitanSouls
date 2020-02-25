@@ -47,7 +47,11 @@ public class PlayerController : MovementBase
     public UiManager uiManager;
     public float TimeInputDisable;
     [Range(0, 1)]
-    public float DeadZoneValue;
+    public float MovementDeadZoneValue;
+    [Range(0, 1)]
+    public float AimDeadZoneValue;
+    public float TweeningRotationTime;
+    public Ease TweeningRotationEase;
 
 
     //Public
@@ -81,7 +85,7 @@ public class PlayerController : MovementBase
     public bool ImmortalTutorial;
 
     public int Lifes;
-    //[HideInInspector]
+    [HideInInspector]
     public float forwardVelocity;
     [HideInInspector]
     public bool InputDisable;
@@ -144,12 +148,12 @@ public class PlayerController : MovementBase
         float horizontalRotation = Input.GetAxis("HorizontalLook");
         float verticalRotation = Input.GetAxis("VerticalLook");
 
-        if (Mathf.Pow(horizontalRotation, 2) + Mathf.Pow(verticalRotation, 2) >= Mathf.Pow(DeadZoneValue, 2)) {
+        if (Mathf.Pow(horizontalRotation, 2) + Mathf.Pow(verticalRotation, 2) >= Mathf.Pow(AimDeadZoneValue, 2)) {
             dataInput.HorizontalLook = Input.GetAxis("HorizontalLook");
             dataInput.VerticalLook = Input.GetAxis("VerticalLook");
         }
 
-        if (Mathf.Pow(horizontalMovement, 2) + Mathf.Pow(verticalMovement, 2) >= Mathf.Pow(DeadZoneValue, 2)) {
+        if (Mathf.Pow(horizontalMovement, 2) + Mathf.Pow(verticalMovement, 2) >= Mathf.Pow(MovementDeadZoneValue, 2)) {
 
             dataInput.Horizontal = Input.GetAxis("Horizontal");
             dataInput.Vertical = Input.GetAxis("Vertical");
@@ -162,9 +166,12 @@ public class PlayerController : MovementBase
 
         dataInput.Dash = Input.GetButtonDown("Dash");
 
+        CalculateOrientationFromMouse();//Da rimuovere e tenere solo nell'if sotto
+
+
         Vector3 lookVector = Vector3.right * dataInput.HorizontalLook + Vector3.forward * dataInput.VerticalLook;
 
-       CalculateOrientationFromMouse();
+
         if (lookVector.sqrMagnitude < 0.0001f && Input.GetJoystickNames().Length <= 0)
         {
             CalculateOrientationFromMouse();
@@ -252,7 +259,7 @@ public class PlayerController : MovementBase
 
     // DA SISTEMARE
     public bool checkDeadZone() {
-        if (Mathf.Pow(Input.GetAxis("Horizontal"), 2) + Mathf.Pow(Input.GetAxis("Vertical"), 2) >= Mathf.Pow(DeadZoneValue, 2)) {
+        if (Mathf.Pow(Input.GetAxis("Horizontal"), 2) + Mathf.Pow(Input.GetAxis("Vertical"), 2) >= Mathf.Pow(MovementDeadZoneValue, 2)) {
             return true;
         }
         else {
@@ -270,7 +277,8 @@ public class PlayerController : MovementBase
 
     public void UpdateOriantation()
     {
-        rotationTransform.localRotation = dataInput.currentOrientation;
+        //rotationTransform.localRotation =  dataInput.currentOrientation;
+        rotationTransform.DOLocalRotateQuaternion(dataInput.currentOrientation, TweeningRotationTime).SetEase(TweeningRotationEase);
     }
 
 

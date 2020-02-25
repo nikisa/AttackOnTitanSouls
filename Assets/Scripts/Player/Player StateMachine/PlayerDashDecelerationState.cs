@@ -48,8 +48,8 @@ public class PlayerDashDecelerationState : PlayerBaseState
     public override void Exit() {
         //player.move = Vector3.zero;
         //player.nextPosition = Vector3.zero;
-        player.AccelerationVector = Vector3.zero;
-        player.VelocityVector = Vector3.zero;
+        //player.AccelerationVector = Vector3.zero;
+        //player.VelocityVector = Vector3.zero;
         //player.DecelerationVector = Vector3.zero;
         //player.Drag = 0;
         //player.AccelerationModule = 0;

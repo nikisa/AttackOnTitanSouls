@@ -51,10 +51,10 @@ public class MovementBase : MonoBehaviour
         accelerationVectorTemp.y = 0;
         AccelerationVector = accelerationVectorTemp.normalized * _accelerationModule;
         Drag = _accelerationModule / _maxSpeed * Time.deltaTime;
+        VelocityVector -= VelocityVector * Drag;
         move = VelocityVector * Time.deltaTime + 0.5f * AccelerationVector * Mathf.Pow(Time.deltaTime, 2); //Formula completa per un buon effetto fin dal primo frame
         nextPosition = transform.position + move;
-        VelocityVector += AccelerationVector * Time.deltaTime;
-        VelocityVector -= VelocityVector * Drag;
+        VelocityVector += AccelerationVector * Time.deltaTime;        
         CharacterController.Move(move + Vector3.down * gravity);
 
     }

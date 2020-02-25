@@ -27,7 +27,6 @@ public class PlayerMovementState : PlayerBaseState
         player.layerMask = 1 << 10 /*| 1<<12*/;
         player.AccelerationModule = playerMovementData.maxSpeed / playerMovementData.AccelerationTime;
 
-        Debug.LogFormat("VelocityVector: {0}  and  Magnitude: {1} " , player.VelocityVector, player.VelocityVector.magnitude);
 
     }
 
