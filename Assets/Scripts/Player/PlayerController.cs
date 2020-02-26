@@ -346,7 +346,7 @@ public struct DataInput
     }
 
 
-    #region OLD FUNCTIONS
+    #region FUNCTIONS CEMETERY
 
     //public RaycastHit RayCastDash(float _horizontal, float _vertical) {
     //    RaycastHit hitDash;

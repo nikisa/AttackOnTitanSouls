@@ -35,13 +35,13 @@ public class FirstBossOrbitSetupState : FirstBossState
     public void FillPointsPosition() {
         GameObject InitialPosition;
         GameObject EndPosition;
-        for (int i = 0; i < bossOrbitManager.HookPointList.Count; i++) {
+        for (int i = 0; i < bossOrbitManager.MasksList.Count; i++) {
             InitialPosition = GameObject.Instantiate(Resources.Load("PointPosition") as GameObject , bossOrbitManager.transform);
             EndPosition = GameObject.Instantiate(Resources.Load("PointPosition") as GameObject , bossOrbitManager.transform);
             bossOrbitManager.InitialPoints.Add(InitialPosition);
             bossOrbitManager.EndPoints.Add(EndPosition);
         }
-        for (int i = 0; i < bossOrbitManager.HookPointList.Count; i++) {
+        for (int i = 0; i < bossOrbitManager.MasksList.Count; i++) {
             bossOrbitManager.InitialPoints[i].transform.position = bossOrbitManager.transform.position;
             bossOrbitManager.EndPoints[i].transform.position = bossOrbitManager.transform.position;
         }
@@ -72,7 +72,7 @@ public class FirstBossOrbitSetupState : FirstBossState
     public void SetupPositionPoints() {
         for (int i = 0; i < MaskBehaviourList.Count; i++) {
             bossOrbitManager.SetObjectsPosition(MaskBehaviourList[i].SetupRadius, MaskBehaviourList[i].FinalRadius, i, positionPointTime, orientation, MaskBehaviourList[i].TravelTime, MaskBehaviourList[i].HasDeltaRadius, MaskBehaviourList[i].isSetup);
-            orientation -= 360 / bossOrbitManager.HookPointList.Count;
+            orientation -= 360 / bossOrbitManager.MasksList.Count;
         }
     }
 }

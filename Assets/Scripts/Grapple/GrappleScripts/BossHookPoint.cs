@@ -16,7 +16,7 @@ public class BossHookPoint : HookPointBase, IGrappable {
 
     bool hasAnyMask() {
         bool result = true;
-        if (bossOrbitManager.HookPointList.Count == 0) {
+        if (bossOrbitManager.MasksList.Count == 0) {
             result = true;
         }
         return result;

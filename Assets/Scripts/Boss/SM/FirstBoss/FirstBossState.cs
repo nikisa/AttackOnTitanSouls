@@ -51,7 +51,7 @@ public class FirstBossState : BaseState
 
     //Updates the MASK_COUNT SM Parameters when a Boss' Mask is detroyed
     public void CheckVulnerability() {
-        animator.SetInteger(MASKS_COUNT, bossOrbitManager.HookPointList.Count);
+        animator.SetInteger(MASKS_COUNT, bossOrbitManager.MasksList.Count);
     }
 
     //Set the tag to choose the next OrbitState

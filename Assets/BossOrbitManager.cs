@@ -19,7 +19,7 @@ public class BossOrbitManager : MonoBehaviour
 
     //Inspector
     public List<GameObject> OrbitList;
-    public List<FirstBossMask> HookPointList;
+    public List<FirstBossMask> MasksList;
 
     //Public
     //[HideInInspector]
@@ -40,11 +40,34 @@ public class BossOrbitManager : MonoBehaviour
     //Private
     bool hasFinished;
     float timeAcceleration;
+    
 
 
     void Start() {
         hasFinished = false;
+        
     }
+
+
+    public void SetupMask(List<MaskBehaviourData> _maskBehaviourList) {
+        for (int i = 0; i < MasksList.Count; i++) {
+            MasksList[i].SetupRadius(_maskBehaviourList[i].SetupRadius);
+            MasksList[i].setAngularDecelerationModule(_maskBehaviourList[i].AngularMaxSpeed , _maskBehaviourList[i].AngularAccelerationTime);
+        }
+    }
+
+    public void RotationMask(List<MaskBehaviourData> _maskBehaviourList) {
+        for (int i = 0; i < MasksList.Count; i++) {
+            MasksList[i].RotateAroud(_maskBehaviourList[i].AngularMaxSpeed , _maskBehaviourList[i].AngularAccelerationTime , _maskBehaviourList[i].AngularDecelerationTime);
+        }
+    }
+
+    public void DecelerationMask() {
+        for (int i = 0; i < MasksList.Count; i++) {
+            MasksList[i].DecelerateAround(MasksList[i].AngularDecelerationModule);
+        }
+    }
+
 
     //public void RotationMove(float _maxSpeed, float _timeAcceleration, HookPointController _centerPoint) {
     //    _maxSpeed /= 60;
@@ -89,9 +112,9 @@ public class BossOrbitManager : MonoBehaviour
     //    }
     //}
 
-    public void SetUp() {
-        timeAcceleration = 0;
-    }
+    //public void SetUp() {
+    //    timeAcceleration = 0;
+    //}
 
     //Riempie i CenterRotation basandosi sui OrbitDataManager
     //public void SetMasksRotation(List<OrbitManagerData> _orbitManagerList) {
@@ -107,7 +130,7 @@ public class BossOrbitManager : MonoBehaviour
     //}
 
     public void RemoveMask(FirstBossMask _hookPoint) {
-        HookPointList.Remove(_hookPoint);
+        MasksList.Remove(_hookPoint);
     }
 
     public void ResetPointPosition(BossController _boss) {

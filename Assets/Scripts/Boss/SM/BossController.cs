@@ -81,7 +81,7 @@ public class BossController : MovementBase
         }
     }
 
-    #region OLD FUNCTIONS
+    #region FUNCTIONS CEMETERY
 
     ///// <summary>
     ///// Check the object category when collides with it using interpolation technique

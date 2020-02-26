@@ -71,7 +71,7 @@ public class OrbitTesting : MonoBehaviour
         Drag = AngularAccelerationModule / angularMaxSpeed * Time.deltaTime;
         AngularVelocity -= AngularVelocity * Drag;
         transform.eulerAngles += new Vector3(0, AngularVelocity * Time.deltaTime + 0.5f * AngularAccelerationModule * Mathf.Pow(Time.deltaTime, 2), 0);
-        transform.position = new Vector3(cube.transform.position.x + OrbitRay * Mathf.Sin((transform.eulerAngles.y) *Mathf.Deg2Rad), 0, cube.transform.position.z + OrbitRay * Mathf.Cos((transform.eulerAngles.y) * Mathf.Deg2Rad));
+        transform.position = new Vector3(cube.transform.position.x + OrbitRay * Mathf.Sin((transform.eulerAngles.y) * Mathf.Deg2Rad), 0, cube.transform.position.z + OrbitRay * Mathf.Cos((transform.eulerAngles.y) * Mathf.Deg2Rad));
         AngularVelocity += AngularAccelerationModule * Time.deltaTime;
         VelocityVector = new Vector3((AngularVelocity * Mathf.PI - 180) * OrbitRay * Mathf.Sin(transform.eulerAngles.x), 0, (AngularVelocity * Mathf.PI - 180) * OrbitRay * Mathf.Cos(transform.eulerAngles.z));
     }

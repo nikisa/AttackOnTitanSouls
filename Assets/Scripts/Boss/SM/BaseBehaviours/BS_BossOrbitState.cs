@@ -20,13 +20,9 @@ public class BS_BossOrbitState : FirstBossState
     int index;
 
     public override void Enter() {
-        index = 0;
-        //ClearOrbitManagerDataList();
-        //FillOrbitManagerDataList();
-        //SetOrbitData();
-        //UpdateOrbitData();
-        //bossOrbitManager.SetMasksRotation(OrbitManagerList);
-        
+
+        bossOrbitManager.SetupMask(MaskBehaviourList);
+
         orientation = 360;
         //ResetPosition();
         SetupPositionPoints();
@@ -35,7 +31,7 @@ public class BS_BossOrbitState : FirstBossState
 
 
     public override void Tick() {
-    
+        bossOrbitManager.RotationMask(MaskBehaviourList);
     }
 
     public override void Exit() {
@@ -57,7 +53,7 @@ public class BS_BossOrbitState : FirstBossState
     public void SetupPositionPoints() {
         for (int i = 0; i < MaskBehaviourList.Count; i++) {
             bossOrbitManager.SetObjectsPosition(MaskBehaviourList[i].SetupRadius, MaskBehaviourList[i].FinalRadius, i, positionPointTime, orientation, MaskBehaviourList[i].TravelTime, MaskBehaviourList[i].HasDeltaRadius, MaskBehaviourList[i].isSetup);
-            orientation -= 360 / bossOrbitManager.HookPointList.Count;
+            orientation -= 360 / bossOrbitManager.MasksList.Count;
         }
     }
 
@@ -66,11 +62,6 @@ public class BS_BossOrbitState : FirstBossState
             bossOrbitManager.EndPoints[i].transform.position = boss.transform.position;
             bossOrbitManager.InitialPoints[i].transform.position = boss.transform.position;
         }
-    }
-
-
-    public void MaskRotation() {
-
     }
 
     //public void SetOrbitData() {

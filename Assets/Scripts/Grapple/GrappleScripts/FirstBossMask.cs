@@ -10,8 +10,6 @@ public class FirstBossMask : HookPointBase
     //    BreakableHookPoint
     //};  
 
-    //Inspector
-    public float OrbitRay;
 
     public int MaskID;
     public BossController boss;
@@ -25,6 +23,8 @@ public class FirstBossMask : HookPointBase
     //Public
     [HideInInspector]
     public float AngularAccelerationModule;
+    [HideInInspector]
+    public float AngularDecelerationModule;
     [HideInInspector]
     public Vector3 AngularAcceleration;
     [HideInInspector]
@@ -40,7 +40,7 @@ public class FirstBossMask : HookPointBase
     [HideInInspector]
     public Vector3 targetDir;
     [HideInInspector]
-    Vector3 orbitOrientation;
+    public float currentRadius;
 
     //Private
     BreakPointData actualBreakPointData;
@@ -54,7 +54,10 @@ public class FirstBossMask : HookPointBase
     Vector3 direction = Vector3.zero;
     Vector3 movement = Vector3.zero;
     GameObject mask;
+    GameObject parent;
     BossOrbitManager bossOrbitManager;
+    
+
 
 
     private void Awake() {//da spostare quando ci sarà GameManager
@@ -62,6 +65,7 @@ public class FirstBossMask : HookPointBase
     }
 
     void SetUp() {
+        parent = transform.parent.transform.gameObject;
         bossOrbitManager = FindObjectOfType<BossOrbitManager>();
         currentLife = BreakPoints[BreakPointsCount].lifeMax;
         OldPos = transform.position;
@@ -69,6 +73,37 @@ public class FirstBossMask : HookPointBase
         mask.transform.SetParent(transform);
     }
 
+
+    public void RotateAroud(float _angularMaxSpeed , float _angularAccelerationTime , float _angularDecelerationTime) {
+        AngularAccelerationModule = _angularMaxSpeed / _angularAccelerationTime;
+        Drag = AngularAccelerationModule / _angularMaxSpeed * Time.deltaTime;
+        AngularVelocity -= AngularVelocity * Drag;
+        parent.transform.eulerAngles += new Vector3(0, AngularVelocity * Time.deltaTime + 0.5f * AngularAccelerationModule * Mathf.Pow(Time.deltaTime, 2), 0);
+        parent.transform.position = new Vector3(boss.transform.position.x + currentRadius * Mathf.Sin((parent.transform.eulerAngles.y) * Mathf.Deg2Rad), 0, boss.transform.position.z + currentRadius * Mathf.Cos((parent.transform.eulerAngles.y) * Mathf.Deg2Rad));
+        AngularVelocity += AngularAccelerationModule * Time.deltaTime;
+        VelocityVector = new Vector3((AngularVelocity * Mathf.PI - 180) * currentRadius * Mathf.Sin(parent.transform.eulerAngles.x), 0, (AngularVelocity * Mathf.PI - 180) * currentRadius * Mathf.Cos(parent.transform.eulerAngles.z));
+    }
+
+    public void DecelerateAround(float _angularDecelerationModule) {
+        if (Mathf.Abs(AngularVelocity) > Mathf.Abs(_angularDecelerationModule) * Time.deltaTime) {
+            AngularVelocity -= _angularDecelerationModule * Time.deltaTime;
+            parent.transform.eulerAngles += new Vector3(0, AngularVelocity * Time.deltaTime, 0);
+            parent.transform.position = new Vector3(boss.transform.position.x + currentRadius * Mathf.Sin((parent.transform.eulerAngles.y) * Mathf.Deg2Rad), 0, boss.transform.position.z + currentRadius * Mathf.Cos((parent.transform.eulerAngles.y) * Mathf.Deg2Rad));
+            VelocityVector = new Vector3((AngularVelocity * Mathf.PI - 180) * currentRadius * Mathf.Sin(parent.transform.eulerAngles.x), 0, (AngularVelocity * Mathf.PI - 180) * currentRadius * Mathf.Cos(parent.transform.eulerAngles.z));
+        }
+        else {
+            AngularVelocity = 0;
+            VelocityVector = Vector3.zero;
+        }
+    }
+
+    public void SetupRadius(float _setupRadius) {
+        currentRadius = _setupRadius;
+    }
+
+    public void setAngularDecelerationModule(float _angularMaxSpeed , float _angularDecelerationTime) {
+        AngularDecelerationModule = _angularMaxSpeed / _angularDecelerationTime;
+    }
 
     public void HookPointSpring() {
         float lifeRatio;
@@ -93,7 +128,6 @@ public class FirstBossMask : HookPointBase
         
         if (springVector >= Inertia.magnitude && distance > .2f) {
             currentLife -= player.DPS * Time.fixedDeltaTime;
-            //Debug.Log(currentLife);
         }
 
         if (currentLife < 0) {
@@ -127,14 +161,14 @@ public class FirstBossMask : HookPointBase
             if (BreakPointsCount == graphics.Length && currentLife < 0) {
                 int index;
 
-                index = bossOrbitManager.HookPointList.IndexOf(this);
+                index = bossOrbitManager.MasksList.IndexOf(this);
                 bossOrbitManager.removedIndexList.Add(index);
 
                 Debug.Log(index);
 
 
                 bossOrbitManager.OrbitList.Remove(this.transform.parent.gameObject);
-                bossOrbitManager.HookPointList.Remove(this);
+                bossOrbitManager.MasksList.Remove(this);
                 Destroy(this.gameObject.transform.parent.gameObject);
                 transform.gameObject.SetActive(false);
 
@@ -151,17 +185,4 @@ public class FirstBossMask : HookPointBase
 
         }
     }
-
-    public void MaskRotate(float _angularAccelerationTime , float _angularMaxSpeed) {
-        orbitOrientation = transform.position - boss.transform.position;
-        AngularAccelerationModule = _angularMaxSpeed / _angularAccelerationTime;
-        Drag = AngularAccelerationModule / _angularMaxSpeed * Time.deltaTime;
-        AngularVelocity -= AngularVelocity * Drag;
-        transform.eulerAngles += new Vector3(0, AngularVelocity * Time.deltaTime + 0.5f * AngularAccelerationModule * Mathf.Pow(Time.deltaTime, 2), 0);
-        transform.position += new Vector3(boss.transform.position.x + OrbitRay * Mathf.Sin(transform.eulerAngles.x)  ,0, boss.transform.position.x + OrbitRay * Mathf.Cos(transform.eulerAngles.x));
-        AngularVelocity += AngularAccelerationModule * Time.deltaTime;
-        VelocityVector = new Vector3((AngularVelocity * Mathf.PI - 180) * OrbitRay * Mathf.Sin(transform.eulerAngles.x), 0, (AngularVelocity * Mathf.PI - 180) * OrbitRay * Mathf.Cos(transform.eulerAngles.x));
-    }
-
-
 }
