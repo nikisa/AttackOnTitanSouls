@@ -9,7 +9,7 @@ public class GrappleManager : MonoBehaviour
     public GrappleGun GrappleGun;
     public Hook hook;
     [HideInInspector]
-    public HookPoint hookPoint;
+    public FirstBossMask hookPoint;
     public PlayerController Player;
     public GameObject CrossHair;
     public Animator animator;
@@ -97,9 +97,9 @@ public class GrappleManager : MonoBehaviour
             {
                 hit = hook.RaycastCollsion();
 
-                if (hit.transform != null && hit.transform.GetComponent<HookPoint>())
+                if (hit.transform != null && hit.transform.GetComponent<FirstBossMask>())
                 {
-                    hookPoint = hit.transform.GetComponent<HookPoint>();
+                    hookPoint = hit.transform.GetComponent<FirstBossMask>();
                     hook.isHooked = true;
                 }
                 else
@@ -191,7 +191,7 @@ public class GrappleManager : MonoBehaviour
         }
 
         if (hook.isHooked) {
-            hookPoint.hookPointSpring();
+            hookPoint.HookPointSpring();
         }
 
     }

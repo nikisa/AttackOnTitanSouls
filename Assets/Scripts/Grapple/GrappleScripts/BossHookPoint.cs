@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossHookPoint : HookPointManager, IGrappable {
+public class BossHookPoint : HookPointBase, IGrappable {
     
     //Inspector
     public bool isHookable;

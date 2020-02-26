@@ -21,8 +21,8 @@ public class ShootedState : GrappleBaseState
 
             //HookPoint hookPoint = hit.transform.GetComponent<HookPoint>();
 
-            if (hit.transform != null && hit.transform.GetComponent<HookPoint>()) {
-                grappleManager.hookPoint = hit.transform.GetComponent<HookPoint>();
+            if (hit.transform != null && hit.transform.GetComponent<FirstBossMask>()) {
+                grappleManager.hookPoint = hit.transform.GetComponent<FirstBossMask>();
                
                 grappleManager.hook.isHooked = true;
                 SetHit();

@@ -19,12 +19,12 @@ public class BossOrbitManager : MonoBehaviour
 
     //Inspector
     public List<GameObject> OrbitList;
-    public List<HookPoint> HookPointList;
+    public List<FirstBossMask> HookPointList;
 
     //Public
-    [HideInInspector]
+    //[HideInInspector]
     public List<GameObject> EndPoints;
-    [HideInInspector]
+    //[HideInInspector]
     public List<GameObject> InitialPoints;
     [HideInInspector]
     public List<OrbitData> OrbitDataList;
@@ -46,67 +46,67 @@ public class BossOrbitManager : MonoBehaviour
         hasFinished = false;
     }
 
-    public void RotationMove(float _maxSpeed, float _timeAcceleration, HookPointController _centerPoint) {
-        _maxSpeed /= 60;
-        if (_maxSpeed >= 0) {
-            timeAcceleration = _maxSpeed / _timeAcceleration;
-            _centerPoint.MoveSpeed += timeAcceleration * Time.fixedDeltaTime;
-            _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed);
-            _centerPoint.transform.Rotate(Vector3.up * _centerPoint.MoveSpeed);
-        }
-        else {
-            _maxSpeed = Mathf.Abs(_maxSpeed);
-            timeAcceleration = _maxSpeed / _timeAcceleration;
-            _centerPoint.MoveSpeed += timeAcceleration * Time.fixedDeltaTime;
-            _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed);
-            _centerPoint.transform.Rotate(Vector3.down * _centerPoint.MoveSpeed);
-        }
-    }
+    //public void RotationMove(float _maxSpeed, float _timeAcceleration, HookPointController _centerPoint) {
+    //    _maxSpeed /= 60;
+    //    if (_maxSpeed >= 0) {
+    //        timeAcceleration = _maxSpeed / _timeAcceleration;
+    //        _centerPoint.MoveSpeed += timeAcceleration * Time.fixedDeltaTime;
+    //        _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed);
+    //        _centerPoint.transform.Rotate(Vector3.up * _centerPoint.MoveSpeed);
+    //    }
+    //    else {
+    //        _maxSpeed = Mathf.Abs(_maxSpeed);
+    //        timeAcceleration = _maxSpeed / _timeAcceleration;
+    //        _centerPoint.MoveSpeed += timeAcceleration * Time.fixedDeltaTime;
+    //        _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed);
+    //        _centerPoint.transform.Rotate(Vector3.down * _centerPoint.MoveSpeed);
+    //    }
+    //}
 
-    public void OrbitDeceleration(float _maxSpeed, float _timeDeceleration, HookPointController _centerPoint) {
+    //public void OrbitDeceleration(float _maxSpeed, float _timeDeceleration, HookPointController _centerPoint) {
 
-        _maxSpeed /= 60;
+    //    _maxSpeed /= 60;
 
-        if (_maxSpeed > 0) {
-            _centerPoint.transform.Rotate(Vector3.up * _centerPoint.MoveSpeed);
-            _timeDeceleration = _maxSpeed / _timeDeceleration;
-            _centerPoint.MoveSpeed -= _timeDeceleration * Time.fixedDeltaTime;
-            _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed); //Se vogliono che rimanga fermo --> 0 anziche Mathf.Abs(_lowSpeed)
-        }
-        else {
-            _maxSpeed = Mathf.Abs(_maxSpeed);
-            _centerPoint.transform.Rotate(Vector3.down * _centerPoint.MoveSpeed);
-            _timeDeceleration = _maxSpeed / _timeDeceleration;
-            _centerPoint.MoveSpeed -= _timeDeceleration * Time.fixedDeltaTime;
-            _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed); //Se vogliono che rimanga fermo --> 0 anziche Mathf.Abs(_lowSpeed)
-        }
-    }
+    //    if (_maxSpeed > 0) {
+    //        _centerPoint.transform.Rotate(Vector3.up * _centerPoint.MoveSpeed);
+    //        _timeDeceleration = _maxSpeed / _timeDeceleration;
+    //        _centerPoint.MoveSpeed -= _timeDeceleration * Time.fixedDeltaTime;
+    //        _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed); //Se vogliono che rimanga fermo --> 0 anziche Mathf.Abs(_lowSpeed)
+    //    }
+    //    else {
+    //        _maxSpeed = Mathf.Abs(_maxSpeed);
+    //        _centerPoint.transform.Rotate(Vector3.down * _centerPoint.MoveSpeed);
+    //        _timeDeceleration = _maxSpeed / _timeDeceleration;
+    //        _centerPoint.MoveSpeed -= _timeDeceleration * Time.fixedDeltaTime;
+    //        _centerPoint.MoveSpeed = Mathf.Clamp(_centerPoint.MoveSpeed, 0, _maxSpeed); //Se vogliono che rimanga fermo --> 0 anziche Mathf.Abs(_lowSpeed)
+    //    }
+    //}
 
 
-    public void SetHookPoints() {
-        for (int i = 0; i < OrbitList.Count; i++) {
-            HookPointList[i] = OrbitList[i].transform.GetChild(1).GetComponent<HookPoint>();
-        }
-    }
+    //public void SetHookPoints() {
+    //    for (int i = 0; i < OrbitList.Count; i++) {
+    //        HookPointList[i] = OrbitList[i].transform.GetChild(1).GetComponent<FirstBossMask>();
+    //    }
+    //}
 
     public void SetUp() {
         timeAcceleration = 0;
     }
 
     //Riempie i CenterRotation basandosi sui OrbitDataManager
-    public void SetMasksRotation(List<OrbitManagerData> _orbitManagerList) {
-        int orbitCount = 0;
-        for (int i = 0; i < _orbitManagerList.Count; i++) {
-            for (int y = 0; y < _orbitManagerList[i].orbitData.Count; y++) {
-                if (OrbitList.Count > orbitCount) {
-                    this.OrbitList[orbitCount].transform.SetParent(_orbitManagerList[i].CenterRotation.transform);
-                    orbitCount++;
-                }
-            }
-        }
-    }
+    //public void SetMasksRotation(List<OrbitManagerData> _orbitManagerList) {
+    //    int orbitCount = 0;
+    //    for (int i = 0; i < _orbitManagerList.Count; i++) {
+    //        for (int y = 0; y < _orbitManagerList[i].orbitData.Count; y++) {
+    //            if (OrbitList.Count > orbitCount) {
+    //                this.OrbitList[orbitCount].transform.SetParent(_orbitManagerList[i].CenterRotation.transform);
+    //                orbitCount++;
+    //            }
+    //        }
+    //    }
+    //}
 
-    public void RemoveMask(HookPoint _hookPoint) {
+    public void RemoveMask(FirstBossMask _hookPoint) {
         HookPointList.Remove(_hookPoint);
     }
 
@@ -151,7 +151,7 @@ public class BossOrbitManager : MonoBehaviour
 
         public void MoveMasks(int _index, float _time) {
             OrbitList[_index].transform.DORotate(EndPoints[_index].transform.eulerAngles, _time);
-            OrbitList[_index].transform.DOMove(EndPoints[_index].transform.position, _time).OnComplete(() => countMasksArrived++);
+            OrbitList[_index].transform.DOMove(EndPoints[_index].transform.position, _time);
         }
 
         public void FillOrbitData(OrbitData _orbitData) {

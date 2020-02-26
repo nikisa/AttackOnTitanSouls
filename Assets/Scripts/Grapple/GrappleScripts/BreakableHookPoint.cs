@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BreakableHookPoint : HookPointManager ,IGrappable
+public class BreakableHookPoint : HookPointBase ,IGrappable
 {
     
 }

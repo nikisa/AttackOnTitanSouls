@@ -9,7 +9,7 @@ public class OLDGrappleManager : MonoBehaviour
     public GrappleGun GrappleGun;
     public Hook hook;
     [HideInInspector]
-    public HookPoint hookPoint;
+    public FirstBossMask hookPoint;
     public PlayerController Player;
     public GameObject CrossHair;
 
@@ -54,9 +54,9 @@ public class OLDGrappleManager : MonoBehaviour
             if (hook.shooted && !hook.isHooked) {
                 hit = hook.RaycastCollsion();
 
-                if (hit.transform != null && hit.transform.GetComponent<HookPoint>()) {
+                if (hit.transform != null && hit.transform.GetComponent<FirstBossMask>()) {
                     Debug.Log(hit.transform.gameObject.name + "---");
-                    hookPoint = hit.transform.GetComponent<HookPoint>();
+                    hookPoint = hit.transform.GetComponent<FirstBossMask>();
                     hookPoint.isHooked = true;
                     hook.isHooked = true;
 

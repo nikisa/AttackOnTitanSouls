@@ -1,5 +1,57 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &583493575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 583493576}
+  - component: {fileID: 583493577}
+  m_Layer: 11
+  m_Name: Fov
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &583493576
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583493575}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.07, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5031858159527263175}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &583493577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583493575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eee7fe20e071f34e90aa11d89c46f88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 15.42
+  viewAngle: 27
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 512
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  visibleTargets: []
 --- !u!1 &1352137201
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,18 +329,18 @@ MonoBehaviour:
   targetDir: {x: 0, y: 0, z: 0}
   animator: {fileID: 7531129435490816588}
   graphicAnimator: {fileID: 5031858159519732819}
-  controller: {fileID: 0}
   rotationTransform: {fileID: 5494306869551055715}
   body: {fileID: 5031858159527028263}
-  movimentRatio: 0.5
+  movementRatio: 0
   DPS: 60
-  bossOrbitManager: {fileID: 0}
   playerTarget: {fileID: 11400000, guid: 320bf9f104a0b814481ec323e5fa955a, type: 2}
   uiManager: {fileID: 0}
   TimeInputDisable: 0
-  DeadZoneValue: 0.25
+  MovementDeadZoneValue: 0.25
+  AimDeadZoneValue: 0.65
+  TweeningRotationTime: 0.2
+  TweeningRotationEase: 3
   canDash: 0
-  newInput: 0
   playerDashData: {fileID: 0}
   playerMovementData: {fileID: 0}
   playerDecelInTimeData: {fileID: 0}
@@ -302,7 +354,7 @@ MonoBehaviour:
   timerDash: 0
   IsImmortal: 0
   ImmortalTutorial: 0
-  Lifes: 2
+  Lifes: 0
   forwardVelocity: 0
   InputDisable: 0
 --- !u!95 &7531129435490816588
@@ -881,9 +933,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85b44d8051df6944486c6aa3fc4e2661, type: 3}
---- !u!1 &5031858159527028263 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100116, guid: 85b44d8051df6944486c6aa3fc4e2661,
+--- !u!95 &5031858159519732819 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: 85b44d8051df6944486c6aa3fc4e2661,
     type: 3}
   m_PrefabInstance: {fileID: 5031858159527125299}
   m_PrefabAsset: {fileID: 0}
@@ -893,9 +945,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5031858159527125299}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &5031858159519732819 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 9500000, guid: 85b44d8051df6944486c6aa3fc4e2661,
+--- !u!1 &5031858159527028263 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100116, guid: 85b44d8051df6944486c6aa3fc4e2661,
     type: 3}
   m_PrefabInstance: {fileID: 5031858159527125299}
   m_PrefabAsset: {fileID: 0}
