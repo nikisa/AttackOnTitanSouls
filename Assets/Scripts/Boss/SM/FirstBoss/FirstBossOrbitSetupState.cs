@@ -21,7 +21,7 @@ public class FirstBossOrbitSetupState : FirstBossState
         //SetCenterPoint();
         FillPointsPosition();
         SetupPositionPoints();
-        
+
     }
 
     public override void Tick() {

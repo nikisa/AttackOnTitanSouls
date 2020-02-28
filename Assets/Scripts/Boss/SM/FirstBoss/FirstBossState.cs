@@ -27,9 +27,7 @@ public class FirstBossState : BaseState
     }
 
     public override void Enter() {
-
         animator.SetFloat(TIMER, timer=0);
-
         BossOrbitManager.ChangedStateEvent();
     }
 

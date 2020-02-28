@@ -37,24 +37,6 @@ public class FieldOfView : MonoBehaviour
     }
 
 
-    //private void Update() {
-    //    if (viewAngle <= 60 && viewAngle != lastViewAngle) {
-
-    //        transform.position = initialPosition;
-
-    //        if (viewAngle > lastViewAngle) {
-    //            transform.position += -transform.forward * (3 - (viewAngle / 100));
-    //        }
-    //        else if (viewAngle < lastViewAngle) {
-    //            transform.position += transform.forward * (3 - (viewAngle / 100));
-    //        }
-
-    //        Debug.Log("HERE");
-    //        lastViewAngle = viewAngle;
-
-    //        //transform.position -= transform.forward * (3 - (viewAngle / 100));
-    //    }
-    //}
 
 
     IEnumerator FindTargetsWithDelay(float delay) {

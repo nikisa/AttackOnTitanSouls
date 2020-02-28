@@ -16,11 +16,11 @@ MonoBehaviour:
   OrbitTag: 0
   ID: 1
   AngularAccelerationTime: 2
-  AngularMaxSpeed: -1080
+  AngularMaxSpeed: 1080
   AngularDecelerationTime: 3
   isSetup: 1
-  SetupRadius: 3
+  SetupRadius: 2
   HasDeltaRadius: 1
-  FinalRadius: 5
-  TravelTime: 1
+  FinalRadius: 4
+  TravelTime: 2
   OrbitMoveToEase: 0
