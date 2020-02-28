@@ -44,6 +44,8 @@ public class FirstBossMask : HookPointBase
     public float currentRadius;
     //[HideInInspector]
     public float distanceFromBoss;
+    [HideInInspector]
+    public bool isDetected; //Used for the reassemble statement
 
     //Private
     BreakPointData actualBreakPointData;
@@ -62,8 +64,6 @@ public class FirstBossMask : HookPointBase
     GameObject parent;
     BossOrbitManager bossOrbitManager;
     
-
-
 
     private void Awake() {//da spostare quando ci sarà GameManager
         SetUp();
@@ -189,6 +189,8 @@ public class FirstBossMask : HookPointBase
                 bossOrbitManager.InitialPoints.Remove(bossOrbitManager.InitialPoints[index]);
                 Destroy(bossOrbitManager.EndPoints[index]);
                 bossOrbitManager.EndPoints.Remove(bossOrbitManager.EndPoints[index]);
+                bossOrbitManager.ReorderMasksID(MaskID);
+
 
                 isHooked = false;
                 hook.isHooked = false;

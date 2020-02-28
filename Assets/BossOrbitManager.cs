@@ -18,9 +18,11 @@ public class BossOrbitManager : MonoBehaviour
     }
 
     //Inspector
+    public FirstBossController boss;
     public List<GameObject> OrbitList;
     public List<FirstBossMask> MasksList;
     public BossFoV BossFov;
+    public LayerMask layerMask;
 
     //Public
     //[HideInInspector]
@@ -45,6 +47,7 @@ public class BossOrbitManager : MonoBehaviour
     //Private
     bool hasFinished;
     float timeAcceleration;
+    RaycastHit hit;
     
 
 
@@ -90,6 +93,27 @@ public class BossOrbitManager : MonoBehaviour
         }
     }
 
+
+    public void ReorderMasksID(int _removedID) {
+        for (int i = 0; i < MasksList.Count; i++) {
+            if (MasksList[i].MaskID > _removedID) {
+                MasksList[i].MaskID--;
+            }
+        }
+    }
+
+    public bool checkCorrectPosition(int _index) {
+
+        Debug.DrawRay(boss.transform.position, EndPoints[_index].transform.position - boss.transform.position, Color.red, 3);
+
+        if (Physics.Raycast(boss.transform.position , EndPoints[_index].transform.position - boss.transform.position , Mathf.Infinity , layerMask)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public void SetCurrentRadius(List<MaskBehaviourData> _maskBehaviourList) {
 
         float speed;
@@ -121,6 +145,17 @@ public class BossOrbitManager : MonoBehaviour
 
     public void RemoveMask(FirstBossMask _hookPoint) {
         MasksList.Remove(_hookPoint);
+    }
+
+
+    public void setDetectedMask() {
+
+        for (int i = 0; i < MasksList.Count; i++) {
+            if (Physics.Raycast(transform.position, EndPoints[i].transform.position - transform.position, out hit , Mathf.Infinity, layerMask)) {
+                hit.collider.GetComponent<FirstBossMask>().isDetected = true;
+            }
+        }
+        
     }
 
     public void ResetPointPosition(BossController _boss) {

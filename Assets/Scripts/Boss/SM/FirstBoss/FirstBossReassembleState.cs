@@ -15,8 +15,12 @@ public class FirstBossReassembleState : FirstBossState
     }
 
     public override void Tick() {
-        
 
+        for (int i = 0; i < bossOrbitManager.MasksList.Count; i++) {
+            if (!bossOrbitManager.checkCorrectPosition(i)) {
+                bossOrbitManager.MasksList[i].RotateAroud(180 , 2);
+            }
+        }
 
     }
 }
