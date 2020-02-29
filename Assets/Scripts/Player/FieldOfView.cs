@@ -9,11 +9,14 @@ public class FieldOfView : MonoBehaviour
     //SOSTITUIRE transform.position CON Player.transform.position
 
     //Inspector
+    public float RadiusOffset;
+    [HideInInspector]
     public float viewRadius;
     [Range(0,360)]
     public float viewAngle;
     public LayerMask targetMask;
     public LayerMask obstacleMask;
+    
 
 
     //Public
@@ -51,7 +54,7 @@ public class FieldOfView : MonoBehaviour
         
         visibleTargets.Clear();
 
-        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
+        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius + RadiusOffset, targetMask);
 
         for (int i = 0; i < targetsInViewRadius.Length; i++) {
             Transform target = targetsInViewRadius[i].transform;
@@ -66,8 +69,32 @@ public class FieldOfView : MonoBehaviour
             }
         }
     }
+    public GameObject CorrectRayCast()
+    {
+        RaycastHit hit = new RaycastHit();
+        GameObject gameObject = new GameObject();
 
-    
+        foreach (Transform visibleTarget in visibleTargets)
+        {
+
+            float distance = Vector3.Distance(transform.position, visibleTarget.position);
+            float distanceAngle = Vector3.Angle(transform.position, visibleTarget.position) * Mathf.Rad2Deg;
+            float priority = distanceAngle * Mathf.Pow(distance, 2);
+
+            if (priority <= GetCorrectTarget(visibleTargets))
+            {
+                if (Physics.Raycast(transform.position, visibleTarget.position - transform.position, out hit, Mathf.Infinity, targetMask))
+                {
+                    return hit.collider.gameObject;
+                }
+
+
+            }
+          
+        }
+        return gameObject;
+    }
+
 
     public Vector3 DirFromAngle(float angleInDegrees , bool angleIsGlobal) {
         if (!angleIsGlobal) {

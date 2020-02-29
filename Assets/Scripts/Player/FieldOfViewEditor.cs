@@ -10,7 +10,7 @@ public class FieldOfViewEditor : Editor
     private void OnSceneGUI() {
        FieldOfView fov = (FieldOfView) target;
         Handles.color = Color.white;
-        Handles.DrawWireArc(fov.transform.position , Vector3.up , Vector3.forward , 360 , fov.viewRadius);
+        Handles.DrawWireArc(fov.transform.position , Vector3.up , Vector3.forward , 360 , fov.viewRadius+ fov.RadiusOffset);
 
         Vector3 viewAngleA = fov.DirFromAngle(-fov.viewAngle / 2, false);
         Vector3 viewAngleB = fov.DirFromAngle(fov.viewAngle / 2, false);

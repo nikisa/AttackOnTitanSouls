@@ -10,7 +10,8 @@ public class GrappleBaseState : BaseState
 
 
     protected RaycastHit hit;
-    protected Vector3 hitTransform;
+    protected GameObject target;
+
 
     public void SetContext(object context, Animator animator , GrappleManager grappleManager , Hook hook) {
         grappleManager.Player = context as PlayerController;

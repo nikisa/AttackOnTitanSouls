@@ -16,17 +16,18 @@ public class ShootedState : GrappleBaseState
         }
 
         if (grappleManager.hook.shooted && !grappleManager.hook.isHooked) {
-            hit = grappleManager.hook.RaycastCollsion();
-           
+            grappleManager.target = grappleManager.FovPlayer.CorrectRayCast();
+            target = grappleManager.target;
+            Debug.Log(target + "" + Time.time);
 
             //HookPoint hookPoint = hit.transform.GetComponent<HookPoint>();
 
-            if (hit.transform != null && hit.transform.GetComponent<FirstBossMask>()) {
-                grappleManager.hookPoint = hit.transform.GetComponent<FirstBossMask>();
+            if (target.transform != null && target.transform.GetComponent<FirstBossMask>()) {
+                grappleManager.hookPoint = target.transform.GetComponent<FirstBossMask>();
                
                 grappleManager.hook.isHooked = true;
-                SetHit();
-                Debug.Log(hitTransform + "QUIIIIII");
+              // SetHit();
+               // Debug.Log(hitTransform + "QUIIIIII");
                 animator.SetTrigger("Hooked");
                 return;
             }
@@ -46,13 +47,13 @@ public class ShootedState : GrappleBaseState
         }
         
     }
-    public void SetHit()
-    {
-        if (!grappleManager.IsSet)
-        {
-            //Debug.Log("UNOOO");
-            hitTransform = grappleManager.hookPoint.GetComponent<Collider>().ClosestPoint(grappleManager.hook.transform.position);
-            grappleManager.IsSet = true;
-        }
-    }
+    //public void SetHit()
+    //{
+    //    if (!grappleManager.IsSet)
+    //    {
+    //        //Debug.Log("UNOOO");
+    //        hitTransform = grappleManager.hookPoint.GetComponent<Collider>().ClosestPoint(grappleManager.hook.transform.position);
+    //        grappleManager.IsSet = true;
+    //    }
+    //}
 }
