@@ -104,20 +104,25 @@ public class ChaseTestScript : MonoBehaviour
 
         if (collision.transform.GetComponent<WallBounceController>()) {
 
-            normal = -collision.transform.forward;
+            normal = -collision.transform.forward;         
             normalAngle = Vector3.Angle(normal, VelocityVector) * Mathf.Deg2Rad;
 
             Debug.Log("normalAngle: " + normalAngle * Mathf.Rad2Deg);
 
-            vectorParal = VelocityVector * Mathf.Cos(normalAngle);
-            vectorPerp = VelocityVector * Mathf.Sin(normalAngle);
+            //vectorParal = VelocityVector * Mathf.Cos(normalAngle);
+            //vectorPerp = VelocityVector * Mathf.Sin(normalAngle);
 
-            Debug.DrawRay(transform.position, (transform.position + vectorParal), Color.red, 5);
-            Debug.DrawRay(transform.position, (transform.position + vectorPerp), Color.cyan, 5);
+            vectorParal = Vector3.Project(VelocityVector, normal);
+            vectorPerp = Vector3.ProjectOnPlane(VelocityVector, normal);
+
+            Debug.DrawRay(transform.position, vectorParal, Color.red, 5);
+            Debug.DrawRay(transform.position, vectorPerp, Color.cyan, 5);
 
             //Bounce formula
             bounceVector = (vectorParal * (Mass - collision.transform.GetComponent<WallBounceController>().Mass) - 2 * collision.transform.GetComponent<WallBounceController>().Mass * vectorParal) / (Mass + collision.transform.GetComponent<WallBounceController>().Mass);
+            Debug.Log("Bounce: " + bounceVector);
             VelocityVector = (bounceVector * (1 - KineticEnergyLoss)) + vectorPerp;
+            Debug.Log("newVelocityVector: " + VelocityVector);
         }
 
     }
