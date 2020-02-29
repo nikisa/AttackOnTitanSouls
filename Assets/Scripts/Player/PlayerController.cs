@@ -52,6 +52,18 @@ public class PlayerController : MovementBase
     public float AimDeadZoneValue;
     public float TweeningRotationTime;
     public Ease TweeningRotationEase;
+    public float mass;
+
+
+    //Temporary public values
+    public ChaseTestScript fakeBoss;
+    public Vector3 normal;
+    public float normalAngle;
+    public Vector3 vectorParal;
+    public Vector3 vectorPerp;
+    public Vector3 bounceVector;
+    [Range(0, 1)]
+    public float KineticEnergyLoss;
 
 
     //Public
@@ -120,6 +132,21 @@ public class PlayerController : MovementBase
             SetAnimationParameter();
         }
       
+    }
+
+
+    private void OnCollisionEnter(Collision collision) {
+        if (collision.transform.GetComponent<ChaseTestScript>()) {
+            normal = (collision.transform.position - transform.position).normalized;
+            normalAngle = Vector3.Angle(normal, VelocityVector) * Mathf.Deg2Rad;
+
+            vectorParal = VelocityVector * Mathf.Cos(normalAngle);
+            vectorPerp = VelocityVector * Mathf.Sin(normalAngle);
+
+            //Bounce formula
+            bounceVector = (vectorParal * (mass - fakeBoss.Mass) + 2 * fakeBoss.Mass * fakeBoss.vectorParal) / (mass + fakeBoss.Mass);
+            VelocityVector = (bounceVector * (1 - KineticEnergyLoss)) + vectorPerp;
+        }
     }
 
     void CalculateOrientationFromMouse()

@@ -5470,7 +5470,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 6
     m_ConditionEvent: OrbitTag
-    m_EventTreshold: 3
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102396146589424286}
   m_Solo: 0
@@ -8194,7 +8194,7 @@ AnimatorStateMachine:
     m_Position: {x: -552, y: 408, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102308703950902768}
-    m_Position: {x: -744, y: 480, z: 0}
+    m_Position: {x: -732, y: 480, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102027370220122814}
     m_Position: {x: -360, y: 480, z: 0}
