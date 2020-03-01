@@ -41,6 +41,8 @@ public class ChaseTestScript : MonoBehaviour
     public float normalAngle;
     public Vector3 vectorParal;
     public Vector3 vectorPerp;
+    public Vector3 collisionVectorParal;
+    public Vector3 collisionVectorPerp;
     public Vector3 bounceVector;
     [Range(0, 1)]
     public float KineticEnergyLoss;
@@ -93,17 +95,36 @@ public class ChaseTestScript : MonoBehaviour
      */
 
     private void OnCollisionEnter(Collision collision) {
-        //if (collision.transform.GetComponent<PlayerController>()) {
-        //    normal = (collision.transform.position - transform.position).normalized;
-        //    normalAngle = Vector3.Angle(normal, VelocityVector) * Mathf.Deg2Rad;
+        if (collision.transform.GetComponent<PlayerController>()) {
 
-        //    vectorParal = VelocityVector * Mathf.Cos(normalAngle);
-        //    vectorPerp = VelocityVector * Mathf.Sin(normalAngle);
+            Debug.Log("Collision");
 
-        //    //Bounce formula
-        //    bounceVector = (vectorParal * (Mass - Player.mass) + 2 * Player.mass * Player.vectorParal) / (Mass + Player.mass);
-        //    VelocityVector = (bounceVector *  (1 - KineticEnergyLoss)) + vectorPerp;
-        //}
+            Player = collision.transform.GetComponent<PlayerController>();
+
+
+            Vector3 fakePlayerPosition = new Vector3(collision.transform.position.x, transform.position.y, collision.transform.position.z);
+            normal = (fakePlayerPosition - transform.position).normalized;
+
+            vectorParal = Vector3.Project(VelocityVector, normal);
+            vectorPerp =  Vector3.ProjectOnPlane(VelocityVector, normal);
+
+            collisionVectorParal = Vector3.Project(Player.VelocityVector, -normal);
+            collisionVectorPerp = Vector3.ProjectOnPlane(Player.VelocityVector, -normal);
+
+            //Bounce formula
+            bounceVector = (vectorParal * (Mass - Player.mass) + 2 * Player.mass * collisionVectorParal) / (Mass + Player.mass);
+            VelocityVector = (bounceVector * (1 - KineticEnergyLoss)) + (vectorPerp * (1 - KineticEnergyLoss));
+
+            bounceVector = (collisionVectorParal * (Player.mass - Mass) + 2 * Mass * vectorParal) / (Player.mass + Mass);
+            Player.VelocityVector = (bounceVector * (1 - Player.KineticEnergyLoss)) + collisionVectorPerp * (1 - Player.SurfaceFriction);
+            
+            
+            Debug.DrawRay(transform.position, VelocityVector, Color.blue, 0.2f);
+            Debug.DrawRay(Player.transform.position, Player.VelocityVector, Color.cyan, 0.2f);
+
+            Player.animator.SetTrigger("Stunned");
+
+        }
 
 
         if (collision.transform.GetComponent<WallBounceController>()) {

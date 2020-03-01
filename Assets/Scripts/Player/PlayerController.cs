@@ -127,6 +127,11 @@ public class PlayerController : MovementBase
 
     private void Update() 
     {
+
+        //Momentaneo___________________________________________________________________
+        transform.position = new Vector3(transform.position.x ,0,transform.position.z);
+        //Momentaneo___________________________________________________________________
+
         if (!InputDisable) // momentaneo da sistemare
         {
             CheckInput();
@@ -136,25 +141,12 @@ public class PlayerController : MovementBase
     }
 
 
-    private void OnCollisionEnter(Collision collision) {
+    //private void OnCollisionEnter(Collision collision) {
 
-        if (collision.transform.GetComponent<OrbitTesting>()) {
-
-            Vector3 fakePlayerPosition = new Vector3(transform.position.x, collision.transform.position.y, transform.position.z);
-
-            normal = (collision.transform.position - fakePlayerPosition);
-
-            vectorParal = Vector3.Project(VelocityVector, normal);
-            vectorPerp = Vector3.ProjectOnPlane(VelocityVector, normal);
-
-            //Bounce formula
-            bounceVector = (vectorParal * (mass - collision.transform.GetComponent<OrbitTesting>().Mass) + 2 * collision.transform.GetComponent<OrbitTesting>().Mass * collision.transform.GetComponent<OrbitTesting>().vectorParal) / (mass + collision.transform.GetComponent<OrbitTesting>().Mass);
-            VelocityVector = (bounceVector * (1 - KineticEnergyLoss)) + vectorPerp * (1 - SurfaceFriction);
-            Debug.DrawRay(transform.position, VelocityVector, Color.blue, 0.2f);
-
-            animator.SetTrigger("Stunned");
-        }
-    }
+    //    if (collision.transform.GetComponent<OrbitTesting>()) {
+            
+    //    }
+    //}
 
     void CalculateOrientationFromMouse()
     {

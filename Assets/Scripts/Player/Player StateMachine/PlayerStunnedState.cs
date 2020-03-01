@@ -17,7 +17,7 @@ public class PlayerStunnedState : PlayerBaseState
         float vectorAngle = Vector3.SignedAngle(Vector3.forward, player.VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
         player.DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * /*player.DecelerationModule*/ 10, 0, Mathf.Cos(vectorAngle) */* player.DecelerationModule*/ 10);
 
-        Debug.DrawRay(player.transform.position, player.VelocityVector, Color.cyan, 0.2f);
+        //Debug.DrawRay(player.transform.position, player.VelocityVector, Color.cyan, 0.2f);
 
         player.VelocityVector -= player.DecelerationVector * Time.deltaTime;
         player.move = player.VelocityVector * Time.deltaTime;

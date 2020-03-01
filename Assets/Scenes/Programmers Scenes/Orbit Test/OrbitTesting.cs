@@ -44,6 +44,8 @@ public class OrbitTesting : MonoBehaviour
     public float normalAngle;
     public Vector3 vectorParal;
     public Vector3 vectorPerp;
+    public Vector3 collisionVectorParal;
+    public Vector3 collisionVectorPerp;
     public Vector3 bounceVector;
     [Range(0, 1)]
     public float KineticEnergyLoss;
@@ -112,7 +114,7 @@ public class OrbitTesting : MonoBehaviour
 
         if (collision.transform.GetComponent<PlayerController>()) {
 
-            Debug.Log("COLLISION");
+            Player = collision.transform.GetComponent<PlayerController>();
 
             Vector3 fakePlayerPosition = new Vector3(collision.transform.position.x, transform.position.y, collision.transform.position.z);
             normal = (fakePlayerPosition - transform.position).normalized;
@@ -120,22 +122,57 @@ public class OrbitTesting : MonoBehaviour
             vectorParal = Vector3.Project(VelocityVector, normal);
             vectorPerp = Vector3.ProjectOnPlane(VelocityVector, normal);
 
-            //Bounce formula
-            bounceVector = (vectorParal * (Mass - Player.mass) + 2 * Player.mass * Player.vectorParal) / (Mass + Player.mass);
-            bounceVector *= 1 - KineticEnergyLoss;
 
-            boss.VelocityVector = vectorPerp * (1 - SurfaceFriction);
+            collisionVectorParal = Vector3.Project(Player.VelocityVector, -normal);
+            collisionVectorPerp = Vector3.ProjectOnPlane(Player.VelocityVector, -normal);
+
+            //Bounce formula
+            bounceVector = (vectorParal * (Mass - Player.mass) + 2 * Player.mass * collisionVectorParal) / (Mass + Player.mass);
+            bounceVector *= 1 - KineticEnergyLoss;
+            //Debug.DrawRay(transform.position, bounceVector, Color.blue, 0.2f);
+
+            bounceVector += vectorPerp * (1-KineticEnergyLoss);
+
+
+            //boss.VelocityVector = vectorPerp * (1 - SurfaceFriction);
+            //Debug.DrawRay(transform.position, vectorPerp, Color.green, 0.2f);
+
+            //PLAYER__________
+
+            normal = (transform.position - fakePlayerPosition).normalized;
+
+            //Bounce formula
+            bounceVector = (collisionVectorParal * (Player.mass - Mass) + 2 * Mass * vectorParal) / (Player.mass + Mass);
+            Player.VelocityVector = (bounceVector * (1 - Player.KineticEnergyLoss)) + collisionVectorPerp * (1 - Player.SurfaceFriction);
+            //Debug.DrawRay(transform.position, VelocityVector, Color.blue, 0.2f);
+
+            Player.animator.SetTrigger("Stunned");
+
+            //__________________________________
 
 
             Vector3 fakeSpherePosition = new Vector3(transform.position.x, boss.transform.position.y, transform.position.z);
             normal = fakeSpherePosition - boss.transform.position;
 
+
+
             vectorParal = Vector3.Project(bounceVector, normal);
             vectorPerp = Vector3.ProjectOnPlane(bounceVector, normal);
 
+            Debug.Log("Result: " + (vectorPerp.normalized - transform.localPosition));
+
+            //Debug.DrawRay(transform.position, vectorParal, Color.red, 0.6f);
+            //Debug.DrawRay(transform.position, vectorPerp, Color.cyan, 0.6f);
+
+
             boss.VelocityVector += vectorParal;
 
-            AngularVelocity = ((vectorPerp.magnitude * Mathf.Rad2Deg) / OrbitRay) * Mathf.Sign(-AngularVelocity);
+            AngularVelocity = ((vectorPerp.magnitude * Mathf.Rad2Deg) / OrbitRay) * Mathf.Sign(-AngularVelocity /*(Mass * VelocityVector.sqrMagnitude) - (Player.mass * VelocityVector.sqrMagnitude)*/);
+
+            Debug.DrawRay(boss.transform.position, boss.VelocityVector, Color.red, 0.2f);
+            Debug.DrawRay(Player.transform.position, Player.VelocityVector, Color.green, 0.2f);
+            Debug.DrawRay(transform.position, VelocityVector, Color.blue, 0.2f);
+
 
         }
 
