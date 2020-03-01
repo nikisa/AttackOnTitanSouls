@@ -28,11 +28,10 @@ public class MovementBase : MonoBehaviour
     public Vector3 DecelerationVector;
     [HideInInspector]
     public Vector3 targetDir;
+    [HideInInspector]
+    public float gravity;
     #endregion
 
-
-    //Protected
-    protected float gravity;
 
     private void Awake() {
         gravity = 9.81f;

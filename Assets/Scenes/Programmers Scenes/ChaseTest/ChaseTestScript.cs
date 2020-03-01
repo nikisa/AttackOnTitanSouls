@@ -7,6 +7,7 @@ public class ChaseTestScript : MonoBehaviour
     //Public
     public PlayerController Player;
     public CharacterController CharacterController;
+    public ChaseTestScript OrbitSphere;
 
     public float TimeAcceleration;
     public float MaxSpeed;
@@ -43,6 +44,8 @@ public class ChaseTestScript : MonoBehaviour
     public Vector3 bounceVector;
     [Range(0, 1)]
     public float KineticEnergyLoss;
+    [Range(0, 1)]
+    public float SurfaceFriction;
    
 
 
@@ -70,9 +73,10 @@ public class ChaseTestScript : MonoBehaviour
         VelocityVector -= VelocityVector * Drag;
         CharacterController.Move(move + Vector3.down * 9.81f);
 
-        Debug.DrawLine(transform.position, transform.position + AccelerationVector, Color.red, .02f);
-        Debug.DrawLine(transform.position, transform.position + VelocityVector , Color.blue, .02f);
-        Debug.DrawLine(transform.position, Player.transform.position, Color.green, .02f);
+        //Debug.DrawLine(transform.position, transform.position + AccelerationVector, Color.red, .02f);
+        //Debug.DrawLine(transform.position, transform.position + VelocityVector , Color.blue, .02f);
+        //Debug.DrawLine(transform.position, Player.transform.position, Color.green, .02f);
+
         //Debug.DrawLine(boss.transform.position, boss.MaxSpeedVector, Color.green, .5f);
 
     }
@@ -107,7 +111,7 @@ public class ChaseTestScript : MonoBehaviour
             normal = -collision.transform.forward;         
             normalAngle = Vector3.Angle(normal, VelocityVector) * Mathf.Deg2Rad;
 
-            Debug.Log("normalAngle: " + normalAngle * Mathf.Rad2Deg);
+            //Debug.Log("normalAngle: " + normalAngle * Mathf.Rad2Deg);
 
             //vectorParal = VelocityVector * Mathf.Cos(normalAngle);
             //vectorPerp = VelocityVector * Mathf.Sin(normalAngle);
@@ -115,14 +119,16 @@ public class ChaseTestScript : MonoBehaviour
             vectorParal = Vector3.Project(VelocityVector, normal);
             vectorPerp = Vector3.ProjectOnPlane(VelocityVector, normal);
 
-            Debug.DrawRay(transform.position, vectorParal, Color.red, 5);
-            Debug.DrawRay(transform.position, vectorPerp, Color.cyan, 5);
+            //Debug.DrawRay(transform.position, vectorParal, Color.red, 5);
+            //Debug.DrawRay(transform.position, vectorPerp, Color.cyan, 5);
 
             //Bounce formula
+
+            //Per il muro non serve andare a vedere la sua massa , ma basta dare la stessa massa dell'oggetto che urta
             bounceVector = (vectorParal * (Mass - collision.transform.GetComponent<WallBounceController>().Mass) - 2 * collision.transform.GetComponent<WallBounceController>().Mass * vectorParal) / (Mass + collision.transform.GetComponent<WallBounceController>().Mass);
-            Debug.Log("Bounce: " + bounceVector);
-            VelocityVector = (bounceVector * (1 - KineticEnergyLoss)) + vectorPerp;
-            Debug.Log("newVelocityVector: " + VelocityVector);
+            //Debug.Log("Bounce: " + bounceVector);
+            VelocityVector = (bounceVector * (1 - KineticEnergyLoss)) + vectorPerp * (1 - SurfaceFriction);
+            //Debug.Log("newVelocityVector: " + VelocityVector);
         }
 
     }

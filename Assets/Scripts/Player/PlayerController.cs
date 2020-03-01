@@ -63,7 +63,9 @@ public class PlayerController : MovementBase
     public Vector3 vectorPerp;
     public Vector3 bounceVector;
     [Range(0, 1)]
-    public float KineticEnergyLoss;
+    public float KineticEnergyLoss;    
+    [Range(0, 1)]
+    public float SurfaceFriction;
 
 
     //Public
@@ -131,21 +133,26 @@ public class PlayerController : MovementBase
             UpdateOriantation();
             SetAnimationParameter();
         }
-      
     }
 
 
     private void OnCollisionEnter(Collision collision) {
-        if (collision.transform.GetComponent<ChaseTestScript>()) {
-            normal = (collision.transform.position - transform.position).normalized;
-            normalAngle = Vector3.Angle(normal, VelocityVector) * Mathf.Deg2Rad;
 
-            vectorParal = VelocityVector * Mathf.Cos(normalAngle);
-            vectorPerp = VelocityVector * Mathf.Sin(normalAngle);
+        if (collision.transform.GetComponent<OrbitTesting>()) {
+
+            Vector3 fakePlayerPosition = new Vector3(transform.position.x, collision.transform.position.y, transform.position.z);
+
+            normal = (collision.transform.position - fakePlayerPosition);
+
+            vectorParal = Vector3.Project(VelocityVector, normal);
+            vectorPerp = Vector3.ProjectOnPlane(VelocityVector, normal);
 
             //Bounce formula
-            bounceVector = (vectorParal * (mass - fakeBoss.Mass) + 2 * fakeBoss.Mass * fakeBoss.vectorParal) / (mass + fakeBoss.Mass);
-            VelocityVector = (bounceVector * (1 - KineticEnergyLoss)) + vectorPerp;
+            bounceVector = (vectorParal * (mass - collision.transform.GetComponent<OrbitTesting>().Mass) + 2 * collision.transform.GetComponent<OrbitTesting>().Mass * collision.transform.GetComponent<OrbitTesting>().vectorParal) / (mass + collision.transform.GetComponent<OrbitTesting>().Mass);
+            VelocityVector = (bounceVector * (1 - KineticEnergyLoss)) + vectorPerp * (1 - SurfaceFriction);
+            Debug.DrawRay(transform.position, VelocityVector, Color.blue, 0.2f);
+
+            animator.SetTrigger("Stunned");
         }
     }
 
