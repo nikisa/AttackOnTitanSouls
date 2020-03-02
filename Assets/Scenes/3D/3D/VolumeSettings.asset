@@ -114,7 +114,7 @@ MonoBehaviour:
     showEyeDropper: 1
   density:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.495
     min: 0
     max: 1
   maxFogDistance:
@@ -251,7 +251,7 @@ MonoBehaviour:
     min: 0
   upperHemisphereLuxValue:
     m_OverrideState: 0
-    m_Value: 1.971495
+    m_Value: 2.0365317
     min: 0
   desiredLuxValue:
     m_OverrideState: 0
@@ -268,4 +268,4 @@ MonoBehaviour:
     m_Value: 0
   hdriSky:
     m_OverrideState: 1
-    m_Value: {fileID: 8900000, guid: 026e85add3ea3984fa96b60d856e146a, type: 2}
+    m_Value: {fileID: 8900000, guid: 8883303e2f3ba2848b5ed909652edef5, type: 3}
