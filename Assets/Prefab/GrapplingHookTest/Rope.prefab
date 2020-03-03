@@ -46,6 +46,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   Hook: {fileID: 0}
+  midPointRope: {fileID: 0}
+  NodeDistance: 0.1
+  MaxNodeDistance: 0
+  TotalNodes: 100
+  RopeWidth: 0.1
+  Iterations: 50
+  currentDistance: 0
+  offset: 0
 --- !u!120 &1293279804888384998
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -63,7 +71,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e1e5b254d1b12834d92ab224fc101557, type: 2}
+  - {fileID: 2100000, guid: d2f79caa25d59d44481ccd99f2d46ec6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
