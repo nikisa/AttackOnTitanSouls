@@ -127,7 +127,7 @@ public class OrbitTesting : MonoBehaviour
             collisionVectorPerp = Vector3.ProjectOnPlane(Player.VelocityVector, -normal);
 
             //Bounce formula
-            bounceVector = (vectorParal * (Mass - Player.mass) + 2 * Player.mass * collisionVectorParal) / (Mass + Player.mass);
+            bounceVector = (vectorParal * (Mass - Player.Mass) + 2 * Player.Mass * collisionVectorParal) / (Mass + Player.Mass);
             bounceVector *= 1 - KineticEnergyLoss;
             //Debug.DrawRay(transform.position, bounceVector, Color.blue, 0.2f);
 
@@ -142,7 +142,7 @@ public class OrbitTesting : MonoBehaviour
             normal = (transform.position - fakePlayerPosition).normalized;
 
             //Bounce formula
-            bounceVector = (collisionVectorParal * (Player.mass - Mass) + 2 * Mass * vectorParal) / (Player.mass + Mass);
+            bounceVector = (collisionVectorParal * (Player.Mass - Mass) + 2 * Mass * vectorParal) / (Player.Mass + Mass);
             Player.VelocityVector = (bounceVector * (1 - Player.KineticEnergyLoss)) + collisionVectorPerp * (1 - Player.SurfaceFriction);
             //Debug.DrawRay(transform.position, VelocityVector, Color.blue, 0.2f);
 

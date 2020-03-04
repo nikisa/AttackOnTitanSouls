@@ -13,6 +13,9 @@ public class PlayerIdleState : PlayerBaseState
     }
 
     public override void Tick() {
+
+        player.CharacterController.Move(player.VelocityVector/10);
+
         if (player.checkDeadZone()) {
             animator.SetTrigger(MOVEMENT);
         }

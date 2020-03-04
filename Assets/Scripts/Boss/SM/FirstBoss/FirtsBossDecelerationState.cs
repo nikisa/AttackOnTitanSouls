@@ -13,10 +13,15 @@ public class FirtsBossDecelerationState : FirstBossState
 
     public override void Enter()
     {
+
+        base.Enter();
         wallLayer = 10;
     }
     public override void Tick()
     {
+
+        base.Tick();
+
         CollisionTick();
         setChaseRadius();
         Deceleration();

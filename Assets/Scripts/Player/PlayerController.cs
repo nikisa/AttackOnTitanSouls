@@ -52,20 +52,6 @@ public class PlayerController : MovementBase
     public float AimDeadZoneValue;
     public float TweeningRotationTime;
     public Ease TweeningRotationEase;
-    public float mass;
-
-
-    //Temporary public values
-    public ChaseTestScript fakeBoss;
-    public Vector3 normal;
-    public float normalAngle;
-    public Vector3 vectorParal;
-    public Vector3 vectorPerp;
-    public Vector3 bounceVector;
-    [Range(0, 1)]
-    public float KineticEnergyLoss;    
-    [Range(0, 1)]
-    public float SurfaceFriction;
 
 
     //Public
@@ -129,7 +115,7 @@ public class PlayerController : MovementBase
     {
 
         //Momentaneo___________________________________________________________________
-        transform.position = new Vector3(transform.position.x ,0,transform.position.z);
+        //transform.position = new Vector3(transform.position.x ,0,transform.position.z);
         //Momentaneo___________________________________________________________________
 
         if (!InputDisable) // momentaneo da sistemare
@@ -141,12 +127,7 @@ public class PlayerController : MovementBase
     }
 
 
-    //private void OnCollisionEnter(Collision collision) {
-
-    //    if (collision.transform.GetComponent<OrbitTesting>()) {
-            
-    //    }
-    //}
+    
 
     void CalculateOrientationFromMouse()
     {
@@ -220,14 +201,7 @@ public class PlayerController : MovementBase
     }
 
 
-    private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("HookPoint")) {
-            if (!IsImmortal)
-            {
-                PlayerController.DmgEvent();
-            }
-        }
-    }
+   
 
     public void Dash(float _dashVelocityModule , Vector3 _targetDir) {
         targetDir = _targetDir;
@@ -348,6 +322,18 @@ public class PlayerController : MovementBase
         body.SetActive(true);
         yield return new WaitForSeconds(_sec / 6);
         IsImmortal = false;
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit) {
+        if ((hit.collider.GetComponent<MovementBase>() || hit.collider.GetComponent<FirstBossMask>()) && !hit.collider.GetComponent<PlayerController>()) {
+            //BounceMovement(hit);
+            animator.SetTrigger("Stunned");
+
+            if (!IsImmortal) {
+                PlayerController.DmgEvent();
+            }
+
+        }
     }
 
 }

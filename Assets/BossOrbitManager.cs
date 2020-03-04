@@ -8,13 +8,22 @@ public class BossOrbitManager : MonoBehaviour
     //Events
     public delegate void MaskEvent();
     public static MaskEvent ChangedStateEvent;
+    
+    public delegate void MaskBounceEvent(Collider collider);
+    public static MaskBounceEvent BounceMasks;
+    public static MaskBounceEvent BounceMasksOnWall;
+
 
     private void OnEnable() {
         ChangedStateEvent += StopMaskMovement;
+        BounceMasks += AllMasksBounce;
+        BounceMasksOnWall += AllMasksBounceOnWall;
     }
 
     private void OnDisable() {
         ChangedStateEvent -= StopMaskMovement;
+        BounceMasks -= AllMasksBounce;
+        BounceMasksOnWall -= AllMasksBounceOnWall;
     }
 
     //Inspector
@@ -53,7 +62,6 @@ public class BossOrbitManager : MonoBehaviour
 
     void Start() {
         hasFinished = false;
-        
     }
 
 
@@ -99,6 +107,19 @@ public class BossOrbitManager : MonoBehaviour
             if (MasksList[i].MaskID > _removedID) {
                 MasksList[i].MaskID--;
             }
+        }
+    }
+
+    public void AllMasksBounce(Collider collider) {
+        for (int i = 0; i < MasksList.Count; i++) {
+            MasksList[i].BounceMovement(collider);
+        }
+    }
+
+    public void AllMasksBounceOnWall(Collider collider) {
+
+        for (int i = 0; i < MasksList.Count; i++) {
+            MasksList[i].WallBounce(collider);
         }
     }
 

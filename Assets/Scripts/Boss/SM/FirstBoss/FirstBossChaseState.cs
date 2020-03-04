@@ -85,6 +85,7 @@ public class FirstBossChaseState : FirstBossState
         }
         else {
 
+            //boss.Movement(targetDir, chaseData.MaxSpeed, accelerationModule);
             boss.Movement(targetDir, chaseData.MaxSpeed, accelerationModule);
 
             if (layerResult == layerPlayer) {

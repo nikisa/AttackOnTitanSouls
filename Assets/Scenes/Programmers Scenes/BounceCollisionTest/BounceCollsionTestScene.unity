@@ -497,6 +497,11 @@ PrefabInstance:
       propertyPath: KineticEnergyLoss
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 7531129435490816582, guid: 7740087d7d525654c93b2697dd335527,
+        type: 3}
+      propertyPath: Mass
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1947039354, guid: 7740087d7d525654c93b2697dd335527, type: 3}
       propertyPath: m_Radius
       value: 0.76
@@ -1113,7 +1118,7 @@ CharacterController:
   m_GameObject: {fileID: 1522839562}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 1
   m_Radius: 0.5

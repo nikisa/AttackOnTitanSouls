@@ -64,6 +64,8 @@ public class PlayerMovementState : PlayerBaseState
         }
     }
 
+    
+
 
     public override void Exit()
     {

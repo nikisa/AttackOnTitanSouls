@@ -6,13 +6,12 @@ using UnityEngine;
 public class FirstBossMask : HookPointBase
 {
 
-    //public enum HookPointType {
-    //    StaticHookPoint,
-    //    BreakableHookPoint
-    //};  
-
-
     public int MaskID;
+    public float Mass;
+    [Range(0, 1)]
+    public float KineticEnergyLoss;
+    [Range(0, 1)]
+    public float SurfaceFriction;
     public BossController boss;
     public Vector3 OldPos;
     public Vector3 Inertia;
@@ -30,7 +29,7 @@ public class FirstBossMask : HookPointBase
     public Vector3 AngularAcceleration;
     [HideInInspector]
     public float AngularVelocity;
-    [HideInInspector]
+    //[HideInInspector]
     public Vector3 VelocityVector;
     [HideInInspector]
     public float Drag;
@@ -59,6 +58,14 @@ public class FirstBossMask : HookPointBase
     Vector3 direction = Vector3.zero;
     Vector3 movement = Vector3.zero;
 
+    #region BounceVariable
+    Vector3 normal;
+    Vector3 vectorParal;
+    Vector3 vectorPerp;
+    Vector3 collisionVectorParal;
+    Vector3 collisionVectorPerp;
+    Vector3 bounceVector;
+    #endregion
 
     GameObject mask;
     GameObject parent;
@@ -78,6 +85,8 @@ public class FirstBossMask : HookPointBase
         mask.transform.SetParent(transform);
     }
 
+    
+
     public void SetDistanceFromBoss(float _distance) {
         distanceFromBoss = _distance;
     }
@@ -90,7 +99,7 @@ public class FirstBossMask : HookPointBase
         transform.eulerAngles += new Vector3(0, AngularVelocity * Time.deltaTime + 0.5f * AngularAccelerationModule * Mathf.Pow(Time.deltaTime, 2), 0);
         transform.position = new Vector3(boss.transform.position.x + currentRadius * Mathf.Sin((transform.eulerAngles.y) * Mathf.Deg2Rad), 1.375f , boss.transform.position.z + currentRadius * Mathf.Cos((transform.eulerAngles.y) * Mathf.Deg2Rad));
         AngularVelocity += AngularAccelerationModule * Time.deltaTime;
-        VelocityVector = new Vector3((AngularVelocity * Mathf.PI - 180) * currentRadius * Mathf.Sin(transform.eulerAngles.x), 0, (AngularVelocity * Mathf.PI - 180) * currentRadius * Mathf.Cos(transform.eulerAngles.z));
+        VelocityVector = new Vector3((AngularVelocity * Mathf.PI / 180) * currentRadius * Mathf.Sin(transform.eulerAngles.x), 0, (AngularVelocity * Mathf.PI / 180) * currentRadius * Mathf.Cos(transform.eulerAngles.z));
 
     }
 
@@ -99,7 +108,7 @@ public class FirstBossMask : HookPointBase
             AngularVelocity -= _angularDecelerationModule * Time.deltaTime;
             parent.transform.eulerAngles += new Vector3(0, AngularVelocity * Time.deltaTime, 0);
             parent.transform.position = new Vector3(boss.transform.position.x + currentRadius * Mathf.Sin((parent.transform.eulerAngles.y) * Mathf.Deg2Rad), 0, boss.transform.position.z + currentRadius * Mathf.Cos((parent.transform.eulerAngles.y) * Mathf.Deg2Rad));
-            VelocityVector = new Vector3((AngularVelocity * Mathf.PI - 180) * currentRadius * Mathf.Sin(parent.transform.eulerAngles.x), 0, (AngularVelocity * Mathf.PI - 180) * currentRadius * Mathf.Cos(parent.transform.eulerAngles.z));
+            VelocityVector = new Vector3((AngularVelocity * Mathf.PI / 180) * currentRadius * Mathf.Sin(parent.transform.eulerAngles.x), 0, (AngularVelocity * Mathf.PI / 180) * currentRadius * Mathf.Cos(parent.transform.eulerAngles.z));
         }
         else {
             AngularVelocity = 0;
@@ -202,4 +211,106 @@ public class FirstBossMask : HookPointBase
 
         }
     }
+
+
+    public void BounceMovement(Collider collider) {
+
+        #region Bounce variables
+        MovementBase collidingObject = collider.GetComponent<MovementBase>();
+        #endregion
+
+
+        
+
+        Vector3 fakeCollidingObjectPosition = new Vector3(collidingObject.transform.localPosition.x, transform.localPosition.y, collidingObject.transform.localPosition.z);
+        normal = (fakeCollidingObjectPosition - transform.localPosition).normalized;
+
+        vectorParal = Vector3.Project(VelocityVector, normal);
+        vectorPerp = Vector3.ProjectOnPlane(VelocityVector, normal);
+
+
+        collisionVectorParal = Vector3.Project(collidingObject.VelocityVector, -normal);
+        collisionVectorPerp = Vector3.ProjectOnPlane(collidingObject.VelocityVector, -normal);
+
+        //Bounce formula
+        bounceVector = (vectorParal * (Mass - collidingObject.Mass) + 2 * collidingObject.Mass * collisionVectorParal) / (Mass + collidingObject.Mass);
+        bounceVector *= 1 - KineticEnergyLoss;
+
+        bounceVector += vectorPerp * (1 - KineticEnergyLoss);
+        normal = (transform.localPosition - fakeCollidingObjectPosition).normalized;
+
+        bounceVector = (collisionVectorParal * (collidingObject.Mass - Mass) + 2 * Mass * vectorParal) / (collidingObject.Mass + Mass);
+        collidingObject.VelocityVector = (bounceVector * (1 - collidingObject.KineticEnergyLoss)) + collisionVectorPerp * (1 - collidingObject.SurfaceFriction);
+
+        Vector3 fakeMaskPosition = new Vector3(transform.localPosition.x, boss.transform.localPosition.y, transform.localPosition.z);
+        normal = fakeMaskPosition - boss.transform.localPosition;
+
+        vectorParal = Vector3.Project(bounceVector, normal);
+        vectorPerp = Vector3.ProjectOnPlane(bounceVector, normal);
+
+        boss.VelocityVector += vectorParal;
+
+        AngularVelocity = ((vectorPerp.magnitude * Mathf.Rad2Deg) / currentRadius) * Mathf.Sign(-AngularVelocity /*(Mass * VelocityVector.sqrMagnitude) - (Player.mass * VelocityVector.sqrMagnitude)*/);
+
+        //Debug.DrawRay(boss.transform.position, boss.VelocityVector, Color.red, 0.2f);
+        //Debug.DrawRay(collidingObject.transform.position, collidingObject.VelocityVector, Color.green, 0.2f);
+        //Debug.DrawRay(transform.position, VelocityVector, Color.blue, 0.2f);
+
+    }
+
+
+
+    public void WallBounce(Collider collider) {
+
+        #region Bounce variables
+        GameObject collidingObject = collider.gameObject;
+        #endregion
+
+        normal = -collidingObject.transform.forward;
+        VelocityVector += boss.VelocityVector;
+
+        vectorParal = Vector3.Project(VelocityVector, normal);
+
+        //Bounce formula
+
+        //Per il muro non serve andare a vedere la sua massa , ma basta dare la stessa massa dell'oggetto che urta
+        bounceVector = (-2 * Mass * vectorParal) / (2 * Mass);
+        bounceVector *= 1 - KineticEnergyLoss;
+
+        Vector3 fakeMaskPosition = new Vector3(transform.position.x, boss.transform.position.y, transform.position.z);
+        normal = fakeMaskPosition - boss.transform.position;
+
+        vectorParal = Vector3.Project(bounceVector, normal);
+        vectorPerp = Vector3.ProjectOnPlane(bounceVector, normal);
+
+        //Se c'è possibilità di stun allora:
+        boss.VelocityVector = vectorParal;
+
+        //altrimenti:
+        //boss.VelocityVector += vectorParal;
+
+        AngularVelocity = ((vectorPerp.magnitude * Mathf.Rad2Deg) / currentRadius) * Mathf.Sign(-AngularVelocity);
+
+        //Debug.DrawRay(boss.transform.position, vectorParal, Color.blue, .016f);
+        //Debug.DrawRay(transform.position, vectorPerp, Color.blue, .016f);
+        //Debug.DrawRay(boss.transform.position, boss.VelocityVector, Color.red, .016f);
+        //Debug.Log("VectorPerp: " + vectorPerp);
+    }
+
+    private void OnTriggerEnter(Collider collider) {
+        if (collider.GetComponent<MovementBase>() && !collider.GetComponent<BossController>()) {
+            BossOrbitManager.BounceMasks(collider);
+            if (collider.GetComponent<PlayerController>()) {
+                collider.GetComponent<PlayerController>().animator.SetTrigger("Stunned");
+            }
+
+        }
+
+        if (collider.tag == "Wall") {
+
+            Debug.Log("Wall Mask Bounce");
+            BossOrbitManager.BounceMasksOnWall(collider);
+        }
+    }
+
 }
