@@ -32,6 +32,7 @@ public class BossOrbitManager : MonoBehaviour
     public List<FirstBossMask> MasksList;
     public BossFoV BossFov;
     public LayerMask layerMask;
+    //public AnimationCurve Curve;
 
     //Public
     //[HideInInspector]
@@ -67,14 +68,18 @@ public class BossOrbitManager : MonoBehaviour
 
     public void SetupMask(List<MaskBehaviourData> _maskBehaviourList) {
         for (int i = 0; i < MasksList.Count; i++) {
+            if (_maskBehaviourList[i].isSetup)
+            {
             MasksList[i].SetRadius(_maskBehaviourList[i].SetupRadius);
+            }       
             MasksList[i].setAngularDecelerationModule(_maskBehaviourList[i].AngularMaxSpeed , _maskBehaviourList[i].AngularDecelerationTime);
-            if (_maskBehaviourList[i].HasDeltaRadius) {
-                MasksList[i].SetDistanceFromBoss(_maskBehaviourList[i].FinalRadius);
-            }
-            else {
-                MasksList[i].SetDistanceFromBoss(_maskBehaviourList[i].SetupRadius);
-            }
+            //if (_maskBehaviourList[i].HasDeltaRadius) {
+            //    MasksList[i].SetDistanceFromBoss(_maskBehaviourList[i].FinalRadius);
+            //}
+            //else {
+            //    MasksList[i].SetDistanceFromBoss(_maskBehaviourList[i].SetupRadius);
+            //}
+            Debug.Log(MasksList[i].VelocityVector + "VEl" + Time.time);
         }
     }
 
@@ -145,9 +150,20 @@ public class BossOrbitManager : MonoBehaviour
             speed = distance / _maskBehaviourList[i].TravelTime * Time.deltaTime;
             //MasksList[i].SetRadius(MasksList[i].currentRadius += speed);
             //MasksList[i].currentRadius = Mathf.Clamp(MasksList[i].currentRadius, _maskBehaviourList[i].SetupRadius, _maskBehaviourList[i].FinalRadius);
-
+            if (_maskBehaviourList[i].HasDeltaRadius)
+            {
             GetMaskById(_maskBehaviourList[i].ID).SetRadius(GetMaskById(_maskBehaviourList[i].ID).currentRadius += speed);
             GetMaskById(_maskBehaviourList[i].ID).currentRadius = Mathf.Clamp(GetMaskById(_maskBehaviourList[i].ID).currentRadius, _maskBehaviourList[i].SetupRadius, _maskBehaviourList[i].FinalRadius);
+            }
+           //Debug.Log( Curve.Evaluate(Time.deltaTime) +"curvaaaaaaa");
+          
+        }
+    }
+    public void ResetVelocity()
+    {
+        for (int i = 0; i < MasksList.Count; i++)
+        {
+            MasksList[i].VelocityVector = Vector3.zero;
         }
     }
 
@@ -190,33 +206,42 @@ public class BossOrbitManager : MonoBehaviour
 
         _orientation += 180;
 
-        if (_isSetUp) {
+       // if (_isSetUp) {
             InitialPoints[_index].transform.eulerAngles = new Vector3(InitialPoints[_index].transform.eulerAngles.x, _orientation, InitialPoints[_index].transform.eulerAngles.z);
             InitialPoints[_index].transform.DOLocalMove(InitialPoints[_index].transform.forward * _initialRadius, _time).OnComplete(() => {
-                SetMasks(_index, _movementTime);
+                if (_isSetUp)
+                {
+                    SetMasks(_index, _movementTime);
+                }
+                RotateMask(_index, _movementTime);
+               
                 EndPoints[_index].transform.eulerAngles = new Vector3(EndPoints[_index].transform.eulerAngles.x, _orientation, EndPoints[_index].transform.eulerAngles.z);
                 EndPoints[_index].transform.DOLocalMove(EndPoints[_index].transform.forward * _finalRadius, _time).OnComplete(() => {
-                    if (_hasDeltaRadius) {
+                    //if (_hasDeltaRadius) {
                         MoveMasks(_index, _movementTime);
-                    }
+                    //}
                 });//EndPoints OnComplete
             });//InitialPoints OnComplete
-        }
-        else {
-            EndPoints[_index].transform.eulerAngles = new Vector3(EndPoints[_index].transform.eulerAngles.x, _orientation, EndPoints[_index].transform.eulerAngles.z);
-            EndPoints[_index].transform.DOLocalMove(EndPoints[_index].transform.forward * _finalRadius, _time).OnComplete(() => {
-                if (_hasDeltaRadius) {
-                    MoveMasks(_index, _movementTime);
-                }
-            });
-        }
+      //  }
+        //else {
+        //    EndPoints[_index].transform.eulerAngles = new Vector3(EndPoints[_index].transform.eulerAngles.x, _orientation, EndPoints[_index].transform.eulerAngles.z);
+        //    EndPoints[_index].transform.DOLocalMove(EndPoints[_index].transform.forward * _finalRadius, _time).OnComplete(() => {
+        //        if (_hasDeltaRadius) {
+        //            MoveMasks(_index, _movementTime);
+        //        }
+        //    });
+        //}
 
     }
 
 
     public void SetMasks(int _index, float _time) {
-        OrbitList[_index].transform.DORotate(InitialPoints[_index].transform.eulerAngles, _time);
+       
         OrbitList[_index].transform.DOMove(InitialPoints[_index].transform.position, _time);
+    }
+    public void RotateMask(int _index, float _time)
+    {
+        OrbitList[_index].transform.DORotate(InitialPoints[_index].transform.eulerAngles, _time);
     }
 
 

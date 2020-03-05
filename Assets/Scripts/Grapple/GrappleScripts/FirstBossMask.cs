@@ -57,7 +57,7 @@ public class FirstBossMask : HookPointBase
     private float distance;
     Vector3 direction = Vector3.zero;
     Vector3 movement = Vector3.zero;
-
+    float maskY;
     #region BounceVariable
     Vector3 normal;
     Vector3 vectorParal;
@@ -83,9 +83,13 @@ public class FirstBossMask : HookPointBase
         OldPos = transform.position;
         mask = Instantiate(graphics[0] , transform.position - new Vector3(0, 1.375f,0) , transform.rotation);
         mask.transform.SetParent(transform);
+        maskY = 1.375f;
     }
 
-    
+    private void Update()
+    {
+        transform.position = new Vector3(transform.position.x, maskY, transform.position.z);
+    }
 
     public void SetDistanceFromBoss(float _distance) {
         distanceFromBoss = _distance;
@@ -223,6 +227,7 @@ public class FirstBossMask : HookPointBase
         
 
         Vector3 fakeCollidingObjectPosition = new Vector3(collidingObject.transform.localPosition.x, transform.localPosition.y, collidingObject.transform.localPosition.z);
+        Debug.Log(fakeCollidingObjectPosition + "position");
         normal = (fakeCollidingObjectPosition - transform.localPosition).normalized;
 
         vectorParal = Vector3.Project(VelocityVector, normal);

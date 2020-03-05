@@ -22,5 +22,8 @@ public class FirstBossOrbitDecelerationState : FirstBossState
         }
         return count;
     }
-
+    public override void Exit()
+    {
+        bossOrbitManager.ResetVelocity();
+    }
 }

@@ -47,7 +47,7 @@ public class BossController : MovementBase
     }
 
     private void Update() {
-        //Just keeps the Y axes of the boss constant
+        Debug.Log(bossY);
         transform.position = new Vector3(transform.position.x , bossY , transform.position.z);
         
     }

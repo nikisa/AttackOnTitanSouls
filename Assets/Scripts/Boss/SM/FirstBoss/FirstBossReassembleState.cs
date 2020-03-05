@@ -18,7 +18,7 @@ public class FirstBossReassembleState : FirstBossState
 
         for (int i = 0; i < bossOrbitManager.MasksList.Count; i++) {
             if (!bossOrbitManager.checkCorrectPosition(i)) {
-                bossOrbitManager.MasksList[i].RotateAroud(180 , 2);
+                bossOrbitManager.MasksList[i].RotateAroud(bossOrbitManager.MasksBehaviourList[i].AngularMaxSpeed, bossOrbitManager.MasksBehaviourList[i].AngularAccelerationTime);
             }
         }
 
