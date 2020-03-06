@@ -14,6 +14,8 @@ public class PlayerStunnedState : PlayerBaseState
 
     public override void Tick() {
 
+        //To Do: Bounce formula
+
         player.CharacterController.Move(-player.VelocityVector / 10);
 
         //float vectorAngle = Vector3.SignedAngle(Vector3.forward, player.VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;

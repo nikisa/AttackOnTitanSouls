@@ -101421,6 +101421,31 @@ PrefabInstance:
       propertyPath: BouncePointB
       value: 
       objectReference: {fileID: 246485303}
+    - target: {fileID: 4189927532148222146, guid: 20becccbc1f579542bb8b44f3faa67f0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 324934834, guid: 20becccbc1f579542bb8b44f3faa67f0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008755433, guid: 20becccbc1f579542bb8b44f3faa67f0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1077987583, guid: 20becccbc1f579542bb8b44f3faa67f0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1272919521, guid: 20becccbc1f579542bb8b44f3faa67f0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1399327211, guid: 20becccbc1f579542bb8b44f3faa67f0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20becccbc1f579542bb8b44f3faa67f0, type: 3}
 --- !u!1001 &4277217824172128732
