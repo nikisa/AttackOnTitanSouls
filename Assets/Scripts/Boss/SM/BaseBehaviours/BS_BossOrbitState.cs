@@ -20,10 +20,11 @@ public class BS_BossOrbitState : FirstBossState
     int index;
 
     public override void Enter() {
-
+        bossOrbitManager.MasksBehaviourList = MasksBehaviourList;
+        bossOrbitManager.ResetVelocity();
         bossOrbitManager.SetupMask(MasksBehaviourList);
         bossOrbitManager.BossFov.UpdateViewRadius();
-        bossOrbitManager.MasksBehaviourList = MasksBehaviourList;
+        
 
         orientation = 360;
         //ResetPosition();

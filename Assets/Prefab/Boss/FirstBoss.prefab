@@ -1,5 +1,230 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &324934832
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 324934833}
+  - component: {fileID: 324934834}
+  m_Layer: 14
+  m_Name: ReassemblePivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &324934833
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324934832}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1052135649320774941}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &324934834
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324934832}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.05
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1008755431
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1008755432}
+  - component: {fileID: 1008755433}
+  m_Layer: 14
+  m_Name: ReassemblePivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1008755432
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008755431}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1052135649303828012}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1008755433
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008755431}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.05
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1077987581
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1077987582}
+  - component: {fileID: 1077987583}
+  m_Layer: 14
+  m_Name: ReassemblePivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1077987582
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077987581}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1052135648522018652}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1077987583
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077987581}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.05
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1272919519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1272919520}
+  - component: {fileID: 1272919521}
+  m_Layer: 14
+  m_Name: ReassemblePivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1272919520
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272919519}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1052135647783233429}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1272919521
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272919519}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.05
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1399327209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1399327210}
+  - component: {fileID: 1399327211}
+  m_Layer: 14
+  m_Name: ReassemblePivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1399327210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399327209}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1052135649041296695}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1399327211
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399327209}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.05
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1052135647510859115
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,7 +326,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1052135647736931524}
   - component: {fileID: 1052135647736931525}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: HookPointPivot
   m_TagString: HookPoint
   m_Icon: {fileID: 0}
@@ -220,7 +445,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.375, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1272919520}
   m_Father: {fileID: 1052135647878376947}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -272,6 +498,9 @@ MonoBehaviour:
   hook: {fileID: 0}
   player: {fileID: 0}
   MaskID: 5
+  Mass: 1
+  KineticEnergyLoss: 0.7
+  SurfaceFriction: 0.2
   boss: {fileID: 1052135648364886871}
   OldPos: {x: 0, y: 0, z: 0}
   Inertia: {x: 0, y: 0, z: 0}
@@ -290,7 +519,6 @@ MonoBehaviour:
   AngularVelocity: 0
   VelocityVector: {x: 0, y: 0, z: 0}
   Drag: 0
-  DecelerationModule: 0
   DecelerationVector: {x: 0, y: 0, z: 0}
   targetDir: {x: 0, y: 0, z: 0}
   currentRadius: 0
@@ -375,7 +603,6 @@ GameObject:
   - component: {fileID: 1052135647953247399}
   - component: {fileID: 1052135647953247393}
   - component: {fileID: 1052135647953247392}
-  - component: {fileID: 1052135647953247395}
   - component: {fileID: 1052135647953247397}
   m_Layer: 12
   m_Name: FirstBossGraphics
@@ -445,19 +672,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &1052135647953247395
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1052135647953247398}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1818360608 &1052135647953247397
 PositionConstraint:
   m_ObjectHideFlags: 0
@@ -487,7 +701,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1052135648128857462}
   - component: {fileID: 1052135648128857463}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: HookPointPivot
   m_TagString: HookPoint
   m_Icon: {fileID: 0}
@@ -656,6 +870,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterController: {fileID: 4189927532148222146}
+  Mass: 10
+  KineticEnergyLoss: 0.2
+  SurfaceFriction: 0.2
   move: {x: 0, y: 0, z: 0}
   nextPosition: {x: 0, y: 0, z: 0}
   AccelerationModule: 0
@@ -665,6 +882,7 @@ MonoBehaviour:
   DecelerationModule: 0
   DecelerationVector: {x: 0, y: 0, z: 0}
   targetDir: {x: 0, y: 0, z: 0}
+  gravity: 0
   animator: {fileID: 1052135648364886868}
   View: {fileID: 1052135648364886870}
   Player: {fileID: 0}
@@ -704,15 +922,15 @@ CharacterController:
   m_GameObject: {fileID: 1052135648364886856}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 5
-  m_Radius: 5
+  m_Radius: 3.5
   m_SlopeLimit: 70
   m_StepOffset: 0.05
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 5.5, z: 0}
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!1 &1052135648429551454
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,7 +974,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1052135648452744834}
   - component: {fileID: 1052135648452744835}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: HookPointPivot
   m_TagString: HookPoint
   m_Icon: {fileID: 0}
@@ -843,7 +1061,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.375, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1077987582}
   m_Father: {fileID: 1052135648065130374}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -895,6 +1114,9 @@ MonoBehaviour:
   hook: {fileID: 0}
   player: {fileID: 0}
   MaskID: 3
+  Mass: 1
+  KineticEnergyLoss: 0.7
+  SurfaceFriction: 0.2
   boss: {fileID: 1052135648364886871}
   OldPos: {x: 0, y: 0, z: 0}
   Inertia: {x: 0, y: 0, z: 0}
@@ -913,7 +1135,6 @@ MonoBehaviour:
   AngularVelocity: 0
   VelocityVector: {x: 0, y: 0, z: 0}
   Drag: 0
-  DecelerationModule: 0
   DecelerationVector: {x: 0, y: 0, z: 0}
   targetDir: {x: 0, y: 0, z: 0}
   currentRadius: 0
@@ -1132,7 +1353,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.375, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1399327210}
   m_Father: {fileID: 1052135647603555319}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1184,6 +1406,9 @@ MonoBehaviour:
   hook: {fileID: 0}
   player: {fileID: 0}
   MaskID: 4
+  Mass: 1
+  KineticEnergyLoss: 0.7
+  SurfaceFriction: 0.2
   boss: {fileID: 1052135648364886871}
   OldPos: {x: 0, y: 0, z: 0}
   Inertia: {x: 0, y: 0, z: 0}
@@ -1202,7 +1427,6 @@ MonoBehaviour:
   AngularVelocity: 0
   VelocityVector: {x: 0, y: 0, z: 0}
   Drag: 0
-  DecelerationModule: 0
   DecelerationVector: {x: 0, y: 0, z: 0}
   targetDir: {x: 0, y: 0, z: 0}
   currentRadius: 0
@@ -1220,7 +1444,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1052135649088760287}
   - component: {fileID: 1052135649088760284}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: HookPointPivot
   m_TagString: HookPoint
   m_Icon: {fileID: 0}
@@ -1464,7 +1688,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.375, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1008755432}
   m_Father: {fileID: 1052135648063475672}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1516,6 +1741,9 @@ MonoBehaviour:
   hook: {fileID: 0}
   player: {fileID: 0}
   MaskID: 2
+  Mass: 1
+  KineticEnergyLoss: 0.7
+  SurfaceFriction: 0.2
   boss: {fileID: 1052135648364886871}
   OldPos: {x: 0, y: 0, z: 0}
   Inertia: {x: 0, y: 0, z: 0}
@@ -1534,7 +1762,6 @@ MonoBehaviour:
   AngularVelocity: 0
   VelocityVector: {x: 0, y: 0, z: 0}
   Drag: 0
-  DecelerationModule: 0
   DecelerationVector: {x: 0, y: 0, z: 0}
   targetDir: {x: 0, y: 0, z: 0}
   currentRadius: 0
@@ -1571,7 +1798,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.375, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 324934833}
   m_Father: {fileID: 1052135649160923543}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1623,6 +1851,9 @@ MonoBehaviour:
   hook: {fileID: 0}
   player: {fileID: 0}
   MaskID: 1
+  Mass: 1
+  KineticEnergyLoss: 0.7
+  SurfaceFriction: 0.2
   boss: {fileID: 1052135648364886871}
   OldPos: {x: 0, y: 0, z: 0}
   Inertia: {x: 0, y: 0, z: 0}
@@ -1641,7 +1872,6 @@ MonoBehaviour:
   AngularVelocity: 0
   VelocityVector: {x: 0, y: 0, z: 0}
   Drag: 0
-  DecelerationModule: 0
   DecelerationVector: {x: 0, y: 0, z: 0}
   targetDir: {x: 0, y: 0, z: 0}
   currentRadius: 0
@@ -1750,7 +1980,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1052135649365561209}
   - component: {fileID: 1052135649365561094}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: HookPointPivot
   m_TagString: HookPoint
   m_Icon: {fileID: 0}
@@ -1938,7 +2168,7 @@ MonoBehaviour:
   BossFov: {fileID: 32763177}
   layerMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 16384
   EndPoints: []
   InitialPoints: []
   MasksBehaviourList: []

@@ -17,8 +17,11 @@ public class FirstBossOrbitSetupState : FirstBossState
 
     public override void Enter()
     {
+
+        bossOrbitManager.MasksBehaviourList = MaskBehaviourList;
         orientation = 360;
         //SetCenterPoint();
+        bossOrbitManager.SetupMask(MaskBehaviourList);
         FillPointsPosition();
         SetupPositionPoints();
 

@@ -21,20 +21,18 @@ public class FirstBossMask : HookPointBase
     public ParticleSystem[] particles;
 
     //Public
-    [HideInInspector]
+    //[HideInInspector]
     public float AngularAccelerationModule;
-    [HideInInspector]
+    //[HideInInspector]
     public float AngularDecelerationModule;
     [HideInInspector]
     public Vector3 AngularAcceleration;
-    [HideInInspector]
+    //[HideInInspector]
     public float AngularVelocity;
     //[HideInInspector]
     public Vector3 VelocityVector;
-    [HideInInspector]
+    //[HideInInspector]
     public float Drag;
-    [HideInInspector]
-    public float DecelerationModule;
     [HideInInspector]
     public Vector3 DecelerationVector;
     [HideInInspector]
@@ -95,7 +93,6 @@ public class FirstBossMask : HookPointBase
         distanceFromBoss = _distance;
     }
 
-
     public void RotateAroud(float _angularMaxSpeed , float _angularAccelerationTime) {
         AngularAccelerationModule = _angularMaxSpeed / _angularAccelerationTime;
         Drag = AngularAccelerationModule / _angularMaxSpeed * Time.deltaTime;
@@ -104,7 +101,6 @@ public class FirstBossMask : HookPointBase
         transform.position = new Vector3(boss.transform.position.x + currentRadius * Mathf.Sin((transform.eulerAngles.y) * Mathf.Deg2Rad), 1.375f , boss.transform.position.z + currentRadius * Mathf.Cos((transform.eulerAngles.y) * Mathf.Deg2Rad));
         AngularVelocity += AngularAccelerationModule * Time.deltaTime;
         VelocityVector = new Vector3((AngularVelocity * Mathf.PI / 180) * currentRadius * Mathf.Sin(transform.eulerAngles.x), 0, (AngularVelocity * Mathf.PI / 180) * currentRadius * Mathf.Cos(transform.eulerAngles.z));
-
     }
 
     public void DecelerateAround(float _angularDecelerationModule) {
@@ -118,6 +114,17 @@ public class FirstBossMask : HookPointBase
             AngularVelocity = 0;
             VelocityVector = Vector3.zero;
         }
+    }
+
+    public void RotationReset() {
+
+        AngularVelocity = 0;
+        VelocityVector = Vector3.zero;
+        DecelerationVector = Vector3.zero;
+        Drag = 0;
+        AngularAccelerationModule = 0;
+        AngularDecelerationModule = 0;
+
     }
 
     public void SetRadius(float _setupRadius) {
@@ -215,6 +222,9 @@ public class FirstBossMask : HookPointBase
 
         }
     }
+
+
+    
 
 
     public void BounceMovement(Collider collider) {
