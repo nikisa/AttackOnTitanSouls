@@ -136,12 +136,18 @@ public class BossOrbitManager : MonoBehaviour
         Debug.DrawRay(boss.transform.position, EndPoints[_index].transform.position - boss.transform.position, Color.red, 3);
 
         if (Physics.Raycast(boss.transform.position , EndPoints[_index].transform.position - boss.transform.position , out hit , Mathf.Infinity , layerMask)) {
-            if (hit.collider.gameObject.GetComponent<FirstBossMask>().MaskID == _id) {
-                return true;
+            if (hit.collider.gameObject.GetComponent<FirstBossMask>()) {
+                if (hit.collider.gameObject.GetComponent<FirstBossMask>().MaskID == _id) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
             else {
-                return false;
+                return false; 
             }
+            
         }
         else {
             return false;

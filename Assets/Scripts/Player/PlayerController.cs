@@ -99,16 +99,16 @@ public class PlayerController : MovementBase
 
     protected virtual void Awake() {
         playerTarget.instance = this.gameObject;
+
+        foreach (var item in animator.GetBehaviours<PlayerBaseState>()) {
+            item.SetContext(this, animator, graphicAnimator);
+        }
     }
 
     protected virtual void Start() {
       
         canDash = true;
         camera = Camera.main;
-        
-        foreach (var item in animator.GetBehaviours<PlayerBaseState>()) {
-            item.SetContext(this, animator,  graphicAnimator);
-        }
     }
 
     private void Update() 
@@ -324,15 +324,10 @@ public class PlayerController : MovementBase
         IsImmortal = false;
     }
 
-    private void OnControllerColliderHit(ControllerColliderHit hit) {
-        if ((hit.collider.GetComponent<MovementBase>() || hit.collider.GetComponent<FirstBossMask>()) && !hit.collider.GetComponent<PlayerController>()) {
-            //BounceMovement(hit);
+    private void OnControllerColliderHit(Collider hit) {
+        if ((hit.GetComponent<MovementBase>() || hit.GetComponent<FirstBossMask>()) && !hit.GetComponent<PlayerController>()) {
+            BounceMovement(hit);
             animator.SetTrigger("Stunned");
-
-            if (!IsImmortal) {
-                PlayerController.DmgEvent();
-            }
-
         }
     }
 

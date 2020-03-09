@@ -9,14 +9,16 @@ public class PlayerStunnedState : PlayerBaseState
     float timeStart;
 
     public override void Enter() {
+        GetDamage();
         timeStart = Time.time;
     }
 
     public override void Tick() {
 
+
         //To Do: Bounce formula
 
-        player.CharacterController.Move(-player.VelocityVector / 10);
+        player.CharacterController.Move(-player.VelocityVector);
 
         //float vectorAngle = Vector3.SignedAngle(Vector3.forward, player.VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
         //player.DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * 10, 0, Mathf.Cos(vectorAngle) * 10);
@@ -33,4 +35,12 @@ public class PlayerStunnedState : PlayerBaseState
     public override void Exit() {
         animator.SetFloat("Timer", 0);
     }
+
+
+    void GetDamage() { 
+        if (!player.IsImmortal) {
+            PlayerController.DmgEvent();
+        }
+    }
+
 }

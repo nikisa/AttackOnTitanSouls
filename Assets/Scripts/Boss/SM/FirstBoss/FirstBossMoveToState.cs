@@ -91,13 +91,6 @@ public class FirstBossMoveToState : FirstBossState
         layerResult = boss.DetectCollision(boss.nextPosition);
         Debug.Log("layer: " + layerResult);
 
-        if (layerResult == layerPlayer) {
-            if (!boss.Player.IsImmortal) {
-                PlayerController.DmgEvent();
-            }
-
-        }
-
         if (layerResult == layerWall && boss.VelocityVector.magnitude > 20)
         {
             animator.SetInteger("Layer", layerResult);

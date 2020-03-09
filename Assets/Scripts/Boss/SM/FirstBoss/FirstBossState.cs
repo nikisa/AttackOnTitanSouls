@@ -19,6 +19,13 @@ public class FirstBossState : BaseState
     protected const string TIMER = "Timer";
 
     float timer = 0;
+    int layerResult = 0;
+
+
+    public override void Enter() {
+        animator.SetFloat(TIMER, timer = 0);
+        BossOrbitManager.ChangedStateEvent();
+    }
 
     public override void Tick()
     {
@@ -26,9 +33,8 @@ public class FirstBossState : BaseState
         animator.SetFloat(TIMER, timer);
     }
 
-    public override void Enter() {
-        animator.SetFloat(TIMER, timer=0);
-        BossOrbitManager.ChangedStateEvent();
+    public override void Exit() {
+        layerResult = 0;
     }
 
 

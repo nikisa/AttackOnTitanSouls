@@ -96,10 +96,10 @@ public class MovementBase : MonoBehaviour
 
     }
 
-    public void BounceMovement(ControllerColliderHit hit) {
+    public void BounceMovement(Collider hit) {
 
         #region Bounce variables
-        MovementBase collidingObject = hit.collider.GetComponent<MovementBase>();
+        MovementBase collidingObject = hit.GetComponent<MovementBase>();
         Vector3 normal;
         Vector3 vectorParal;
         Vector3 vectorPerp;
@@ -109,7 +109,7 @@ public class MovementBase : MonoBehaviour
         #endregion
 
 
-        Vector3 fakeCollidingObjectPosition = new Vector3(collidingObject.transform.position.x, transform.position.y, collidingObject.transform.position.z);
+            Vector3 fakeCollidingObjectPosition = new Vector3(collidingObject.transform.position.x, transform.position.y, collidingObject.transform.position.z);
             normal = (fakeCollidingObjectPosition - transform.position).normalized;
 
             vectorParal = Vector3.Project(VelocityVector, normal);
@@ -127,7 +127,6 @@ public class MovementBase : MonoBehaviour
 
             //Debug.DrawRay(transform.position, VelocityVector, Color.blue, 0.2f);
             //Debug.DrawRay(collidingObject.transform.position, collidingObject.VelocityVector, Color.cyan, 0.2f);
-
 
     }
 

@@ -29,9 +29,10 @@ public class FirstBossRecoveryState : FirstBossState
     }
     public override void Tick()
     {
-        detectCollsion();
-        base.Tick();    
+        base.Tick();
         SetCycleTimer();
+        detectCollsion();
+
     }
     public override void Exit()
     {
@@ -48,12 +49,6 @@ public class FirstBossRecoveryState : FirstBossState
     void detectCollsion() {
         layerResult = boss.DetectCollision(boss.nextPosition);
         animator.SetInteger("Layer", 0);
-
-        if (layerResult == layerPlayer) {
-            if (!boss.Player.IsImmortal) {
-            PlayerController.DmgEvent();
-            }
-        }
     }
 
 }

@@ -55,7 +55,7 @@ public class BossController : MovementBase
 
     private void OnControllerColliderHit(ControllerColliderHit hit) {
         if (hit.collider.GetComponent<MovementBase>() && !hit.collider.GetComponent<BossController>()) {
-            BounceMovement(hit);
+            //BounceMovement(hit);
         }
 
         if (hit.collider.tag == "Walls") {

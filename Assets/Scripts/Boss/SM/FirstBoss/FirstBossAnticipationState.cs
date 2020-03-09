@@ -34,7 +34,6 @@ public class FirstBossAnticipationState : FirstBossState
     public override void Tick()
     {
         base.Tick();
-        detectCollsion();
     }
 
     public override void Exit()
@@ -58,14 +57,7 @@ public class FirstBossAnticipationState : FirstBossState
     {
         boss.IsPrevStateReinitialize = false;
         animator.SetBool("Anticipation", false);
-    }
-
-    void detectCollsion() {
-        if (layerResult == layerPlayer) {
-            if (!boss.Player.IsImmortal) {
-                PlayerController.DmgEvent();
-            }
-        }
+        
     }
 
 }

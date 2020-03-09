@@ -115,13 +115,7 @@ public class FirstBossBounceState : FirstBossState
             Debug.Log("RE-BOUNCING");
             animator.SetInteger("Layer", layerResult);
         }
-        else {
-            if (layerResult == layerPlayer) {
-                if (!boss.Player.IsImmortal) {
-                    PlayerController.DmgEvent();
-                }
-            }
-        }
+        
     }
 
 }

@@ -52,10 +52,10 @@ public class FirstBossChaseState : FirstBossState
 
     public override void Exit()
     {
+
         boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
         animator.SetBool("ChaseOrbit", false);
-        layerResult = 0;
         animator.SetInteger("Layer", layerResult);
 
     }
@@ -84,15 +84,7 @@ public class FirstBossChaseState : FirstBossState
             animator.SetInteger("Layer", layerCollision);
         }
         else {
-
-            //boss.Movement(targetDir, chaseData.MaxSpeed, accelerationModule);
             boss.Movement(targetDir, chaseData.MaxSpeed, accelerationModule);
-
-            if (layerResult == layerPlayer) {
-                if (!boss.Player.IsImmortal) {
-                    PlayerController.DmgEvent();
-                }
-            }
         }
     }
 
