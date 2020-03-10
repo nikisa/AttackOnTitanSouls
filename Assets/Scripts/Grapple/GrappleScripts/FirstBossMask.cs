@@ -157,7 +157,9 @@ public class FirstBossMask : HookPointBase
         transform.position -= movement;
         hook.transform.position = transform.position;
         OldPos = transform.position;
+
         
+
         if (springVector >= Inertia.magnitude && distance > .2f) {
             currentLife -= player.DPS * Time.fixedDeltaTime;
         }

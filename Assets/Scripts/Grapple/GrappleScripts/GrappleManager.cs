@@ -49,16 +49,13 @@ public class GrappleManager : MonoBehaviour
     private void LateUpdate()
     {
 
-        //if (debugMode)
-        //{
-        //    if (Input.GetKeyDown(KeyCode.Mouse0) /*|| Input.GetButtonDown("ShootPS4")*/ || Input.GetButtonDown("ShootXBOX"))
-        //    {
+        //if (debugMode) {
+        //    if (Input.GetKeyDown(KeyCode.Mouse0) /*|| Input.GetButtonDown("ShootPS4")*/ || Input.GetButtonDown("ShootXBOX")) {
         //        HookShooting();
         //        if (!hook.shooted)
         //            InstantiateRope();
         //    }
-        //    if (hook.shooted)
-        //    {
+        //    if (hook.shooted) {
         //        if (Input.GetKeyDown(KeyCode.Z))
         //            UpdatePoints();
         //        if (Input.GetKeyDown(KeyCode.X))
@@ -67,48 +64,38 @@ public class GrappleManager : MonoBehaviour
         //            UpdateLinks();
         //    }
         //}
-        //else
-        //{
-        //    if (Input.GetKeyDown(KeyCode.Mouse0) /*|| Input.GetButtonDown("ShootPS4")*/ || Input.GetButtonDown("ShootXBOX"))
-        //    {
+        //else {
+        //    if (Input.GetKeyDown(KeyCode.Mouse0) /*|| Input.GetButtonDown("ShootPS4")*/ || Input.GetButtonDown("ShootXBOX")) {
         //        HookShooting();
         //        if (!hook.shooted)
         //            InstantiateRope();
         //    }
-        //    if (hook.shooted)
-        //    {
-        //        if (!Input.GetKeyDown(KeyCode.Mouse1) || !Input.GetButtonDown("ShootXBOX"))
-        //        {
+        //    if (hook.shooted) {
+        //        if (!Input.GetKeyDown(KeyCode.Mouse1) || !Input.GetButtonDown("ShootXBOX")) {
         //            UpdatePoints();
         //            UpdateHook();
         //            UpdateLinks();
         //        }
-        //        if ((Input.GetKey(KeyCode.Mouse1) /* || (Input.GetButton("ShootPS4") && !Input.GetButtonUp("ShootPS4"))*/ || (Input.GetAxis("Rewind") > 0)))
-        //        {
+        //        if ((Input.GetKey(KeyCode.Mouse1) /* || (Input.GetButton("ShootPS4") && !Input.GetButtonUp("ShootPS4"))*/ || (Input.GetAxis("Rewind") > 0))) {
         //            RewindPoints();
         //        }
 
-        //        if (/*Input.GetButtonDown("UnhookPS4") ||*/ Input.GetButtonDown("UnhookXBOX"))
-        //        {
-        //            while (hook.shooted)
-        //            {
+        //        if (/*Input.GetButtonDown("UnhookPS4") ||*/ Input.GetButtonDown("UnhookXBOX")) {
+        //            while (hook.shooted) {
         //                RewindPoints();
         //            }
         //        }
 
         //    }
 
-        //    if (hook.shooted && !hook.isHooked)
-        //    {
-         //     hit = hook.RaycastCollsion();
+        //    if (hook.shooted && !hook.isHooked) {
+        //        hit = hook.RaycastCollsion();
 
-        //        if (hit.transform != null && hit.transform.GetComponent<FirstBossMask>())
-        //        {
+        //        if (hit.transform != null && hit.transform.GetComponent<FirstBossMask>()) {
         //            hookPoint = hit.transform.GetComponent<FirstBossMask>();
         //            hook.isHooked = true;
         //        }
-        //        else
-        //        {
+        //        else {
         //            //UpdateHook();
 
         //            //Debug.Log("Missing Target");
@@ -117,20 +104,16 @@ public class GrappleManager : MonoBehaviour
         //        }
         //    }
 
-        //    if (hook.shooted && hook.ropeFinished && !hook.isHooked)
-        //    {
+        //    if (hook.shooted && hook.ropeFinished && !hook.isHooked) {
         //        //hook.hitDistance = 0;
         //    }
-        //    else
-        //    {
+        //    else {
         //        hook.hitDistance = 1;
         //    }
 
 
-        //    if (hook.isHooked)
-        //    {
-        //        if (!hookPoint.isHooked)
-        //        {
+        //    if (hook.isHooked) {
+        //        if (!hookPoint.isHooked) {
 
         //            hook.transform.position = hit.transform.position;
         //            hook.Inertia = Vector3.zero;
@@ -139,10 +122,8 @@ public class GrappleManager : MonoBehaviour
         //        hookPoint.isHooked = true;
 
         //    }
-        //    else
-        //    {
-        //        if (hookPoint != null)
-        //        {
+        //    else {
+        //        if (hookPoint != null) {
         //            hookPoint.isHooked = false;
         //        }
         //        hook.hitDistance = 1;

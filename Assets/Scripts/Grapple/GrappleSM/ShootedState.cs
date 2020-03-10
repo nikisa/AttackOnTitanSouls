@@ -9,11 +9,10 @@ public class ShootedState : GrappleBaseState
     }
 
     public override void Tick() {
-        if (!Input.GetKeyDown(KeyCode.Mouse1) || !Input.GetButtonDown("ShootXBOX")) {
-            grappleManager.UpdatePoints();
-            grappleManager.UpdateHook();
-            grappleManager.UpdateLinks();
-        }
+
+        grappleManager.UpdatePoints();
+        grappleManager.UpdateHook();
+        grappleManager.UpdateLinks();
 
         if (grappleManager.hook.shooted && !grappleManager.hook.isHooked) {
             grappleManager.target = grappleManager.FovPlayer.CorrectRayCast();
@@ -22,18 +21,19 @@ public class ShootedState : GrappleBaseState
 
             //HookPoint hookPoint = hit.transform.GetComponent<HookPoint>();
 
-            if (target.transform != null && target.transform.GetComponent<FirstBossMask>()) {
-                grappleManager.hookPoint = target.transform.GetComponent<FirstBossMask>();
-               
-                grappleManager.hook.isHooked = true;
-              // SetHit();
-               // Debug.Log(hitTransform + "QUIIIIII");
-                animator.SetTrigger("Hooked");
-                return;
-            }
-            else {
-                //UpdateHook();
-                //Debug.Log("Missing Target");
+            if (target != null) {
+                if (target.transform.GetComponent<FirstBossMask>()) {
+                    grappleManager.hookPoint = target.transform.GetComponent<FirstBossMask>();
+                    grappleManager.hook.isHooked = true;
+                    // SetHit();
+                    // Debug.Log(hitTransform + "QUIIIIII");
+                    animator.SetTrigger("Hooked");
+                    return;
+                }
+                else {
+                    //UpdateHook();
+                    //Debug.Log("Missing Target");
+                }
             }
         }
 

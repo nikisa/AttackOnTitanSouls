@@ -43,8 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eee7fe20e071f34e90aa11d89c46f88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 15.42
-  viewAngle: 27
+  RadiusOffset: 2
+  viewRadius: 13
+  viewAngle: 42
   targetMask:
     serializedVersion: 2
     m_Bits: 512
@@ -129,6 +130,33 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!136 &461429383
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5031858159527028263}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 6
+  m_Direction: 1
+  m_Center: {x: 0, y: 3.4, z: 0}
+--- !u!114 &461429384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5031858159527028263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2319b164f26bd440916bee2b54e96b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 7531129435490816582}
 --- !u!1 &6198455220662304887
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,7 +309,6 @@ GameObject:
   - component: {fileID: 7531129435490816584}
   - component: {fileID: 7531129435490816582}
   - component: {fileID: 7531129435490816588}
-  - component: {fileID: 1947039354}
   - component: {fileID: 1947039355}
   m_Layer: 11
   m_Name: Player
@@ -318,6 +345,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterController: {fileID: 1947039355}
+  Mass: 1
+  KineticEnergyLoss: 0.9
+  SurfaceFriction: 0.2
   move: {x: 0, y: 0, z: 0}
   nextPosition: {x: 0, y: 0, z: 0}
   AccelerationModule: 0
@@ -327,6 +357,7 @@ MonoBehaviour:
   DecelerationModule: 0
   DecelerationVector: {x: 0, y: 0, z: 0}
   targetDir: {x: 0, y: 0, z: 0}
+  gravity: 0
   animator: {fileID: 7531129435490816588}
   graphicAnimator: {fileID: 5031858159519732819}
   rotationTransform: {fileID: 5494306869551055715}
@@ -354,7 +385,7 @@ MonoBehaviour:
   timerDash: 0
   IsImmortal: 0
   ImmortalTutorial: 0
-  Lifes: 0
+  Lifes: 2
   forwardVelocity: 0
   InputDisable: 0
 --- !u!95 &7531129435490816588
@@ -376,20 +407,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!136 &1947039354
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7531129435490816589}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.37521172
-  m_Height: 1.8960755
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.1751677, z: 0.124788284}
 --- !u!143 &1947039355
 CharacterController:
   m_ObjectHideFlags: 0
@@ -402,7 +419,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 6
-  m_Radius: 0.71
+  m_Radius: 0.37
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.15

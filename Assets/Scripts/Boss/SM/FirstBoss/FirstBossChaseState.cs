@@ -9,11 +9,11 @@ public class FirstBossChaseState : FirstBossState
     public ChaseData chaseData;
 
     //Private 
-    int iterations;
     int layerResult;
     int layerWall;
     int layerCollision;
     int layerPlayer;
+    float movementAngle;
     float maxSpeed;
     float startY;
     float timeStartAcceleration;
@@ -29,7 +29,6 @@ public class FirstBossChaseState : FirstBossState
     {
         base.Enter();
 
-        iterations = 30;
         layerWall = 10;
         layerPlayer = 11;
 
@@ -85,6 +84,8 @@ public class FirstBossChaseState : FirstBossState
         }
         else {
             boss.Movement(targetDir, chaseData.MaxSpeed, accelerationModule);
+            movementAngle = Vector3.Angle(boss.AccelerationVector, boss.VelocityVector);
+            animator.SetFloat("MovementAngle", movementAngle);
         }
     }
 

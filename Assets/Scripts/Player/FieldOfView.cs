@@ -72,7 +72,7 @@ public class FieldOfView : MonoBehaviour
     public GameObject CorrectRayCast()
     {
         RaycastHit hit = new RaycastHit();
-        GameObject gameObject = new GameObject();
+        GameObject gameObject = null;
 
         foreach (Transform visibleTarget in visibleTargets)
         {
@@ -87,10 +87,7 @@ public class FieldOfView : MonoBehaviour
                 {
                     return hit.collider.gameObject;
                 }
-
-
             }
-          
         }
         return gameObject;
     }

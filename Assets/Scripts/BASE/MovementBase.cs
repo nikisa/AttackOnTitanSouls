@@ -62,9 +62,12 @@ public class MovementBase : MonoBehaviour
         VelocityVector += AccelerationVector * Time.deltaTime;        
         CharacterController.Move(move + Vector3.down * gravity);
 
+        //Debug.DrawRay(transform.position, VelocityVector, Color.blue, 0.2f);
+        //Debug.DrawRay(transform.position, AccelerationVector, Color.red, 0.2f);
+
     }
 
-   
+
 
     public void Deceleration() {
         //Vector3 decelerationVectorTemp = targetDir;

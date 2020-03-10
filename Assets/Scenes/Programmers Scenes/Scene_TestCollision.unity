@@ -92046,7 +92046,7 @@ PrefabInstance:
     - target: {fileID: 7531129435490816582, guid: 7740087d7d525654c93b2697dd335527,
         type: 3}
       propertyPath: Lifes
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 583493577, guid: 7740087d7d525654c93b2697dd335527, type: 3}
       propertyPath: viewRadius
@@ -92079,6 +92079,10 @@ PrefabInstance:
     - target: {fileID: 1947039355, guid: 7740087d7d525654c93b2697dd335527, type: 3}
       propertyPath: m_Radius
       value: 0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 1947039355, guid: 7740087d7d525654c93b2697dd335527, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1947039354, guid: 7740087d7d525654c93b2697dd335527, type: 3}
@@ -101477,7 +101481,7 @@ PrefabInstance:
     - target: {fileID: 4189927532148222146, guid: 20becccbc1f579542bb8b44f3faa67f0,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 324934834, guid: 20becccbc1f579542bb8b44f3faa67f0, type: 3}
       propertyPath: m_IsTrigger
