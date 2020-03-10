@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shader Graphs_Pavimento
+  m_Shader: {fileID: 4800000, guid: 2b21d1b032f50534f97c43c5b4b85b80, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap:
+    MotionVector: User
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_194AC525:
+        m_Texture: {fileID: 2800000, guid: 38db48c79454b9b4f98e3e0530ffd4aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_38977FEE:
+        m_Texture: {fileID: 2800000, guid: 543576669d564394c981d1bf6f1bf50a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_4432749B:
+        m_Texture: {fileID: 2800000, guid: 5a72d795307fb6740b43245471057697, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_4A3565ED:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_590A0FBB:
+        m_Texture: {fileID: 2800000, guid: 0bac6de19363f4e45866fcb48c51b011, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_65EC081C:
+        m_Texture: {fileID: 2800000, guid: 0bac6de19363f4e45866fcb48c51b011, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_6EC276D6:
+        m_Texture: {fileID: 2800000, guid: b7fe5875f6a13934b8d810f017caaf6b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_6FED1C6C:
+        m_Texture: {fileID: 2800000, guid: 03fdaa8fa07ebfa46ac64d31c8d30e72, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_78EE39D7:
+        m_Texture: {fileID: 2800000, guid: 79ed853e47d54c34a913e7874e8900e7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_C88E7279:
+        m_Texture: {fileID: 2800000, guid: 5a31f004dfc79394ca97396520da8a24, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_1EC0FA67: 3.8
+    - Vector1_2C959AE1: 1
+    - Vector1_35FBB13E: 0.05
+    - Vector1_3D1F2FA9: 0
+    - Vector1_561BD699: 1
+    - Vector1_5CF46120: 32.46
+    - Vector1_68E66DC5: 26
+    - Vector1_75854A4F: 20
+    - Vector1_A8EFF00F: 1
+    - Vector1_BE7DB47: 0.6
+    - Vector1_D3F9E619: 5
+    m_Colors: []
