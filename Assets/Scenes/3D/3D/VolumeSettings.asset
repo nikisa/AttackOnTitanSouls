@@ -283,7 +283,7 @@ MonoBehaviour:
     max: 5
   skyTint:
     m_OverrideState: 1
-    m_Value: {r: 0.740566, g: 0.89226735, b: 1, a: 1}
+    m_Value: {r: 0.7411765, g: 1, b: 0.9821027, a: 1}
     hdr: 0
     showAlpha: 1
     showEyeDropper: 1
@@ -311,7 +311,7 @@ MonoBehaviour:
   active: 1
   rotation:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 280
     min: 0
     max: 360
   skyIntensityMode:
@@ -333,7 +333,7 @@ MonoBehaviour:
     m_Value: 20000
   updateMode:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 0
   updatePeriod:
     m_OverrideState: 0
     m_Value: 0
