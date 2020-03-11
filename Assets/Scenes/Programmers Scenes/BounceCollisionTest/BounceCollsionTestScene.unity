@@ -132,7 +132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &241282335
 Transform:
   m_ObjectHideFlags: 0
@@ -240,7 +240,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1001 &619028491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -388,6 +388,11 @@ PrefabInstance:
       propertyPath: SurfaceFriction
       value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 4955233840399901087, guid: 97aae916efe520c4c9b7938fa3be648d,
+        type: 3}
+      propertyPath: RotationAngle
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4955233842348743701, guid: 97aae916efe520c4c9b7938fa3be648d,
         type: 3}
       propertyPath: m_IsActive
@@ -440,7 +445,7 @@ PrefabInstance:
     - target: {fileID: 7531129435490816584, guid: 7740087d7d525654c93b2697dd335527,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -37.3
+      value: -39.3
       objectReference: {fileID: 0}
     - target: {fileID: 7531129435490816584, guid: 7740087d7d525654c93b2697dd335527,
         type: 3}
@@ -825,7 +830,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1025097488
 Transform:
   m_ObjectHideFlags: 0
@@ -933,7 +938,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1 &1176103157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1089,7 +1094,7 @@ PrefabInstance:
     - target: {fileID: 5887558483012519815, guid: f57d756e89dc8f14a8a3a80783be42ca,
         type: 3}
       propertyPath: KineticEnergyLoss
-      value: 0.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5887558483012519815, guid: f57d756e89dc8f14a8a3a80783be42ca,
         type: 3}
@@ -1118,7 +1123,7 @@ CharacterController:
   m_GameObject: {fileID: 1522839562}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Height: 1
   m_Radius: 0.5
@@ -1175,7 +1180,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1711613486
 Transform:
   m_ObjectHideFlags: 0
@@ -1283,7 +1288,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1 &1852444491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1304,7 +1309,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1852444492
 Transform:
   m_ObjectHideFlags: 0
@@ -1412,7 +1417,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1 &1871294754 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4955233840399901080, guid: 97aae916efe520c4c9b7938fa3be648d,
@@ -1434,7 +1439,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!136 &1871294756
 CapsuleCollider:
   m_ObjectHideFlags: 0

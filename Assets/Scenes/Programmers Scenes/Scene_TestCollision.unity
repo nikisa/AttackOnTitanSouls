@@ -92036,7 +92036,7 @@ PrefabInstance:
     - target: {fileID: 7531129435490816582, guid: 7740087d7d525654c93b2697dd335527,
         type: 3}
       propertyPath: KineticEnergyLoss
-      value: 0.9
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 7531129435490816582, guid: 7740087d7d525654c93b2697dd335527,
         type: 3}
@@ -101481,7 +101481,7 @@ PrefabInstance:
     - target: {fileID: 4189927532148222146, guid: 20becccbc1f579542bb8b44f3faa67f0,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 324934834, guid: 20becccbc1f579542bb8b44f3faa67f0, type: 3}
       propertyPath: m_IsTrigger
