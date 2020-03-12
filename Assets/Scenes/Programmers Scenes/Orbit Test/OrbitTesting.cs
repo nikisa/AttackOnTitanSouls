@@ -57,6 +57,7 @@ public class OrbitTesting : MonoBehaviour
 
 
 
+
     private void Start() {
         AngularDecelerationModule = angularMaxSpeed / angularDecelerationTime;
         pressed = false;
@@ -140,20 +141,17 @@ public class OrbitTesting : MonoBehaviour
     /// 
 
     #region NewBounce 
+
     private void OnCollisionEnter(Collision collision) {
 
         if (collision.transform.GetComponent<WallBounceController>()) {
 
-            //VelocityVectorModule = VelocityVector.magnitude;
-            //float centripetalVectorModule = (Mathf.Pow(VelocityVectorModule, 2) / OrbitRay) * Time.deltaTime;
-            //Vector3 centripetalVector = (boss.transform.position - transform.position).normalized * centripetalVectorModule;
+            float plusAngle;
 
             normal = -collision.transform.forward;
-         
-            //VelocityVector += boss.VelocityVector + centripetalVector;
 
-            vectorParal = Vector3.Project(boss.VelocityVector, normal);
-            vectorPerp = Vector3.ProjectOnPlane(boss.VelocityVector, normal);
+            vectorParal = Vector3.Project(VelocityVector, normal);
+            vectorPerp = Vector3.ProjectOnPlane(VelocityVector, normal);
 
             //Debug.DrawRay(transform.position, vectorParal, Color.red, 5);
             //Debug.DrawRay(transform.position, vectorPerp, Color.cyan, 5);
@@ -161,15 +159,21 @@ public class OrbitTesting : MonoBehaviour
             //Per il muro non serve andare a vedere la sua massa , ma basta dare la stessa massa dell'oggetto che urta
             bounceVector = (-2 * Mass * (vectorParal) / (2 * Mass));
 
-            vectorPerp *= (1 - SurfaceFriction);
+            plusAngle = AngularVelocity * Time.deltaTime * vectorPerp.magnitude / VelocityVector.magnitude;
 
-            AngularVelocity *= -(1 - SurfaceFriction);
+            boss.transform.RotateAround(transform.position, Vector3.up, plusAngle);
 
-            float newAngle = (AngularVelocity * RotationAngle) / 360;
+            Vector3 bossVectorParal = Vector3.Project(boss.VelocityVector, normal);
+            Vector3 bossVectorPerp = Vector3.ProjectOnPlane(boss.VelocityVector, normal);
 
-            boss.VelocityVector = bounceVector + vectorPerp;
-            boss.VelocityVector = Quaternion.Euler(0, newAngle, 0) * boss.VelocityVector;
 
+            Vector3 newBounceVector = (-2 * Mass * (bossVectorParal) / (2 * Mass));
+
+            boss.VelocityVector = (newBounceVector + bossVectorPerp) * (1 - KineticEnergyLoss);
+            boss.AccelerationVector = boss.VelocityVector.normalized * boss.AccelerationVector.magnitude;
+            boss.VelocityVector += bounceVector * (1 - KineticEnergyLoss) * Mass/boss.Mass;
+
+            AngularVelocity *= -(1 - SurfaceFriction); //angularMaxSpeed * (1 - SurfaceFriction) * vectorPerp.magnitude / VelocityVector.magnitude; 
 
             Debug.DrawRay(boss.transform.position, vectorParal, Color.blue, .016f);
             Debug.DrawRay(boss.transform.position, boss.VelocityVector, Color.red, .016f);

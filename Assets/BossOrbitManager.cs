@@ -119,6 +119,13 @@ public class BossOrbitManager : MonoBehaviour
     }
 
     public void AllMasksBounce(Collider collider) {
+
+        /// Anziché fare il bounce Movement su tutte le maschere
+        /// farlo solo su quella colpita.
+        /// Poi in un'altra funzione passare il valore dell'angularVelocity ottenuto
+        /// e passarlo a tutte le altre maschere
+
+
         for (int i = 0; i < MasksList.Count; i++) {
             MasksList[i].BounceMovement(collider);
         }

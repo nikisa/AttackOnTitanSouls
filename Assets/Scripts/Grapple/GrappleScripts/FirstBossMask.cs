@@ -97,7 +97,7 @@ public class FirstBossMask : HookPointBase
         AngularAccelerationModule = _angularMaxSpeed / _angularAccelerationTime;
         Drag = AngularAccelerationModule / _angularMaxSpeed * Time.deltaTime;
         AngularVelocity -= AngularVelocity * Drag;
-        transform.eulerAngles += new Vector3(0, AngularVelocity * Time.deltaTime /*+ 0.5f * AngularAccelerationModule * Mathf.Pow(Time.deltaTime, 2)*/, 0);
+        transform.eulerAngles += new Vector3(0, AngularVelocity * Time.deltaTime + 0.5f * AngularAccelerationModule * Mathf.Pow(Time.deltaTime, 2), 0);
         transform.position = new Vector3(boss.transform.position.x + currentRadius * Mathf.Sin((transform.eulerAngles.y) * Mathf.Deg2Rad), 1.375f , boss.transform.position.z + currentRadius * Mathf.Cos((transform.eulerAngles.y) * Mathf.Deg2Rad));
         AngularVelocity += AngularAccelerationModule * Time.deltaTime;
         VelocityVector = new Vector3((AngularVelocity * Mathf.PI / 180) * currentRadius * Mathf.Sin(transform.eulerAngles.x), 0, (AngularVelocity * Mathf.PI / 180) * currentRadius * Mathf.Cos(transform.eulerAngles.z));
@@ -106,9 +106,9 @@ public class FirstBossMask : HookPointBase
     public void DecelerateAround(float _angularDecelerationModule) {
         if (Mathf.Abs(AngularVelocity) > Mathf.Abs(_angularDecelerationModule) * Time.deltaTime) {
             AngularVelocity -= _angularDecelerationModule * Time.deltaTime;
-            parent.transform.eulerAngles += new Vector3(0, AngularVelocity * Time.deltaTime, 0);
-            parent.transform.position = new Vector3(boss.transform.position.x + currentRadius * Mathf.Sin((parent.transform.eulerAngles.y) * Mathf.Deg2Rad), 0, boss.transform.position.z + currentRadius * Mathf.Cos((parent.transform.eulerAngles.y) * Mathf.Deg2Rad));
-            VelocityVector = new Vector3((AngularVelocity * Mathf.PI / 180) * currentRadius * Mathf.Sin(parent.transform.eulerAngles.x), 0, (AngularVelocity * Mathf.PI / 180) * currentRadius * Mathf.Cos(parent.transform.eulerAngles.z));
+            transform.eulerAngles += new Vector3(0, AngularVelocity * Time.deltaTime, 0);
+            transform.position = new Vector3(boss.transform.position.x + currentRadius * Mathf.Sin((transform.eulerAngles.y) * Mathf.Deg2Rad), 1.375f, boss.transform.position.z + currentRadius * Mathf.Cos((transform.eulerAngles.y) * Mathf.Deg2Rad));
+            VelocityVector = new Vector3((AngularVelocity * Mathf.PI / 180) * currentRadius * Mathf.Sin(transform.eulerAngles.x), 0, (AngularVelocity * Mathf.PI / 180) * currentRadius * Mathf.Cos(transform.eulerAngles.z));
         }
         else {
             AngularVelocity = 0;

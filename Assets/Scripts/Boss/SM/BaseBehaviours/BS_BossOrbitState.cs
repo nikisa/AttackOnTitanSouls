@@ -28,7 +28,7 @@ public class BS_BossOrbitState : FirstBossState
 
         orientation = 360;
         //ResetPosition();
-        SetupPositionPoints();
+         SetupPositionPoints();
         orbitTimeStart = Time.time;
     }
 
