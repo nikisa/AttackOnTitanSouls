@@ -1734,13 +1734,21 @@ MonoBehaviour:
   moveToData: {fileID: 0}
   MaxSpeed: 0
   skin: 0
+  Target: {fileID: 0}
+  CycleTimer: 0
   bossOrbitManager: {fileID: 3800038801421119446}
   BouncePointC: {fileID: 0}
   BouncePointB: {fileID: 0}
-  vectorAngle: {x: 0, y: 0, z: 0}
+  vectorAngle: 0
   OldPos: {x: 0, y: 0, z: 0}
   Inertia: {x: 0, y: 0, z: 0}
+  AccelerationModule: 0
+  AccelerationVector: {x: 0, y: 0, z: 0}
   VelocityVector: {x: 0, y: 0, z: 0}
+  MaxSpeedVector: {x: 0, y: 0, z: 0}
+  Drag: 0
+  DeceleratioModule: 0
+  DecelerationVector: {x: 0, y: 0, z: 0}
   loops: 0
   IsPrevStateReinitialize: 0
 --- !u!114 &3800038803278683861
@@ -1924,6 +1932,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2403975027858338810, guid: c8fecc4593a5baa41a3bfe6cfc85e5b5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dcf3a6ce85b68c449b0a3397aa513a6a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8fecc4593a5baa41a3bfe6cfc85e5b5, type: 3}
 --- !u!4 &8290035488171267845 stripped
