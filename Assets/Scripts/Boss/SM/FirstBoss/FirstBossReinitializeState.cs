@@ -7,8 +7,7 @@ public class FirstBossReinitializeState : FirstBossState
     public AnticipationData anticipationData;
 
     public override void Enter() {
-        
-        
+
     }
 
     public override void Tick() {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GZ_Chase
   m_EditorClassIdentifier: 
   Time: 1.6969024
-  OrbitTag: 0
+  OrbitTag: 2
   Target: {fileID: 11400000, guid: 320bf9f104a0b814481ec323e5fa955a, type: 2}
   TimeAcceleration: 0.38
   MaxSpeed: 32

@@ -89,7 +89,6 @@ public class FirstBossMoveToState : FirstBossState
         //layerResult = boss.MovingDetectPlayer(iterations);
 
         layerResult = boss.DetectCollision(boss.nextPosition);
-        Debug.Log("layer: " + layerResult);
 
         if (layerResult == layerWall && boss.VelocityVector.magnitude > 20)
         {

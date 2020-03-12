@@ -97,7 +97,7 @@ public class FirstBossMask : HookPointBase
         AngularAccelerationModule = _angularMaxSpeed / _angularAccelerationTime;
         Drag = AngularAccelerationModule / _angularMaxSpeed * Time.deltaTime;
         AngularVelocity -= AngularVelocity * Drag;
-        transform.eulerAngles += new Vector3(0, AngularVelocity * Time.deltaTime + 0.5f * AngularAccelerationModule * Mathf.Pow(Time.deltaTime, 2), 0);
+        transform.eulerAngles += new Vector3(0, AngularVelocity * Time.deltaTime /*+ 0.5f * AngularAccelerationModule * Mathf.Pow(Time.deltaTime, 2)*/, 0);
         transform.position = new Vector3(boss.transform.position.x + currentRadius * Mathf.Sin((transform.eulerAngles.y) * Mathf.Deg2Rad), 1.375f , boss.transform.position.z + currentRadius * Mathf.Cos((transform.eulerAngles.y) * Mathf.Deg2Rad));
         AngularVelocity += AngularAccelerationModule * Time.deltaTime;
         VelocityVector = new Vector3((AngularVelocity * Mathf.PI / 180) * currentRadius * Mathf.Sin(transform.eulerAngles.x), 0, (AngularVelocity * Mathf.PI / 180) * currentRadius * Mathf.Cos(transform.eulerAngles.z));
@@ -239,7 +239,6 @@ public class FirstBossMask : HookPointBase
         
 
         Vector3 fakeCollidingObjectPosition = new Vector3(collidingObject.transform.localPosition.x, transform.localPosition.y, collidingObject.transform.localPosition.z);
-        Debug.Log(fakeCollidingObjectPosition + "position");
         normal = (fakeCollidingObjectPosition - transform.localPosition).normalized;
 
         vectorParal = Vector3.Project(VelocityVector, normal);
@@ -323,11 +322,11 @@ public class FirstBossMask : HookPointBase
 
         }
 
-        if (collider.tag == "Wall") {
+        //if (collider.tag == "Wall") {
 
-            Debug.Log("Wall Mask Bounce");
-            BossOrbitManager.BounceMasksOnWall(collider);
-        }
+        //    Debug.Log("Wall Mask Bounce");
+        //    BossOrbitManager.BounceMasksOnWall(collider);
+        //}
     }
 
 }

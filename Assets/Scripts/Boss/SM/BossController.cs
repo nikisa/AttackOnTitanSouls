@@ -47,7 +47,6 @@ public class BossController : MovementBase
     }
 
     private void Update() {
-        Debug.Log(bossY);
         transform.position = new Vector3(transform.position.x , bossY , transform.position.z);
         
     }

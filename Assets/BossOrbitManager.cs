@@ -22,7 +22,7 @@ public class BossOrbitManager : MonoBehaviour
 
     private void OnDisable() {
         ChangedStateEvent -= StopMaskMovement;
-        BounceMasks -= AllMasksBounce;
+        //BounceMasks -= AllMasksBounce;
         BounceMasksOnWall -= AllMasksBounceOnWall;
     }
 
@@ -82,7 +82,6 @@ public class BossOrbitManager : MonoBehaviour
             //else {
             //    MasksList[i].SetDistanceFromBoss(_maskBehaviourList[i].SetupRadius);
             //}
-            Debug.Log(MasksList[i].AngularVelocity + " Ang Vel");
         }
     }
 
@@ -99,6 +98,7 @@ public class BossOrbitManager : MonoBehaviour
 
     public void RotationMask(List<MaskBehaviourData> _maskBehaviourList) {
         for (int i = 0; i < MasksList.Count; i++) {
+            Debug.Log("RotateAround: " + i);
             MasksList[i].RotateAroud(_maskBehaviourList[i].AngularMaxSpeed , _maskBehaviourList[i].AngularAccelerationTime);
         }
     }
@@ -136,8 +136,11 @@ public class BossOrbitManager : MonoBehaviour
         Debug.DrawRay(boss.transform.position, EndPoints[_index].transform.position - boss.transform.position, Color.red, 3);
 
         if (Physics.Raycast(boss.transform.position , EndPoints[_index].transform.position - boss.transform.position , out hit , Mathf.Infinity , layerMask)) {
-            if (hit.collider.gameObject.GetComponent<FirstBossMask>()) {
-                if (hit.collider.gameObject.GetComponent<FirstBossMask>().MaskID == _id) {
+            //Debug.Log("STOPPED MASK");
+            if (hit.collider.gameObject.transform.parent.GetComponent<FirstBossMask>()) {
+                
+                if (hit.collider.gameObject.transform.parent.GetComponent<FirstBossMask>().MaskID == _id) {
+                    
                     return true;
                 }
                 else {

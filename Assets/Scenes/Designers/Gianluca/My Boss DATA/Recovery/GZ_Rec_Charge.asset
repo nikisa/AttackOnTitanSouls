@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: GZ_Rec_Charge
   m_EditorClassIdentifier: 
   Time: 0
-  OrbitTag: 7
+  OrbitTag: 5
   LowSpeed: 0

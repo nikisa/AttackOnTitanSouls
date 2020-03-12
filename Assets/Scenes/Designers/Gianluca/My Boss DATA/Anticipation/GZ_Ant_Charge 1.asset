@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GZ_Ant_Charge 1
   m_EditorClassIdentifier: 
   Time: 0
-  OrbitTag: 0
+  OrbitTag: 1
   Loops: 3
   InfinteLoops: 0
-  loops: 0
+  loops: 3
