@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - HookPoint
+  - BossGraphics
+  - BossCore
+  - Walls
+  - Center
+  - Pushable
   layers:
   - Default
   - TransparentFX
@@ -13,13 +19,13 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - RopeNode
+  - HookPoint
+  - Walls
+  - Player
+  - Boss
+  - Amir
+  - HookPointReassemble
   - 
   - 
   - 
