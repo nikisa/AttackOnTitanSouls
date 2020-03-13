@@ -36,6 +36,8 @@ public class FirstBossBounceState : FirstBossState
     public float lerpValue;
 
     public override void Enter() {
+
+        base.Enter();
         
         iterations = 100;
         layerWall = 10;
@@ -44,24 +46,22 @@ public class FirstBossBounceState : FirstBossState
         timeStartMoveTo = Time.time;
         reinitSphereCastTimer = 0.7f;
 
-        bounceEnter();
+        BounceEnter();
 
     }
 
     public override void Tick() {
-        //speed -= bounceData.Deceleration * Time.deltaTime;
-        //lerpValue +=  Mathf.Abs(speed)/1000 * Time.deltaTime;+
+
+        base.Tick();
+
         SetCycleTimer();
+
         Debug.DrawRay(boss.transform.position + new Vector3(0, 6, 0), boss.AccelerationVector * 10, Color.blue, .1f);
 
         lerpValue += Time.deltaTime;
-            boss.transform.position = Vector3.Lerp(Vector3.Lerp(pointA, boss.BouncePointB.transform.position, lerpValue), Vector3.Lerp(pointA, boss.BouncePointC.transform.position, lerpValue), lerpValue);
-        
 
-        Timer(bounceData);
-
-        bounceDetectCollsion();
-
+        Vector3 targetPoint= Vector3.Lerp(Vector3.Lerp(pointA, boss.BouncePointB.transform.position, lerpValue), Vector3.Lerp(pointA, boss.BouncePointC.transform.position, lerpValue), lerpValue);
+        BounceDetectCollsion(targetPoint);
 
     }
 
@@ -69,20 +69,18 @@ public class FirstBossBounceState : FirstBossState
 
         layerResult = 0;
         animator.SetInteger("Layer", layerResult);
-        ResetTimer(bounceData);
     }
 
-    void bounceEnter() {
+    void BounceEnter() {
         
 
         freezeTimeStart = Time.time;
-        speed = boss.MoveSpeed - bounceData.kinetikEnergyLoss * boss.MoveSpeed;
+        speed = (1- bounceData.kinetikEnergyLoss) * boss.VelocityVector.magnitude;
         hitObjectPosition = boss.hitObject.collider.ClosestPointOnBounds(boss.transform.position);
         direction = boss.transform.position - hitObjectPosition;
         angle = Vector3.SignedAngle(boss.AccelerationVector, direction, Vector3.up);
         direction = Quaternion.Euler(0, angle, 0) * -direction;
-        boss.AccelerationVector = boss.transform.position - oldPos;
-        //boss.VelocityVector = direction;
+        boss.AccelerationVector = Vector3.zero;
         Debug.DrawRay(boss.transform.position, boss.AccelerationVector * 10, Color.red, 3);
         Debug.DrawRay(boss.transform.position, direction * 10, Color.red, 3);
         if (bounceData.kinetikEnergyLoss > 0.8) {
@@ -107,30 +105,16 @@ public class FirstBossBounceState : FirstBossState
 
     }
 
-    void bounceDetectCollsion() {
+    void BounceDetectCollsion(Vector3 targetPoint) {
+  
+        layerResult = boss.DetectCollision(targetPoint);
 
-        Vector3 direction = boss.BouncePointC.transform.position - boss.transform.position;
-        Debug.DrawRay(boss.transform.position, direction , Color.green);
-        Vector3 nextPosition = boss.transform.position + direction.normalized * (speed * Time.deltaTime);
-        Debug.Log("Next Position: " + nextPosition);
-
-        layerResult = boss.MovingDetectCollision(iterations , nextPosition , speed);
+        boss.CharacterController.Move((targetPoint-boss.transform.position) + Vector3.down * 10);
 
         if (layerResult == layerWall) {
             Debug.Log("RE-BOUNCING");
             animator.SetInteger("Layer", layerResult);
         }
-        else {
-
-            oldPos = boss.transform.position;
-
-            if (layerResult == layerPlayer) {
-                if (!boss.Player.IsImmortal) {
-                    PlayerController.DmgEvent();
-                }
-            }
-        }
-
         
     }
 

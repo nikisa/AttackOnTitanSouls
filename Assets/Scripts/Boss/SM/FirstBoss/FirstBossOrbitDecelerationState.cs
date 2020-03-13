@@ -6,17 +6,24 @@ public class FirstBossOrbitDecelerationState : FirstBossState
 {
 
     public override void Tick() {
-        DecelerationTick();
-    }
-
-    public override void Exit() {
-        bossOrbitManager.actualSpeed = bossOrbitManager.OrbitManagerDataList[0].CenterRotation.MoveSpeed;
-    }
-
-    public void DecelerationTick() {
-        for (int i = 0; i < bossOrbitManager.OrbitManagerDataList.Count; i++) {
-            bossOrbitManager.OrbitDeceleration(bossOrbitManager.OrbitManagerDataList[i].AngularMaxSpeed , bossOrbitManager.OrbitManagerDataList[i].AngularDecelerationTime , bossOrbitManager.OrbitManagerDataList[i].CenterRotation);
+        bossOrbitManager.DecelerationMask();
+        if (getMasksStopped() == bossOrbitManager.MasksList.Count) {
+            animator.SetTrigger(END_STATE_TRIGGER);
         }
     }
 
+
+    public int getMasksStopped() {
+        int count = 0;
+        for (int i = 0; i < bossOrbitManager.MasksList.Count; i++) {
+            if (bossOrbitManager.MasksList[i].AngularVelocity == 0) {
+                count++;
+            }
+        }
+        return count;
+    }
+    public override void Exit()
+    {
+        bossOrbitManager.ResetVelocity();
+    }
 }

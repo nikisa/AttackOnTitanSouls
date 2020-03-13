@@ -6,12 +6,15 @@ public class RewindState : GrappleBaseState
 {
 
     public override void Enter() {
-        while (grappleManager.hook.shooted) {
-            grappleManager.RewindPoints();
-        }
+        
     }
 
     public override void Tick() {
+
+        while (grappleManager.hook.shooted) {
+            grappleManager.RewindPoints();
+        }
+
         if (!grappleManager.hook.shooted) {
             animator.SetTrigger("RolledUp");
         }

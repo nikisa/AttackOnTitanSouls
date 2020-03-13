@@ -8,7 +8,7 @@ public class PlayerResumeDashState : PlayerBaseState
     //Private
     float timeStart;
 
-    PlayerIdleData playerIdleData;
+    PlayerMovementData playerMovementData;
     PlayerDashData playerDashData;
     float DashTimeFrames;
     float timeDeceleration;
@@ -27,7 +27,7 @@ public class PlayerResumeDashState : PlayerBaseState
     public override void Tick() {
         //Deceleration();
 
-        Debug.Log("SPEED: " + player.dashMovementSpeed);
+        Debug.Log("SPEED: " + player.dashVelocityModule);
 
         if (Time.time - timeStart > player.playerDashData.ResumePlayerInput) {
             animator.SetTrigger(DASH_FRAME_PERFECT);

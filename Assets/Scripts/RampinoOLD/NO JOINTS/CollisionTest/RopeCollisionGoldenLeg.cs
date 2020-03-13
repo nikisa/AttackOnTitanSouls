@@ -20,7 +20,7 @@ public class RopeCollisionGoldenLeg : MonoBehaviour {
     Vector3[] LinePositions;
     
     private List<RopeNode> RopeNodes = new List<RopeNode>();
-    private PlayerIdleState PlayerState;
+    private PlayerMovementState PlayerState;
     
     Camera Camera;
     
@@ -43,7 +43,7 @@ public class RopeCollisionGoldenLeg : MonoBehaviour {
 
     void Awake() {
         Camera = Camera.main;
-        PlayerState = Player.GetComponent<PlayerIdleState>();
+        PlayerState = Player.GetComponent<PlayerMovementState>();
         ContactFilter = new ContactFilter2D {
         layerMask = LayerMask,
         useTriggers = false,

@@ -9,30 +9,31 @@ public class ShootedState : GrappleBaseState
     }
 
     public override void Tick() {
-        if (!Input.GetKeyDown(KeyCode.Mouse1) || !Input.GetButtonDown("ShootXBOX")) {
-            grappleManager.UpdatePoints();
-            grappleManager.UpdateHook();
-            grappleManager.UpdateLinks();
-        }
+
+        grappleManager.UpdatePoints();
+        grappleManager.UpdateHook();
+        grappleManager.UpdateLinks();
 
         if (grappleManager.hook.shooted && !grappleManager.hook.isHooked) {
-            hit = grappleManager.hook.RaycastCollsion();
-           
+            grappleManager.target = grappleManager.FovPlayer.CorrectRayCast();
+            target = grappleManager.target;
+            Debug.Log(target + "" + Time.time);
 
             //HookPoint hookPoint = hit.transform.GetComponent<HookPoint>();
 
-            if (hit.transform != null && hit.transform.GetComponent<HookPoint>()) {
-                grappleManager.hookPoint = hit.transform.GetComponent<HookPoint>();
-               
-                grappleManager.hook.isHooked = true;
-                SetHit();
-                Debug.Log(hitTransform + "QUIIIIII");
-                animator.SetTrigger("Hooked");
-                return;
-            }
-            else {
-                //UpdateHook();
-                //Debug.Log("Missing Target");
+            if (target != null) {
+                if (target.transform.GetComponent<FirstBossMask>()) {
+                    grappleManager.hookPoint = target.transform.GetComponent<FirstBossMask>();
+                    grappleManager.hook.isHooked = true;
+                    // SetHit();
+                    // Debug.Log(hitTransform + "QUIIIIII");
+                    animator.SetTrigger("Hooked");
+                    return;
+                }
+                else {
+                    //UpdateHook();
+                    //Debug.Log("Missing Target");
+                }
             }
         }
 
@@ -46,13 +47,13 @@ public class ShootedState : GrappleBaseState
         }
         
     }
-    public void SetHit()
-    {
-        if (!grappleManager.IsSet)
-        {
-            //Debug.Log("UNOOO");
-            hitTransform = grappleManager.hookPoint.GetComponent<Collider>().ClosestPoint(grappleManager.hook.transform.position);
-            grappleManager.IsSet = true;
-        }
-    }
+    //public void SetHit()
+    //{
+    //    if (!grappleManager.IsSet)
+    //    {
+    //        //Debug.Log("UNOOO");
+    //        hitTransform = grappleManager.hookPoint.GetComponent<Collider>().ClosestPoint(grappleManager.hook.transform.position);
+    //        grappleManager.IsSet = true;
+    //    }
+    //}
 }

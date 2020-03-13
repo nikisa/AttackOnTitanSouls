@@ -19,6 +19,8 @@ public class FirstBossRecoveryState : FirstBossState
     public override void Enter()
     {
 
+        base.Enter();
+
         iterations = 1;
         layerWall = 10;
         layerPlayer = 11;
@@ -27,18 +29,16 @@ public class FirstBossRecoveryState : FirstBossState
     }
     public override void Tick()
     {
-        Timer(recoveryData);
-        //RecoveryInfoTick();
-      //  DecelerationTick();
-        detectCollsion();
+        base.Tick();
         SetCycleTimer();
+        detectCollsion();
+
     }
     public override void Exit()
     {
         animator.SetBool("RecoveryOrbit", false);
         CheckVulnerability();
         boss.IsPrevStateReinitialize = false;
-        ResetTimer(recoveryData);
     }
 
     public void RecoveryInfoEnter() {
@@ -46,27 +46,9 @@ public class FirstBossRecoveryState : FirstBossState
         OrbitTag(recoveryData);
     }
    
-    //public void RecoveryInfoTick() {
-    //    //Ends state when the timer has finished
-    //    if ((Time.time - timeStartRecovery) > recoveryData.Time) {
-    //        animator.SetTrigger(END_STATE_TRIGGER);
-    //    }
-    //}
-
-    //Does a deceleration when finishing the movement
-    //public void DecelerationTick() {
-    //    boss.Deceleration(decelerationData.TimeDeceleration, decelerationData.LowSpeed , boss.MaxSpeed);
-    //}
-
     void detectCollsion() {
-        layerResult = boss.MovingDetectPlayer(iterations);
+        layerResult = boss.DetectCollision(boss.nextPosition);
         animator.SetInteger("Layer", 0);
-
-        if (layerResult == layerPlayer) {
-            if (!boss.Player.IsImmortal) {
-            PlayerController.DmgEvent();
-            }
-        }
     }
 
 }

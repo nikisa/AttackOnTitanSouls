@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerSetupState : PlayerBaseState
 {
-    public PlayerIdleData playerIdleData;
+    public PlayerMovementData playerMovementData;
     public PlayerDashData playerDashData;
 
     public override void Enter() {
-        player.playerIdleData = playerIdleData;
+        player.playerMovementData = playerMovementData;
         player.playerDashData = playerDashData;
     }
 }

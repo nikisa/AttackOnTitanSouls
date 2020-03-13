@@ -10,14 +10,14 @@ public class FirstBossPreFightState : FirstBossState
 
     public override void Enter() {
 
-        HookPointsCount = bossOrbitManager.HookPointList.Count;
+        HookPointsCount = bossOrbitManager.MasksList.Count;
         animator.SetInteger(MASKS_COUNT , HookPointsCount);
     }
 
     public override void Tick() {
 
         //When the Boss loses a Mask then the current state ends
-        if (bossOrbitManager.HookPointList.Count != HookPointsCount) {
+        if (bossOrbitManager.MasksList.Count != HookPointsCount) {
 
             animator.SetTrigger(END_STATE_TRIGGER);
         }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossHookPoint : HookPointManager, IGrappable {
+public class BossHookPoint : HookPointBase, IGrappable {
     
     //Inspector
     public bool isHookable;
@@ -16,7 +16,7 @@ public class BossHookPoint : HookPointManager, IGrappable {
 
     bool hasAnyMask() {
         bool result = true;
-        if (bossOrbitManager.HookPointList.Count == 0) {
+        if (bossOrbitManager.MasksList.Count == 0) {
             result = true;
         }
         return result;

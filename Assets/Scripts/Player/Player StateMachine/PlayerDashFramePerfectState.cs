@@ -11,7 +11,7 @@ public class PlayerDashFramePerfectState : PlayerBaseState {
     //Private
     float startTime;
 
-    PlayerIdleData playerIdleData;
+    PlayerMovementData playerMovementData;
     float InitialVelocity;
     float DashTimeFrames;
     float timeDeceleration;

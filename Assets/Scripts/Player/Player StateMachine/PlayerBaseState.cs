@@ -12,6 +12,7 @@ public class PlayerBaseState : BaseState {
     //SateMachine Parameters
     protected const string END_STATE_TRIGGER = "EndState";
     protected const string IDLE = "Idle";
+    protected const string MOVEMENT = "Movement";
     protected const string MOVEMENT_DECELERATION = "MovementDeceleration";
     protected const string DASH = "Dash";
     protected const string DASH_DECELERATION = "DashDeceleration";

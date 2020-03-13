@@ -6,50 +6,54 @@ public class PlayerDashDecelerationState : PlayerBaseState
 {
 
     //Private
-    PlayerIdleData playerIdleData;
     PlayerDashData playerDashData;
-    float InitialVelocity;
-    float DashTimeFrames;
-    float timeDeceleration;
-    float HorizontalDash;
-    float VerticalDash;
-    float Horizontal;
-    float Vertical;
+    PlayerDecelInTimeData playerDecelInTimeData;
+    PlayerMovementData playerMovementData;
     bool IsTimerSet;
+
     public override void Enter() {
         IsTimerSet = false;
-        Debug.Log("DECEL DASH");
 
-        HorizontalDash = player.horizontalDash;
-        VerticalDash = player.verticalDash;
-
-        playerIdleData = player.playerIdleData;
         playerDashData = player.playerDashData;
+        playerMovementData = player.playerMovementData;
 
+        player.DecelerationModule = player.dashVelocityModule / playerDashData.DashDecelerationTime;
+        Debug.Log("(DASH DECEL) dashVelocityModule: " + player.dashVelocityModule);
+        Debug.Log("(DASH DECEL) DecelerationModule: " + playerDashData.DashDecelerationTime);
     }
 
     public override void Tick() {
+        player.dashVelocityModule = player.VelocityVector.magnitude;
 
-        player.DashDeceleration(HorizontalDash , VerticalDash , playerDashData.DashDecelerationTime , playerDashData.ActiveDashDistance , playerDashData.ActiveDashTime);
+        if (player.dashVelocityModule <= (playerDashData.ResumePlayerInput * playerMovementData.maxSpeed)) {
 
-        if (player.dashMovementSpeed <= (playerDashData.ResumePlayerInput * playerIdleData.maxSpeed)) {
-
-            if (!IsTimerSet) // da sitemare
+            if (!IsTimerSet) //Come trattarlo senza booleana?
             {
                 PlayerController.TimerEvent();
                 IsTimerSet = true;
             }
-            Horizontal = player.dataInput.Horizontal; /*player.horizontalDash;*/
-            Vertical = player.dataInput.Vertical; /*player.verticalDash;*/
 
-            if (Vertical != 0 || Horizontal != 0 || player.dashMovementSpeed == 0) {
-                Debug.Log(player.dashMovementSpeed + " --player.dashMovementSpeed-- ");
-                animator.SetTrigger(IDLE);
-            } 
+            if (player.checkDeadZone()) {
+                animator.SetTrigger(MOVEMENT);
+            }
         }
+
+        if (player.dashVelocityModule < (player.DecelerationModule * Time.deltaTime) && !player.checkDeadZone()) {
+            animator.SetTrigger(IDLE);
+        }
+        player.DashDeceleration();
     }
+
 
     public override void Exit() {
-        
+        //player.move = Vector3.zero;
+        //player.nextPosition = Vector3.zero;
+        //player.AccelerationVector = Vector3.zero;
+        //player.VelocityVector = Vector3.zero;
+        //player.DecelerationVector = Vector3.zero;
+        //player.Drag = 0;
+        //player.AccelerationModule = 0;
+        //player.DecelerationModule = 0;
     }
+
 }

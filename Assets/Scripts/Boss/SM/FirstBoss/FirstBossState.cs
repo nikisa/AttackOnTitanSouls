@@ -18,9 +18,23 @@ public class FirstBossState : BaseState
     protected const string END_STATE_TRIGGER = "EndState";
     protected const string TIMER = "Timer";
 
+    float timer = 0;
+    int layerResult = 0;
+
 
     public override void Enter() {
+        animator.SetFloat(TIMER, timer = 0);
         BossOrbitManager.ChangedStateEvent();
+    }
+
+    public override void Tick()
+    {
+        timer += Time.deltaTime;
+        animator.SetFloat(TIMER, timer);
+    }
+
+    public override void Exit() {
+        layerResult = 0;
     }
 
 
@@ -32,6 +46,7 @@ public class FirstBossState : BaseState
         this.bossOrbitManager = bossOrbitManager;
 
     }
+
     protected void TriggerExitState()
     {
         animator.SetTrigger(END_STATE_TRIGGER);
@@ -40,7 +55,7 @@ public class FirstBossState : BaseState
 
     //Updates the MASK_COUNT SM Parameters when a Boss' Mask is detroyed
     public void CheckVulnerability() {
-        animator.SetInteger(MASKS_COUNT, bossOrbitManager.HookPointList.Count);
+        animator.SetInteger(MASKS_COUNT, bossOrbitManager.MasksList.Count);
     }
 
     //Set the tag to choose the next OrbitState
@@ -48,25 +63,15 @@ public class FirstBossState : BaseState
     {
         animator.SetInteger("OrbitTag", _baseData.OrbitTag);
     }
-    public void Timer(BaseData _baseData)
-    {
-        _baseData.Time += Time.deltaTime;
-        animator.SetFloat(TIMER, _baseData.Time);
-    }
-    public void ResetTimer(BaseData _baseData)
-    {
-     
-        _baseData.Time = 0;
-        animator.SetFloat(TIMER, _baseData.Time);
-    }
+
     public void SetCycleTimer()
     {
         boss.CycleTimer += Time.deltaTime;
         animator.SetFloat("CycleTimer", boss.CycleTimer);
     }
+
     public void ResetCycleTimer()
     {
-
         boss.CycleTimer = 0;
         animator.SetFloat("CycleTimer", boss.CycleTimer);
     }

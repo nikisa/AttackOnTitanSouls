@@ -5,16 +5,19 @@ using UnityEngine;
 public class GrappleManager : MonoBehaviour
 {
     // Inspector
+    public FieldOfView FovPlayer;
     public bool debugMode;
     public GrappleGun GrappleGun;
     public Hook hook;
     [HideInInspector]
-    public HookPoint hookPoint;
+    public FirstBossMask hookPoint;
     public PlayerController Player;
     public GameObject CrossHair;
     public Animator animator;
     [HideInInspector]
     public bool IsSet;
+    [HideInInspector]
+    public GameObject target;
 
     public int MassPointNumber = 32;
     public float MassPointLength = 0.25f;
@@ -35,114 +38,97 @@ public class GrappleManager : MonoBehaviour
         HookScale = hook.transform.localScale;
         HookRotation = hook.transform.localRotation;
 
-        //foreach (var item in animator.GetBehaviours<GrappleBaseState>())
-        //{
-        //    item.SetContext(this, animator, this, hook);
-        //}
+        foreach (var item in animator.GetBehaviours<GrappleBaseState>())
+        {
+            item.SetContext(this, animator, this, hook);
+        }
+        SetFovRadius();
+        Player = FindObjectOfType<PlayerController>();
     }
 
     private void LateUpdate()
     {
 
-        if (debugMode)
-        {
-            if (Input.GetKeyDown(KeyCode.Mouse0) /*|| Input.GetButtonDown("ShootPS4")*/ || Input.GetButtonDown("ShootXBOX"))
-            {
-                HookShooting();
-                if (!hook.shooted)
-                    InstantiateRope();
-            }
-            if (hook.shooted)
-            {
-                if (Input.GetKeyDown(KeyCode.Z))
-                    UpdatePoints();
-                if (Input.GetKeyDown(KeyCode.X))
-                    UpdateHook();
-                if (Input.GetKeyDown(KeyCode.C))
-                    UpdateLinks();
-            }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Mouse0) /*|| Input.GetButtonDown("ShootPS4")*/ || Input.GetButtonDown("ShootXBOX"))
-            {
-                HookShooting();
-                if (!hook.shooted)
-                    InstantiateRope();
-            }
-            if (hook.shooted)
-            {
-                if (!Input.GetKeyDown(KeyCode.Mouse1) || !Input.GetButtonDown("ShootXBOX"))
-                {
-                    UpdatePoints();
-                    UpdateHook();
-                    UpdateLinks();
-                }
-                if ((Input.GetKey(KeyCode.Mouse1) /* || (Input.GetButton("ShootPS4") && !Input.GetButtonUp("ShootPS4"))*/ || (Input.GetAxis("Rewind") > 0)))
-                {
-                    RewindPoints();
-                }
+        //if (debugMode) {
+        //    if (Input.GetKeyDown(KeyCode.Mouse0) /*|| Input.GetButtonDown("ShootPS4")*/ || Input.GetButtonDown("ShootXBOX")) {
+        //        HookShooting();
+        //        if (!hook.shooted)
+        //            InstantiateRope();
+        //    }
+        //    if (hook.shooted) {
+        //        if (Input.GetKeyDown(KeyCode.Z))
+        //            UpdatePoints();
+        //        if (Input.GetKeyDown(KeyCode.X))
+        //            UpdateHook();
+        //        if (Input.GetKeyDown(KeyCode.C))
+        //            UpdateLinks();
+        //    }
+        //}
+        //else {
+        //    if (Input.GetKeyDown(KeyCode.Mouse0) /*|| Input.GetButtonDown("ShootPS4")*/ || Input.GetButtonDown("ShootXBOX")) {
+        //        HookShooting();
+        //        if (!hook.shooted)
+        //            InstantiateRope();
+        //    }
+        //    if (hook.shooted) {
+        //        if (!Input.GetKeyDown(KeyCode.Mouse1) || !Input.GetButtonDown("ShootXBOX")) {
+        //            UpdatePoints();
+        //            UpdateHook();
+        //            UpdateLinks();
+        //        }
+        //        if ((Input.GetKey(KeyCode.Mouse1) /* || (Input.GetButton("ShootPS4") && !Input.GetButtonUp("ShootPS4"))*/ || (Input.GetAxis("Rewind") > 0))) {
+        //            RewindPoints();
+        //        }
 
-                if (/*Input.GetButtonDown("UnhookPS4") ||*/ Input.GetButtonDown("UnhookXBOX"))
-                {
-                    while (hook.shooted)
-                    {
-                        RewindPoints();
-                    }
-                }
+        //        if (/*Input.GetButtonDown("UnhookPS4") ||*/ Input.GetButtonDown("UnhookXBOX")) {
+        //            while (hook.shooted) {
+        //                RewindPoints();
+        //            }
+        //        }
 
-            }
+        //    }
 
-            if (hook.shooted && !hook.isHooked)
-            {
-                hit = hook.RaycastCollsion();
+        //    if (hook.shooted && !hook.isHooked) {
+        //        hit = hook.RaycastCollsion();
 
-                if (hit.transform != null && hit.transform.GetComponent<HookPoint>())
-                {
-                    hookPoint = hit.transform.GetComponent<HookPoint>();
-                    hook.isHooked = true;
-                }
-                else
-                {
-                    //UpdateHook();
+        //        if (hit.transform != null && hit.transform.GetComponent<FirstBossMask>()) {
+        //            hookPoint = hit.transform.GetComponent<FirstBossMask>();
+        //            hook.isHooked = true;
+        //        }
+        //        else {
+        //            //UpdateHook();
 
-                    //Debug.Log("Missing Target");
+        //            //Debug.Log("Missing Target");
 
 
-                }
-            }
+        //        }
+        //    }
 
-            if (hook.shooted && hook.ropeFinished && !hook.isHooked)
-            {
-                //hook.hitDistance = 0;
-            }
-            else
-            {
-                hook.hitDistance = 1;
-            }
+        //    if (hook.shooted && hook.ropeFinished && !hook.isHooked) {
+        //        //hook.hitDistance = 0;
+        //    }
+        //    else {
+        //        hook.hitDistance = 1;
+        //    }
 
 
-            if (hook.isHooked)
-            {
-                if (!hookPoint.isHooked)
-                {
+        //    if (hook.isHooked) {
+        //        if (!hookPoint.isHooked) {
 
-                    hook.transform.position = hit.transform.position;
-                    hook.Inertia = Vector3.zero;
-                    hook.hitDistance = 0;
-                }
-                hookPoint.isHooked = true;
+        //            hook.transform.position = hit.transform.position;
+        //            hook.Inertia = Vector3.zero;
+        //            hook.hitDistance = 0;
+        //        }
+        //        hookPoint.isHooked = true;
 
-            }
-            else
-            {
-                if (hookPoint != null)
-                {
-                    hookPoint.isHooked = false;
-                }
-                hook.hitDistance = 1;
-            }
-        }
+        //    }
+        //    else {
+        //        if (hookPoint != null) {
+        //            hookPoint.isHooked = false;
+        //        }
+        //        hook.hitDistance = 1;
+        //    }
+        //}
     }
 
 
@@ -155,6 +141,10 @@ public class GrappleManager : MonoBehaviour
         }
 
         hook.shooted = true;
+    }
+    public void SetFovRadius()
+    {
+        FovPlayer.viewRadius = MassPointNumber * MassPointLength;
     }
 
     public void UpdateHook() {
@@ -191,7 +181,7 @@ public class GrappleManager : MonoBehaviour
         }
 
         if (hook.isHooked) {
-            hookPoint.hookPointSpring();
+            hookPoint.HookPointSpring();
         }
 
     }

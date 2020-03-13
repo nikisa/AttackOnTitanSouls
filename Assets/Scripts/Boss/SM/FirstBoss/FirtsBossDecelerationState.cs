@@ -7,84 +7,62 @@ public class FirtsBossDecelerationState : FirstBossState
     //Inspector
     public DecelerationData decelerationData;
     public bool Debugging;
+
     //Private
-    MoveToData moveToData;
-    int iterations;
     int wallLayer;
 
     public override void Enter()
     {
+
+        base.Enter();
         wallLayer = 10;
-        iterations = 30;
-        DecelerationEnter();
     }
     public override void Tick()
     {
-        //DecelerationTick();
+
+        base.Tick();
+
         CollisionTick();
-        // SetSpeed();
         setChaseRadius();
-        NewDeceleration();
+        Deceleration();
         SetCycleTimer();
     }
-    //public void DecelerationTick()
-    //{
-    //    boss.Deceleration(decelerationData.TimeDeceleration, decelerationData.LowSpeed , moveToData.MaxSpeed);
-
-    //    if (boss.MoveSpeed <= 0) {
-    //        animator.SetTrigger(END_STATE_TRIGGER);
-    //    }
-    //}
-     
 
     public void CollisionTick()
     {
 
         Vector3 nextPosition = boss.transform.position + (boss.MoveSpeed * Time.deltaTime) * boss.transform.forward;
-        if (boss.MovingDetectCollision(iterations , nextPosition , boss.MoveSpeed) == wallLayer)
+        if (boss.DetectCollision(nextPosition) == wallLayer)
         {
             animator.SetTrigger("Collision");
         }
-        else
-        {
-           // boss.Move();
-        }
     }
 
-    public void DecelerationEnter()
-    {
-        moveToData = boss.GetMoveToData();
-    }
 
     public override void Exit()
     {
         boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
-       
     }
 
     //Set speed parameter in the animator
     public void SetSpeed() {
         animator.SetFloat("Speed", boss.MoveSpeed);
     }
-    public void NewDeceleration()
-    {
-        boss.DeceleratioModule = decelerationData.Deceleration;
 
-        if (boss.VelocityVector.magnitude > boss.DeceleratioModule * Time.deltaTime)
+    public void Deceleration()
+    {
+        boss.DecelerationModule = decelerationData.Deceleration;
+
+        if (boss.VelocityVector.magnitude > boss.DecelerationModule * Time.deltaTime)
         {
-            boss.vectorAngle = Vector3.SignedAngle(Vector3.forward, boss.VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
-            boss.DecelerationVector = new Vector3(Mathf.Sin(boss.vectorAngle) * boss.DeceleratioModule, 0, Mathf.Cos(boss.vectorAngle) * boss.DeceleratioModule);
-            boss.VelocityVector -= boss.DecelerationVector * Time.deltaTime;
-            boss.transform.localPosition += boss.VelocityVector * Time.deltaTime;
+            boss.Deceleration();
         }
         else 
         {
             boss.VelocityVector = Vector3.zero;
             animator.SetTrigger(END_STATE_TRIGGER);
         }
-
-
 
 
         if (Debugging)
