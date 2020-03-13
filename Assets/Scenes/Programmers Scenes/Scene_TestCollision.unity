@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.16749027, g: 0.17245558, b: 0.18500045, a: 1}
+  m_IndirectSpecularColor: {r: 0.16748917, g: 0.17245461, b: 0.18499939, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -37726,14 +37726,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 151392508}
     m_Modifications:
-    - target: {fileID: 100000, guid: 3f98260979d6c444b90a8b9dc1b60f45, type: 3}
-      propertyPath: m_Name
-      value: SM_FaceGate
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 3f98260979d6c444b90a8b9dc1b60f45, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3f98260979d6c444b90a8b9dc1b60f45, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.7403812
@@ -37789,6 +37781,14 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 3f98260979d6c444b90a8b9dc1b60f45, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 3f98260979d6c444b90a8b9dc1b60f45, type: 3}
+      propertyPath: m_Name
+      value: SM_FaceGate
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 3f98260979d6c444b90a8b9dc1b60f45, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 3f98260979d6c444b90a8b9dc1b60f45, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -92104,6 +92104,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7531129435490816589, guid: 7740087d7d525654c93b2697dd335527,
+        type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531129435490816589, guid: 7740087d7d525654c93b2697dd335527,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7531129435490816584, guid: 7740087d7d525654c93b2697dd335527,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -92159,16 +92169,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7531129435490816589, guid: 7740087d7d525654c93b2697dd335527,
-        type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7531129435490816589, guid: 7740087d7d525654c93b2697dd335527,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7531129435490816582, guid: 7740087d7d525654c93b2697dd335527,
         type: 3}
       propertyPath: uiManager
@@ -92199,14 +92199,6 @@ PrefabInstance:
       propertyPath: Lifes
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1947039355, guid: 7740087d7d525654c93b2697dd335527, type: 3}
-      propertyPath: m_Radius
-      value: 0.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 1947039355, guid: 7740087d7d525654c93b2697dd335527, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 583493577, guid: 7740087d7d525654c93b2697dd335527, type: 3}
       propertyPath: viewRadius
       value: 13
@@ -92218,6 +92210,14 @@ PrefabInstance:
     - target: {fileID: 583493577, guid: 7740087d7d525654c93b2697dd335527, type: 3}
       propertyPath: RadiusOffset
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1947039355, guid: 7740087d7d525654c93b2697dd335527, type: 3}
+      propertyPath: m_Radius
+      value: 0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 1947039355, guid: 7740087d7d525654c93b2697dd335527, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1947039354, guid: 7740087d7d525654c93b2697dd335527, type: 3}
       propertyPath: m_Center.z

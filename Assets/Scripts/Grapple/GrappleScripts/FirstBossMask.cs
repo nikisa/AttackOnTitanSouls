@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
-public class FirstBossMask : HookPointBase
-{
+public class FirstBossMask : HookPointBase { 
 
     public int MaskID;
     public float Mass;
@@ -45,6 +45,7 @@ public class FirstBossMask : HookPointBase
     public bool isDetected; //Used for the reassemble statement
 
     //Private
+    PositionConstraint positionConstraint;
     BreakPointData actualBreakPointData;
     [SerializeField]
     private int BreakPointsCount = 0;
@@ -75,6 +76,7 @@ public class FirstBossMask : HookPointBase
     }
 
     void SetUp() {
+        positionConstraint = HookPointPivot.GetComponent<PositionConstraint>();
         parent = transform.parent.transform.gameObject;
         bossOrbitManager = FindObjectOfType<BossOrbitManager>();
         currentLife = BreakPoints[BreakPointsCount].lifeMax;
@@ -94,6 +96,7 @@ public class FirstBossMask : HookPointBase
     }
 
     public void RotateAroud(float _angularMaxSpeed , float _angularAccelerationTime) {
+        positionConstraint.enabled = true;
         AngularAccelerationModule = _angularMaxSpeed / _angularAccelerationTime;
         Drag = AngularAccelerationModule / _angularMaxSpeed * Time.deltaTime;
         AngularVelocity -= AngularVelocity * Drag;
@@ -105,19 +108,21 @@ public class FirstBossMask : HookPointBase
 
     public void DecelerateAround(float _angularDecelerationModule) {
         if (Mathf.Abs(AngularVelocity) > Mathf.Abs(_angularDecelerationModule) * Time.deltaTime) {
+            positionConstraint.enabled = true;
             AngularVelocity -= _angularDecelerationModule * Time.deltaTime;
             transform.eulerAngles += new Vector3(0, AngularVelocity * Time.deltaTime, 0);
             transform.position = new Vector3(boss.transform.position.x + currentRadius * Mathf.Sin((transform.eulerAngles.y) * Mathf.Deg2Rad), 1.375f, boss.transform.position.z + currentRadius * Mathf.Cos((transform.eulerAngles.y) * Mathf.Deg2Rad));
             VelocityVector = new Vector3((AngularVelocity * Mathf.PI / 180) * currentRadius * Mathf.Sin(transform.eulerAngles.x), 0, (AngularVelocity * Mathf.PI / 180) * currentRadius * Mathf.Cos(transform.eulerAngles.z));
         }
         else {
+            positionConstraint.enabled = false;
             AngularVelocity = 0;
             VelocityVector = Vector3.zero;
         }
     }
 
     public void RotationReset() {
-
+        positionConstraint.enabled = false;
         AngularVelocity = 0;
         VelocityVector = Vector3.zero;
         DecelerationVector = Vector3.zero;
@@ -164,8 +169,8 @@ public class FirstBossMask : HookPointBase
             currentLife -= player.DPS * Time.fixedDeltaTime;
         }
 
-        if (currentLife < 0) {
-            
+        if (currentLife <= 0) {
+
             if (BreakPointsCount < graphics.Length) {
 
                 if (BreakPointsCount == graphics.Length-1 && transform.childCount > 0 && currentLife < 0) {
@@ -173,11 +178,12 @@ public class FirstBossMask : HookPointBase
                     transform.GetChild(0).gameObject.transform.position = hook.transform.position;
                 }
                 else {
-                    Destroy(transform.GetChild(0).gameObject);
+                    Destroy(transform.GetChild(1).gameObject);
                 }
 
                 BreakPointsCount++;
                 currentLife = BreakPoints[BreakPointsCount].lifeMax; //ERRORE DOVUTO ALL'AGGIORNAMENTO DI BREAKPOINTS COUNT DOPO AVER ELIMINATO L'ULTIMA VITA DELLA MASCHERA
+                
                 GameObject mask = Instantiate(graphics[BreakPointsCount].gameObject , transform.position - new Vector3(0, 1.375f, 0), transform.rotation);
                 mask.transform.SetParent(transform);
                 //ParticleSystem particle = Instantiate(particles[BreakPointsCount-1] as ParticleSystem, transform.position, Quaternion.identity);
