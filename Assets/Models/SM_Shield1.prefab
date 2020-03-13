@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3716395611279505189}
   - component: {fileID: 3716395611280635365}
   m_Layer: 0
-  m_Name: SM_Shield
+  m_Name: SM_Shield1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c389dd45344b63e48a116e419c6c3169, type: 2}
+  - {fileID: 2100000, guid: dcf3a6ce85b68c449b0a3397aa513a6a, type: 2}
   - {fileID: 2100000, guid: 0fd1be8a212def64f8b56bef2d737756, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
