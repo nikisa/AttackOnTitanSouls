@@ -111,7 +111,7 @@ MonoBehaviour:
     m_Value: 1
   fogType:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 2
 --- !u!114 &114527594671542966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
   active: 1
   maxShadowDistance:
     m_OverrideState: 1
-    m_Value: 60
+    m_Value: 144
     min: 0
   cascadeShadowSplitCount:
     m_OverrideState: 1
