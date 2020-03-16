@@ -55,7 +55,8 @@ public class FirstBossChaseState : FirstBossState
         boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
         animator.SetBool("ChaseOrbit", false);
-        animator.SetInteger("Layer", layerResult);
+        //animator.SetInteger("Layer", layerResult);
+        boss.animator.SetInteger("Layer", 0);
 
     }
 

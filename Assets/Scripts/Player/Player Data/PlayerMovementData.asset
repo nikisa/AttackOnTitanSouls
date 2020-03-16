@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PlayerMovementData
   m_EditorClassIdentifier: 
   isHookTest: 0
-  maxSpeed: 18
+  maxSpeed: 100
   AccelerationTime: 0.1

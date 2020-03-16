@@ -28,6 +28,8 @@ public class BossController : MovementBase
     public GameObject Target;
     [HideInInspector]
     public float CycleTimer;
+    [HideInInspector]
+    public Collider CollidedObjectCollider;
 
     //Private
     int HookPointLayerMask;
@@ -48,7 +50,10 @@ public class BossController : MovementBase
 
     private void Update() {
         transform.position = new Vector3(transform.position.x , bossY , transform.position.z);
-        
+
+        Debug.DrawRay(transform.position, AccelerationVector, Color.red, .03f);
+        Debug.DrawRay(transform.position, VelocityVector, Color.blue, .03f);
+
     }
 
 
@@ -92,6 +97,8 @@ public class BossController : MovementBase
             return hits[0].collider.gameObject.layer;
         }
     }
+
+
 
     #region FUNCTIONS CEMETERY
 

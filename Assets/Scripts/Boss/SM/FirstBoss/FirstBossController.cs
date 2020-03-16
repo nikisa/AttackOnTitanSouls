@@ -6,14 +6,14 @@ public class FirstBossController : BossController
 {
     //Inspector
     public BossOrbitManager bossOrbitManager;
-    public GameObject BouncePointC;
-    public GameObject BouncePointB;
-    
+    public float RotationVelocity;
 
     //Public
     [HideInInspector]
     public float vectorAngle;
-    
+    [HideInInspector]
+    public FirstBossMask firstBossMask;
+
 
     //[HideInInspector]
     public int loops;
@@ -23,7 +23,7 @@ public class FirstBossController : BossController
     protected override void Start() {
         base.Start();
         foreach (var item in animator.GetBehaviours<FirstBossState>()) {
-            item.SetContext(this, animator , bossOrbitManager);
+            item.SetContext(this, firstBossMask , animator , bossOrbitManager);
         }
 
     }

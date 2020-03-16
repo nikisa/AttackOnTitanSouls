@@ -16,7 +16,5 @@ MonoBehaviour:
   OrbitTag: 0
   impactFreeze: 0
   shakeMagnitude: 0
-  kinetikEnergyLoss: 0.15
-  WaitOnStart: 0
-  Deceleration: 10
-  BounceAngle: -45
+  kinetikEnergyLoss: 0.2
+  surfaceFriction: 0.2

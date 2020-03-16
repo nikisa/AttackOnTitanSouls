@@ -6,7 +6,7 @@ public class FirtsBossDecelerationState : FirstBossState
 {
     //Inspector
     public DecelerationData decelerationData;
-    public bool Debugging;
+    public BounceDecelerationData bounceDecelerationData;
 
     //Private
     int wallLayer;
@@ -32,10 +32,12 @@ public class FirtsBossDecelerationState : FirstBossState
     {
 
         Vector3 nextPosition = boss.transform.position + (boss.MoveSpeed * Time.deltaTime) * boss.transform.forward;
+
         if (boss.DetectCollision(nextPosition) == wallLayer)
         {
             animator.SetTrigger("Collision");
         }
+
     }
 
 
@@ -54,6 +56,9 @@ public class FirtsBossDecelerationState : FirstBossState
     {
         boss.DecelerationModule = decelerationData.Deceleration;
 
+        //
+
+
         if (boss.VelocityVector.magnitude > boss.DecelerationModule * Time.deltaTime)
         {
             boss.Deceleration();
@@ -63,16 +68,6 @@ public class FirtsBossDecelerationState : FirstBossState
             boss.VelocityVector = Vector3.zero;
             animator.SetTrigger(END_STATE_TRIGGER);
         }
-
-
-        if (Debugging)
-        {
-            Debug.DrawLine(boss.transform.position, boss.transform.position + boss.AccelerationVector, Color.red, .02f);
-            Debug.DrawLine(boss.transform.position, boss.transform.position + boss.VelocityVector, Color.blue, .02f);
-            //Debug.DrawLine(transform.position, Player.transform.position, Color.green, .02f);
-            //Debug.DrawLine(boss.transform.position, boss.MaxSpeedVector, Color.green, .5f);
-        }
-
     }
 
     public void setChaseRadius()

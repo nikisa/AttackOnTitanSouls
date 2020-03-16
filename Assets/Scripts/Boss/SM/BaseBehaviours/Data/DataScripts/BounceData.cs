@@ -9,7 +9,10 @@ public class BounceData : BaseData
     public float shakeMagnitude;
     [Range(0,1)]
     public float kinetikEnergyLoss;
-    public float WaitOnStart;
-    public float Deceleration;
-    public float BounceAngle;
+    [Range(0,1)]
+    public float surfaceFriction;
+
+    //public float WaitOnStart;
+    //public float Deceleration;
+    //public float BounceAngle;
 }

@@ -7,6 +7,7 @@ public class FirstBossState : BaseState
 
     protected BossOrbitManager bossOrbitManager;
     protected FirstBossController boss;
+    protected FirstBossMask bossMask;
 
     //SateMachine Parameters
     protected const string IDLE = "Idle";
@@ -38,10 +39,11 @@ public class FirstBossState : BaseState
     }
 
 
-    public void SetContext(object context, Animator animator, BossOrbitManager bossOrbitManager)
+    public void SetContext(object context, object secondContext , Animator animator, BossOrbitManager bossOrbitManager)
     {
         //base.SetContext(context, animator , bossOrbitManager);
         boss = context as FirstBossController;
+        bossMask = secondContext as FirstBossMask;
         this.animator = animator;
         this.bossOrbitManager = bossOrbitManager;
 
