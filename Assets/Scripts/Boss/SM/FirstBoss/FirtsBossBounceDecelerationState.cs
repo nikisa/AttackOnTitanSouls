@@ -23,6 +23,7 @@ public class FirtsBossBounceDecelerationState : FirstBossState
         CollisionTick();
         setChaseRadius();
         Deceleration();
+        BounceDeceleration();
         SetCycleTimer();
     }
 
@@ -50,13 +51,25 @@ public class FirtsBossBounceDecelerationState : FirstBossState
     public void Deceleration() {
         boss.DecelerationModule = decelerationData.Deceleration;
 
-        //Deceleration BounceVector
-
         if (boss.VelocityVector.magnitude > boss.DecelerationModule * Time.deltaTime) {
             boss.Deceleration();
+
         }
         else {
             boss.VelocityVector = Vector3.zero;
+            animator.SetTrigger(END_STATE_TRIGGER);
+        }
+    }
+
+    public void BounceDeceleration() {
+        boss.DecelerationModule = bounceDecelerationData.ImpulseDeceleration;
+        
+        if (boss.BounceVector.magnitude > boss.DecelerationModule * Time.deltaTime) {
+            Debug.Log("BV: " + boss.BounceVector.magnitude);
+            boss.BounceDeceleration();
+        }
+        else {
+            boss.BounceVector = Vector3.zero;
             animator.SetTrigger(END_STATE_TRIGGER);
         }
     }

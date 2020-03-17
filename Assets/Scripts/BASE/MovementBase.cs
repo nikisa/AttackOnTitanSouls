@@ -27,6 +27,8 @@ public class MovementBase : MonoBehaviour
     [HideInInspector]
     public Vector3 VelocityVector;
     [HideInInspector]
+    public Vector3 BounceVector;
+    [HideInInspector]
     public float Drag;
     [HideInInspector]
     public float DecelerationModule;
@@ -84,22 +86,17 @@ public class MovementBase : MonoBehaviour
         CharacterController.Move(move + Vector3.down * gravity);
     }
 
-    //public void BounceDeceleration(Vector3 _targetDir, float _maxSpeed, float _accelerationModule) {
+    public void BounceDeceleration() {
 
-    //    Vector3 accelerationVectorTemp = _targetDir;
-    //    accelerationVectorTemp.y = 0;
-    //    AccelerationVector = accelerationVectorTemp.normalized * _accelerationModule;
-    //    Drag = _accelerationModule / _maxSpeed * Time.deltaTime;
-    //    VelocityVector -= VelocityVector * Drag;
-    //    move = VelocityVector * Time.deltaTime - 0.5f * AccelerationVector * Mathf.Pow(Time.deltaTime, 2); //Formula completa per un buon effetto fin dal primo frame
-    //    nextPosition = transform.position + move;
-    //    VelocityVector += AccelerationVector * Time.deltaTime;
-    //    CharacterController.Move(move + Vector3.down * gravity);
+        float vectorAngle = Vector3.SignedAngle(Vector3.forward, BounceVector.normalized, Vector3.up) * Mathf.Deg2Rad;
+        DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
 
-    //    //Debug.DrawRay(transform.position, VelocityVector, Color.blue, 0.2f);
-    //    //Debug.DrawRay(transform.position, AccelerationVector, Color.red, 0.2f);
+        BounceVector -= DecelerationVector * Time.deltaTime;
+        move = BounceVector * Time.deltaTime;
+        CharacterController.Move(move + Vector3.down * gravity);
 
-    //}
+        Debug.DrawRay(transform.position, BounceVector, Color.black, .03f);
+    }
 
 
     public void MovementReset() {

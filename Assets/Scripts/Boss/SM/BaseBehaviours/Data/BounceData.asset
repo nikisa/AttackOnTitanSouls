@@ -16,5 +16,6 @@ MonoBehaviour:
   OrbitTag: 0
   impactFreeze: 0
   shakeMagnitude: 0
+  impulseDeltaTime: 0.03
   kinetikEnergyLoss: 0.2
   surfaceFriction: 0.2

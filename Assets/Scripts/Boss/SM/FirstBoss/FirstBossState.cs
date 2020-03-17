@@ -19,7 +19,7 @@ public class FirstBossState : BaseState
     protected const string END_STATE_TRIGGER = "EndState";
     protected const string TIMER = "Timer";
 
-    float timer = 0;
+    protected float timer = 0;
     int layerResult = 0;
 
 

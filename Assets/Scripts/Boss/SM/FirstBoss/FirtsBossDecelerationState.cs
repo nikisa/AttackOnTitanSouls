@@ -56,9 +56,6 @@ public class FirtsBossDecelerationState : FirstBossState
     {
         boss.DecelerationModule = decelerationData.Deceleration;
 
-        //
-
-
         if (boss.VelocityVector.magnitude > boss.DecelerationModule * Time.deltaTime)
         {
             boss.Deceleration();

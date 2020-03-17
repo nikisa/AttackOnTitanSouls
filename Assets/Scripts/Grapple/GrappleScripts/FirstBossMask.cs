@@ -45,8 +45,6 @@ public class FirstBossMask : HookPointBase {
     public float distanceFromBoss;
     [HideInInspector]
     public bool isDetected; //Used for the reassemble statement
-    [HideInInspector]
-    public Vector3 bounceVector;
 
     //Private
     PositionConstraint positionConstraint;
@@ -260,20 +258,20 @@ public class FirstBossMask : HookPointBase {
         collisionVectorPerp = Vector3.ProjectOnPlane(collidingObject.VelocityVector, -normal);
 
         //Bounce formula
-        bounceVector = (vectorParal * (Mass - collidingObject.Mass) + 2 * collidingObject.Mass * collisionVectorParal) / (Mass + collidingObject.Mass);
-        bounceVector *= 1 - KineticEnergyLoss;
+        boss.BounceVector = (vectorParal * (Mass - collidingObject.Mass) + 2 * collidingObject.Mass * collisionVectorParal) / (Mass + collidingObject.Mass);
+        boss.BounceVector *= 1 - KineticEnergyLoss;
 
-        bounceVector += vectorPerp * (1 - KineticEnergyLoss);
+        boss.BounceVector += vectorPerp * (1 - KineticEnergyLoss);
         normal = (transform.localPosition - fakeCollidingObjectPosition).normalized;
 
-        bounceVector = (collisionVectorParal * (collidingObject.Mass - Mass) + 2 * Mass * vectorParal) / (collidingObject.Mass + Mass);
-        collidingObject.VelocityVector = (bounceVector * (1 - collidingObject.KineticEnergyLoss)) + collisionVectorPerp * (1 - collidingObject.SurfaceFriction);
+        boss.BounceVector = (collisionVectorParal * (collidingObject.Mass - Mass) + 2 * Mass * vectorParal) / (collidingObject.Mass + Mass);
+        collidingObject.VelocityVector = (boss.BounceVector * (1 - collidingObject.KineticEnergyLoss)) + collisionVectorPerp * (1 - collidingObject.SurfaceFriction);
 
         Vector3 fakeMaskPosition = new Vector3(transform.localPosition.x, boss.transform.localPosition.y, transform.localPosition.z);
         normal = fakeMaskPosition - boss.transform.localPosition;
 
-        vectorParal = Vector3.Project(bounceVector, normal);
-        vectorPerp = Vector3.ProjectOnPlane(bounceVector, normal);
+        vectorParal = Vector3.Project(boss.BounceVector, normal);
+        vectorPerp = Vector3.ProjectOnPlane(boss.BounceVector, normal);
 
         boss.VelocityVector += vectorParal;
 
@@ -302,14 +300,14 @@ public class FirstBossMask : HookPointBase {
         //Bounce formula
 
         //Per il muro non serve andare a vedere la sua massa , ma basta dare la stessa massa dell'oggetto che urta
-        bounceVector = (-2 * Mass * vectorParal) / (2 * Mass);
-        bounceVector *= 1 - KineticEnergyLoss;
+        boss.BounceVector = (-2 * Mass * vectorParal) / (2 * Mass);
+        boss.BounceVector *= 1 - KineticEnergyLoss;
 
         Vector3 fakeMaskPosition = new Vector3(transform.position.x, boss.transform.position.y, transform.position.z);
         normal = fakeMaskPosition - boss.transform.position;
 
-        vectorParal = Vector3.Project(bounceVector, normal);
-        vectorPerp = Vector3.ProjectOnPlane(bounceVector, normal);
+        vectorParal = Vector3.Project(boss.BounceVector, normal);
+        vectorPerp = Vector3.ProjectOnPlane(boss.BounceVector, normal);
 
         //Se c'è possibilità di stun allora:
         boss.VelocityVector = vectorParal;
@@ -346,7 +344,7 @@ public class FirstBossMask : HookPointBase {
 
     }
 
-    public void MaskBounceWall(Collider collider , float _kineticEnergyLoss , float _surfaceFriction) {
+    public void MaskBounceWall(Collider collider , float _kineticEnergyLoss , float _surfaceFriction , float _impulseDeltaTime) {
 
         #region NewBounce 
 
@@ -363,9 +361,9 @@ public class FirstBossMask : HookPointBase {
         //Debug.DrawRay(transform.position, vectorPerp, Color.cyan, 5);
 
         //Per il muro non serve andare a vedere la sua massa , ma basta dare la stessa massa dell'oggetto che urta
-        bounceVector = (-2 * Mass * (vectorParal) / (2 * Mass));
+        boss.BounceVector = (-2 * Mass * (vectorParal) / (2 * Mass));
 
-        plusAngle = AngularVelocity * Time.deltaTime * vectorPerp.magnitude / VelocityVector.magnitude;
+        plusAngle = AngularVelocity * _impulseDeltaTime;
 
         boss.transform.RotateAround(transform.position, Vector3.up, plusAngle);
 
@@ -375,12 +373,13 @@ public class FirstBossMask : HookPointBase {
         Vector3 newBounceVector = (-2 * Mass * (bossVectorParal) / (2 * Mass));
 
         Debug.DrawRay(boss.transform.position, newBounceVector , Color.green, 1f);
-        Debug.DrawRay(boss.transform.position, bounceVector , Color.black, 1f);
+        Debug.DrawRay(boss.transform.position, boss.BounceVector, Color.black, .03f);
         Debug.DrawRay(boss.transform.position, bossVectorPerp , Color.cyan, 1f);
 
         boss.VelocityVector = (newBounceVector + bossVectorPerp) * (1 - _kineticEnergyLoss);
+        boss.VelocityVector = Quaternion.AngleAxis(plusAngle , Vector3.up) * boss.VelocityVector;
         boss.AccelerationVector = boss.VelocityVector.normalized * boss.AccelerationVector.magnitude;
-        bounceVector *= (1 - _kineticEnergyLoss) * Mass / boss.Mass;
+        boss.BounceVector *= (1 - _kineticEnergyLoss); /** Mass / boss.Mass;*/
 
 
         AngularVelocity *= -(1 - _surfaceFriction); //angularMaxSpeed * (1 - SurfaceFriction) * vectorPerp.magnitude / VelocityVector.magnitude; 
@@ -391,7 +390,10 @@ public class FirstBossMask : HookPointBase {
         //Debug.DrawRay(boss.transform.position, boss.VelocityVector, Color.blue, .03f);
 
         //Debug.Log("VectorPerp: " + vectorPerp);
+        Debug.Log("PA: " + plusAngle);
 
     }
+
+
     #endregion
 }

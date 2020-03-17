@@ -52,13 +52,17 @@ public class FirstBossBounceState : FirstBossState
         //OldBounceEnter();
         #endregion
 
-        bossMask.MaskBounceWall(boss.CollidedObjectCollider, bounceData.kinetikEnergyLoss, bounceData.surfaceFriction);
+        bossMask.MaskBounceWall(boss.CollidedObjectCollider, bounceData.kinetikEnergyLoss, bounceData.surfaceFriction , bounceData.impulseDeltaTime);
+
 
     }
 
     public override void Tick() {
         base.Tick();
-        //SetCycleTimer();
+
+        if (timer > bounceData.impulseDeltaTime) {
+            animator.SetTrigger(END_STATE_TRIGGER);
+        }
 
         
         

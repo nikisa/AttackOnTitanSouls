@@ -7,6 +7,7 @@ public class BounceData : BaseData
 {
     public float impactFreeze;
     public float shakeMagnitude;
+    public float impulseDeltaTime;
     [Range(0,1)]
     public float kinetikEnergyLoss;
     [Range(0,1)]
