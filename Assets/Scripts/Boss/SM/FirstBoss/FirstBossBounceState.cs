@@ -51,9 +51,19 @@ public class FirstBossBounceState : FirstBossState
 
         //OldBounceEnter();
         #endregion
+        boss.timerMaskCollision = Time.time;
 
-        bossMask.MaskBounceWall(boss.CollidedObjectCollider, bounceData.kinetikEnergyLoss, bounceData.surfaceFriction , bounceData.impulseDeltaTime);
-
+        for (int i = 0; i < bossOrbitManager.MasksList.Count; i++) {
+            if (bossOrbitManager.MasksList[i] != null) {
+                if (animator.GetInteger("Layer") == 10) {
+                    bossOrbitManager.MasksList[i].MaskBounceWall(boss.CollidedObjectCollider, bounceData.kinetikEnergyLoss, bounceData.surfaceFriction, bounceData.impulseDeltaTime);
+                }
+                else if (animator.GetInteger("Layer") == 11) {
+                    bossOrbitManager.MasksList[i].BounceMovement(boss.CollidedObjectCollider, bounceData.kinetikEnergyLoss, bounceData.surfaceFriction, bounceData.impulseDeltaTime);
+                }
+            }
+        }
+        animator.SetInteger("Layer", 0);
 
     }
 
@@ -64,11 +74,10 @@ public class FirstBossBounceState : FirstBossState
             animator.SetTrigger(END_STATE_TRIGGER);
         }
 
-        
-        
     }
 
     public override void Exit() {
+        
         #region OldBounce Exit
         //layerResult = 0;
         //animator.SetInteger("Layer", layerResult);

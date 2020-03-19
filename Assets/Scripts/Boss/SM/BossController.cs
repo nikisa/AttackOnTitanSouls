@@ -56,18 +56,18 @@ public class BossController : MovementBase
 
     }
 
+    //Bounce del Boss (no maschere)
+    //private void OnControllerColliderHit(ControllerColliderHit hit) {
+    //    if (hit.collider.GetComponent<MovementBase>() && !hit.collider.GetComponent<BossController>()) {
+    //        //BounceMovement(hit);
+    //    }
 
-    private void OnControllerColliderHit(ControllerColliderHit hit) {
-        if (hit.collider.GetComponent<MovementBase>() && !hit.collider.GetComponent<BossController>()) {
-            //BounceMovement(hit);
-        }
-
-        if (hit.collider.tag == "Walls") {
-            animator.SetInteger("Layer", 10);
-            WallBounce(hit);
-            animator.SetInteger("Layer", 0);
-        }
-    }
+    //    if (hit.collider.tag == "Walls") {
+    //        animator.SetInteger("Layer", 10);
+    //        WallBounce(hit);
+    //        animator.SetInteger("Layer", 0);
+    //    }
+    //}
 
 
     // Logic rotation of the boss based on the target direction

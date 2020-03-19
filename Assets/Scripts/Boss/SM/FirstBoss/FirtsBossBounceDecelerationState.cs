@@ -12,9 +12,10 @@ public class FirtsBossBounceDecelerationState : FirstBossState
     int wallLayer;
 
     public override void Enter() {
-
         base.Enter();
+        boss.DecelerationModule = decelerationData.Deceleration;
         wallLayer = 10;
+        animator.SetInteger("Layer", 0);
     }
     public override void Tick() {
 
@@ -39,6 +40,7 @@ public class FirtsBossBounceDecelerationState : FirstBossState
 
 
     public override void Exit() {
+        
         boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
     }
@@ -49,7 +51,7 @@ public class FirtsBossBounceDecelerationState : FirstBossState
     }
 
     public void Deceleration() {
-        boss.DecelerationModule = decelerationData.Deceleration;
+        
 
         if (boss.VelocityVector.magnitude > boss.DecelerationModule * Time.deltaTime) {
             boss.Deceleration();
@@ -65,7 +67,6 @@ public class FirtsBossBounceDecelerationState : FirstBossState
         boss.DecelerationModule = bounceDecelerationData.ImpulseDeceleration;
         
         if (boss.BounceVector.magnitude > boss.DecelerationModule * Time.deltaTime) {
-            Debug.Log("BV: " + boss.BounceVector.magnitude);
             boss.BounceDeceleration();
         }
         else {

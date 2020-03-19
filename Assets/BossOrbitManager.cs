@@ -10,20 +10,20 @@ public class BossOrbitManager : MonoBehaviour
     public static MaskEvent ChangedStateEvent;
     
     public delegate void MaskBounceEvent(Collider collider);
-    public static MaskBounceEvent BounceMasks;
-    public static MaskBounceEvent BounceMasksOnWall;
+    //public static MaskBounceEvent BounceMasks;
+    //public static MaskBounceEvent BounceMasksOnWall;
 
 
     private void OnEnable() {
         ChangedStateEvent += StopMaskMovement;
-        BounceMasks += AllMasksBounce;
-        BounceMasksOnWall += AllMasksBounceOnWall;
+        //BounceMasks += AllMasksBounce;
+        //BounceMasksOnWall += AllMasksBounceOnWall;
     }
 
     private void OnDisable() {
         ChangedStateEvent -= StopMaskMovement;
         //BounceMasks -= AllMasksBounce;
-        BounceMasksOnWall -= AllMasksBounceOnWall;
+        //BounceMasksOnWall -= AllMasksBounceOnWall;
     }
 
     //Inspector
@@ -126,16 +126,17 @@ public class BossOrbitManager : MonoBehaviour
         /// e passarlo a tutte le altre maschere
 
 
-        for (int i = 0; i < MasksList.Count; i++) {
-            MasksList[i].BounceMovement(collider);
-        }
+        //for (int i = 0; i < MasksList.Count; i++) {
+        // MasksList[i].BounceMovement(collider );
+        //}
+
     }
 
     public void AllMasksBounceOnWall(Collider collider) {
 
-        for (int i = 0; i < MasksList.Count; i++) {
-            MasksList[i].WallBounce(collider);
-        }
+        //for (int i = 0; i < MasksList.Count; i++) {
+        //    MasksList[i].MaskBounceWall(boss.CollidedObjectCollider, bounceData.kinetikEnergyLoss, bounceData.surfaceFriction, bounceData.impulseDeltaTime);
+        //}
     }
 
     public bool checkCorrectPosition(int _index , int _id) {

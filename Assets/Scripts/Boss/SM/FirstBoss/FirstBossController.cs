@@ -6,9 +6,13 @@ public class FirstBossController : BossController
 {
     //Inspector
     public BossOrbitManager bossOrbitManager;
-    public float RotationVelocity;
+    public float minBounceVector;
+    public float maxBounceVector;    
+    public float ActiveMaskCollisionTime;
 
     //Public
+    [HideInInspector]
+    public float timerMaskCollision;
     [HideInInspector]
     public float vectorAngle;
     [HideInInspector]
