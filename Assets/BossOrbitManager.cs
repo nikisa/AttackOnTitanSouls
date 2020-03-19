@@ -35,9 +35,9 @@ public class BossOrbitManager : MonoBehaviour
     //public AnimationCurve Curve;
 
     //Public
-    //[HideInInspector]
+    [HideInInspector]
     public List<GameObject> EndPoints;
-    //[HideInInspector]
+    [HideInInspector]
     public List<GameObject> InitialPoints;
     //[HideInInspector]
     //public List<OrbitData> OrbitDataList;
@@ -53,6 +53,12 @@ public class BossOrbitManager : MonoBehaviour
     public List<OrbitManagerData> OrbitManagerDataList;
     [HideInInspector]
     public float distanceFromBoss;
+    [HideInInspector]
+    public int hitMaskIndex;
+
+    // n oggetto hittato 1 = wall , 2 = player 
+    [HideInInspector]
+    public int ObjHit;
 
     //Private
     bool hasFinished;

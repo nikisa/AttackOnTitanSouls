@@ -53,16 +53,24 @@ public class FirstBossBounceState : FirstBossState
         #endregion
         boss.timerMaskCollision = Time.time;
 
-        for (int i = 0; i < bossOrbitManager.MasksList.Count; i++) {
-            if (bossOrbitManager.MasksList[i] != null) {
-                if (animator.GetInteger("Layer") == 10) {
-                    bossOrbitManager.MasksList[i].MaskBounceWall(boss.CollidedObjectCollider, bounceData.kinetikEnergyLoss, bounceData.surfaceFriction, bounceData.impulseDeltaTime);
-                }
-                else if (animator.GetInteger("Layer") == 11) {
-                    bossOrbitManager.MasksList[i].BounceMovement(boss.CollidedObjectCollider, bounceData.kinetikEnergyLoss, bounceData.surfaceFriction, bounceData.impulseDeltaTime);
+
+        if (bossOrbitManager.MasksList[bossOrbitManager.hitMaskIndex] != null) {
+            if (bossOrbitManager.ObjHit == 1) {
+                bossOrbitManager.MasksList[bossOrbitManager.hitMaskIndex].MaskBounceWall(boss.CollidedObjectCollider, bounceData.kinetikEnergyLoss, bounceData.surfaceFriction, bounceData.impulseDeltaTime);
+            }
+            else if (bossOrbitManager.ObjHit == 2) {
+                bossOrbitManager.MasksList[bossOrbitManager.hitMaskIndex].BounceMovement(boss.CollidedObjectCollider, bounceData.kinetikEnergyLoss, bounceData.surfaceFriction, bounceData.impulseDeltaTime);
+            }
+
+
+            for (int i = 0; i < bossOrbitManager.MasksList.Count; i++) {
+                if (bossOrbitManager.MasksList[i] != null) {
+                    bossOrbitManager.MasksList[i].UpdateAngularVelocity(bounceData.surfaceFriction);
                 }
             }
         }
+
+        bossOrbitManager.hitMaskIndex = 0;
         animator.SetInteger("Layer", 0);
 
     }

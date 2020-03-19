@@ -276,8 +276,6 @@ public class FirstBossMask : HookPointBase {
 
         boss.VelocityVector += vectorParal;
 
-        AngularVelocity *= -(1 - _surfaceFriction);
-
         //AngularVelocity = ((vectorPerp.magnitude * Mathf.Rad2Deg) / currentRadius) * Mathf.Sign(-AngularVelocity /*(Mass * VelocityVector.sqrMagnitude) - (Player.mass * VelocityVector.sqrMagnitude)*/);
 
         //Debug.DrawRay(boss.transform.position, boss.VelocityVector, Color.red, 0.2f);
@@ -336,13 +334,17 @@ public class FirstBossMask : HookPointBase {
             //BossOrbitManager.BounceMasks(collider);
             if (collider.GetComponent<PlayerController>()) {
                 collider.GetComponent<PlayerController>().animator.SetTrigger("Stunned");
+                boss.animator.SetInteger("Layer", 11);
+                bossOrbitManager.ObjHit = 2;
             }
-            boss.animator.SetInteger("Layer", 11);
+            
         }
 
 
         if (collider.tag == "Walls" /*&& (Time.time - boss.timerMaskCollision) > boss.ActiveMaskCollisionTime*/) {
             boss.animator.SetInteger("Layer", 10);
+            bossOrbitManager.hitMaskIndex = MaskID;
+            bossOrbitManager.ObjHit = 1;
         }
 
     }
@@ -350,6 +352,8 @@ public class FirstBossMask : HookPointBase {
 
     //Bounce tra Boss e Wall
     public void MaskBounceWall(Collider collider , float _kineticEnergyLoss , float _surfaceFriction , float _impulseDeltaTime) {
+
+        Debug.Log("MaskBounceWall");
 
         #region NewBounce 
 
@@ -386,7 +390,7 @@ public class FirstBossMask : HookPointBase {
             boss.BounceVector = Mathf.Clamp(boss.BounceVector.magnitude, boss.minBounceVector, boss.maxBounceVector) * boss.BounceVector.normalized;
             Debug.Log("BVM: " + boss.BounceVector.magnitude);
 
-            AngularVelocity *= -(1 - _surfaceFriction); //angularMaxSpeed * (1 - SurfaceFriction) * vectorPerp.magnitude / VelocityVector.magnitude; 
+            
 
             //Debug.DrawRay(boss.transform.position, vectorParal, Color.blue, .16f);
 
@@ -395,6 +399,9 @@ public class FirstBossMask : HookPointBase {
 
     }
 
+    public void UpdateAngularVelocity(float _surfaceFriction) {
+        AngularVelocity *= -(1 - _surfaceFriction);
+    }
 
     #endregion
 }
