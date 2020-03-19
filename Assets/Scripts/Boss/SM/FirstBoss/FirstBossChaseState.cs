@@ -64,7 +64,7 @@ public class FirstBossChaseState : FirstBossState
     {
         timeStartAcceleration = Time.time;
         //boss.VelocityVector = Vector3.zero;
-        boss.MovementReset();
+        //boss.MovementReset();
     }
 
     public void ChaseEnter()
@@ -77,7 +77,7 @@ public class FirstBossChaseState : FirstBossState
     //Chase the target
     public void ChaseTick()
     {
-        layerCollision = boss.DetectCollision(boss.nextPosition);
+        //layerCollision = boss.DetectCollision(boss.nextPosition);
         targetDir = Target.transform.position - boss.transform.position;
 
         if (layerCollision == layerWall && boss.VelocityVector.magnitude > 5) {

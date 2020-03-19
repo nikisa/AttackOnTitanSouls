@@ -31,6 +31,11 @@ public class HookedState : GrappleBaseState
                 animator.SetTrigger("Rewind");
             }
 
+            if (Input.GetAxis("Rewind") >= 0.9f) {
+                Debug.Log("REWINDING");
+                animator.SetTrigger("Rewind");
+            }
+
         }
         else {
             //grappleManager.hookPoint.isHooked = false;

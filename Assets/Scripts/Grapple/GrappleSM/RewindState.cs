@@ -11,9 +11,14 @@ public class RewindState : GrappleBaseState
 
     public override void Tick() {
 
-        while (grappleManager.hook.shooted) {
+        if(grappleManager.hook.shooted)
             grappleManager.RewindPoints();
+
+        if (Input.GetAxis("Rewind") < 0.9f) {
+            Debug.Log("STOP REWINDING");
+            animator.SetTrigger("Hooked");
         }
+
 
         if (!grappleManager.hook.shooted) {
             animator.SetTrigger("RolledUp");

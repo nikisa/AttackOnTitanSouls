@@ -33,7 +33,11 @@ public class MovementBase : MonoBehaviour
     [HideInInspector]
     public float DecelerationModule;
     [HideInInspector]
+    public float BounceDecelerationModule;
+    [HideInInspector]
     public Vector3 DecelerationVector;
+    [HideInInspector]
+    public Vector3 BounceDecelerationVector;
     [HideInInspector]
     public Vector3 targetDir;
     [HideInInspector]
@@ -89,9 +93,9 @@ public class MovementBase : MonoBehaviour
     public void BounceDeceleration() {
 
         float vectorAngle = Vector3.SignedAngle(Vector3.forward, BounceVector.normalized, Vector3.up) * Mathf.Deg2Rad;
-        DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
+        BounceDecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * BounceDecelerationModule, 0, Mathf.Cos(vectorAngle) * BounceDecelerationModule);
 
-        BounceVector -= DecelerationVector * Time.deltaTime;
+        BounceVector -= BounceDecelerationVector * Time.deltaTime;
         move = BounceVector * Time.deltaTime;
         CharacterController.Move(move + Vector3.down * gravity);
 

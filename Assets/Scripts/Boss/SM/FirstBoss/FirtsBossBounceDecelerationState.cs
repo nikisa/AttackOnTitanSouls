@@ -14,6 +14,7 @@ public class FirtsBossBounceDecelerationState : FirstBossState
     public override void Enter() {
         base.Enter();
         boss.DecelerationModule = decelerationData.Deceleration;
+        boss.BounceDecelerationModule = bounceDecelerationData.ImpulseDeceleration;
         wallLayer = 10;
         animator.SetInteger("Layer", 0);
     }
@@ -26,6 +27,7 @@ public class FirtsBossBounceDecelerationState : FirstBossState
         Deceleration();
         BounceDeceleration();
         SetCycleTimer();
+        Debug.Log("BOSS VV: " + boss.VelocityVector.magnitude);
     }
 
     public void CollisionTick() {
@@ -64,9 +66,9 @@ public class FirtsBossBounceDecelerationState : FirstBossState
     }
 
     public void BounceDeceleration() {
-        boss.DecelerationModule = bounceDecelerationData.ImpulseDeceleration;
+        boss.BounceDecelerationModule = bounceDecelerationData.ImpulseDeceleration;
         
-        if (boss.BounceVector.magnitude > boss.DecelerationModule * Time.deltaTime) {
+        if (boss.BounceVector.magnitude > boss.BounceDecelerationModule * Time.deltaTime) {
             boss.BounceDeceleration();
         }
         else {
