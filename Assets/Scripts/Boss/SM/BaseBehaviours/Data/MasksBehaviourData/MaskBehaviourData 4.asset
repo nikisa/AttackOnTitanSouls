@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Time: 0
   OrbitTag: 0
-  ID: 0
+  ID: 4
   AngularAccelerationTime: 2
   AngularMaxSpeed: 1080
   AngularDecelerationTime: 3
   isSetup: 1
-  SetupRadius: 3
-  HasDeltaRadius: 0
-  FinalRadius: 4
+  SetupRadius: 2
+  HasDeltaRadius: 1
+  FinalRadius: 3
   TravelTime: 2
   OrbitMoveToEase: 0

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LW_Decel_Chase
   m_EditorClassIdentifier: 
   Time: 0
-  OrbitTag: 0
-  Deceleration: 5
+  OrbitTag: 3
+  Deceleration: 45
   LowSpeed: 0
