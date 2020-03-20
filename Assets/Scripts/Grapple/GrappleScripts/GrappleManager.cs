@@ -308,8 +308,6 @@ public class GrappleManager : MonoBehaviour
         
     }
 
-    
-
     public void RewindPoints() {
         int pointsRewinded = 0;
         float springValue = 1;

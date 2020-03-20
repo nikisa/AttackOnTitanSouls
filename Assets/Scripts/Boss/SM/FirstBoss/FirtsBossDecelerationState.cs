@@ -9,36 +9,36 @@ public class FirtsBossDecelerationState : FirstBossState
     public BounceDecelerationData bounceDecelerationData;
 
     //Private
-    int wallLayer;
+    //int wallLayer;
 
     public override void Enter()
     {
 
         base.Enter();
-        wallLayer = 10;
+        //wallLayer = 10;
     }
     public override void Tick()
     {
 
         base.Tick();
 
-        CollisionTick();
+        //CollisionTick();
         setChaseRadius();
         Deceleration();
         SetCycleTimer();
     }
 
-    public void CollisionTick()
-    {
+    //public void CollisionTick()
+    //{
 
-        Vector3 nextPosition = boss.transform.position + (boss.MoveSpeed * Time.deltaTime) * boss.transform.forward;
+    //    Vector3 nextPosition = boss.transform.position + (boss.MoveSpeed * Time.deltaTime) * boss.transform.forward;
 
-        if (boss.DetectCollision(nextPosition) == wallLayer)
-        {
-            animator.SetTrigger("Collision");
-        }
+    //    if (boss.DetectCollision(nextPosition) == wallLayer)
+    //    {
+    //        animator.SetTrigger("Collision");
+    //    }
 
-    }
+    //}
 
 
     public override void Exit()
