@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState
 {
+    // 
+    public PlayerDashData playerDashData;
 
     //Private
     DataInput dataInput;
@@ -22,6 +24,17 @@ public class PlayerIdleState : PlayerBaseState
 
         if (player.checkDeadZone()) {
             animator.SetTrigger(MOVEMENT);
+        }
+        if (Time.time - player.timerDash > playerDashData.EnableDashAt)
+        {
+            player.canDash = true;
+        }
+
+        if (Input.GetButtonDown("Dash") && player.canDash)
+        {
+            player.canDash = false;
+            player.targetDir = player.body.transform.forward;
+            animator.SetTrigger(DASH);
         }
     }
 

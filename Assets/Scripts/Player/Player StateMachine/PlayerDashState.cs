@@ -13,7 +13,7 @@ public class PlayerDashState : PlayerBaseState
 
     public override void Enter() {
 
-        player.targetDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        
         timeStart = Time.time;
 
         player.SetDashVelocity(playerDashData.ActiveDashDistance, playerDashData.ActiveDashTime);

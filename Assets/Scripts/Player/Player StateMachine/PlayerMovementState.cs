@@ -57,8 +57,9 @@ public class PlayerMovementState : PlayerBaseState
 
             if (Input.GetButtonDown("Dash") && player.canDash)
             {
-                startDash = Time.time;
+           
                 player.canDash = false;
+                player.targetDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
                 animator.SetTrigger(DASH);
             }    
         }
