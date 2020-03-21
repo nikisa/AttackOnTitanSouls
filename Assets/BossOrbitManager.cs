@@ -74,20 +74,15 @@ public class BossOrbitManager : MonoBehaviour
 
     public void SetupMask(List<MaskBehaviourData> _maskBehaviourList) {
         for (int i = 0; i < MasksList.Count; i++) {
-            if (_maskBehaviourList[i].isSetup)
-            {
-            MasksList[i].SetRadius(_maskBehaviourList[i].SetupRadius);
+            for (int j = 0; j < _maskBehaviourList[i].MaskTargets.Count; j++) {
+                if (_maskBehaviourList[i].isSetup) {
+                    _maskBehaviourList[i].MaskTargets[j].instance.SetRadius(_maskBehaviourList[i].SetupRadius);
+                }
+
+                _maskBehaviourList[i].MaskTargets[j].instance.setAngularDecelerationModule(_maskBehaviourList[i].AngularMaxSpeed, _maskBehaviourList[i].AngularDecelerationTime);
             }
-            else {
-                MasksList[i].SetRadius(_maskBehaviourList[i].FinalRadius);
-            }
-            MasksList[i].setAngularDecelerationModule(_maskBehaviourList[i].AngularMaxSpeed , _maskBehaviourList[i].AngularDecelerationTime);
-            //if (_maskBehaviourList[i].HasDeltaRadius) {
-            //    MasksList[i].SetDistanceFromBoss(_maskBehaviourList[i].FinalRadius);
-            //}
-            //else {
-            //    MasksList[i].SetDistanceFromBoss(_maskBehaviourList[i].SetupRadius);
-            //}
+            
+            
         }
     }
 
@@ -103,8 +98,10 @@ public class BossOrbitManager : MonoBehaviour
     }
 
     public void RotationMask(List<MaskBehaviourData> _maskBehaviourList) {
-        for (int i = 0; i < MasksList.Count; i++) {
-            MasksList[i].RotateAroud(_maskBehaviourList[i].AngularMaxSpeed , _maskBehaviourList[i].AngularAccelerationTime);
+        for (int i = 0; i < _maskBehaviourList.Count; i++) {
+            for (int j = 0; j < _maskBehaviourList[i].MaskTargets.Count; j++) {
+                _maskBehaviourList[i].MaskTargets[j].instance.RotateAroud(_maskBehaviourList[i].AngularMaxSpeed, _maskBehaviourList[i].AngularAccelerationTime);
+            }
         }
     }
 
@@ -174,20 +171,21 @@ public class BossOrbitManager : MonoBehaviour
 
         float speed;
         float distance;
+        FirstBossMask currentMask;
 
-        for (int i = 0; i < MasksList.Count; i++) {
-            distance = _maskBehaviourList[i].FinalRadius - _maskBehaviourList[i].SetupRadius;
-            speed = distance / _maskBehaviourList[i].TravelTime * Time.deltaTime;
-            //MasksList[i].SetRadius(MasksList[i].currentRadius += speed);
-            //MasksList[i].currentRadius = Mathf.Clamp(MasksList[i].currentRadius, _maskBehaviourList[i].SetupRadius, _maskBehaviourList[i].FinalRadius);
-            if (_maskBehaviourList[i].HasDeltaRadius)
-            {
-            GetMaskById(_maskBehaviourList[i].ID).SetRadius(GetMaskById(_maskBehaviourList[i].ID).currentRadius += speed);
-            GetMaskById(_maskBehaviourList[i].ID).currentRadius = Mathf.Clamp(GetMaskById(_maskBehaviourList[i].ID).currentRadius, _maskBehaviourList[i].SetupRadius, _maskBehaviourList[i].FinalRadius);
+            for (int i = 0; i < _maskBehaviourList.Count; i++) {
+                for (int j = 0; j < _maskBehaviourList[i].MaskTargets.Count; j++) {
+
+                    currentMask = _maskBehaviourList[i].MaskTargets[j].instance;
+
+                    distance = Mathf.Abs(_maskBehaviourList[i].FinalRadius - (currentMask.currentRadius));
+                    speed = distance / _maskBehaviourList[i].TravelTime * Time.deltaTime;
+                    if (_maskBehaviourList[i].HasDeltaRadius) {
+                        currentMask.SetRadius(currentMask.currentRadius += speed);
+                        currentMask.currentRadius = Mathf.Clamp(currentMask.currentRadius, 0, _maskBehaviourList[i].FinalRadius);
+                    }
+                }
             }
-           //Debug.Log( Curve.Evaluate(Time.deltaTime) +"curvaaaaaaa");
-          
-        }
     }
     public void ResetVelocity()
     {

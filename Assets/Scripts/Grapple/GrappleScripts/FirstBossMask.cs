@@ -7,6 +7,7 @@ using UnityEngine.Animations;
 public class FirstBossMask : HookPointBase { 
 
     public int MaskID;
+    public MaskType MaskTarget;
     public float Mass;
     public FirstBossController boss;
     public Vector3 OldPos;
@@ -76,6 +77,7 @@ public class FirstBossMask : HookPointBase {
 
     private void Awake() {//da spostare quando ci sarà GameManager
         SetUp();
+        MaskTarget.instance = this;
     }
 
     private void Start() {

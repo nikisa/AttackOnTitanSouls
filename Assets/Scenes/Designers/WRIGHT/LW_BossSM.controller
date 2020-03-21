@@ -521,10 +521,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MasksBehaviourList:
   - {fileID: 11400000, guid: 07b2b6cefcce2b846aa3a0de5392c8ec, type: 2}
-  - {fileID: 11400000, guid: 07b2b6cefcce2b846aa3a0de5392c8ec, type: 2}
-  - {fileID: 11400000, guid: 07b2b6cefcce2b846aa3a0de5392c8ec, type: 2}
-  - {fileID: 11400000, guid: 07b2b6cefcce2b846aa3a0de5392c8ec, type: 2}
-  - {fileID: 11400000, guid: 07b2b6cefcce2b846aa3a0de5392c8ec, type: 2}
 --- !u!114 &114281001596612394
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -9111,10 +9107,10 @@ AnimatorStateMachine:
     m_Position: {x: -300, y: 672, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102907821077536392}
-    m_Position: {x: -300, y: 324, z: 0}
+    m_Position: {x: -300, y: 456, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102321826069753050}
-    m_Position: {x: -300, y: 528, z: 0}
+    m_Position: {x: -300, y: 552, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102058304624069200}
     m_Position: {x: 0, y: 0, z: 0}

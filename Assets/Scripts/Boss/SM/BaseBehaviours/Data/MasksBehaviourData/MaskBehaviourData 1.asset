@@ -15,10 +15,12 @@ MonoBehaviour:
   Time: 0
   OrbitTag: 0
   ID: 1
+  MaskTargets:
+  - {fileID: 11400000, guid: 84bee764cb88b654f881a05ec59c9747, type: 2}
   AngularAccelerationTime: 2
   AngularMaxSpeed: 1080
   AngularDecelerationTime: 3
-  isSetup: 1
+  isSetup: 0
   SetupRadius: 2
   HasDeltaRadius: 1
   FinalRadius: 3

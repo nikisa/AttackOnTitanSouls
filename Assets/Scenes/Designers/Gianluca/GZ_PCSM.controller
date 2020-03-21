@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf0d10817c40f27418140b60517e37f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerDashData: {fileID: 11400000, guid: afa1fe3a6c6c6ff48b5fe9c1b23c0d4f, type: 2}
 --- !u!114 &114304484822608994
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -623,6 +624,31 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102938059268117822}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1101 &1101393792117115308
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Dash
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 1102076581917549536}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -1233,6 +1259,7 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101446459987193386}
+  - {fileID: 1101393792117115308}
   m_StateMachineBehaviours:
   - {fileID: 114085623947527254}
   m_Position: {x: 50, y: 50, z: 0}
