@@ -53,22 +53,21 @@ public class FirstBossBounceState : FirstBossState
         #endregion
         boss.timerMaskCollision = Time.time;
 
-
-        if (bossOrbitManager.MasksList[bossOrbitManager.hitMaskIndex] != null) {
             if (bossOrbitManager.ObjHit == 1) {
-                bossOrbitManager.MasksList[bossOrbitManager.hitMaskIndex].MaskBounceWall(boss.CollidedObjectCollider, bounceData.kinetikEnergyLoss, bounceData.surfaceFriction, bounceData.impulseDeltaTime);
+                boss.WallBounce(boss.hit);
             }
             else if (bossOrbitManager.ObjHit == 2) {
-                bossOrbitManager.MasksList[bossOrbitManager.hitMaskIndex].BounceMovement(boss.CollidedObjectCollider, bounceData.kinetikEnergyLoss, bounceData.surfaceFriction, bounceData.impulseDeltaTime);
+                boss.BounceMovement(boss.hit.collider);
             }
 
 
             for (int i = 0; i < bossOrbitManager.MasksList.Count; i++) {
                 if (bossOrbitManager.MasksList[i] != null) {
-                    bossOrbitManager.MasksList[i].UpdateAngularVelocity(bounceData.surfaceFriction);
+                Debug.Log("UpdateAngularVelocity");
+                bossOrbitManager.MasksList[i].UpdateAngularVelocity(bounceData.surfaceFriction);
                 }
             }
-        }
+        
 
         bossOrbitManager.hitMaskIndex = 0;
         animator.SetInteger("Layer", 0);

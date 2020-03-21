@@ -119,7 +119,7 @@ public class MovementBase : MonoBehaviour
     public void BounceMovement(Collider hit) {
 
         #region Bounce variables
-        MovementBase collidingObject = hit.GetComponent<MovementBase>();
+        MovementBase collidingObject = hit.gameObject.GetComponent<MovementBase>();
         Vector3 normal;
         Vector3 vectorParal;
         Vector3 vectorPerp;

@@ -27,7 +27,6 @@ public class FirtsBossBounceDecelerationState : FirstBossState
         Deceleration();
         BounceDeceleration();
         SetCycleTimer();
-        Debug.Log("BOSS VV: " + boss.VelocityVector.magnitude);
     }
 
     public void CollisionTick() {

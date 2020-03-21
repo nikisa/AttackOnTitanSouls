@@ -112,7 +112,7 @@ public class UiManager : MonoBehaviour
     public void PlayGameplay()
     {
         
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(1);
         init();
         animator.SetTrigger("Gameplay");
     }

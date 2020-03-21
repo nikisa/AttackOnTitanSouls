@@ -18,8 +18,8 @@ public class PlayerDashDecelerationState : PlayerBaseState
         playerMovementData = player.playerMovementData;
 
         player.DecelerationModule = player.dashVelocityModule / playerDashData.DashDecelerationTime;
-        Debug.Log("(DASH DECEL) dashVelocityModule: " + player.dashVelocityModule);
-        Debug.Log("(DASH DECEL) DecelerationModule: " + playerDashData.DashDecelerationTime);
+        //Debug.Log("(DASH DECEL) dashVelocityModule: " + player.dashVelocityModule);
+        //Debug.Log("(DASH DECEL) DecelerationModule: " + playerDashData.DashDecelerationTime);
     }
 
     public override void Tick() {

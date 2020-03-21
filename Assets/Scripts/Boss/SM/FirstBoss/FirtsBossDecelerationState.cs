@@ -6,7 +6,6 @@ public class FirtsBossDecelerationState : FirstBossState
 {
     //Inspector
     public DecelerationData decelerationData;
-    public BounceDecelerationData bounceDecelerationData;
 
     //Private
     //int wallLayer;

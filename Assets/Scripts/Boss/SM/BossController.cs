@@ -21,8 +21,6 @@ public class BossController : MovementBase
     [HideInInspector]
     public float MaxSpeed;
     [HideInInspector]
-    public float skin;
-    [HideInInspector]
     public RaycastHit hitObject;
     [HideInInspector]
     public GameObject Target;
@@ -37,6 +35,7 @@ public class BossController : MovementBase
     Vector3 targetDirection;
     Quaternion bossRotation;
     
+
     protected virtual void Start() {
 
         bossY = transform.position.y;
@@ -45,10 +44,14 @@ public class BossController : MovementBase
         foreach (var item in animator.GetBehaviours<BossBaseState>()) {
             item.SetContext(this, animator);
         }
-        skin = 4.2f;
     }
 
     private void Update() {
+
+        //radius += Time.deltaTime;
+        //radius = Mathf.Clamp(radius, 0, skin);
+        //controller.radius = radius;
+
         transform.position = new Vector3(transform.position.x , bossY , transform.position.z);
 
         Debug.DrawRay(transform.position, AccelerationVector, Color.red, .03f);
@@ -56,18 +59,7 @@ public class BossController : MovementBase
 
     }
 
-    //Bounce del Boss (no maschere)
-    //private void OnControllerColliderHit(ControllerColliderHit hit) {
-    //    if (hit.collider.GetComponent<MovementBase>() && !hit.collider.GetComponent<BossController>()) {
-    //        //BounceMovement(hit);
-    //    }
-
-    //    if (hit.collider.tag == "Walls") {
-    //        animator.SetInteger("Layer", 10);
-    //        WallBounce(hit);
-    //        animator.SetInteger("Layer", 0);
-    //    }
-    //}
+    
 
 
     // Logic rotation of the boss based on the target direction

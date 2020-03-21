@@ -104,7 +104,6 @@ public class BossOrbitManager : MonoBehaviour
 
     public void RotationMask(List<MaskBehaviourData> _maskBehaviourList) {
         for (int i = 0; i < MasksList.Count; i++) {
-            Debug.Log("RotateAround: " + i);
             MasksList[i].RotateAroud(_maskBehaviourList[i].AngularMaxSpeed , _maskBehaviourList[i].AngularAccelerationTime);
         }
     }
@@ -315,7 +314,18 @@ public class BossOrbitManager : MonoBehaviour
             for (int i = 0; i < OrbitList.Count; i++) {
                 OrbitList[i].transform.DOKill(true);
             }
+    }
+
+    public float maxMaskCurrentRadius() {
+        float result = 0;
+
+        for (int i = 0; i < MasksList.Count ; i++) {
+            if (MasksList[i].currentRadius > result) {
+                result = MasksList[i].currentRadius;
+            }
         }
+        return result;
+    }
 
 
     #region     FUNCTIONS CEMETERY
