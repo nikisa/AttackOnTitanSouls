@@ -14,12 +14,13 @@ public class FirstBossRecoveryState : FirstBossState
         base.Enter();
         RecoveryInfoEnter();
     }
+
     public override void Tick()
     {
-
         base.Tick();
         SetCycleTimer();
     }
+
     public override void Exit()
     {
         animator.SetBool("RecoveryOrbit", false);

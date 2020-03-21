@@ -12,11 +12,9 @@ public class FirstBossSetup : FirstBossState
 
         //Anticipation Setup
         for (int i = 0; i < everyAnticipationData.Count; i++) {
-            everyAnticipationData[i].loops = everyAnticipationData[i].Loops + 1;
             everyAnticipationData[i].Time = 0;
         }  
         for (int i = 0; i < DataToResetTime.Count; i++) {
-
             DataToResetTime[i].Time = 0;
         }
 

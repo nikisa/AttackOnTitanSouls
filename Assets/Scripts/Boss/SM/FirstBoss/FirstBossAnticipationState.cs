@@ -7,9 +7,6 @@ public class FirstBossAnticipationState : FirstBossState
     //Public 
     public AnticipationData anticipationData;
 
-    //Private
-    int layerResult;
-
     public override void Enter()
     {
         base.Enter();
@@ -18,20 +15,12 @@ public class FirstBossAnticipationState : FirstBossState
         animator.SetInteger("Layer", 0);
 
         OrbitTag(anticipationData);
-
-        if (boss.IsPrevStateReinitialize) {
-            anticipationData.loops = boss.loops;
-        }
-
         EnterAnticipation();
     }
 
     public override void Tick()
     {
         base.Tick();
-        boss.loops = anticipationData.loops; //Used for the Reinitialize State (Prima era in Enter)
-        //pezza del dio boia
-
     }
 
     public override void Exit()
@@ -42,13 +31,11 @@ public class FirstBossAnticipationState : FirstBossState
     }
 
     public void EnterAnticipation() {
-        --anticipationData.loops;
-        boss.loops = anticipationData.loops; //Used for the Reinitialize State
-        
+        --boss.loops;
         animator.SetInteger("Loops", boss.loops);
 
-        if (anticipationData.InfinteLoops && anticipationData.loops <= 0) {
-            anticipationData.loops = int.MaxValue;
+        if (anticipationData.InfinteLoops && boss.loops <= 0) {
+            boss.loops = int.MaxValue;
         }
     }
 
@@ -56,7 +43,5 @@ public class FirstBossAnticipationState : FirstBossState
     {
         boss.IsPrevStateReinitialize = false;
         animator.SetBool("Anticipation", false);
-        
     }
-
 }
