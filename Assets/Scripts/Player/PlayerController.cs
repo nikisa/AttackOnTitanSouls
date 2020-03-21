@@ -52,6 +52,7 @@ public class PlayerController : MovementBase
     public float AimDeadZoneValue;
     public float TweeningRotationTime;
     public Ease TweeningRotationEase;
+    public GameObject PauseCanvas;
 
 
     //Public
@@ -95,10 +96,12 @@ public class PlayerController : MovementBase
     Camera camera;
     Vector3 move;
     float vectorAngle;
+    bool isPaused;
 
 
     protected virtual void Awake() {
         playerTarget.instance = this.gameObject;
+        isPaused = false;
 
         foreach (var item in animator.GetBehaviours<PlayerBaseState>()) {
             item.SetContext(this, animator, graphicAnimator);
@@ -113,6 +116,19 @@ public class PlayerController : MovementBase
 
     private void Update() 
     {
+
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Pause")) {
+            isPaused = !isPaused;
+
+            if (isPaused) {
+                PauseCanvas.SetActive(true);
+                Time.timeScale = 0;
+            }
+            else {
+                PauseCanvas.SetActive(false);
+                Time.timeScale = 1;
+            }
+        }
 
         //Momentaneo___________________________________________________________________
         //transform.position = new Vector3(transform.position.x ,0,transform.position.z);
@@ -290,7 +306,6 @@ public class PlayerController : MovementBase
 
     public void StartTimerDash()
     {
-        Debug.Log("TIMER");
         timerDash = Time.time;
     }
 
@@ -324,9 +339,9 @@ public class PlayerController : MovementBase
         IsImmortal = false;
     }
 
-    private void OnControllerColliderHit(Collider hit) {
-        if ((hit.GetComponent<MovementBase>() || hit.GetComponent<FirstBossMask>()) && !hit.GetComponent<PlayerController>()) {
-            BounceMovement(hit);
+    private void OnControllerColliderHit(ControllerColliderHit hit) {
+        if ((hit.collider.GetComponent<MovementBase>() || hit.collider.GetComponent<FirstBossMask>()) && !hit.collider.GetComponent<PlayerController>()) {
+            BounceMovement(hit.collider);
             animator.SetTrigger("Stunned");
         }
     }

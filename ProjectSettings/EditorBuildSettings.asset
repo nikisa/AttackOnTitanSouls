@@ -11,10 +11,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Programmers Scenes/OLD/TestingRoom.unity
     guid: 079f831e2502bba4d8b821487df400f8
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: ab622c383c5b4d348ac75a3b09796e02
   - enabled: 1
+    path: Assets/Scenes/Designers/WRIGHT/LW_Scene.unity
+    guid: 150188c39d36e60468e19b2af14fa938
+  - enabled: 0
     path: Assets/Scenes/3D/3D Lighting 1.unity
     guid: b12cda772a12fe549984509c95c1c6f2
   - enabled: 0
@@ -23,7 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ScenesThatWillBeRemoved/Dead.unity
     guid: e082f1ceed4f5fc47ad28f977fb616a4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ScenesThatWillBeRemoved/Won.unity
     guid: 72042037f85f1094497aa0abc94ff1f8
   - enabled: 0

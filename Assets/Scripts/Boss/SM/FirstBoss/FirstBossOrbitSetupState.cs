@@ -13,6 +13,8 @@ public class FirstBossOrbitSetupState : FirstBossState
     int index = 0;
     float positionPointTime = 0.01f;
     float orientation;
+    float maxMaskCurrentRadius;
+    float currentRadius;
 
 
     public override void Enter()
@@ -24,15 +26,23 @@ public class FirstBossOrbitSetupState : FirstBossState
         bossOrbitManager.SetupMask(MaskBehaviourList);
         FillPointsPosition();
         SetupPositionPoints();
-
+        maxMaskCurrentRadius = 0;
+        currentRadius = 0;
     }
 
     public override void Tick() {
-
+        maxMaskCurrentRadius = bossOrbitManager.maxMaskCurrentRadius();
+        UpdateCharacterControllerRadius(maxMaskCurrentRadius);
     }
 
     public override void Exit() {
 
+    }
+
+    void UpdateCharacterControllerRadius(float _maxMaskCurrentRadius) {
+        currentRadius += Time.deltaTime * 10; //Moltiplico per n dato che radius riparte da 0 e c'è il rischio che durante un MoveTo il characterController non sia ancora arrivato al radius corretto
+        currentRadius = Mathf.Clamp(currentRadius, 0, _maxMaskCurrentRadius);
+        boss.CharacterController.radius = currentRadius;
     }
 
     public void FillPointsPosition() {

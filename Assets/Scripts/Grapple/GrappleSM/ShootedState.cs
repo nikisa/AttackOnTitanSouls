@@ -17,7 +17,6 @@ public class ShootedState : GrappleBaseState
         if (grappleManager.hook.shooted && !grappleManager.hook.isHooked) {
             grappleManager.target = grappleManager.FovPlayer.CorrectRayCast();
             target = grappleManager.target;
-            Debug.Log(target + "" + Time.time);
 
             //HookPoint hookPoint = hit.transform.GetComponent<HookPoint>();
 

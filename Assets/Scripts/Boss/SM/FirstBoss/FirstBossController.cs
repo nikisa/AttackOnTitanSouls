@@ -17,6 +17,8 @@ public class FirstBossController : BossController
     public float vectorAngle;
     [HideInInspector]
     public FirstBossMask firstBossMask;
+    [HideInInspector]
+    public ControllerColliderHit hit;
 
 
     //[HideInInspector]
@@ -31,4 +33,21 @@ public class FirstBossController : BossController
         }
 
     }
+
+    //Bounce del Boss (no maschere)
+    private void OnControllerColliderHit(ControllerColliderHit _hit) {
+
+        hit = _hit;
+
+        if (_hit.collider.GetComponent<MovementBase>() && !_hit.collider.GetComponent<BossController>()) {
+            animator.SetInteger("Layer", 11);
+            bossOrbitManager.ObjHit = 2;
+        }
+
+        if (_hit.collider.tag == "Walls") {
+            animator.SetInteger("Layer", 10);
+            bossOrbitManager.ObjHit = 1;
+        }
+    }
+
 }
