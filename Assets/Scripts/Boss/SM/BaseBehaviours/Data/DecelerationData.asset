@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361e230a357657240b5f1feacde2a210, type: 3}
   m_Name: DecelerationData
   m_EditorClassIdentifier: 
-  TimeDeceleration: 1
-  WaitOnStart: 0
+  Time: 0
+  OrbitTag: 0
+  Deceleration: 5
   LowSpeed: 0

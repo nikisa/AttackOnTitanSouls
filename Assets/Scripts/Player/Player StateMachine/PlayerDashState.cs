@@ -22,7 +22,7 @@ public class PlayerDashState : PlayerBaseState
 
     public override void Tick() {
 
-        if (Time.time - timeStart <  playerDashData.ActiveDashTime) {
+        if (Time.time - timeStart <= playerDashData.ActiveDashTime) {
             player.Dash(player.dashVelocityModule , player.targetDir);
         }
         else {

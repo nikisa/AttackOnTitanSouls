@@ -39,7 +39,7 @@ public class FirstBossController : BossController
 
         hit = _hit;
 
-        if (_hit.collider.GetComponent<MovementBase>() && !_hit.collider.GetComponent<BossController>()) {
+        if ((_hit.collider.GetComponent<MovementBase>() || _hit.collider.GetComponent<PlayerView>()) && !_hit.collider.GetComponent<BossController>()) {
             animator.SetInteger("Layer", 11);
             bossOrbitManager.ObjHit = 2;
         }

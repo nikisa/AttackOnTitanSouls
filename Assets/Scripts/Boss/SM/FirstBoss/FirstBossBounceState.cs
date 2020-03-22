@@ -38,9 +38,14 @@ public class FirstBossBounceState : FirstBossState
     //public float lerpValue;
     #endregion
 
+    //Private
+    float angularVelocity;
+
     public override void Enter() {
 
         base.Enter();
+        PlayerController Player = boss.Player;
+
         #region OldBonceEnter
         //iterations = 100;
         //layerWall = 10;
@@ -52,9 +57,18 @@ public class FirstBossBounceState : FirstBossState
         //OldBounceEnter();
         #endregion
         boss.timerMaskCollision = Time.time;
+        boss.impulseDeltaTime = bounceData.impulseDeltaTime;
+
+        boss.KineticEnergyLoss = bounceData.kinetikEnergyLoss;
+        Player.KineticEnergyLoss = bounceData.kinetikEnergyLoss;
+        boss.SurfaceFriction = bounceData.surfaceFriction;
+        Player.SurfaceFriction = bounceData.surfaceFriction;
+        
+
+        angularVelocity = getMostFarAngularVelocityMask();
 
             if (bossOrbitManager.ObjHit == 1) {
-                boss.WallBounce(boss.hit);
+                boss.WallBounce(boss.hit , angularVelocity);
             }
             else if (bossOrbitManager.ObjHit == 2) {
                 boss.BounceMovement(boss.hit.collider);
@@ -63,7 +77,6 @@ public class FirstBossBounceState : FirstBossState
 
             for (int i = 0; i < bossOrbitManager.MasksList.Count; i++) {
                 if (bossOrbitManager.MasksList[i] != null) {
-                Debug.Log("UpdateAngularVelocity");
                 bossOrbitManager.MasksList[i].UpdateAngularVelocity(bounceData.surfaceFriction);
                 }
             }
@@ -89,6 +102,22 @@ public class FirstBossBounceState : FirstBossState
         //layerResult = 0;
         //animator.SetInteger("Layer", layerResult);
         #endregion
+    }
+
+
+    float getMostFarAngularVelocityMask() {
+        float result = 0;
+        float currentRadius = 0;
+
+        for (int i = 0; i < bossOrbitManager.MasksList.Count; i++) {
+            if (bossOrbitManager.MasksList[i] != null) {
+                if (bossOrbitManager.MasksList[i].currentRadius > currentRadius) {
+                    currentRadius = bossOrbitManager.MasksList[i].currentRadius;
+                    result = bossOrbitManager.MasksList[i].AngularVelocity;
+                }
+            }
+        }
+        return result;
     }
 
     #region OldBounceEnter Function

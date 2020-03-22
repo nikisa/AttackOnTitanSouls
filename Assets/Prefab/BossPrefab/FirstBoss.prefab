@@ -928,7 +928,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 7988242670384489170}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 1.6
   m_Height: 4
   m_Direction: 1
@@ -951,9 +951,8 @@ MonoBehaviour:
   hook: {fileID: 0}
   player: {fileID: 0}
   MaskID: 3
+  MaskTarget: {fileID: 11400000, guid: 0510cb373208a714db9f6ebb357ab2d3, type: 2}
   Mass: 1
-  KineticEnergyLoss: 0.7
-  SurfaceFriction: 0.2
   boss: {fileID: 7988242671562704603}
   OldPos: {x: 0, y: 1.375, z: -18.05}
   Inertia: {x: 0, y: 0, z: 0}
@@ -966,6 +965,8 @@ MonoBehaviour:
   - {fileID: 2267266476860754020, guid: eb10da06fba54614bafbf131443bf868, type: 3}
   - {fileID: 1770627035647538151, guid: 0dd46f64b5ce8294abdfcb9c64e80550, type: 3}
   particles: []
+  KineticEnergyLoss: 0.2
+  SurfaceFriction: 0.2
   AngularAccelerationModule: 0
   AngularDecelerationModule: 360
   AngularAcceleration: {x: 0, y: 0, z: 0}
@@ -1098,6 +1099,8 @@ MonoBehaviour:
   actualSpeed: 0
   OrbitManagerDataList: []
   distanceFromBoss: 0
+  hitMaskIndex: 0
+  ObjHit: 0
 --- !u!1 &7988242670524905258
 GameObject:
   m_ObjectHideFlags: 0
@@ -1352,7 +1355,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 7988242670622026658}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 1.6
   m_Height: 4
   m_Direction: 1
@@ -1375,9 +1378,8 @@ MonoBehaviour:
   hook: {fileID: 0}
   player: {fileID: 0}
   MaskID: 2
+  MaskTarget: {fileID: 11400000, guid: 280e6f26ac4ad4c4ba1956d23cc6f0fb, type: 2}
   Mass: 1
-  KineticEnergyLoss: 0.7
-  SurfaceFriction: 0.2
   boss: {fileID: 7988242671562704603}
   OldPos: {x: 2.08, y: 1.375, z: -16.48}
   Inertia: {x: 0, y: 0, z: 0}
@@ -1390,6 +1392,8 @@ MonoBehaviour:
   - {fileID: 2267266476860754020, guid: eb10da06fba54614bafbf131443bf868, type: 3}
   - {fileID: 1770627035647538151, guid: 0dd46f64b5ce8294abdfcb9c64e80550, type: 3}
   particles: []
+  KineticEnergyLoss: 0.2
+  SurfaceFriction: 0.2
   AngularAccelerationModule: 0
   AngularDecelerationModule: 360
   AngularAcceleration: {x: 0, y: 0, z: 0}
@@ -1445,7 +1449,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 7988242670638502035}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 1.6
   m_Height: 4
   m_Direction: 1
@@ -1468,9 +1472,8 @@ MonoBehaviour:
   hook: {fileID: 0}
   player: {fileID: 0}
   MaskID: 1
+  MaskTarget: {fileID: 11400000, guid: 84bee764cb88b654f881a05ec59c9747, type: 2}
   Mass: 1
-  KineticEnergyLoss: 0.7
-  SurfaceFriction: 0.2
   boss: {fileID: 7988242671562704603}
   OldPos: {x: 1.5300001, y: 1.375, z: -13.669999}
   Inertia: {x: 0, y: 0, z: 0}
@@ -1483,6 +1486,8 @@ MonoBehaviour:
   - {fileID: 2267266476860754020, guid: eb10da06fba54614bafbf131443bf868, type: 3}
   - {fileID: 1770627035647538151, guid: 0dd46f64b5ce8294abdfcb9c64e80550, type: 3}
   particles: []
+  KineticEnergyLoss: 0.7
+  SurfaceFriction: 0.2
   AngularAccelerationModule: 0
   AngularDecelerationModule: 360
   AngularAcceleration: {x: 0, y: 0, z: 0}
@@ -1762,7 +1767,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 7988242670905266341}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 1.6
   m_Height: 4
   m_Direction: 1
@@ -1785,9 +1790,8 @@ MonoBehaviour:
   hook: {fileID: 0}
   player: {fileID: 0}
   MaskID: 4
+  MaskTarget: {fileID: 11400000, guid: f561db81887e22146a9bbdb08f24ddec, type: 2}
   Mass: 1
-  KineticEnergyLoss: 0.7
-  SurfaceFriction: 0.2
   boss: {fileID: 7988242671562704603}
   OldPos: {x: -1.4799999, y: 1.375, z: -13.709999}
   Inertia: {x: 0, y: 0, z: 0}
@@ -1800,6 +1804,8 @@ MonoBehaviour:
   - {fileID: 2267266476860754020, guid: eb10da06fba54614bafbf131443bf868, type: 3}
   - {fileID: 1770627035647538151, guid: 0dd46f64b5ce8294abdfcb9c64e80550, type: 3}
   particles: []
+  KineticEnergyLoss: 0.2
+  SurfaceFriction: 0.2
   AngularAccelerationModule: 0
   AngularDecelerationModule: 360
   AngularAcceleration: {x: 0, y: 0, z: 0}
@@ -2206,7 +2212,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 7988242671257360923}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 1.6
   m_Height: 4
   m_Direction: 1
@@ -2229,9 +2235,8 @@ MonoBehaviour:
   hook: {fileID: 0}
   player: {fileID: 0}
   MaskID: 5
+  MaskTarget: {fileID: 11400000, guid: 65fd01546bbda694e9ba8ff44896add2, type: 2}
   Mass: 1
-  KineticEnergyLoss: 0.7
-  SurfaceFriction: 0.2
   boss: {fileID: 7988242671562704603}
   OldPos: {x: -1.9900001, y: 1.375, z: -16.48}
   Inertia: {x: 0, y: 0, z: 0}
@@ -2244,6 +2249,8 @@ MonoBehaviour:
   - {fileID: 2267266476860754020, guid: eb10da06fba54614bafbf131443bf868, type: 3}
   - {fileID: 1770627035647538151, guid: 0dd46f64b5ce8294abdfcb9c64e80550, type: 3}
   particles: []
+  KineticEnergyLoss: 0.2
+  SurfaceFriction: 0.2
   AngularAccelerationModule: 0
   AngularDecelerationModule: 360
   AngularAcceleration: {x: 0, y: 0, z: 0}
@@ -2392,7 +2399,7 @@ Animator:
   m_GameObject: {fileID: 7988242671562704580}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2e301f109c1a2dc479cc19d4583f51db, type: 2}
+  m_Controller: {fileID: 9100000, guid: d7694bdae5cf6e948afe3396800bef83, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2414,19 +2421,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterController: {fileID: 6514319743994713422}
-  Mass: 1
-  KineticEnergyLoss: 0.2
-  SurfaceFriction: 0.2
+  Mass: 10
+  KineticEnergyLoss: 0
+  SurfaceFriction: 0
   move: {x: 0, y: 0, z: 0}
   nextPosition: {x: 0, y: 0, z: 0}
   AccelerationModule: 0
   AccelerationVector: {x: 0, y: 0, z: 0}
   VelocityVector: {x: 0, y: 0, z: 0}
+  BounceVector: {x: 0, y: 0, z: 0}
   Drag: 0
   DecelerationModule: 0
+  BounceDecelerationModule: 0
   DecelerationVector: {x: 0, y: 0, z: 0}
+  BounceDecelerationVector: {x: 0, y: 0, z: 0}
   targetDir: {x: 0, y: 0, z: 0}
   gravity: 0
+  impulseDeltaTime: 0
   animator: {fileID: 7988242671562704600}
   View: {fileID: 7988242671562704602}
   Player: {fileID: 0}
@@ -2435,13 +2446,16 @@ MonoBehaviour:
   RotationSpeed: 0
   moveToData: {fileID: 0}
   MaxSpeed: 0
-  skin: 4.2
   Target: {fileID: 0}
   CycleTimer: 40.165104
+  CollidedObjectCollider: {fileID: 0}
   bossOrbitManager: {fileID: 7988242670240970713}
-  BouncePointC: {fileID: 0}
-  BouncePointB: {fileID: 0}
+  minBounceVector: 2
+  maxBounceVector: 4.5
+  ActiveMaskCollisionTime: 1
+  timerMaskCollision: 0
   vectorAngle: 0
+  firstBossMask: {fileID: 0}
   loops: 3
   IsPrevStateReinitialize: 0
 --- !u!114 &7988242671562704602
@@ -2466,10 +2480,10 @@ CharacterController:
   m_GameObject: {fileID: 7988242671562704580}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Height: 5
-  m_Radius: 3.5
+  m_Radius: 4.5
   m_SlopeLimit: 70
   m_StepOffset: 0.05
   m_SkinWidth: 0.08

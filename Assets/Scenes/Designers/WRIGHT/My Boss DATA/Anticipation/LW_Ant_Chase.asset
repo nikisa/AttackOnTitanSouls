@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Time: 0
   OrbitTag: 2
-  Loops: 1
+  Loops: 2
   InfinteLoops: 0
-  loops: 0
