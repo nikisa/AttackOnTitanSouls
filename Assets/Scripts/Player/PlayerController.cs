@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngineInternal.Input;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using System;
 
 
 public class PlayerController : MovementBase
@@ -97,7 +98,6 @@ public class PlayerController : MovementBase
     Vector3 move;
     float vectorAngle;
     bool isPaused;
-
 
     protected virtual void Awake() {
         playerTarget.instance = this.gameObject;
@@ -219,12 +219,19 @@ public class PlayerController : MovementBase
 
    
 
-    public void Dash(float _dashVelocityModule , Vector3 _targetDir) {
+    public void Dash(float _dashVelocityModule , Vector3 _targetDir , AnimationCurve _dashCurve ,float _timer , int _iterations , float frame) {
+
         targetDir = _targetDir;
         Vector3 dashVectorTemp = targetDir;
         VelocityVector = dashVectorTemp.normalized * _dashVelocityModule;
-        move = VelocityVector * Time.deltaTime;
-        CharacterController.Move(move + Vector3.down * gravity);
+        //move = VelocityVector * Time.deltaTime;
+        move = dashVectorTemp.normalized * Integration.IntegrateCurve(_dashCurve , _timer , _timer + frame, _iterations);
+
+        Debug.Log("Area: " + Integration.IntegrateCurve(_dashCurve, _timer - Time.deltaTime, _timer, _iterations));
+        Debug.Log("timer: " + _timer);
+        Debug.Log("deltaTime: " + Time.deltaTime);
+
+        CharacterController.Move(move);
     }
 
     //Here and not in BaseMovement because it could change over time
@@ -340,6 +347,11 @@ public class PlayerController : MovementBase
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit) {
+
+        if (hit.collider.tag == "Walls" || hit.collider.GetComponent<FirstBossController>()) {
+            animator.SetTrigger("DashDeceleration");
+        }
+
         if ((hit.collider.GetComponent<MovementBase>() || hit.collider.GetComponent<FirstBossMask>()) && !hit.collider.GetComponent<PlayerController>()) {
             BounceMovement(hit.collider);
             animator.SetTrigger("Stunned");

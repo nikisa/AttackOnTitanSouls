@@ -11,6 +11,13 @@ public class PlayerDashDecelerationState : PlayerBaseState
     PlayerMovementData playerMovementData;
     bool IsTimerSet;
 
+    float dashMovement;
+    //Curve variables
+    AnimationCurve dashDecelCurve;
+    float firstKeyFrameValue;
+    float lastKeyFrameValue;
+    int IntegralIterations;
+
     public override void Enter() {
         IsTimerSet = false;
 
@@ -18,6 +25,17 @@ public class PlayerDashDecelerationState : PlayerBaseState
         playerMovementData = player.playerMovementData;
 
         player.DecelerationModule = player.dashVelocityModule / playerDashData.DashDecelerationTime;
+
+        //Crea la curva d'andamento del Dash
+        setDashDecelerationCurve();
+        //Setto variabili per una lettura migliore
+        dashDecelCurve = playerDashData.DashDecelerationCurve;
+        firstKeyFrameValue = playerDashData.DashDecelerationCurve.keys[0].value;
+        firstKeyFrameValue = playerDashData.DashDecelerationCurve.keys[playerDashData.DashDecelerationCurve.keys.Length].value;
+        IntegralIterations = 100;
+
+        dashMovement = Integration.IntegrateCurve(dashDecelCurve, firstKeyFrameValue, firstKeyFrameValue, IntegralIterations);
+
         //Debug.Log("(DASH DECEL) dashVelocityModule: " + player.dashVelocityModule);
         //Debug.Log("(DASH DECEL) DecelerationModule: " + playerDashData.DashDecelerationTime);
     }
@@ -54,6 +72,12 @@ public class PlayerDashDecelerationState : PlayerBaseState
         //player.Drag = 0;
         //player.AccelerationModule = 0;
         //player.DecelerationModule = 0;
+    }
+
+    void setDashDecelerationCurve() {
+        float dashDecelSpeed = playerDashData.ActiveDashDistance / playerDashData.DashDecelerationTime;
+        playerDashData.DashDecelerationCurve.AddKey(0, dashDecelSpeed);
+        playerDashData.DashDecelerationCurve.AddKey(playerDashData.DashDecelerationTime, dashDecelSpeed);
     }
 
 }

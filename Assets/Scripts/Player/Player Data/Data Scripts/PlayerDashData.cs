@@ -18,4 +18,8 @@ public class PlayerDashData : ScriptableObject
     [Range(0,1)]
     public float ResumePlayerInput;
     public float EnableDashAt;
+
+    [HideInInspector]
+    public float frame = 1f / 60f;
+
 }
