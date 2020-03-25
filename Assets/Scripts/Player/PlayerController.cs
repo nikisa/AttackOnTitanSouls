@@ -99,6 +99,9 @@ public class PlayerController : MovementBase
     float vectorAngle;
     bool isPaused;
 
+    //TEMP
+    public float decelSpace;
+
     protected virtual void Awake() {
         playerTarget.instance = this.gameObject;
         isPaused = false;
@@ -227,22 +230,33 @@ public class PlayerController : MovementBase
         //move = VelocityVector * Time.deltaTime;
         move = dashVectorTemp.normalized * Integration.IntegrateCurve(_dashCurve , _timer , _timer + frame, _iterations);
 
-        Debug.Log("Area: " + Integration.IntegrateCurve(_dashCurve, _timer - Time.deltaTime, _timer, _iterations));
-        Debug.Log("timer: " + _timer);
-        Debug.Log("deltaTime: " + Time.deltaTime);
-
         CharacterController.Move(move);
     }
 
     //Here and not in BaseMovement because it could change over time
-    public void DashDeceleration() {
+    public void DashDeceleration(AnimationCurve _dashDecelCurve, float _timer, int _iterations, float frame) {
+
+        float dashSpeedModule = playerDashData.ActiveDashDistance / playerDashData.ActiveDashTime;
         float vectorAngle = Vector3.SignedAngle(Vector3.forward, VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
         DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
-
-        VelocityVector -= DecelerationVector * Time.deltaTime;
-        move = VelocityVector * Time.deltaTime;
-        CharacterController.Move(move + Vector3.down * gravity);
+        VelocityVector -= DecelerationVector * frame/*((dashSpeedModule - DecelerationModule * (_timer + frame)))*/;
+        //Debug.Log(_timer + frame);
+        decelSpace += Integration.IntegrateCurve(_dashDecelCurve, _timer - frame, _timer, _iterations);
+        move = DecelerationVector.normalized * Integration.IntegrateCurve(_dashDecelCurve, _timer - frame , _timer, _iterations);
+        //move = VelocityVector * Time.deltaTime;
+        Debug.Log(decelSpace);
+        CharacterController.Move(move);
     }
+
+    //public void DashDeceleration(AnimationCurve _dashDecelCurve, float _timer, int _iterations, float frame) {
+
+
+    //    move = VelocityVector.normalized * Integration.IntegrateCurve(_dashDecelCurve, _timer, _timer + frame, _iterations);
+    //    decelSpace += Integration.IntegrateCurve(_dashDecelCurve, _timer, _timer + frame, _iterations);
+    //    Debug.Log(_timer + frame);
+    //    //move = VelocityVector * Time.deltaTime;
+    //    CharacterController.Move(move);
+    //}
 
     public void TakeDmg()
     {

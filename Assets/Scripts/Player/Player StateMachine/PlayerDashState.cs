@@ -32,22 +32,26 @@ public class PlayerDashState : PlayerBaseState
         setDashCurve();
         //Setto variabili per una lettura migliore
         dashCurve = playerDashData.DashCurve;
-        firstKeyFrameValue = playerDashData.DashCurve.keys[0].value;
-        firstKeyFrameValue = playerDashData.DashCurve.keys[playerDashData.DashCurve.keys.Length-1].value;
-        timer = 0;
+        
         realEndDashPosition = player.transform.position + player.targetDir.normalized * playerDashData.ActiveDashDistance;
         fakeEndDashPosition = player.transform.position + player.targetDir.normalized * (playerDashData.ActiveDashDistance * 1.5f);
         endPointsDistance = Vector3.Distance(realEndDashPosition, fakeEndDashPosition);
         //dashMovement = Integration.IntegrateCurve(dashCurve , firstKeyFrameValue, firstKeyFrameValue , IntegralIterations);
+        //firstKeyFrameValue = playerDashData.DashCurve.keys[0].time;
+        //lastKeyFrameValue = playerDashData.DashCurve.keys[1].time;
+
+        //float space = Integration.IntegrateCurve(dashCurve, firstKeyFrameValue, lastKeyFrameValue, 100);
+        //Debug.Log("DashSpace: " + space);
+        //Debug.Log("xmin: " + firstKeyFrameValue);
+        //Debug.Log("xMax: " + lastKeyFrameValue);
 
         //startPointsDistance = player.transform.position; //Con la start non funziona perché prendendo direttamente player.transform.position ha troppi numeri dopo la virgola????
-
+        timer = 0;
     }
 
     public override void Tick() {
         timer += Time.deltaTime;
         if (Mathf.Floor(Vector3.Distance(player.transform.position, fakeEndDashPosition)) > endPointsDistance) {
-            Debug.LogError("Dist: " + Vector3.Distance(player.transform.position, realEndDashPosition));
             player.Dash(player.dashVelocityModule , player.targetDir , dashCurve , timer , IntegralIterations , player.playerDashData.frame);
         }
         else {
