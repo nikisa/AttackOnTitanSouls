@@ -239,10 +239,9 @@ public class PlayerController : MovementBase
         float dashSpeedModule = playerDashData.ActiveDashDistance / playerDashData.ActiveDashTime;
         float vectorAngle = Vector3.SignedAngle(Vector3.forward, VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
         DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
-        VelocityVector -= DecelerationVector * frame/*((dashSpeedModule - DecelerationModule * (_timer + frame)))*/;
-        //Debug.Log(_timer + frame);
-        decelSpace += Integration.IntegrateCurve(_dashDecelCurve, _timer - frame, _timer, _iterations);
-        move = DecelerationVector.normalized * Integration.IntegrateCurve(_dashDecelCurve, _timer - frame , _timer, _iterations);
+        VelocityVector = _dashDecelCurve.Evaluate(_timer) * DecelerationVector.normalized;
+        decelSpace += Integration.IntegrateCurve(_dashDecelCurve, _timer - Time.deltaTime, _timer, _iterations);
+        move = DecelerationVector.normalized * Integration.IntegrateCurve(_dashDecelCurve, _timer - Time.deltaTime, _timer, _iterations);
         //move = VelocityVector * Time.deltaTime;
         Debug.Log(decelSpace);
         CharacterController.Move(move);

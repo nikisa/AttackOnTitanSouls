@@ -45,14 +45,16 @@ public class PlayerDashDecelerationState : PlayerBaseState
         //Debug.Log("xMax: " + lastKeyFrameValue);
 
         player.decelSpace = 0;
+        Debug.Log("ENTER: " + dashDecelCurve.Evaluate(timer));
     }
 
     public override void Tick() {
-        Debug.Log("VelocityVector: " + player.VelocityVector);
+        //Debug.Log("VelocityVector: " + player.VelocityVector);
         timer += Time.deltaTime;
         player.dashVelocityModule = player.VelocityVector.magnitude;
 
         player.DashDeceleration(dashDecelCurve, timer, IntegralIterations, player.playerDashData.frame);
+        Debug.Log("TICK: " + dashDecelCurve.Evaluate(timer));
 
         if (player.dashVelocityModule <= (playerDashData.ResumePlayerInput * playerMovementData.maxSpeed)) {
 
