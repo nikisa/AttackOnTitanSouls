@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngineInternal.Input;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using System;
 
 
 public class PlayerController : MovementBase
@@ -98,6 +99,8 @@ public class PlayerController : MovementBase
     float vectorAngle;
     bool isPaused;
 
+    //TEMP
+    public float decelSpace;
 
     protected virtual void Awake() {
         playerTarget.instance = this.gameObject;
@@ -219,23 +222,40 @@ public class PlayerController : MovementBase
 
    
 
-    public void Dash(float _dashVelocityModule , Vector3 _targetDir) {
+    public void Dash(float _dashVelocityModule , Vector3 _targetDir , AnimationCurve _dashCurve ,float _timer , int _iterations , float frame) {
+
         targetDir = _targetDir;
         Vector3 dashVectorTemp = targetDir;
         VelocityVector = dashVectorTemp.normalized * _dashVelocityModule;
-        move = VelocityVector * Time.deltaTime;
-        CharacterController.Move(move + Vector3.down * gravity);
+        //move = VelocityVector * Time.deltaTime;
+        move = dashVectorTemp.normalized * Integration.IntegrateCurve(_dashCurve , _timer , _timer + frame, _iterations);
+
+        CharacterController.Move(move);
     }
 
     //Here and not in BaseMovement because it could change over time
-    public void DashDeceleration() {
+    public void DashDeceleration(AnimationCurve _dashDecelCurve, float _timer, int _iterations, float frame) {
+
+        float dashSpeedModule = playerDashData.ActiveDashDistance / playerDashData.ActiveDashTime;
         float vectorAngle = Vector3.SignedAngle(Vector3.forward, VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
         DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
-
-        VelocityVector -= DecelerationVector * Time.deltaTime;
-        move = VelocityVector * Time.deltaTime;
-        CharacterController.Move(move + Vector3.down * gravity);
+        VelocityVector = _dashDecelCurve.Evaluate(_timer) * DecelerationVector.normalized;
+        decelSpace += Integration.IntegrateCurve(_dashDecelCurve, _timer - Time.deltaTime, _timer, _iterations);
+        move = DecelerationVector.normalized * Integration.IntegrateCurve(_dashDecelCurve, _timer - Time.deltaTime, _timer, _iterations);
+        //move = VelocityVector * Time.deltaTime;
+        Debug.Log(decelSpace);
+        CharacterController.Move(move);
     }
+
+    //public void DashDeceleration(AnimationCurve _dashDecelCurve, float _timer, int _iterations, float frame) {
+
+
+    //    move = VelocityVector.normalized * Integration.IntegrateCurve(_dashDecelCurve, _timer, _timer + frame, _iterations);
+    //    decelSpace += Integration.IntegrateCurve(_dashDecelCurve, _timer, _timer + frame, _iterations);
+    //    Debug.Log(_timer + frame);
+    //    //move = VelocityVector * Time.deltaTime;
+    //    CharacterController.Move(move);
+    //}
 
     public void TakeDmg()
     {
@@ -340,6 +360,11 @@ public class PlayerController : MovementBase
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit) {
+
+        if (hit.collider.tag == "Walls" || hit.collider.GetComponent<FirstBossController>()) {
+            animator.SetTrigger("DashDeceleration");
+        }
+
         if ((hit.collider.GetComponent<MovementBase>() || hit.collider.GetComponent<FirstBossMask>()) && !hit.collider.GetComponent<PlayerController>()) {
             BounceMovement(hit.collider);
             Debug.Log("HHHHH");

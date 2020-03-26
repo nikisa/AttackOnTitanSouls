@@ -6,4 +6,9 @@ using UnityEngine;
 public class TargetType : ScriptableObject
 {
     internal GameObject instance;
+
+    private void Awake() {
+        int a = 1;
+    }
+
 }
