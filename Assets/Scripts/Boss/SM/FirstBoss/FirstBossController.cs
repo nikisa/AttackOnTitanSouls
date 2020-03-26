@@ -7,7 +7,6 @@ public class FirstBossController : BossController
     //Inspector
     public BossOrbitManager bossOrbitManager;   
     public float ActiveMaskCollisionTime;
-
     //Public
     [HideInInspector]
     public float timerMaskCollision;
@@ -36,9 +35,10 @@ public class FirstBossController : BossController
     private void OnControllerColliderHit(ControllerColliderHit _hit) {
 
         hit = _hit;
-
+        
         if ((_hit.collider.GetComponent<MovementBase>() || _hit.collider.GetComponent<PlayerView>()) && !_hit.collider.GetComponent<BossController>()) {
             animator.SetInteger("Layer", 11);
+            Debug.Log("DDDD");
             bossOrbitManager.ObjHit = 2;
         }
 

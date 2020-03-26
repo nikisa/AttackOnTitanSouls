@@ -14,6 +14,7 @@ public class FirtsBossDecelerationState : FirstBossState
     {
 
         base.Enter();
+        animator.SetInteger("Layer", 0);
         //wallLayer = 10;
     }
     public override void Tick()

@@ -8,6 +8,7 @@ public class BossController : MovementBase
     //Inspector
     public Animator animator;
     public BossView View;
+    public SphereCollider sphereCollider;
     public PlayerController Player;
     public GameObject Graphics;
    

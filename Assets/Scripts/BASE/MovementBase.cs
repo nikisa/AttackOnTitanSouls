@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 public class MovementBase : MonoBehaviour
 {
 
     //Inspector
+   
     public float MinBounceVector;
     public float MaxBounceVector;
     public CharacterController CharacterController;
@@ -51,8 +53,12 @@ public class MovementBase : MonoBehaviour
     #endregion
 
 
+    //private
+    PlayerController player;
+
     private void Awake() {
         gravity = 0f;
+        player = FindObjectOfType<PlayerController>();
     }
 
 
@@ -133,7 +139,10 @@ public class MovementBase : MonoBehaviour
         Vector3 collisionVectorPerp;
         Vector3 bounceVector;
         #endregion
-
+        if (hit.gameObject.GetComponent<PlayerView>())
+        {
+            collidingObject = player;
+        }
 
         Vector3 fakeCollidingObjectPosition = new Vector3(collidingObject.transform.position.x, transform.position.y, collidingObject.transform.position.z);
         normal = (fakeCollidingObjectPosition - transform.position).normalized;

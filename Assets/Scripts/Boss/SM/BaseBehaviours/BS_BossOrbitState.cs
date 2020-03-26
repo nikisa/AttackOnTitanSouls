@@ -26,7 +26,7 @@ public class BS_BossOrbitState : FirstBossState
         bossOrbitManager.BossFov.UpdateViewRadius();
         
 
-        orientation = 360;
+        orientation = 360 + boss.bossOrbitManager.SetupAngle;
         //ResetPosition();
         SetupPositionPoints();
         orbitTimeStart = Time.time;
@@ -51,6 +51,7 @@ public class BS_BossOrbitState : FirstBossState
         currentRadius += Time.deltaTime * 10; //Moltiplico per n dato che radius riparte da 0 e c'è il rischio che durante un MoveTo il characterController non sia ancora arrivato al radius corretto
         currentRadius = Mathf.Clamp(currentRadius, 0, _maxMaskCurrentRadius);
         boss.CharacterController.radius = currentRadius;
+        boss.sphereCollider.radius = currentRadius;
     }
 
     public void SetupPositionPoints() {
