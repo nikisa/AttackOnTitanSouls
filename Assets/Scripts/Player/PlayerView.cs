@@ -9,7 +9,7 @@ public class PlayerView : MonoBehaviour
     public PlayerController Player;
         
     private void OnCollisionEnter(Collision collision) {
-      Debug.Log(collision.collider.name);
+      Debug.Log("d");
       
         if (collision.collider.GetComponent<BossController>()) {
             Debug.Log("Hit in idle");
