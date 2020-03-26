@@ -55,7 +55,7 @@ public class FirtsBossBounceDecelerationState : FirstBossState
         
 
         if (boss.VelocityVector.magnitude > boss.DecelerationModule * Time.deltaTime) {
-            boss.Deceleration();
+            //boss.Deceleration();
 
         }
         else {

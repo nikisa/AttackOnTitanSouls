@@ -42,6 +42,7 @@ public class FirstBossMoveToState : FirstBossState
         boss.MovementReset();
         OrbitTag(moveToData);
         MoveToEnter();
+        boss.actualMaxSpeed = moveToData.MaxSpeed;
 
     }
     public override void Tick()

@@ -81,18 +81,11 @@ public class MovementBase : MonoBehaviour
 
 
 
-    public void Deceleration() {
-        //Vector3 decelerationVectorTemp = targetDir;
-        //DecelerationVector = decelerationVectorTemp.normalized * DecelerationModule;
-        //VelocityVector -= DecelerationVector * Time.deltaTime;
-        //move = VelocityVector * Time.deltaTime;
-        //CharacterController.Move(move + Vector3.down * gravity);
-
+    public void Deceleration(AnimationCurve _movementDecelCurve, float _t0 , float _t1, int _iterations) {
         float vectorAngle = Vector3.SignedAngle(Vector3.forward, VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
         DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
-
-        VelocityVector -= DecelerationVector * Time.deltaTime;
-        move = VelocityVector * Time.deltaTime;
+        move = DecelerationVector.normalized * Integration.IntegrateCurve(_movementDecelCurve, _t0, _t1, _iterations);
+        VelocityVector = _movementDecelCurve.Evaluate(_t1) * DecelerationVector.normalized;
         CharacterController.Move(move + Vector3.down * gravity);
     }
 

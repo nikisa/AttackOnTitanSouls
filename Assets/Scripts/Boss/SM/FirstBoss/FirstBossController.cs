@@ -17,6 +17,8 @@ public class FirstBossController : BossController
     public FirstBossMask firstBossMask;
     [HideInInspector]
     public ControllerColliderHit hit;
+    [HideInInspector]
+    public float actualMaxSpeed;
 
 
     //[HideInInspector]

@@ -10,51 +10,49 @@ public class PlayerDashDecelerationState : PlayerBaseState
     PlayerMovementData playerMovementData;
     bool IsTimerSet;
 
-    float dashMovement;
-    //Curve variables
+    #region CurveVariables
     AnimationCurve dashDecelCurve;
-    float firstKeyFrameValue;
-    float lastKeyFrameValue;
+    AnimationCurve dashCurve;
     int IntegralIterations;
     float timer;
+    
+    #endregion
 
     public override void Enter() {
+
+        #region setting private variables
+        IntegralIterations = 1;
         IsTimerSet = false;
-        timer = 0;
+        timer = player.plusDeltaTime;
         playerDashData = player.playerDashData;
         playerMovementData = player.playerMovementData;
+        dashCurve = playerDashData.DashDecelerationCurve;
+        #endregion
 
-
+        //Settaggio della DecelerationModule direttamente in Enter dato che si stratta di un valore non variabile
         player.DecelerationModule = player.dashVelocityModule / playerDashData.DashDecelerationTime;
         //Setto variabili per una lettura migliore
         dashDecelCurve = playerDashData.DashDecelerationCurve;
-
         //Crea la curva d'andamento del Dash
         setDashDecelerationCurve();
         
-        IntegralIterations = 1;
 
-        //Debug.Log("(DASH DECEL) dashVelocityModule: " + player.dashVelocityModule);
-        //Debug.Log("(DASH DECEL) DecelerationModule: " + playerDashData.DashDecelerationTime);
-        //firstKeyFrameValue = playerDashData.DashDecelerationCurve.keys[0].time;
-        //lastKeyFrameValue = playerDashData.DashDecelerationCurve.keys[playerDashData.DashDecelerationCurve.keys.Length-1].time;
+        //Dash eseguito in Enter della DashDecel dato lo scarto che si viene a creare nel Dash State
+        player.Dash(player.dashVelocityModule, player.targetDir, dashCurve , 0 , timer, IntegralIterations);
 
-        //float space = Integration.IntegrateCurve(dashDecelCurve, firstKeyFrameValue, lastKeyFrameValue, 10);
-        //Debug.Log("DashDecelSpace: " + space);
-        //Debug.Log("xmin: " + firstKeyFrameValue);
-        //Debug.Log("xMax: " + lastKeyFrameValue);
-
-        player.decelSpace = 0;
-        Debug.Log("ENTER: " + dashDecelCurve.Evaluate(timer));
     }
 
     public override void Tick() {
-        //Debug.Log("VelocityVector: " + player.VelocityVector);
         timer += Time.deltaTime;
         player.dashVelocityModule = player.VelocityVector.magnitude;
 
-        player.DashDeceleration(dashDecelCurve, timer, IntegralIterations, player.playerDashData.frame);
-        Debug.Log("TICK: " + dashDecelCurve.Evaluate(timer));
+        if (timer <= playerDashData.DashDecelerationTime) {
+            player.DashDeceleration(dashDecelCurve, timer - Time.deltaTime, timer, IntegralIterations);
+        }
+        else {
+            player.DashDeceleration(dashDecelCurve, timer - Time.deltaTime, playerDashData.DashDecelerationTime , IntegralIterations);
+        }
+        
 
         if (player.dashVelocityModule <= (playerDashData.ResumePlayerInput * playerMovementData.maxSpeed)) {
 
@@ -76,25 +74,14 @@ public class PlayerDashDecelerationState : PlayerBaseState
     }
 
 
-    public override void Exit() {
-        //player.move = Vector3.zero;
-        //player.nextPosition = Vector3.zero;
-        //player.AccelerationVector = Vector3.zero;
-        //player.VelocityVector = Vector3.zero;
-        //player.DecelerationVector = Vector3.zero;
-        //player.Drag = 0;
-        //player.AccelerationModule = 0;
-        //player.DecelerationModule = 0;
-    }
-
     void setDashDecelerationCurve() {
         
         float dashSpeed = playerDashData.ActiveDashDistance / playerDashData.ActiveDashTime;
 
-        for (int i = 0; i < playerDashData.DashDecelerationCurve.keys.Length; i++) {
-            playerDashData.DashDecelerationCurve.RemoveKey(i);
-        }
+        //Resetto i KeyFrame prima di settare quelli nuovi in Enter
+        playerDashData.DashDecelerationCurve.keys = null;
 
+        //Setto i KeyFrame della curva del DashDeceleration in Enter
         playerDashData.DashDecelerationCurve.AddKey(0, dashSpeed);
         playerDashData.DashDecelerationCurve.AddKey(playerDashData.DashDecelerationTime, 0);
     }

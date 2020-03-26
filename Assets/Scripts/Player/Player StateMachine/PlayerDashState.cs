@@ -13,7 +13,9 @@ public class PlayerDashState : PlayerBaseState
     float timeStart;
     float dashMovement;
     float timer;
+    
     //Curve variables
+    #region Curve Variables
     AnimationCurve dashCurve;
     float firstKeyFrameValue;
     float lastKeyFrameValue;
@@ -21,6 +23,7 @@ public class PlayerDashState : PlayerBaseState
     Vector3 realEndDashPosition;
     Vector3 fakeEndDashPosition;
     float endPointsDistance;
+    #endregion
 
     public override void Enter() {
         
@@ -30,31 +33,29 @@ public class PlayerDashState : PlayerBaseState
         
         //Crea la curva d'andamento del Dash
         setDashCurve();
+
         //Setto variabili per una lettura migliore
         dashCurve = playerDashData.DashCurve;
         
-        realEndDashPosition = player.transform.position + player.targetDir.normalized * playerDashData.ActiveDashDistance;
-        fakeEndDashPosition = player.transform.position + player.targetDir.normalized * (playerDashData.ActiveDashDistance * 1.5f);
-        endPointsDistance = Vector3.Distance(realEndDashPosition, fakeEndDashPosition);
-        //dashMovement = Integration.IntegrateCurve(dashCurve , firstKeyFrameValue, firstKeyFrameValue , IntegralIterations);
-        //firstKeyFrameValue = playerDashData.DashCurve.keys[0].time;
-        //lastKeyFrameValue = playerDashData.DashCurve.keys[1].time;
+        //realEndDashPosition = player.transform.position + player.targetDir.normalized * playerDashData.ActiveDashDistance;
+        //fakeEndDashPosition = player.transform.position + player.targetDir.normalized * (playerDashData.ActiveDashDistance * 1.5f);
+        //endPointsDistance = Vector3.Distance(realEndDashPosition, fakeEndDashPosition);
 
-        //float space = Integration.IntegrateCurve(dashCurve, firstKeyFrameValue, lastKeyFrameValue, 100);
-        //Debug.Log("DashSpace: " + space);
-        //Debug.Log("xmin: " + firstKeyFrameValue);
-        //Debug.Log("xMax: " + lastKeyFrameValue);
-
-        //startPointsDistance = player.transform.position; //Con la start non funziona perché prendendo direttamente player.transform.position ha troppi numeri dopo la virgola????
         timer = 0;
     }
 
     public override void Tick() {
         timer += Time.deltaTime;
-        if (Mathf.Floor(Vector3.Distance(player.transform.position, fakeEndDashPosition)) > endPointsDistance) {
-            player.Dash(player.dashVelocityModule , player.targetDir , dashCurve , timer , IntegralIterations , player.playerDashData.frame);
+        if (timer <= playerDashData.ActiveDashTime  /*Mathf.Floor(Vector3.Distance(player.transform.position, fakeEndDashPosition)) > endPointsDistance*/) {
+            player.Dash(player.dashVelocityModule , player.targetDir , dashCurve , timer - Time.deltaTime , timer, IntegralIterations);
         }
         else {
+            //if (timer > playerDashData.ActiveDashTime) {
+            player.Dash(player.dashVelocityModule, player.targetDir, dashCurve, timer - Time.deltaTime, playerDashData.ActiveDashTime, IntegralIterations);
+            //}
+
+            player.plusDeltaTime = timer - playerDashData.ActiveDashTime;
+
             animator.SetTrigger(DASH_DECELERATION);
         }
         
@@ -65,27 +66,13 @@ public class PlayerDashState : PlayerBaseState
     }
 
     void setDashCurve() {
+
         float dashSpeed = playerDashData.ActiveDashDistance / playerDashData.ActiveDashTime;
-        for (int i = 0; i < playerDashData.DashCurve.keys.Length; i++) {
-            playerDashData.DashCurve.RemoveKey(i);
-        }
+        playerDashData.DashCurve.keys = null;
+
         playerDashData.DashCurve.AddKey(0, dashSpeed);
         playerDashData.DashCurve.AddKey(playerDashData.ActiveDashTime , dashSpeed);
     }
 
-    //// Integrate area under AnimationCurve between start and end time
-    //public static float IntegrateCurve(AnimationCurve curve, float startTime, float endTime, int steps) {
-    //    return Integrate(curve.Evaluate, startTime, endTime, steps);
-    //}
-
-    //// Integrate function f(x) using the trapezoidal rule between x=x_low..x_high
-    //public static float Integrate(Func<float, float> f, float x_low, float x_high, int N_steps) {
-    //    float h = (x_high - x_low) / N_steps;
-    //    float res = (f(x_low) + f(x_high)) / 2;
-    //    for (int i = 1; i < N_steps; i++) {
-    //        res += f(x_low + i * h);
-    //    }
-    //    return h * res;
-    //}
 
 }

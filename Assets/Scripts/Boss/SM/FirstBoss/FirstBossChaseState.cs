@@ -37,6 +37,7 @@ public class FirstBossChaseState : FirstBossState
         OrbitTag(chaseData);
         AccelerationEnter();
         ChaseEnter();
+        boss.actualMaxSpeed = chaseData.MaxSpeed;
     }
 
     public override void Tick()

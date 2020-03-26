@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngineInternal.Input;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
-using System;
+
 
 
 public class PlayerController : MovementBase
@@ -37,6 +37,7 @@ public class PlayerController : MovementBase
     #endregion
 
     //Inspector
+    #region Inspector Variables
     public DataInput dataInput;
     public Animator animator;
     public Animator graphicAnimator;
@@ -54,11 +55,14 @@ public class PlayerController : MovementBase
     public float TweeningRotationTime;
     public Ease TweeningRotationEase;
     public GameObject PauseCanvas;
- 
+    #endregion
 
     //Public
+    #region public variables
     [HideInInspector]
     public bool canDash;
+    [HideInInspector]
+    public float plusDeltaTime;
     [HideInInspector]
     public PlayerDashData playerDashData;
     [HideInInspector]
@@ -91,16 +95,13 @@ public class PlayerController : MovementBase
     public float forwardVelocity;
     [HideInInspector]
     public bool InputDisable;
-    
+    #endregion
 
     //Private
     Camera camera;
     Vector3 move;
-    float vectorAngle;
     bool isPaused;
 
-    //TEMP
-    public float decelSpace;
 
     protected virtual void Awake() {
         playerTarget.instance = this.gameObject;
@@ -112,7 +113,6 @@ public class PlayerController : MovementBase
     }
 
     protected virtual void Start() {
-      
         canDash = true;
         camera = Camera.main;
     }
@@ -133,9 +133,6 @@ public class PlayerController : MovementBase
             }
         }
 
-        //Momentaneo___________________________________________________________________
-        //transform.position = new Vector3(transform.position.x ,0,transform.position.z);
-        //Momentaneo___________________________________________________________________
 
         if (!InputDisable) // momentaneo da sistemare
         {
@@ -145,8 +142,6 @@ public class PlayerController : MovementBase
         }
     }
 
-
-    
 
     void CalculateOrientationFromMouse()
     {
@@ -219,43 +214,24 @@ public class PlayerController : MovementBase
         Time.timeScale = originalScale;
     }
 
-
-   
-
-    public void Dash(float _dashVelocityModule , Vector3 _targetDir , AnimationCurve _dashCurve ,float _timer , int _iterations , float frame) {
-
+    public void Dash(float _dashVelocityModule , Vector3 _targetDir , AnimationCurve _dashCurve , float _t0 , float _t1 , int _iterations) {
         targetDir = _targetDir;
         Vector3 dashVectorTemp = targetDir;
         VelocityVector = dashVectorTemp.normalized * _dashVelocityModule;
-        //move = VelocityVector * Time.deltaTime;
-        move = dashVectorTemp.normalized * Integration.IntegrateCurve(_dashCurve , _timer , _timer + frame, _iterations);
-
+        move = dashVectorTemp.normalized * Integration.IntegrateCurve(_dashCurve , _t0, _t1 , _iterations);
         CharacterController.Move(move);
     }
 
     //Here and not in BaseMovement because it could change over time
-    public void DashDeceleration(AnimationCurve _dashDecelCurve, float _timer, int _iterations, float frame) {
-
+    public void DashDeceleration(AnimationCurve _dashDecelCurve, float _t0 , float _t1, int _iterations) {
         float dashSpeedModule = playerDashData.ActiveDashDistance / playerDashData.ActiveDashTime;
         float vectorAngle = Vector3.SignedAngle(Vector3.forward, VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
         DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
-        VelocityVector = _dashDecelCurve.Evaluate(_timer) * DecelerationVector.normalized;
-        decelSpace += Integration.IntegrateCurve(_dashDecelCurve, _timer - Time.deltaTime, _timer, _iterations);
-        move = DecelerationVector.normalized * Integration.IntegrateCurve(_dashDecelCurve, _timer - Time.deltaTime, _timer, _iterations);
-        //move = VelocityVector * Time.deltaTime;
-        Debug.Log(decelSpace);
+        VelocityVector = _dashDecelCurve.Evaluate(_t1) * DecelerationVector.normalized;
+        move = DecelerationVector.normalized * Integration.IntegrateCurve(_dashDecelCurve, _t0, _t1, _iterations);
         CharacterController.Move(move);
     }
 
-    //public void DashDeceleration(AnimationCurve _dashDecelCurve, float _timer, int _iterations, float frame) {
-
-
-    //    move = VelocityVector.normalized * Integration.IntegrateCurve(_dashDecelCurve, _timer, _timer + frame, _iterations);
-    //    decelSpace += Integration.IntegrateCurve(_dashDecelCurve, _timer, _timer + frame, _iterations);
-    //    Debug.Log(_timer + frame);
-    //    //move = VelocityVector * Time.deltaTime;
-    //    CharacterController.Move(move);
-    //}
 
     public void TakeDmg()
     {
@@ -293,7 +269,6 @@ public class PlayerController : MovementBase
     }
 
 
-    // DA SISTEMARE
     public bool checkDeadZone() {
         if (Mathf.Pow(Input.GetAxis("Horizontal"), 2) + Mathf.Pow(Input.GetAxis("Vertical"), 2) >= Mathf.Pow(MovementDeadZoneValue, 2)) {
             return true;
@@ -313,7 +288,6 @@ public class PlayerController : MovementBase
 
     public void UpdateOriantation()
     {
-        //rotationTransform.localRotation =  dataInput.currentOrientation;
         rotationTransform.DOLocalRotateQuaternion(dataInput.currentOrientation, TweeningRotationTime).SetEase(TweeningRotationEase);
     }
 
@@ -342,8 +316,7 @@ public class PlayerController : MovementBase
     public IEnumerator InvicibleSecond(float _sec)
     {
         IsImmortal = true;
-        // yield return new WaitForSeconds(_sec);
-       
+        #region Immortality Flickering
         body.SetActive(false);
         yield return new WaitForSeconds(_sec / 6);
         body.SetActive(true);
@@ -357,10 +330,10 @@ public class PlayerController : MovementBase
         body.SetActive(true);
         yield return new WaitForSeconds(_sec / 6);
         IsImmortal = false;
+        #endregion
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit) {
-
         if (hit.collider.tag == "Walls" || hit.collider.GetComponent<FirstBossController>()) {
             animator.SetTrigger("DashDeceleration");
         }

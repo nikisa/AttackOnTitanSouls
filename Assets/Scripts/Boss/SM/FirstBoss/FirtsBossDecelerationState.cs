@@ -8,17 +8,23 @@ public class FirtsBossDecelerationState : FirstBossState
     public DecelerationData decelerationData;
 
     //Private
-    //int wallLayer;
+    float timer;
+    float finalDeltaTime;
+    int iterations;
+
 
     public override void Enter()
     {
-
+        iterations = 1;
         base.Enter();
-        //wallLayer = 10;
+        animator.SetInteger("Layer", 0);
+        timer = 0;
+        setMovementDecelerationCurve();
+
     }
     public override void Tick()
     {
-
+        timer += Time.deltaTime;
         base.Tick();
 
         //CollisionTick();
@@ -27,23 +33,14 @@ public class FirtsBossDecelerationState : FirstBossState
         SetCycleTimer();
     }
 
-    //public void CollisionTick()
-    //{
-
-    //    Vector3 nextPosition = boss.transform.position + (boss.MoveSpeed * Time.deltaTime) * boss.transform.forward;
-
-    //    if (boss.DetectCollision(nextPosition) == wallLayer)
-    //    {
-    //        animator.SetTrigger("Collision");
-    //    }
-
-    //}
-
+ 
 
     public override void Exit()
     {
         boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
+
+        boss.Deceleration(decelerationData.MovementDecelerationCurve, timer - Time.deltaTime, finalDeltaTime, iterations);
     }
 
     //Set speed parameter in the animator
@@ -57,7 +54,7 @@ public class FirtsBossDecelerationState : FirstBossState
 
         if (boss.VelocityVector.magnitude > boss.DecelerationModule * Time.deltaTime)
         {
-            boss.Deceleration();
+            boss.Deceleration(decelerationData.MovementDecelerationCurve , timer - Time.deltaTime , timer , iterations);
         }
         else 
         {
@@ -71,6 +68,17 @@ public class FirtsBossDecelerationState : FirstBossState
         float distance = (boss.Target.transform.position - boss.transform.position).magnitude;
         animator.SetFloat("ChaseRadius", distance);
     }
+
+    void setMovementDecelerationCurve() {
+
+        decelerationData.MovementDecelerationCurve.keys = null;
+        finalDeltaTime = boss.VelocityVector.magnitude / boss.DecelerationModule;
+
+        decelerationData.MovementDecelerationCurve.AddKey(0, boss.VelocityVector.magnitude);
+        decelerationData.MovementDecelerationCurve.AddKey(finalDeltaTime , 0);
+    }
+
+    
 
 
 }

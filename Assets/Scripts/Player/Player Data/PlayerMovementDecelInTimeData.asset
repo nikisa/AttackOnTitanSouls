@@ -12,4 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58adf1035768dce48b6e3ad7013fb68a, type: 3}
   m_Name: PlayerMovementDecelInTimeData
   m_EditorClassIdentifier: 
-  DecelerationTime: 100
+  MovementDecelerationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 14.889125
+      inSlope: -18
+      outSlope: -18
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8271736
+      value: 0
+      inSlope: -18
+      outSlope: -18
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  DecelerationTime: 1
