@@ -8,7 +8,7 @@ public class FirstBossSetup : FirstBossState
     public List<AnticipationData> everyAnticipationData;
     public List<BaseData> DataToResetTime;
     void Setup() {        
-        boss.loops = everyAnticipationData[0].Loops;
+        boss.loops = everyAnticipationData[0].Loops + 1;
 
         //Anticipation Setup
         for (int i = 0; i < everyAnticipationData.Count; i++) {

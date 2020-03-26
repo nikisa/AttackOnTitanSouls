@@ -1406,7 +1406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc82a152f7900c4f91a40977da2c330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  decelerationData: {fileID: 11400000, guid: b283cbc53e6c4df409d11498ef21457f, type: 2}
+  decelerationData: {fileID: 11400000, guid: ecf5788e4a2464848b810f4e9a4caf96, type: 2}
 --- !u!114 &114987180111801974
 MonoBehaviour:
   m_ObjectHideFlags: 3

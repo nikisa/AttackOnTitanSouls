@@ -7,6 +7,8 @@ public class MovementBase : MonoBehaviour
 {
 
     //Inspector
+    public float MinBounceVector;
+    public float MaxBounceVector;
     public CharacterController CharacterController;
     public float Mass;
     [HideInInspector]
@@ -145,6 +147,7 @@ public class MovementBase : MonoBehaviour
         //Bounce formula
         bounceVector = (vectorParal * (Mass - collidingObject.Mass) + 2 * collidingObject.Mass * collisionVectorParal) / (Mass + collidingObject.Mass);
         VelocityVector = (bounceVector * (1 - KineticEnergyLoss)) + (vectorPerp * (1 - KineticEnergyLoss));
+        //VelocityVector = Mathf.Clamp(VelocityVector.magnitude, MinBounceVector, MaxBounceVector) * VelocityVector.normalized;
         AccelerationVector = VelocityVector.normalized * AccelerationVector.magnitude;
         
         bounceVector = (collisionVectorParal * (collidingObject.Mass - Mass) + 2 * Mass * vectorParal) / (collidingObject.Mass + Mass);
@@ -190,7 +193,7 @@ public class MovementBase : MonoBehaviour
         AccelerationVector = VelocityVector.normalized * AccelerationVector.magnitude;
 
 
-        Debug.Log("plusAngle:  " + plusAngle);
+
         Debug.DrawRay(transform.position, VelocityVector, Color.blue, .02f);
         Debug.DrawRay(transform.position, AccelerationVector, Color.red, .02f);
         

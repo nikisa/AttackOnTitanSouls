@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Time: 0
   OrbitTag: 3
-  Deceleration: 45
+  Deceleration: 5
   LowSpeed: 0

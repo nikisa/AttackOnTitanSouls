@@ -19,7 +19,7 @@ public class PlayerStunnedState : PlayerBaseState
     public override void Tick() {
 
 
-        //To Do: Bounce formula
+        ////To Do: Bounce formula
 
         //player.CharacterController.Move(-player.VelocityVector);
 

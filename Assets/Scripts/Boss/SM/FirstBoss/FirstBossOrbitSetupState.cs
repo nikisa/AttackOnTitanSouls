@@ -21,7 +21,7 @@ public class FirstBossOrbitSetupState : FirstBossState
     {
 
         bossOrbitManager.MasksBehaviourList = MaskBehaviourList;
-        orientation = 360;
+        orientation = 360 + bossOrbitManager.SetupAngle;
         //SetCenterPoint();
         bossOrbitManager.SetupMask(MaskBehaviourList);
         FillPointsPosition();
@@ -86,6 +86,7 @@ public class FirstBossOrbitSetupState : FirstBossState
         for (int i = 0; i < MaskBehaviourList.Count; i++) {
             bossOrbitManager.SetObjectsPosition(MaskBehaviourList[i].SetupRadius, MaskBehaviourList[i].FinalRadius, i, positionPointTime, orientation, MaskBehaviourList[i].TravelTime, MaskBehaviourList[i].HasDeltaRadius, MaskBehaviourList[i].isSetup);
             orientation -= 360 / bossOrbitManager.MasksList.Count;
+
         }
     }
 }

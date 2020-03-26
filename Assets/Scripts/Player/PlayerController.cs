@@ -53,7 +53,7 @@ public class PlayerController : MovementBase
     public float TweeningRotationTime;
     public Ease TweeningRotationEase;
     public GameObject PauseCanvas;
-
+ 
 
     //Public
     [HideInInspector]
@@ -342,6 +342,9 @@ public class PlayerController : MovementBase
     private void OnControllerColliderHit(ControllerColliderHit hit) {
         if ((hit.collider.GetComponent<MovementBase>() || hit.collider.GetComponent<FirstBossMask>()) && !hit.collider.GetComponent<PlayerController>()) {
             BounceMovement(hit.collider);
+            Debug.Log("HHHHH");
+          
+           // VelocityVector = Mathf.Clamp(VelocityVector.magnitude, MinBounceVector,MaxBounceVector) * VelocityVector.normalized;
             animator.SetTrigger("Stunned");
         }
     }

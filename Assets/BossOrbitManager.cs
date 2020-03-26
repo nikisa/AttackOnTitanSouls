@@ -32,6 +32,7 @@ public class BossOrbitManager : MonoBehaviour
     public List<FirstBossMask> MasksList;
     public BossFoV BossFov;
     public LayerMask layerMask;
+    public float SetupAngle;
     //public AnimationCurve Curve;
 
     //Public

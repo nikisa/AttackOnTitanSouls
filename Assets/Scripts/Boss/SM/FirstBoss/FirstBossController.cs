@@ -5,9 +5,7 @@ using UnityEngine;
 public class FirstBossController : BossController
 {
     //Inspector
-    public BossOrbitManager bossOrbitManager;
-    public float minBounceVector;
-    public float maxBounceVector;    
+    public BossOrbitManager bossOrbitManager;   
     public float ActiveMaskCollisionTime;
 
     //Public
