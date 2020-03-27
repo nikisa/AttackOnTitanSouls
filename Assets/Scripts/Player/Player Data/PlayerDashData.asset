@@ -17,7 +17,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 60
+      value: 90
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -26,7 +26,7 @@ MonoBehaviour:
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.05
-      value: 60
+      value: 90
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -37,7 +37,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   PreDashFreeze: 0.033
-  ActiveDashDistance: 3
+  ActiveDashDistance: 4.5
   ActiveDashTime: 0.05
   DashDecelerationTime: 0.1
   DashDecelerationCurve:
@@ -45,9 +45,9 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 60
-      inSlope: -600
-      outSlope: -600
+      value: 90
+      inSlope: -900
+      outSlope: -900
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
@@ -55,8 +55,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.1
       value: 0
-      inSlope: -600
-      outSlope: -600
+      inSlope: -900
+      outSlope: -900
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334

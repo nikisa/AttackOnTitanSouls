@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LW_Ant_Chase
   m_EditorClassIdentifier: 
   Time: 0
-  OrbitTag: 2
-  Loops: 2
+  OrbitTag: 7
+  Loops: 1
   InfinteLoops: 0

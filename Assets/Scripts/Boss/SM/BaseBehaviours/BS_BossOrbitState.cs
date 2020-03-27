@@ -20,15 +20,17 @@ public class BS_BossOrbitState : FirstBossState
     float currentRadius;
 
     public override void Enter() {
+        
         bossOrbitManager.MasksBehaviourList = MasksBehaviourList;
         bossOrbitManager.ResetVelocity();
         bossOrbitManager.SetupMask(MasksBehaviourList);
+        
         bossOrbitManager.BossFov.UpdateViewRadius();
         
 
-        orientation = 360 + boss.bossOrbitManager.SetupAngle;
+        orientation = 360  + bossOrbitManager.SetupAngle;
         //ResetPosition();
-        SetupPositionPoints();
+        SetupPositionPoints(orientation);
         orbitTimeStart = Time.time;
         maxMaskCurrentRadius = 0;
         currentRadius = 0;
@@ -54,10 +56,12 @@ public class BS_BossOrbitState : FirstBossState
         boss.sphereCollider.radius = currentRadius;
     }
 
-    public void SetupPositionPoints() {
+    public void SetupPositionPoints(float _orientation) {
         for (int i = 0; i < MasksBehaviourList.Count; i++) {
-            bossOrbitManager.SetObjectsPosition(MasksBehaviourList[i].SetupRadius, MasksBehaviourList[i].FinalRadius, i, positionPointTime, orientation, MasksBehaviourList[i].TravelTime, MasksBehaviourList[i].HasDeltaRadius, MasksBehaviourList[i].isSetup);
-            orientation -= 360 / bossOrbitManager.MasksList.Count;
+            for (int j = 0; j < MasksBehaviourList[i].MaskTargets.Count; j++) {
+                bossOrbitManager.SetObjectsPosition(MasksBehaviourList[i].SetupRadius, MasksBehaviourList[i].FinalRadius, j, positionPointTime, orientation, MasksBehaviourList[i].TravelTime, MasksBehaviourList[i].HasDeltaRadius, MasksBehaviourList[i].isSetup);
+                orientation -= _orientation / bossOrbitManager.MasksList.Count;
+            }
         }
     }
 

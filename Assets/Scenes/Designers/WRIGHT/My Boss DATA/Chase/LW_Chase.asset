@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: LW_Chase
   m_EditorClassIdentifier: 
   Time: 0
-  OrbitTag: 0
+  OrbitTag: 2
   Target: {fileID: 11400000, guid: 320bf9f104a0b814481ec323e5fa955a, type: 2}
-  TimeAcceleration: 0.35
+  TimeAcceleration: 0.45
   MaxSpeed: 30
   DynamicDrag: 0.9864543

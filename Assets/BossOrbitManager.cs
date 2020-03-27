@@ -50,8 +50,6 @@ public class BossOrbitManager : MonoBehaviour
     public int countMasksArrived;
     [HideInInspector]
     public float actualSpeed;
-    //[HideInInspector]
-    public List<OrbitManagerData> OrbitManagerDataList;
     [HideInInspector]
     public float distanceFromBoss;
     [HideInInspector]
@@ -74,7 +72,7 @@ public class BossOrbitManager : MonoBehaviour
 
 
     public void SetupMask(List<MaskBehaviourData> _maskBehaviourList) {
-        for (int i = 0; i < MasksList.Count; i++) {
+        for (int i = 0; i < _maskBehaviourList.Count; i++) {
             for (int j = 0; j < _maskBehaviourList[i].MaskTargets.Count; j++) {
                 if (_maskBehaviourList[i].MaskTargets[j].instance != null) {
                     if (_maskBehaviourList[i].isSetup) 
