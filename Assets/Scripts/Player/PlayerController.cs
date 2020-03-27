@@ -344,9 +344,18 @@ public class PlayerController : MovementBase
         if ((hit.collider.GetComponent<MovementBase>() || hit.collider.GetComponent<FirstBossMask>()) && !hit.collider.GetComponent<PlayerController>()) {
             BounceMovement(hit.collider);
             Debug.Log("HHHHH");
-          
-           // VelocityVector = Mathf.Clamp(VelocityVector.magnitude, MinBounceVector,MaxBounceVector) * VelocityVector.normalized;
+            GetDamage();
+                
+
+            // VelocityVector = Mathf.Clamp(VelocityVector.magnitude, MinBounceVector,MaxBounceVector) * VelocityVector.normalized;
             animator.SetTrigger("Stunned");
+        }
+    }
+
+
+    public void GetDamage() {
+        if (!IsImmortal) {
+            PlayerController.DmgEvent();
         }
     }
 

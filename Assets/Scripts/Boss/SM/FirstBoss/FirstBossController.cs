@@ -41,6 +41,7 @@ public class FirstBossController : BossController
         if ((_hit.collider.GetComponent<MovementBase>() || _hit.collider.GetComponent<PlayerView>()) && !_hit.collider.GetComponent<BossController>()) {
             animator.SetInteger("Layer", 11);
             Debug.Log("DDDD");
+            Player.GetDamage();
             bossOrbitManager.ObjHit = 2;
         }
 

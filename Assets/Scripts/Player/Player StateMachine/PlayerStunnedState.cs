@@ -12,8 +12,6 @@ public class PlayerStunnedState : PlayerBaseState
     float timeStart;
 
     public override void Enter() {
-        GetDamage();
-        timeStart = Time.time;
     }
 
     public override void Tick() {
@@ -33,14 +31,9 @@ public class PlayerStunnedState : PlayerBaseState
     }
 
     public override void Exit() {
-        animator.SetFloat("Timer", 0);
     }
 
 
-    void GetDamage() { 
-        if (!player.IsImmortal) {
-            PlayerController.DmgEvent();
-        }
-    }
+
 
 }

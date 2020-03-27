@@ -9,14 +9,14 @@ public class PlayerView : MonoBehaviour
     public PlayerController Player;
         
     private void OnCollisionEnter(Collision collision) {
-      Debug.Log("d");
-      
         if (collision.collider.GetComponent<BossController>()) {
+            Player.GetDamage();
             Debug.Log("Hit in idle");
             Player.BounceMovement(collision.collider);
             Player.animator.SetTrigger("Stunned");
         }
     }
+
 
 
 }
