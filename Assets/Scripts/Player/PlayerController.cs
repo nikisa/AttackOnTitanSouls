@@ -334,9 +334,6 @@ public class PlayerController : MovementBase
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit) {
-        if (hit.collider.tag == "Walls" || hit.collider.GetComponent<FirstBossController>()) {
-            animator.SetTrigger("DashDeceleration");
-        }
 
         if ((hit.collider.GetComponent<MovementBase>() || hit.collider.GetComponent<FirstBossMask>()) && !hit.collider.GetComponent<PlayerController>()) {
             BounceMovement(hit.collider);

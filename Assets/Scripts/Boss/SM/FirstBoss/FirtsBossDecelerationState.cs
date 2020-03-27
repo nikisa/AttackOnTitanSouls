@@ -18,13 +18,10 @@ public class FirtsBossDecelerationState : FirstBossState
         iterations = 1;
         base.Enter();
         animator.SetInteger("Layer", 0);
-<<<<<<< HEAD
         timer = 0;
         setMovementDecelerationCurve();
 
-=======
-        //wallLayer = 10;
->>>>>>> 83a012a33337937bcd33a00f13e0ec2c8e6a61f9
+
     }
     public override void Tick()
     {
