@@ -23,5 +23,6 @@ public class FirstBossSetup : FirstBossState
     public override void Enter() {
         Setup();
         TriggerExitState();
+        ResetCycleTimer();
     }
 }

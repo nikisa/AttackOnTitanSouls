@@ -76,11 +76,12 @@ public class BossOrbitManager : MonoBehaviour
     public void SetupMask(List<MaskBehaviourData> _maskBehaviourList) {
         for (int i = 0; i < MasksList.Count; i++) {
             for (int j = 0; j < _maskBehaviourList[i].MaskTargets.Count; j++) {
-                if (_maskBehaviourList[i].isSetup) {
-                    _maskBehaviourList[i].MaskTargets[j].instance.SetRadius(_maskBehaviourList[i].SetupRadius);
+                if (_maskBehaviourList[i].MaskTargets[j].instance != null) {
+                    if (_maskBehaviourList[i].isSetup) 
+                        _maskBehaviourList[i].MaskTargets[j].instance.SetRadius(_maskBehaviourList[i].SetupRadius);
+                    
+                    _maskBehaviourList[i].MaskTargets[j].instance.setAngularDecelerationModule(_maskBehaviourList[i].AngularMaxSpeed, _maskBehaviourList[i].AngularDecelerationTime);
                 }
-
-                _maskBehaviourList[i].MaskTargets[j].instance.setAngularDecelerationModule(_maskBehaviourList[i].AngularMaxSpeed, _maskBehaviourList[i].AngularDecelerationTime);
             }
             
             
@@ -101,14 +102,20 @@ public class BossOrbitManager : MonoBehaviour
     public void RotationMask(List<MaskBehaviourData> _maskBehaviourList) {
         for (int i = 0; i < _maskBehaviourList.Count; i++) {
             for (int j = 0; j < _maskBehaviourList[i].MaskTargets.Count; j++) {
-                _maskBehaviourList[i].MaskTargets[j].instance.RotateAroud(_maskBehaviourList[i].AngularMaxSpeed, _maskBehaviourList[i].AngularAccelerationTime);
+                if (_maskBehaviourList[i].MaskTargets[j].instance != null) {
+                    _maskBehaviourList[i].MaskTargets[j].instance.RotateAroud(_maskBehaviourList[i].AngularMaxSpeed, _maskBehaviourList[i].AngularAccelerationTime);
+                }
+                
             }
         }
     }
 
     public void DecelerationMask() {
         for (int i = 0; i < MasksList.Count; i++) {
-            MasksList[i].DecelerateAround(MasksList[i].AngularDecelerationModule);
+            if (MasksList[i] != null) {
+                MasksList[i].DecelerateAround(MasksList[i].AngularDecelerationModule);
+            }
+            
         }
     }
 
