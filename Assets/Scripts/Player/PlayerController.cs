@@ -120,6 +120,9 @@ public class PlayerController : MovementBase
     private void Update() 
     {
 
+        Debug.DrawRay(transform.position , VelocityVector, Color.blue, .02f );
+        Debug.DrawRay(transform.position , AccelerationVector, Color.red, .02f);
+
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Pause")) {
             isPaused = !isPaused;
 
@@ -140,6 +143,9 @@ public class PlayerController : MovementBase
             UpdateOriantation();
             SetAnimationParameter();
         }
+
+
+
     }
 
 

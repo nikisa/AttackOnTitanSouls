@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerMovementDecelInTimeState : PlayerBaseState
 {
-    
+   
     //Inspector
     public PlayerDecelInTimeData playerDecelInTimeData;
 
@@ -25,19 +26,19 @@ public class PlayerMovementDecelInTimeState : PlayerBaseState
 
     public override void Tick() {
         timer += Time.deltaTime;
-        if (player.VelocityVector.magnitude > player.DecelerationModule * Time.deltaTime) {
-
-            player.Deceleration(playerDecelInTimeData.MovementDecelerationCurve , timer - Time.deltaTime , timer , iterations);
-        }
-        else {
-            player.VelocityVector = Vector3.zero;
-            animator.SetTrigger(IDLE);
-        }
 
         if (player.checkDeadZone()) {
             animator.SetTrigger(MOVEMENT);
         }
 
+        if (timer <= finalDeltaTime) {
+
+            player.Deceleration(playerDecelInTimeData.MovementDecelerationCurve , timer - Time.deltaTime , timer , iterations);
+        }
+        else {            
+            player.Deceleration(playerDecelInTimeData.MovementDecelerationCurve, timer - Time.deltaTime, finalDeltaTime, iterations);
+            animator.SetTrigger(IDLE);
+        }
     }
 
     void setMovementDecelerationCurve() {
@@ -51,7 +52,7 @@ public class PlayerMovementDecelInTimeState : PlayerBaseState
 
 
     public override void Exit() {
-        player.Deceleration(playerDecelInTimeData.MovementDecelerationCurve, timer - Time.deltaTime ,finalDeltaTime , iterations);
+        
     }
 
 }

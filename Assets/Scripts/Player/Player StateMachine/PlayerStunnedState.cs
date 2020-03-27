@@ -18,21 +18,18 @@ public class PlayerStunnedState : PlayerBaseState
 
     public override void Tick() {
 
+        
 
-        ////To Do: Bounce formula
+        //float vectorAngle = Vector3.SignedAngle(Vector3.forward, player.VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
+        //player.DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * decelerationData.Deceleration, 0, Mathf.Cos(vectorAngle) * decelerationData.Deceleration);
 
-        //player.CharacterController.Move(-player.VelocityVector);
+        ////Debug.DrawRay(player.transform.position, player.VelocityVector, Color.cyan, 0.2f);
 
-        float vectorAngle = Vector3.SignedAngle(Vector3.forward, player.VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
-        player.DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * decelerationData.Deceleration, 0, Mathf.Cos(vectorAngle) * decelerationData.Deceleration);
+        //player.VelocityVector -= player.DecelerationVector * Time.deltaTime;
+        //player.move = player.VelocityVector * Time.deltaTime;
+        //player.CharacterController.Move(player.move + Vector3.down * player.gravity);
 
-        //Debug.DrawRay(player.transform.position, player.VelocityVector, Color.cyan, 0.2f);
-
-        player.VelocityVector -= player.DecelerationVector * Time.deltaTime;
-        player.move = player.VelocityVector * Time.deltaTime;
-        player.CharacterController.Move(player.move + Vector3.down * player.gravity);
-
-        animator.SetFloat("Timer" ,Time.time - timeStart); // base.Tick() ???
+        //animator.SetFloat("Timer" ,Time.time - timeStart); // base.Tick() ???
     }
 
     public override void Exit() {

@@ -41,7 +41,7 @@ public class FirtsBossDecelerationState : FirstBossState
         boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
 
-        boss.Deceleration(decelerationData.MovementDecelerationCurve, timer - Time.deltaTime, finalDeltaTime, iterations);
+        
     }
 
     //Set speed parameter in the animator
@@ -53,13 +53,13 @@ public class FirtsBossDecelerationState : FirstBossState
     {
         boss.DecelerationModule = decelerationData.Deceleration;
 
-        if (boss.VelocityVector.magnitude > boss.DecelerationModule * Time.deltaTime)
+        if (timer <= finalDeltaTime)
         {
             boss.Deceleration(decelerationData.MovementDecelerationCurve , timer - Time.deltaTime , timer , iterations);
         }
         else 
         {
-            boss.VelocityVector = Vector3.zero;
+            boss.Deceleration(decelerationData.MovementDecelerationCurve, timer - Time.deltaTime, finalDeltaTime, iterations);
             animator.SetTrigger(END_STATE_TRIGGER);
         }
     }

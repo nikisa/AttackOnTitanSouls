@@ -210,6 +210,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740875db51b49c444bf76fb0109026b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114560957241962522
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734172542f250ec4cb7baa2cbf49d190, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerDecelInTimeData: {fileID: 11400000, guid: 9bbbaf13a429d1c4ca9aabf002a8ca05,
+    type: 2}
 --- !u!114 &114632198135609374
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -238,19 +252,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovementData: {fileID: 0}
   playerDashData: {fileID: 0}
---- !u!114 &114725113446064132
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 089bddae26d1a2643a13ebc6c4f36ad2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  decelerationData: {fileID: 11400000, guid: 2ba66c16932cd834c9f7c6b4e9d283bd, type: 2}
 --- !u!114 &114748841555035978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -795,9 +796,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
-    m_ConditionEvent: Timer
-    m_EventTreshold: 0.5
+  - m_ConditionMode: 1
+    m_ConditionEvent: Idle
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102550073686306324}
   m_Solo: 0
@@ -1207,7 +1208,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1101497227434858484}
   m_StateMachineBehaviours:
-  - {fileID: 114725113446064132}
+  - {fileID: 114560957241962522}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
