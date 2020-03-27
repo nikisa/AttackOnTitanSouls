@@ -193,10 +193,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MasksBehaviourList:
   - {fileID: 11400000, guid: f631ec9d48bede643a3d7e1b7a8fe126, type: 2}
-  - {fileID: 11400000, guid: 40cb6b76de990e549a0bbc6f3289d5d4, type: 2}
-  - {fileID: 11400000, guid: efcba9e7699026f45b57bc800916a118, type: 2}
-  - {fileID: 11400000, guid: 9e13906d4f1865142b6d96ff56074d50, type: 2}
-  - {fileID: 11400000, guid: ddb91a224b042894dac6bf3624d222b4, type: 2}
 --- !u!114 &114037296466102528
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1128,10 +1124,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaskBehaviourList:
-  - {fileID: 11400000, guid: 2702b5b6bddca674aba92875b863d522, type: 2}
-  - {fileID: 11400000, guid: 2702b5b6bddca674aba92875b863d522, type: 2}
-  - {fileID: 11400000, guid: 2702b5b6bddca674aba92875b863d522, type: 2}
-  - {fileID: 11400000, guid: 2702b5b6bddca674aba92875b863d522, type: 2}
   - {fileID: 11400000, guid: 2702b5b6bddca674aba92875b863d522, type: 2}
 --- !u!114 &114701223225770124
 MonoBehaviour:

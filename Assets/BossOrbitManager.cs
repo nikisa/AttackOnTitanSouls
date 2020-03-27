@@ -186,11 +186,10 @@ public class BossOrbitManager : MonoBehaviour
 
                     currentMask = _maskBehaviourList[i].MaskTargets[j].instance;
 
-                    distance = Mathf.Abs(_maskBehaviourList[i].FinalRadius - (currentMask.currentRadius));
-                    speed = distance / _maskBehaviourList[i].TravelTime * Time.deltaTime;
+                    distance = _maskBehaviourList[i].FinalRadius - (currentMask.currentRadius);
+                    speed = distance / _maskBehaviourList[i].TravelTime;
                     if (_maskBehaviourList[i].HasDeltaRadius) {
-                        currentMask.SetRadius(currentMask.currentRadius += speed);
-                        currentMask.currentRadius = Mathf.Clamp(currentMask.currentRadius, 0, _maskBehaviourList[i].FinalRadius);
+                        currentMask.SetRadius(currentMask.currentRadius += speed * Time.deltaTime);
                     }
                 }
             }
