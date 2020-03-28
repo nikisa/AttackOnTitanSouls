@@ -39,7 +39,7 @@ public class FirstBossMoveToState : FirstBossState
         boss.Target = Target;
         accelerationModule = moveToData.MaxSpeed / moveToData.TimeAcceleration;
 
-        boss.MovementReset();
+        //boss.MovementReset();
         OrbitTag(moveToData);
         MoveToEnter();
         boss.actualMaxSpeed = moveToData.MaxSpeed;
@@ -103,7 +103,7 @@ public class FirstBossMoveToState : FirstBossState
 
     //Set speed parameter in the animator
     public void SetSpeed() {
-        animator.SetFloat("Speed", boss.MoveSpeed);
+        animator.SetFloat("Speed", boss.VelocityVector.magnitude);
     }
 
 }

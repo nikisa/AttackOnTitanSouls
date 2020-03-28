@@ -28,5 +28,5 @@ MonoBehaviour:
   SetupRadius: 2
   HasDeltaRadius: 1
   FinalRadius: 3
-  TravelTime: 2
+  TravelTime: 0.5
   OrbitMoveToEase: 0

@@ -19,9 +19,9 @@ MonoBehaviour:
   AngularAccelerationTime: 2
   AngularMaxSpeed: 0
   AngularDecelerationTime: 3
-  isSetup: 1
+  isSetup: 0
   SetupRadius: 3
   HasDeltaRadius: 1
-  FinalRadius: 4
+  FinalRadius: 3
   TravelTime: 1
   OrbitMoveToEase: 0

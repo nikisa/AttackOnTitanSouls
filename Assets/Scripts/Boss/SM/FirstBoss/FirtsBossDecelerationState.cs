@@ -32,6 +32,7 @@ public class FirtsBossDecelerationState : FirstBossState
         setChaseRadius();
         Deceleration();
         SetCycleTimer();
+        SetSpeed();
     }
 
  
@@ -46,7 +47,7 @@ public class FirtsBossDecelerationState : FirstBossState
 
     //Set speed parameter in the animator
     public void SetSpeed() {
-        animator.SetFloat("Speed", boss.MoveSpeed);
+        animator.SetFloat("Speed", boss.VelocityVector.magnitude);
     }
 
     public void Deceleration()
