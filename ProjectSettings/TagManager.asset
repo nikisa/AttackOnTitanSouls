@@ -4,12 +4,22 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< HEAD
   - HookPoint
   - BossGraphics
   - BossCore
   - Walls
   - Center
   - Pushable
+=======
+  - Walls
+  - Center
+  - CenterPoint
+  - HookPoint
+  - Pushable
+  - BossGraphics
+  - BossCore
+>>>>>>> origin/3D
   layers:
   - Default
   - TransparentFX
@@ -19,6 +29,7 @@ TagManager:
   - UI
   - 
   - 
+<<<<<<< HEAD
   - RopeNode
   - HookPoint
   - Walls
@@ -26,6 +37,15 @@ TagManager:
   - Boss
   - Amir
   - HookPointReassemble
+=======
+  - 'Characters '
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+>>>>>>> origin/3D
   - 
   - 
   - 
