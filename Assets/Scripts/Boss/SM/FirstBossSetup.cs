@@ -8,15 +8,13 @@ public class FirstBossSetup : FirstBossState
     public List<AnticipationData> everyAnticipationData;
     public List<BaseData> DataToResetTime;
     void Setup() {        
-        boss.loops = everyAnticipationData[0].Loops;
+        boss.loops = everyAnticipationData[0].Loops + 1;
 
         //Anticipation Setup
         for (int i = 0; i < everyAnticipationData.Count; i++) {
-            everyAnticipationData[i].loops = everyAnticipationData[i].Loops + 1;
             everyAnticipationData[i].Time = 0;
         }  
         for (int i = 0; i < DataToResetTime.Count; i++) {
-
             DataToResetTime[i].Time = 0;
         }
 
@@ -25,5 +23,6 @@ public class FirstBossSetup : FirstBossState
     public override void Enter() {
         Setup();
         TriggerExitState();
+        ResetCycleTimer();
     }
 }

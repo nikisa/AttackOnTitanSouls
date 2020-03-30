@@ -9,6 +9,7 @@ public class HookedState : GrappleBaseState
     }
                
     public override void Tick() {
+
         if (grappleManager.hook.isHooked) {
 
             grappleManager.hookPoint.isHooked = true;
@@ -20,6 +21,7 @@ public class HookedState : GrappleBaseState
 
             if (Input.GetButtonDown("UnhookXBOX")) {
                 grappleManager.hookPoint.isHooked = false;
+                grappleManager.hook.isHooked = false;
                 grappleManager.hookPoint.transform.position = grappleManager.hookPoint.HookPointPivot.transform.position;
                 grappleManager.hook.hitDistance = 1;
                 grappleManager.hook.Inertia = Vector3.zero;
@@ -28,6 +30,11 @@ public class HookedState : GrappleBaseState
             if (!grappleManager.hookPoint.isHooked) {
                 grappleManager.hook.Inertia = Vector3.zero;
                 grappleManager.hook.hitDistance = 0;
+                animator.SetTrigger("Rewind");
+            }
+
+            if (Input.GetAxis("Rewind") >= 0.5f) {
+                Debug.Log("REWINDING");
                 animator.SetTrigger("Rewind");
             }
 

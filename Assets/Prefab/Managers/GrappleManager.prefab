@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04540dd9e1c84d4a97ecc5e594e1c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FovPlayer: {fileID: 0}
   debugMode: 0
   GrappleGun: {fileID: 0}
   hook: {fileID: 0}
@@ -51,7 +52,9 @@ MonoBehaviour:
   Player: {fileID: 0}
   CrossHair: {fileID: 0}
   animator: {fileID: 688143340}
-  MassPointNumber: 48
+  IsSet: 0
+  target: {fileID: 0}
+  MassPointNumber: 32
   MassPointLength: 0.25
 --- !u!95 &688143340
 Animator:

@@ -94,9 +94,12 @@ public class UiManager : MonoBehaviour
     }
     public void LifeUpdate(int _lifes)
     {
-
+        if (_lifes < 0)
+        {
         FullHeart[_lifes].Disable();
         EmptyHeart[_lifes].Setup();
+        }
+       
     }
 
     public enum MenuType
@@ -112,7 +115,7 @@ public class UiManager : MonoBehaviour
     public void PlayGameplay()
     {
         
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(1);
         init();
         animator.SetTrigger("Gameplay");
     }

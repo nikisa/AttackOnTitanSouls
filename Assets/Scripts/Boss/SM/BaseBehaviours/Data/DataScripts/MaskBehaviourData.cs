@@ -10,6 +10,8 @@ public class MaskBehaviourData : BaseData
 
     public int ID;
 
+    public List<MaskType> MaskTargets;
+
     #region AngularMovement info
     [Tooltip("in sec. How long it takes the object to reach Angular Max Speed")]
     public float AngularAccelerationTime;

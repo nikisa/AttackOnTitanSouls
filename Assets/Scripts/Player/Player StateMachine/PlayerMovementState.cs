@@ -24,7 +24,7 @@ public class PlayerMovementState : PlayerBaseState
     public override void Enter()
     {
         playerDashData = player.playerDashData;
-        player.layerMask = 1 << 10 /*| 1<<12*/;
+        player.layerMask = 1 << 10;
         player.AccelerationModule = playerMovementData.maxSpeed / playerMovementData.AccelerationTime;
 
 
@@ -32,13 +32,12 @@ public class PlayerMovementState : PlayerBaseState
 
     public override void Tick()
     {
-        
 
         if (!player.InputDisable)
         {
            player.PlayerInclination();
 
-            if (player.checkDeadZone()) { //Usare newInput anziché riscrivere la DeadZone nella condizione
+            if (player.checkDeadZone()) {
                 player.targetDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
                 player.Movement(player.targetDir , playerMovementData.maxSpeed , player.AccelerationModule);
             }
@@ -57,18 +56,12 @@ public class PlayerMovementState : PlayerBaseState
 
             if (Input.GetButtonDown("Dash") && player.canDash)
             {
-                startDash = Time.time;
+           
                 player.canDash = false;
+                player.targetDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
                 animator.SetTrigger(DASH);
             }    
         }
     }
 
-    
-
-
-    public override void Exit()
-    {
-
-    }
 }

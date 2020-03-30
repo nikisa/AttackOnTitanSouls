@@ -6,73 +6,63 @@ public class FirtsBossDecelerationState : FirstBossState
 {
     //Inspector
     public DecelerationData decelerationData;
-    public bool Debugging;
 
     //Private
-    int wallLayer;
+    float timer;
+    float finalDeltaTime;
+    int iterations;
+
 
     public override void Enter()
     {
-
+        iterations = 1;
         base.Enter();
-        wallLayer = 10;
+        animator.SetInteger("Layer", 0);
+        timer = 0;
+        setMovementDecelerationCurve();
+
+
     }
     public override void Tick()
     {
-
+        timer += Time.deltaTime;
         base.Tick();
 
-        CollisionTick();
+        //CollisionTick();
         setChaseRadius();
         Deceleration();
         SetCycleTimer();
+        SetSpeed();
     }
 
-    public void CollisionTick()
-    {
-
-        Vector3 nextPosition = boss.transform.position + (boss.MoveSpeed * Time.deltaTime) * boss.transform.forward;
-        if (boss.DetectCollision(nextPosition) == wallLayer)
-        {
-            animator.SetTrigger("Collision");
-        }
-    }
-
+ 
 
     public override void Exit()
     {
         boss.IsPrevStateReinitialize = false;
         CheckVulnerability();
+
+        
     }
 
     //Set speed parameter in the animator
     public void SetSpeed() {
-        animator.SetFloat("Speed", boss.MoveSpeed);
+        animator.SetFloat("Speed", boss.VelocityVector.magnitude);
     }
 
     public void Deceleration()
     {
         boss.DecelerationModule = decelerationData.Deceleration;
 
-        if (boss.VelocityVector.magnitude > boss.DecelerationModule * Time.deltaTime)
+        if (timer <= finalDeltaTime)
         {
-            boss.Deceleration();
+            boss.Deceleration(decelerationData.MovementDecelerationCurve , timer - Time.deltaTime , timer , iterations);
         }
         else 
         {
-            boss.VelocityVector = Vector3.zero;
+            boss.Deceleration(decelerationData.MovementDecelerationCurve, timer - Time.deltaTime, finalDeltaTime, iterations);
             animator.SetTrigger(END_STATE_TRIGGER);
         }
-
-
-        if (Debugging)
-        {
-            Debug.DrawLine(boss.transform.position, boss.transform.position + boss.AccelerationVector, Color.red, .02f);
-            Debug.DrawLine(boss.transform.position, boss.transform.position + boss.VelocityVector, Color.blue, .02f);
-            //Debug.DrawLine(transform.position, Player.transform.position, Color.green, .02f);
-            //Debug.DrawLine(boss.transform.position, boss.MaxSpeedVector, Color.green, .5f);
-        }
-
     }
 
     public void setChaseRadius()
@@ -80,6 +70,17 @@ public class FirtsBossDecelerationState : FirstBossState
         float distance = (boss.Target.transform.position - boss.transform.position).magnitude;
         animator.SetFloat("ChaseRadius", distance);
     }
+
+    void setMovementDecelerationCurve() {
+
+        decelerationData.MovementDecelerationCurve.keys = null;
+        finalDeltaTime = boss.VelocityVector.magnitude / boss.DecelerationModule;
+
+        decelerationData.MovementDecelerationCurve.AddKey(0, boss.VelocityVector.magnitude);
+        decelerationData.MovementDecelerationCurve.AddKey(finalDeltaTime , 0);
+    }
+
+    
 
 
 }

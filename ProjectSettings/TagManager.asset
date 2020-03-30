@@ -4,11 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Walls
-  - Center
-  - CenterPoint
   - HookPoint
   - Pushable
+  - Center
+  - Walls
   - BossGraphics
   - BossCore
   layers:
@@ -20,13 +19,13 @@ TagManager:
   - UI
   - 
   - 
-  - 'Characters '
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - RopeNode
+  - HookPoint
+  - Walls
+  - Player
+  - Boss
+  - Amir
+  - HookPointReassamble
   - 
   - 
   - 

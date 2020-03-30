@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d6c179aac209e46a94c7e45d4f28ab, type: 3}
+  m_Name: MaskBehaviourData 6
+  m_EditorClassIdentifier: 
+  Time: 0
+  OrbitTag: 0
+  ID: 5
+  MaskTargets:
+  - {fileID: 11400000, guid: 84bee764cb88b654f881a05ec59c9747, type: 2}
+  - {fileID: 11400000, guid: 280e6f26ac4ad4c4ba1956d23cc6f0fb, type: 2}
+  - {fileID: 11400000, guid: 0510cb373208a714db9f6ebb357ab2d3, type: 2}
+  - {fileID: 11400000, guid: f561db81887e22146a9bbdb08f24ddec, type: 2}
+  - {fileID: 11400000, guid: 65fd01546bbda694e9ba8ff44896add2, type: 2}
+  AngularAccelerationTime: 2
+  AngularMaxSpeed: -1080
+  AngularDecelerationTime: 3
+  isSetup: 0
+  SetupRadius: 3
+  HasDeltaRadius: 1
+  FinalRadius: 3.25
+  TravelTime: 0.5
+  OrbitMoveToEase: 0

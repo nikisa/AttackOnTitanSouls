@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Time: 0.0168493
   OrbitTag: 0
-  impactFreeze: 0.04
+  impactFreeze: 0
   shakeMagnitude: 5
-  kinetikEnergyLoss: 0.05
-  WaitOnStart: 0
-  Deceleration: 5
-  BounceAngle: 45
+  impulseDeltaTime: 0.03
+  kinetikEnergyLoss: 0.2
+  surfaceFriction: 0.15

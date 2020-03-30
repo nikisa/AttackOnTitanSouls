@@ -1,16 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 public class MovementBase : MonoBehaviour
 {
 
     //Inspector
+   
+    public float MinBounceVector;
+    public float MaxBounceVector;
     public CharacterController CharacterController;
     public float Mass;
+    [HideInInspector]
     [Range(0, 1)]
     public float KineticEnergyLoss;
+    [HideInInspector]
     [Range(0, 1)]
     public float SurfaceFriction;
 
@@ -24,23 +30,35 @@ public class MovementBase : MonoBehaviour
     public float AccelerationModule;
     [HideInInspector]
     public Vector3 AccelerationVector;
-    //HideInInspector]
+    [HideInInspector]
     public Vector3 VelocityVector;
+    [HideInInspector]
+    public Vector3 BounceVector;
     [HideInInspector]
     public float Drag;
     [HideInInspector]
     public float DecelerationModule;
     [HideInInspector]
+    public float BounceDecelerationModule;
+    [HideInInspector]
     public Vector3 DecelerationVector;
+    [HideInInspector]
+    public Vector3 BounceDecelerationVector;
     [HideInInspector]
     public Vector3 targetDir;
     [HideInInspector]
     public float gravity;
+    [HideInInspector]
+    public float impulseDeltaTime;
     #endregion
 
 
+    //private
+    PlayerController player;
+
     private void Awake() {
         gravity = 0f;
+        player = FindObjectOfType<PlayerController>();
     }
 
 
@@ -55,11 +73,11 @@ public class MovementBase : MonoBehaviour
         Vector3 accelerationVectorTemp = _targetDir;
         accelerationVectorTemp.y = 0;
         AccelerationVector = accelerationVectorTemp.normalized * _accelerationModule;
-        Drag = _accelerationModule / _maxSpeed * Time.deltaTime;
-        VelocityVector -= VelocityVector * Drag;
-        move = VelocityVector * Time.deltaTime + 0.5f * AccelerationVector * Mathf.Pow(Time.deltaTime, 2); //Formula completa per un buon effetto fin dal primo frame
+        //Drag = _accelerationModule / _maxSpeed * Time.deltaTime;
+        //VelocityVector -= VelocityVector * Drag;
+        move = Vector3.ClampMagnitude((VelocityVector * Time.deltaTime + 0.5f * AccelerationVector * Mathf.Pow(Time.deltaTime, 2)) , _maxSpeed * Time.deltaTime); //Formula completa per un buon effetto fin dal primo frame
         nextPosition = transform.position + move;
-        VelocityVector += AccelerationVector * Time.deltaTime;        
+        VelocityVector = Vector3.ClampMagnitude((VelocityVector + AccelerationVector * Time.deltaTime), _maxSpeed);
         CharacterController.Move(move + Vector3.down * gravity);
 
         //Debug.DrawRay(transform.position, VelocityVector, Color.blue, 0.2f);
@@ -69,22 +87,26 @@ public class MovementBase : MonoBehaviour
 
 
 
-    public void Deceleration() {
-        //Vector3 decelerationVectorTemp = targetDir;
-        //DecelerationVector = decelerationVectorTemp.normalized * DecelerationModule;
-        //VelocityVector -= DecelerationVector * Time.deltaTime;
-        //move = VelocityVector * Time.deltaTime;
-        //CharacterController.Move(move + Vector3.down * gravity);
-
+    public void Deceleration(AnimationCurve _movementDecelCurve, float _t0 , float _t1, int _iterations) {
         float vectorAngle = Vector3.SignedAngle(Vector3.forward, VelocityVector.normalized, Vector3.up) * Mathf.Deg2Rad;
         DecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * DecelerationModule, 0, Mathf.Cos(vectorAngle) * DecelerationModule);
-
-        VelocityVector -= DecelerationVector * Time.deltaTime;
-        move = VelocityVector * Time.deltaTime;
+        move = DecelerationVector.normalized * Integration.IntegrateCurve(_movementDecelCurve, _t0, _t1, _iterations);
+        VelocityVector = _movementDecelCurve.Evaluate(_t1) * DecelerationVector.normalized;
         CharacterController.Move(move + Vector3.down * gravity);
     }
 
-   
+    public void BounceDeceleration() {
+
+        float vectorAngle = Vector3.SignedAngle(Vector3.forward, BounceVector.normalized, Vector3.up) * Mathf.Deg2Rad;
+        BounceDecelerationVector = new Vector3(Mathf.Sin(vectorAngle) * BounceDecelerationModule, 0, Mathf.Cos(vectorAngle) * BounceDecelerationModule);
+
+        BounceVector -= BounceDecelerationVector * Time.deltaTime;
+        move = BounceVector * Time.deltaTime;
+        CharacterController.Move(move + Vector3.down * gravity);
+
+        Debug.DrawRay(transform.position, BounceVector, Color.black, .03f);
+    }
+
 
     public void MovementReset() {
 
@@ -102,7 +124,7 @@ public class MovementBase : MonoBehaviour
     public void BounceMovement(Collider hit) {
 
         #region Bounce variables
-        MovementBase collidingObject = hit.GetComponent<MovementBase>();
+        MovementBase collidingObject = hit.gameObject.GetComponent<MovementBase>();
         Vector3 normal;
         Vector3 vectorParal;
         Vector3 vectorPerp;
@@ -110,37 +132,44 @@ public class MovementBase : MonoBehaviour
         Vector3 collisionVectorPerp;
         Vector3 bounceVector;
         #endregion
+        if (hit.gameObject.GetComponent<PlayerView>())
+        {
+            collidingObject = player;
+        }
 
-
-            Vector3 fakeCollidingObjectPosition = new Vector3(collidingObject.transform.position.x, transform.position.y, collidingObject.transform.position.z);
-            normal = (fakeCollidingObjectPosition - transform.position).normalized;
-
-            vectorParal = Vector3.Project(VelocityVector, normal);
-            vectorPerp = Vector3.ProjectOnPlane(VelocityVector, normal);
-
-            collisionVectorParal = Vector3.Project(collidingObject.VelocityVector, -normal);
-            collisionVectorPerp = Vector3.ProjectOnPlane(collidingObject.VelocityVector, -normal);
-
-            //Bounce formula
-            bounceVector = (vectorParal * (Mass - collidingObject.Mass) + 2 * collidingObject.Mass * collisionVectorParal) / (Mass + collidingObject.Mass);
-            VelocityVector = (bounceVector * (1 - KineticEnergyLoss)) + (vectorPerp * (1 - KineticEnergyLoss));
-
-            bounceVector = (collisionVectorParal * (collidingObject.Mass - Mass) + 2 * Mass * vectorParal) / (collidingObject.Mass + Mass);
-            collidingObject.VelocityVector = (bounceVector * (1 - collidingObject.KineticEnergyLoss)) + collisionVectorPerp * (1 - collidingObject.SurfaceFriction);
-
-            //Debug.DrawRay(transform.position, VelocityVector, Color.blue, 0.2f);
-            //Debug.DrawRay(collidingObject.transform.position, collidingObject.VelocityVector, Color.cyan, 0.2f);
+        Vector3 fakeCollidingObjectPosition = new Vector3(collidingObject.transform.position.x, transform.position.y, collidingObject.transform.position.z);
+        normal = (fakeCollidingObjectPosition - transform.position).normalized;
+        
+        vectorParal = Vector3.Project(VelocityVector, normal);
+        vectorPerp = Vector3.ProjectOnPlane(VelocityVector, normal);
+        
+        collisionVectorParal = Vector3.Project(collidingObject.VelocityVector, -normal);
+        collisionVectorPerp = Vector3.ProjectOnPlane(collidingObject.VelocityVector, -normal);
+        
+        //Bounce formula
+        bounceVector = (vectorParal * (Mass - collidingObject.Mass) + 2 * collidingObject.Mass * collisionVectorParal) / (Mass + collidingObject.Mass);
+        VelocityVector = (bounceVector * (1 - KineticEnergyLoss)) + (vectorPerp * (1 - KineticEnergyLoss));
+        //VelocityVector = Mathf.Clamp(VelocityVector.magnitude, MinBounceVector, MaxBounceVector) * VelocityVector.normalized;
+        AccelerationVector = VelocityVector.normalized * AccelerationVector.magnitude;
+        
+        bounceVector = (collisionVectorParal * (collidingObject.Mass - Mass) + 2 * Mass * vectorParal) / (collidingObject.Mass + Mass);
+        collidingObject.VelocityVector = (bounceVector * (1 - collidingObject.KineticEnergyLoss)) + collisionVectorPerp * (1 - collidingObject.SurfaceFriction);
+        
+        Debug.DrawRay(transform.position, VelocityVector, Color.blue, 0.2f);
+        Debug.DrawRay(collidingObject.transform.position, collidingObject.VelocityVector, Color.black, 0.2f);
 
     }
 
-    public void WallBounce(ControllerColliderHit hit) {
+    public void WallBounce(ControllerColliderHit hit , float _angularVelocity) {
 
         #region Bounce variables
         GameObject collidingObject = hit.collider.gameObject;
+
         Vector3 normal;
         Vector3 vectorParal;
         Vector3 vectorPerp;
         Vector3 bounceVector;
+        float plusAngle;
         #endregion
 
         normal = -collidingObject.transform.forward;
@@ -157,9 +186,19 @@ public class MovementBase : MonoBehaviour
         bounceVector *= 1 - KineticEnergyLoss;
         VelocityVector = (bounceVector * (1 - KineticEnergyLoss)) + vectorPerp * (1 - SurfaceFriction);
 
+        Debug.DrawRay(transform.position, VelocityVector, Color.cyan, .2f);
+        plusAngle = -(_angularVelocity * impulseDeltaTime);
 
-        Debug.DrawRay(transform.position, bounceVector, Color.red, 5);
-        Debug.DrawRay(transform.position, VelocityVector, Color.cyan, 5);
+
+
+        VelocityVector = Quaternion.AngleAxis(plusAngle, Vector3.up) * VelocityVector;
+        AccelerationVector = VelocityVector.normalized * AccelerationVector.magnitude;
+
+
+
+        Debug.DrawRay(transform.position, VelocityVector, Color.blue, .02f);
+        Debug.DrawRay(transform.position, AccelerationVector, Color.red, .02f);
+        
     }
 
 }

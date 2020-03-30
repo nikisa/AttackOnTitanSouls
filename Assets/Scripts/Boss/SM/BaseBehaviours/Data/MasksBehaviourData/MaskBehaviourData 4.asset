@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Time: 0
   OrbitTag: 0
-  ID: 0
+  ID: 4
+  MaskTargets:
+  - {fileID: 11400000, guid: f561db81887e22146a9bbdb08f24ddec, type: 2}
   AngularAccelerationTime: 2
   AngularMaxSpeed: 1080
   AngularDecelerationTime: 3
-  isSetup: 1
-  SetupRadius: 3
-  HasDeltaRadius: 0
-  FinalRadius: 4
+  isSetup: 0
+  SetupRadius: 2
+  HasDeltaRadius: 1
+  FinalRadius: 3
   TravelTime: 2
   OrbitMoveToEase: 0
