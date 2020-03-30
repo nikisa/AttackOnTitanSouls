@@ -236,7 +236,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 3
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 825dde9eae08f574391f2b9ad4d20987, type: 2}
@@ -1076,6 +1076,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 16384
+  SetupAngle: 0
   EndPoints:
   - {fileID: 238321740562273920}
   - {fileID: 7092327578700476668}
@@ -1097,7 +1098,6 @@ MonoBehaviour:
   removedIndexList: 
   countMasksArrived: 0
   actualSpeed: 0
-  OrbitManagerDataList: []
   distanceFromBoss: 0
   hitMaskIndex: 0
   ObjHit: 0
@@ -2420,6 +2420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94890383cff5bb43bc78724f68c2d15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinBounceVector: 0
+  MaxBounceVector: 0
   CharacterController: {fileID: 6514319743994713422}
   Mass: 10
   KineticEnergyLoss: 0
@@ -2440,6 +2442,7 @@ MonoBehaviour:
   impulseDeltaTime: 0
   animator: {fileID: 7988242671562704600}
   View: {fileID: 7988242671562704602}
+  sphereCollider: {fileID: 0}
   Player: {fileID: 0}
   Graphics: {fileID: 7988242671083446570}
   MoveSpeed: 0
@@ -2450,12 +2453,11 @@ MonoBehaviour:
   CycleTimer: 40.165104
   CollidedObjectCollider: {fileID: 0}
   bossOrbitManager: {fileID: 7988242670240970713}
-  minBounceVector: 2
-  maxBounceVector: 4.5
   ActiveMaskCollisionTime: 1
   timerMaskCollision: 0
   vectorAngle: 0
   firstBossMask: {fileID: 0}
+  actualMaxSpeed: 0
   loops: 3
   IsPrevStateReinitialize: 0
 --- !u!114 &7988242671562704602

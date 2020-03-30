@@ -344,6 +344,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb37f7f7e14a7448ae3e30ddc6cdce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinBounceVector: 0
+  MaxBounceVector: 0
   CharacterController: {fileID: 1947039355}
   Mass: 1
   KineticEnergyLoss: 0.9
@@ -353,11 +355,15 @@ MonoBehaviour:
   AccelerationModule: 0
   AccelerationVector: {x: 0, y: 0, z: 0}
   VelocityVector: {x: 0, y: 0, z: 0}
+  BounceVector: {x: 0, y: 0, z: 0}
   Drag: 0
   DecelerationModule: 0
+  BounceDecelerationModule: 0
   DecelerationVector: {x: 0, y: 0, z: 0}
+  BounceDecelerationVector: {x: 0, y: 0, z: 0}
   targetDir: {x: 0, y: 0, z: 0}
   gravity: 0
+  impulseDeltaTime: 0
   animator: {fileID: 7531129435490816588}
   graphicAnimator: {fileID: 5031858159519732819}
   rotationTransform: {fileID: 5494306869551055715}
@@ -371,7 +377,9 @@ MonoBehaviour:
   AimDeadZoneValue: 0.65
   TweeningRotationTime: 0.2
   TweeningRotationEase: 3
+  PauseCanvas: {fileID: 0}
   canDash: 0
+  plusDeltaTime: 0
   playerDashData: {fileID: 0}
   playerMovementData: {fileID: 0}
   playerDecelInTimeData: {fileID: 0}
@@ -680,6 +688,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: c98a5413fbb69e64ea11e5383e108e48, type: 2}
+    - target: {fileID: 2300000, guid: 591ef1cc183457b449a6b42b4dbbc18f, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 591ef1cc183457b449a6b42b4dbbc18f, type: 3}
 --- !u!1001 &5031858159527125299
@@ -785,6 +797,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 64d2c5153323ef84796dc7e6b072295f, type: 2}
+    - target: {fileID: 13700000, guid: 85b44d8051df6944486c6aa3fc4e2661, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 100114, guid: 85b44d8051df6944486c6aa3fc4e2661, type: 3}
       propertyPath: m_Layer
       value: 11

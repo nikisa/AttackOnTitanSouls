@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: ab622c383c5b4d348ac75a3b09796e02
   - enabled: 1
-    path: Assets/Scenes/Designers/WRIGHT/LW_Scene.unity
+    path: Assets/LW_Scene.unity
     guid: 150188c39d36e60468e19b2af14fa938
   - enabled: 0
     path: Assets/Scenes/3D/3D Lighting 1.unity
