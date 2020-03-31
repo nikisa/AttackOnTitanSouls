@@ -7,6 +7,8 @@ public class FirstBossController : BossController
     //Inspector
     public BossOrbitManager bossOrbitManager;   
     public float ActiveMaskCollisionTime;
+
+
     //Public
     [HideInInspector]
     public float timerMaskCollision;
@@ -18,6 +20,8 @@ public class FirstBossController : BossController
     public ControllerColliderHit hit;
     [HideInInspector]
     public float actualMaxSpeed;
+    [HideInInspector]
+    public bool hasAwaken = false; //Temporary
 
 
     //[HideInInspector]
@@ -31,6 +35,10 @@ public class FirstBossController : BossController
             item.SetContext(this, firstBossMask , animator , bossOrbitManager);
         }
 
+    }
+
+    protected override void Update() {
+        RotateOnTarget();
     }
 
     //Bounce del Boss (no maschere)
@@ -48,6 +56,16 @@ public class FirstBossController : BossController
         if (_hit.collider.tag == "Walls") {
             animator.SetInteger("Layer", 10);
             bossOrbitManager.ObjHit = 1;
+        }
+    }
+
+    public void RotateOnTarget() {
+        if (hasAwaken) {
+            if (bossOrbitManager.MasksList[0].VelocityVector != Vector3.zero)
+                Graphics.transform.LookAt(Player.transform.position);
+            //else 
+                //transform.parent.LookAt(-Player.transform.position);
+            
         }
     }
 

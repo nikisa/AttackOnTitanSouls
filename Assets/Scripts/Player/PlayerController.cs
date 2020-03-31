@@ -44,6 +44,7 @@ public class PlayerController : MovementBase
     public Transform rotationTransform;
     public GameObject body;
     public float movementRatio;
+    public float movementAnimationDumpTime;
     public float DPS;
     public TargetType playerTarget;
     public UiManager uiManager;
@@ -95,6 +96,8 @@ public class PlayerController : MovementBase
     public float forwardVelocity;
     [HideInInspector]
     public bool InputDisable;
+    [HideInInspector]
+    public Vector3 MoveDirection;
     #endregion
 
     //Private
@@ -164,8 +167,13 @@ public class PlayerController : MovementBase
     }
 
     public void SetAnimationParameter() {
-        graphicAnimator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
-        graphicAnimator.SetFloat("Vertical", Input.GetAxis("Vertical"));
+
+        MoveDirection = new Vector3(Input.GetAxis("Horizontal") , 0, Input.GetAxis("Vertical")).normalized;
+
+        MoveDirection = body.transform.InverseTransformDirection(MoveDirection);
+
+        graphicAnimator.SetFloat("Horizontal", MoveDirection.x , movementAnimationDumpTime, Time.deltaTime);
+        graphicAnimator.SetFloat("Vertical", MoveDirection.z , movementAnimationDumpTime, Time.deltaTime);
     }
 
 
