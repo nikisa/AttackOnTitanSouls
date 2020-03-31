@@ -8,13 +8,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 1StatusShields_Mat 1
-  m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
+  m_Shader: {fileID: 4800000, guid: 5c7d5b89bed00584c813bbe98710e020, type: 3}
   m_ShaderKeywords: _EMISSIVE_COLOR_MAP _NORMALMAP _NORMALMAP_TANGENT_SPACE
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap: {}
+  m_CustomRenderQueue: -1
+  stringTagMap:
+    MotionVector: User
   disabledShaderPasses:
   - DistortionVectors
   - TransparentDepthPrepass
@@ -114,6 +115,22 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_181F986B_Texture:
+        m_Texture: {fileID: 2800000, guid: 3060bc9ae3b96a545a1fdaca290e369a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_6F8360E_Texture:
+        m_Texture: {fileID: 2800000, guid: 6f39ff5efb82e9c41af43efee6efa2be, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_734845C5_Texture:
+        m_Texture: {fileID: 2800000, guid: 3b85ebe08ea78f94986b8c89321699b8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_DDA0C8CC_Texture:
+        m_Texture: {fileID: 2800000, guid: 70457873e00351b479f6ca7f1f3d299d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecularColorMap:
