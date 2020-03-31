@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FirstBossBody_Mat
-  m_Shader: {fileID: 4800000, guid: 4906b12e95223894c9f36e89736af180, type: 3}
+  m_Shader: {fileID: 4800000, guid: 5c7d5b89bed00584c813bbe98710e020, type: 3}
   m_ShaderKeywords: _EMISSIVE_COLOR_MAP _MASKMAP _NORMALMAP _NORMALMAP_TANGENT_SPACE
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -25,6 +25,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_21D14B32:
+        m_Texture: {fileID: 2800000, guid: eae179f919b867f4ba810e53597df652, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_4FB90EC0:
         m_Texture: {fileID: 2800000, guid: 26aeb149a35bd4d4682c5560c6dc5678, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -34,6 +38,18 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_72E97615:
+        m_Texture: {fileID: 2800000, guid: 5063c5d3b80a9d04a819abeb02df1bf5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_8C4C682E:
+        m_Texture: {fileID: 2800000, guid: 5aafe59a8fd57af4aa326f2299d2c010, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_90DF76BD:
+        m_Texture: {fileID: 2800000, guid: 79fdbaf278a56e643bc080b5ed3a2dc2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_A38CC299:
         m_Texture: {fileID: 2800000, guid: 5063c5d3b80a9d04a819abeb02df1bf5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -139,6 +155,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_16E8D51E: 0
+    - Vector1_3B552BF4: 5
     - Vector1_AA168A78: 0.3
     - Vector1_C9E413F: 2.33
     - Vector1_D5027B31: 0
@@ -254,6 +271,7 @@ Material:
     - _ZTestModeDistortion: 4
     - _ZWrite: 1
     m_Colors:
+    - Color_58920705: {r: 0.9647059, g: 0.58431375, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

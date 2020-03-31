@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MainCharacter_Mat
-  m_Shader: {fileID: 4800000, guid: 34c81eec91f198b4b9c8ad643cf005cc, type: 3}
+  m_Shader: {fileID: 4800000, guid: 5c7d5b89bed00584c813bbe98710e020, type: 3}
   m_ShaderKeywords: _EMISSIVE_COLOR_MAP _NORMALMAP _NORMALMAP_TANGENT_SPACE
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -25,6 +25,22 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_21D14B32:
+        m_Texture: {fileID: 2800000, guid: 6224a3570d0fdbf4ba10a8c89c35f4cf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_8C4C682E:
+        m_Texture: {fileID: 2800000, guid: 91b6f99aa601d154f9147a79462220ce, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_90DF76BD:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_A38CC299:
+        m_Texture: {fileID: 2800000, guid: 7cb4f5df9d9bb594a9856cf7704d490b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_C7F88E60:
         m_Texture: {fileID: 2800000, guid: 6224a3570d0fdbf4ba10a8c89c35f4cf, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -170,6 +186,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_3B552BF4: 5
     - Vector1_54A4A594: 0
     - Vector1_9A0357DF: 0.3
     - Vector1_B11A500B: 3
@@ -297,6 +314,7 @@ Material:
     - _ZTestModeDistortion: 4
     - _ZWrite: 1
     m_Colors:
+    - Color_58920705: {r: 0.1764706, g: 1, b: 0.8392157, a: 1}
     - Color_928ADAC2: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
