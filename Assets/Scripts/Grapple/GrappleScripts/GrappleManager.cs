@@ -463,11 +463,18 @@ public class GrappleManager : MonoBehaviour
                 pointsUnwinded = (int)Mathf.Ceil(pointsDistance / MassPointLength) - 1;
 
                 for (int i = _index + 1; i <= _index + pointsUnwinded; i++) {
-                    massPoint = RopeNodes[i] as RopeNode; //QUI
-                    nextMassPoint = RopeNodes[i - 1] as RopeNode;
 
-                    pointsDistance = Vector3.Distance(massPoint.transform.position, nextMassPoint.transform.position);
-
+                    if (RopeNodes[i] as RopeNode) {
+                        massPoint = RopeNodes[i] as RopeNode; //QUI
+                        nextMassPoint = RopeNodes[i - 1] as RopeNode;
+                        pointsDistance = Vector3.Distance(massPoint.transform.position, nextMassPoint.transform.position);
+                    }
+                    else {
+                        massPoint = RopeNodes[0] as RopeNode;
+                        nextMassPoint = RopeNodes[0] as RopeNode;
+                        pointsDistance = 0;
+                    }
+                    
                     if (pointsDistance > MassPointLength) {
                         error = pointsDistance - MassPointLength;
                         direction = (massPoint.transform.position - nextMassPoint.transform.position).normalized;

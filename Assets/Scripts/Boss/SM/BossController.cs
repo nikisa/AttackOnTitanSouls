@@ -47,7 +47,7 @@ public class BossController : MovementBase
         }
     }
 
-    private void Update() {
+    protected virtual void Update() {
 
         //radius += Time.deltaTime;
         //radius = Mathf.Clamp(radius, 0, skin);
@@ -57,7 +57,8 @@ public class BossController : MovementBase
 
         Debug.DrawRay(transform.position, AccelerationVector, Color.red, .03f);
         Debug.DrawRay(transform.position, VelocityVector, Color.blue, .03f);
-
+        
+        
     }
 
     
@@ -90,8 +91,6 @@ public class BossController : MovementBase
             return hits[0].collider.gameObject.layer;
         }
     }
-
-
 
     #region FUNCTIONS CEMETERY
 

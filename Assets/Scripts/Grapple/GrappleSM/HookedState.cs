@@ -11,13 +11,13 @@ public class HookedState : GrappleBaseState
     public override void Tick() {
 
         if (grappleManager.hook.isHooked) {
-
-            grappleManager.hookPoint.isHooked = true;
-            grappleManager.hookPoint.Inertia = Vector3.zero;
-            grappleManager.hook.Inertia = Vector3.zero;
             grappleManager.UpdatePoints();
             grappleManager.UpdateHook();
             grappleManager.UpdateLinks();
+            grappleManager.hookPoint.isHooked = true;
+            grappleManager.hookPoint.Inertia = Vector3.zero;
+            grappleManager.hook.Inertia = Vector3.zero;
+            
 
             if (Input.GetButtonDown("UnhookXBOX")) {
                 grappleManager.hookPoint.isHooked = false;

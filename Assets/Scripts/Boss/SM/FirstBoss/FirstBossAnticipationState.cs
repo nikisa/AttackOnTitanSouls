@@ -10,7 +10,7 @@ public class FirstBossAnticipationState : FirstBossState
     public override void Enter()
     {
         base.Enter();
-
+        boss.hasAwaken = true;
         ResetCycleTimer();
         animator.SetInteger("Layer", 0);
 
