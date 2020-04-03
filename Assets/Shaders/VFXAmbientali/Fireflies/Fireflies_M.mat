@@ -28,5 +28,5 @@ Material:
     m_Floats: []
     m_Colors:
     - Color_2D819904: {r: 3.8792844, g: 2.7998464, b: 0.4940598, a: 1}
-    - Color_CC8E2CDA: {r: 0.587155, g: 3.9702861, b: 7.129739, a: 1}
+    - Color_CC8E2CDA: {r: 2.0762045, g: 8.261565, b: 5.9715414, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}

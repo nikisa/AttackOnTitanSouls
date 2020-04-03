@@ -10,7 +10,7 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.TextureShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Value\": {\n        \"m_SerializedTexture\": \"\",\n        \"m_Guid\": \"\"\n    },\n    \"m_Name\": \"metallic\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"4bd40ddb-dcac-4f39-b7a5-9f44da9a095e\"\n    },\n    \"m_OverrideReferenceName\": \"\",\n    \"m_Modifiable\": true,\n    \"m_DefaultType\": 0\n}"
+            "JSONnodeData": "{\n    \"m_Value\": {\n        \"m_SerializedTexture\": \"\",\n        \"m_Guid\": \"\"\n    },\n    \"m_Name\": \"metallic\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"4bd40ddb-dcac-4f39-b7a5-9f44da9a095e\"\n    },\n    \"m_OverrideReferenceName\": \"\",\n    \"m_Modifiable\": true,\n    \"m_DefaultType\": 1\n}"
         },
         {
             "typeInfo": {
