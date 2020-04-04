@@ -55,8 +55,7 @@ public class BossController : MovementBase
 
         transform.position = new Vector3(transform.position.x , bossY , transform.position.z);
 
-        Debug.DrawRay(transform.position, AccelerationVector, Color.red, .03f);
-        Debug.DrawRay(transform.position, VelocityVector, Color.blue, .03f);
+        
         
         
     }

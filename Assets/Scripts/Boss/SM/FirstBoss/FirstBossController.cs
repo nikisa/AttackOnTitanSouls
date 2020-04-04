@@ -39,6 +39,9 @@ public class FirstBossController : BossController
 
     protected override void Update() {
         RotateOnTarget();
+
+        Debug.DrawRay(transform.position, AccelerationVector.normalized * 3, Color.red, .03f);
+        Debug.DrawRay(transform.position, VelocityVector, Color.blue, .03f);
     }
 
     //Bounce del Boss (no maschere)

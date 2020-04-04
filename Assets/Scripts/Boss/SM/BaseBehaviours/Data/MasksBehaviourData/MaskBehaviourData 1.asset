@@ -21,7 +21,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0510cb373208a714db9f6ebb357ab2d3, type: 2}
   - {fileID: 11400000, guid: f561db81887e22146a9bbdb08f24ddec, type: 2}
   - {fileID: 11400000, guid: 65fd01546bbda694e9ba8ff44896add2, type: 2}
-  AngularAccelerationTime: 2
+  AngularAccelerationTime: 0.75
   AngularMaxSpeed: 1080
   AngularDecelerationTime: 3
   isSetup: 0

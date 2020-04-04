@@ -19,6 +19,7 @@ public class FirtsBossDecelerationState : FirstBossState
         base.Enter();
         animator.SetInteger("Layer", 0);
         timer = 0;
+        boss.DecelerationModule = decelerationData.Deceleration;
         setMovementDecelerationCurve();
 
 
@@ -52,7 +53,6 @@ public class FirtsBossDecelerationState : FirstBossState
 
     public void Deceleration()
     {
-        boss.DecelerationModule = decelerationData.Deceleration;
 
         if (timer <= finalDeltaTime)
         {
@@ -78,6 +78,7 @@ public class FirtsBossDecelerationState : FirstBossState
 
         decelerationData.MovementDecelerationCurve.AddKey(0, boss.VelocityVector.magnitude);
         decelerationData.MovementDecelerationCurve.AddKey(finalDeltaTime , 0);
+
     }
 
     

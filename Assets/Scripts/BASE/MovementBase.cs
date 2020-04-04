@@ -197,7 +197,7 @@ public class MovementBase : MonoBehaviour
 
 
         Debug.DrawRay(transform.position, VelocityVector, Color.blue, .02f);
-        Debug.DrawRay(transform.position, AccelerationVector, Color.red, .02f);
+        //Debug.DrawRay(transform.position, AccelerationVector, Color.red, .02f);
         
     }
 
