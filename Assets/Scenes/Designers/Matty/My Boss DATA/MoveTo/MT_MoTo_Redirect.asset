@@ -9,19 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14d6c179aac209e46a94c7e45d4f28ab, type: 3}
-  m_Name: MaskBehaviourDataDecel
+  m_Script: {fileID: 11500000, guid: 8dc24604c90bf4a4fbecf065a41f4986, type: 3}
+  m_Name: MT_MoTo_Redirect
   m_EditorClassIdentifier: 
   Time: 0
   OrbitTag: 0
-  ID: 5
-  MaskTargets: []
-  AngularAccelerationTime: 2
-  AngularMaxSpeed: 0
-  AngularDecelerationTime: 3
-  isSetup: 0
-  SetupRadius: 3
-  HasDeltaRadius: 1
-  FinalRadius: 2
-  TravelTime: 1
-  OrbitMoveToEase: 0
+  Target: {fileID: 11400000, guid: 320bf9f104a0b814481ec323e5fa955a, type: 2}
+  MaxSpeed: 30
+  TimeAcceleration: 0.7
+  HasAcceleration: 1
+  AddToVelocity: 0
